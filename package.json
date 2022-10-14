@@ -1,0 +1,23 @@
+{
+  "name": "gestioinventariincidenciesreserves",
+  "version": "1.0.0",
+  "description": "Gestió d'inventari, incidències i reserva d'aules.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cescktNC/gestio-inventari-incidencies.git"
+  },
+  "author": "Jordi Mallafré, Xavi Villena i Francesc Navarro.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cescktNC/gestio-inventari-incidencies/issues"
+  },
+  "homepage": "https://github.com/cescktNC/gestio-inventari-incidencies#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
+  }
+}
