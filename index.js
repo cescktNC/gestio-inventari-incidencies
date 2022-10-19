@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv'); // Per a insertar el fitxer '.env' amb totes les variables (**)
 
-var indexRouter = require('./routes/indexRouter');
+//var indexRouter = require('./routes/indexRouter');
 //var genresRouter = require('./routes/genresRouter');
 
 var app = express();
@@ -34,7 +34,7 @@ const server = app.listen(port, () => {
 });
 
 // Per a poder utilitzar el sistema de rutes
-app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
+//app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
 //app.use('/genres', genresRouter);       // Qualssevol ruta amb la barra '/genres' anirà al fitxer 'genresRouter'
 
 module.exports = app;
