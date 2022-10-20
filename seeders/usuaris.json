@@ -1,0 +1,32 @@
+[
+    {
+        "nom": "Jordi",
+        "cognoms": "Mallafré",
+        "dni": "11111111A",
+        "dataNaixement": "1995-10-25",
+        "carrec": "Professor",
+        "email": "jordim@gmail.com",
+        "username": "jordim",
+        "password": "p&3Y55CSxma6"
+    },
+    {
+        "nom": "Francesc",
+        "cognoms": "Navarro Crespo",
+        "dni": "22222222B",
+        "dataNaixement": "1982-08-17",
+        "carrec": "Alumne",
+        "email": "francescnc@gmail.com",
+        "username": "francescnc",
+        "password": "V28C0y#h1W#C"
+    },
+    {
+        "nom": "Xavi",
+        "cognoms": "Villena",
+        "dni": "33333333C",
+        "dataNaixement": "1999-09-25",
+        "carrec": "Manteniment",
+        "email": "xaviv@gmail.com",
+        "username": "xaviv",
+        "password": "tAZpG4F7^5od"
+    }
+]

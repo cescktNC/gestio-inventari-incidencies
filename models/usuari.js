@@ -15,6 +15,9 @@ var UsuariSchema = new Schema({
         enum : ['Director','Professor','Alumne','Conserge','Administrador Centre','Manteniment','Encarregat Inventari'],
         default: 'Professor'
     },
+    email: {type: String, required: true },
+    username: { type: String, required: true },
+    password: { type: String, required: true },
 });
 
 // Es creo i s'exporta el model
