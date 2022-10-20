@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+    <div class="card-body">
+	    <h5 class="card-title">Subcategories</h5>
+
+								 
+				      	 
+		<table class="table table-striped">
+	  		<thead>
+			    <tr>		      
+			      <th scope="col">Name</th>
+			      <th scope="col">Codi</th>
+			      <th scope="col">CodiCategoria</th>
+			      <th scope="col">			      	
+				      <a href="/subcategorias/create" class="btn btn-primary">New</a>
+			      </th>
+			    </tr>
+	  	</thead>
+		  	<tbody>
+		  		<% list.forEach(function(subcategoria) { %>
+				    <tr>		      
+				      <td><%= subcategoria.title %></td>
+				      <td><%= subcategoria.codi %></td>
+				      <td>
+				      			
+				      			<% subcategoria.CodiCategoria.forEach(function(categoria) { %>
+				      				  <span class="badge text-bg-secondary"><%= categoria.codi %></span>
+
+				      					
+				      			<% }); %>
+				      		
+				      </td>
+						      
+				    </tr>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    
+    
+	</div>
+		
+	</div>
+      
+  
+
+    
+   
+  
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

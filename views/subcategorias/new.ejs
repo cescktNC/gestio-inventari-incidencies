@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+<main>
+	<div class="card mt-2" style="width: 60%;">
+    <div class="card-body">
+	    <h5 class="card-title"><strong>New Subcategory</strong></h5>
+		
+	
+	<form method="POST" action="/subcategorias/create">
+		<div class="form-group">
+			 <label for="name">Name</label>
+			 <input type="text" name="name" class="form-control">
+		</div>
+		
+		<div class="form-group">
+			  <label for="codi">Codi</label>
+			  <input type="number" name="codi" class="form-control" min="1" max="100">
+		</div>
+
+		<div class="form-group">
+			 <label for="codiCategoria">CodiCategoria</label>
+			 <select type="text" name="codiCategoria" class="form-control">
+			 		<% codiList.forEach(function(codiCategoria) { %>
+				    <option value="<%= codi.id %>">		      
+				      <%= codi.categoria %>				  	      
+				    </option>
+		   		<% }); %>	
+			 </select>			
+		</div>
+
+		<button type="submit" class="btn btn-primary">Save
+		</button>
+
+	</form>
+
+	<% if (typeof error !== "undefined") { %>
+		<div class="alert alert-primary mt-2" role="alert">
+		    
+		    <p><%= error %></p>
+		</div>
+	<% } %>
+
+	</div>
+		
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
