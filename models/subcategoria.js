@@ -6,7 +6,7 @@ var SubcategoriaSchema = new Schema({ // Diem que creem un nou esquema per a les
     
     nom :{ type: String, required: true },
     codi :{ type: Number, required: true },
-    codiCcategoria : [{ type: Schema.ObjectId, ref: "Codi" }],
+    codiCategoria : [{ type: Schema.ObjectId, ref: "Codi" }],
 
 });
 
