@@ -4,7 +4,7 @@ var dotenv = require('dotenv'); // Per a insertar el fitxer '.env' amb totes les
 
 var indexRouter = require('./routes/indexRouter');
 var categoriesRouter = require('./routes/categoriesRouter');
-
+var subcategoriasRouter = require('./routes/subcategoriasRouter');
 
 //var indexRouter = require('./routes/indexRouter');
 //var genresRouter = require('./routes/genresRouter');
@@ -44,6 +44,7 @@ const server = app.listen(port, () => {
 
 app.use('/home', indexRouter);
 app.use('/categories', categoriesRouter);
+app.use('/subcategorias', subcategoriasRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'

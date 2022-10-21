@@ -16,8 +16,8 @@
 	
 	<form method="POST" action="/subcategorias/create">
 		<div class="form-group">
-			 <label for="name">Name</label>
-			 <input type="text" name="name" class="form-control">
+			 <label for="nom">Name</label>
+			 <input type="text" name="nom" class="form-control">
 		</div>
 		
 		<div class="form-group">
@@ -28,9 +28,9 @@
 		<div class="form-group">
 			 <label for="codiCategoria">CodiCategoria</label>
 			 <select type="text" name="codiCategoria" class="form-control">
-			 		<% codiList.forEach(function(codiCategoria) { %>
-				    <option value="<%= codi.id %>">		      
-				      <%= codi.categoria %>				  	      
+			 		<% categoriaList.forEach(function(codiCategoria) { %>
+				    <option value="<%= codiCategoria.id %>">		      
+				      <%= codiCategoria.nom %>				  	      
 				    </option>
 		   		<% }); %>	
 			 </select>			
