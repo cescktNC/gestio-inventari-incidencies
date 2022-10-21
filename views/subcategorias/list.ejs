@@ -30,17 +30,9 @@
 		  	<tbody>
 		  		<% list.forEach(function(subcategoria) { %>
 				    <tr>		      
-				      <td><%= subcategoria.title %></td>
+				      <td><%= subcategoria.nom %></td>
 				      <td><%= subcategoria.codi %></td>
-				      <td>
-				      			
-				      			<% subcategoria.CodiCategoria.forEach(function(categoria) { %>
-				      				  <span class="badge text-bg-secondary"><%= categoria.codi %></span>
-
-				      					
-				      			<% }); %>
-				      		
-				      </td>
+				      <td><%= subcategoria.codiCategoria %></td>
 						      
 				    </tr>
 		   		<% }); %>	     
