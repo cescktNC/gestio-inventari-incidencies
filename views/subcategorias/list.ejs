@@ -30,17 +30,12 @@
 		  	<tbody>
 		  		<% list.forEach(function(subcategoria) { %>
 				    <tr>		      
-				      <td><%= subcategoria.title %></td>
+				      <td><%= subcategoria.nom %></td>
 				      <td><%= subcategoria.codi %></td>
-				      <td>
-				      			
-				      			<% subcategoria.CodiCategoria.forEach(function(categoria) { %>
-				      				  <span class="badge text-bg-secondary"><%= categoria.codi %></span>
-
-				      					
-				      			<% }); %>
-				      		
-				      </td>
+				      <td><%= subcategoria.codiCategoria %></td>
+					  <td>					      	
+						<a class="btn btn-secondary" href="/subcategorias/update/<%=subcategoria._id%>" class="card-link">Edit</a>
+					</td>
 						      
 				    </tr>
 		   		<% }); %>	     
