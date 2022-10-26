@@ -70,6 +70,22 @@ static update_post(req, res, next) {
       }
   );
 }
+static async delete_get(req, res, next) {
+
+  res.render('subcategorias/delete', { id: req.params.id })
+
+}
+
+static async delete_post(req, res, next) {
+
+  Subcategoria.findByIdAndRemove(req.params.id, (error) => {
+      if (error) {
+          res.redirect('/subcategorias')
+      } else {
+          res.redirect('/subcategorias')
+      }
+  })
+}
 
 }
 

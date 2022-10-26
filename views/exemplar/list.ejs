@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+    <div class="card-body">
+	    <h5 class="card-title">Exemplars</h5>
+
+								 
+				      	 
+		<table class="table table-striped">
+	  		<thead>
+			    <tr>		      
+			      <th scope="col">Codi</th>
+			      <th scope="col">Demarca</th>
+			      <th scope="col">QR</th>
+				  <th scope="col">CodiMaterial</th>
+                  <th scope="col">CodiLocalitzacio</th>
+			      <th scope="col">			      	
+				      <a href="/exemplar/create" class="btn btn-primary">New</a>
+			      </th>
+			    </tr>
+	  	</thead>
+		  	<tbody>
+		  		<% list.forEach(function(exemplar) { %>
+				    <tr>		      
+				      <td><%= exemplar.Codi %></td>
+				      <td><%= exemplar.Demarca %></td>
+				      <td><%= exemplar.QR %></td>
+					  <td><%= exemplar.CodiMaterial %></td>
+                      <td><%= exemplar.CodiLocalitzacio %></td>
+					  <td>					      	
+						<a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>" class="card-link">Edit</a>
+					</td>
+						      
+				    </tr>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    
+    
+	</div>
+		
+	</div>
+      
+  
+
+    
+   
+  
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

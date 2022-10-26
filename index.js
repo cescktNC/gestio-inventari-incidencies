@@ -5,6 +5,7 @@ var dotenv = require('dotenv'); // Per a insertar el fitxer '.env' amb totes les
 var indexRouter = require('./routes/indexRouter');
 var categoriesRouter = require('./routes/categoriesRouter');
 var subcategoriasRouter = require('./routes/subcategoriasRouter');
+var exemplarRouter = require('./routes/exemplarRouter');
 var materialRouter = require('./routes/materialsRouter');
 
 //var indexRouter = require('./routes/indexRouter');
@@ -46,6 +47,7 @@ const server = app.listen(port, () => {
 app.use('/home', indexRouter);
 app.use('/categories', categoriesRouter);
 app.use('/subcategorias', subcategoriasRouter);
+app.use('/exemplar', exemplarRouter);
 app.use('/materials', materialRouter);
 
 // Per a poder utilitzar el sistema de rutes
