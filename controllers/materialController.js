@@ -15,7 +15,8 @@ class MaterialController {
     static async create_get(req, res, next) {
 
         const list_material = await Material.find();
-        res.render('materials/new', { list: list_material, })
+        const list_categoria = await Categoria.find();
+        res.render('materials/new', { list: list_material, list_cat: list_categoria });
     }
 
     static async create_post(req, res) {
@@ -53,7 +54,7 @@ class MaterialController {
             codi: req.body.codi,
             descripcio: req.body.descripcio,
             preuCompra: req.body.preuCompra,
-            
+
             // codiCategoria: req.params.codiCategoria,
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };

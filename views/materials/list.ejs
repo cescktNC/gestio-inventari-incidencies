@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title">Material</h5>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">codi</th>
+                            <th scope="col">nom</th>
+                            <th scope="col">descripció</th>
+                            <th scope="col">preuCompra</th>
+                            <th scope="col">anyCompra</th>
+                            <th scope="col">fotografia</th>
+                            <th scope="col">codiCategoria</th>
+                            <th scope="col">
+                                <a href="/materials/create" class="btn btn-primary">New</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% list.forEach(function(material) { %>
+                            <tr>
+                                <td>
+                                    <%= material.codi %>
+                                </td>
+                                <td>
+                                    <%= material.nom %>
+                                </td>
+                                <td>
+                                    <%= material.descripcio %>
+                                </td>
+                                <td>
+                                    <%= material.preuCompra %>
+                                </td>
+                                <td>
+                                    <%= material.anyCompra %>
+                                </td>
+                                <td>
+                                    <img src=" <%= material.fotografia %>" alt="">
+                                </td>
+                                <td>
+                                    <%= material.codiCategoria %>
+                                </td>
+                                <td>
+                                    <a href="/materials/update/<%=material._id%>" class="btn btn-secondary">Edit</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
