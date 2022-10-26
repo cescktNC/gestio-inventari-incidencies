@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Nou material</h5>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="/categories/create">
+                    <div class="form-group">
+                        <label for="nom">Name</label>
+                        <input type="text" name="nom" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="codi">Codi</label>
+                        <input type="text" name="codi" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcio">Codi</label>
+                        <input type="text" name="descripcio" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="preuCompra">Preu de compra</label>
+                        <input type="number" name="preuCompra" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="anyCompra">Any de compra</label>
+                        <input type="date" name="anyCompra" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="fotografia">Fotografia</label>
+                        <input type="file" name="fotografia" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="codiCategoria">Categoria</label>
+                        <select name="codiCategoria">
+                            <% list_cat.forEach(function(categoria) { %>
+                                <option value="<%= categoria.codi %>"><%= categoria.nom %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                    </button>
+                </form>
+
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+
+            </div>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
