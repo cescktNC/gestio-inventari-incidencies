@@ -2,7 +2,6 @@ var Categoria = require("../models/categoria");
 
 class CategoriaController {
 
-    // Version 1
     static async list(req, res, next) {
         try {
             var list_categoria = await Categoria.find();
@@ -48,34 +47,32 @@ class CategoriaController {
     }
 
     static update_post(req, res, next) {
-        var list_categoria = {
-            name: req.body.name,
+        var list_categoria = new Categoria({
+            nom: req.body.nom,
             codi: req.body.codi,
-            _id: req.params.id,
-        };
-
-        Categoria.findByIdAndUpdate(
+            _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+          });    
+        
+          Categoria.findByIdAndUpdate(
             req.params.id,
             list_categoria,
-            {},
-            function (err, thecategories) {
-                if (err) {
-
-                    res.render("categories/update", { list: list_categoria, error: err.message });
-
-                }
-
-                res.render("categories/update", { list: list_categoria, message: 'Categoria Updated' });
-                //res.redirect("/categories");
-
+            {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+            function (err, list_categoriaFound) {
+              if (err) {
+                
+                res.render("categories/update", { list: list_categoria, error: err.message });
+    
+              }          
+              
+              res.render("categories/update", { list: list_categoria, message: 'Categoria Updated'});
             }
-        );
+          );
     }
 
     static async delete_get(req, res, next) {
 
         res.render('categories/delete', { id: req.params.id })
-        
+
     }
 
     static async delete_post(req, res, next) {
