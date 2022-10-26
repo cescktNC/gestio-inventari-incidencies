@@ -1,0 +1,70 @@
+[
+    {
+        "codi": "01",
+        "nom": "MOBILIARI"
+    },
+    {
+        "codi": "02",
+        "nom": "INFORMATICA"
+    },
+    {
+        "codi": "03",
+        "nom": "MATERIAL SANITARI"
+    },
+    {
+        "codi": "04",
+        "nom": "MAQUINES D'ESCRIURE"
+    },
+    {
+        "codi": "05",
+        "nom": "REPROGRAFIA"
+    },
+    {
+        "codi": "06",
+        "nom": "AUDIOVISUALS I COMUNICACIÓ"
+    },
+    {
+        "codi": "07",
+        "nom": "MATERIAL DE MÚSICA"
+    },
+    {
+        "codi": "08",
+        "nom": "MATERIAL DE DIBUIX"
+    },
+    {
+        "codi": "09",
+        "nom": "MATERIAL DE GIMNÀSTICA"
+    },
+    {
+        "codi": "10",
+        "nom": "MATERIAL DE METEROLOGIA"
+    },
+    {
+        "codi": "11",
+        "nom": "MATERIAL DE TECNOLOGIA"
+    },
+    {
+        "codi": "12",
+        "nom": "MATERIAL D'OFICINA"
+    },
+    {
+        "codi": "13",
+        "nom": "CUINA I MENJADOR"
+    },
+    {
+        "codi": "14",
+        "nom": "CLIMATITZACIÓ"
+    },
+    {
+        "codi": "15",
+        "nom": "IL·LUMINACIÓ"
+    },
+    {
+        "codi": "16",
+        "nom": "ELEMENTS DE SEGURETAT"
+    },
+    {
+        "codi": "17",
+        "nom": "MATERIAL DE LABORATORI"
+    }
+]

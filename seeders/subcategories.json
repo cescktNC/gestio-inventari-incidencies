@@ -1,0 +1,1007 @@
+[
+    {
+        "codi": "01",
+        "nom": "Armaris",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "02",
+        "nom": "Arxivadors",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "03",
+        "nom": "Atrils",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "04",
+        "nom": "Bancs",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "05",
+        "nom": "Bucs",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "06",
+        "nom": "Cadires",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "07",
+        "nom": "Carrets",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "08",
+        "nom": "Cartelleres",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "09",
+        "nom": "Casillers",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "10",
+        "nom": "Cortines",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "11",
+        "nom": "Dispensadors",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "12",
+        "nom": "Escales",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "13",
+        "nom": "Fitxers",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "14",
+        "nom": "Galledes",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "15",
+        "nom": "Lliteres",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "16",
+        "nom": "Murals",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "17",
+        "nom": "Panells",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "18",
+        "nom": "Papereres",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "19",
+        "nom": "Paperògrafs",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "20",
+        "nom": "Penjadors",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "21",
+        "nom": "Persianes",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "22",
+        "nom": "Pissarres",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "23",
+        "nom": "Plafons",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "24",
+        "nom": "Prestatgeries",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "25",
+        "nom": "Quadres",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "26",
+        "nom": "Rellotges",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "27",
+        "nom": "Reposa peus",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "28",
+        "nom": "Revisters",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "29",
+        "nom": "Senyeres",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "30",
+        "nom": "Sillons",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "31",
+        "nom": "Suports",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "32",
+        "nom": "Suros",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "33",
+        "nom": "Tamborets",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "34",
+        "nom": "Tarimes",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "35",
+        "nom": "Taules",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "36",
+        "nom": "Trepants",
+        "codiCategoria": "6358dbc837f31074692d4279"
+    },
+    {
+        "codi": "01",
+        "nom": "Altaveus",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "02",
+        "nom": "Cables",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "03",
+        "nom": "Escàners",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "04",
+        "nom": "Fonts d'alimentació",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "05",
+        "nom": "Hubs",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "06",
+        "nom": "Impressores",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "07",
+        "nom": "Monitors",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "08",
+        "nom": "Ordinadors",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "09",
+        "nom": "Ratolins",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "10",
+        "nom": "Routers",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "11",
+        "nom": "SAI's",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "12",
+        "nom": "Swich's",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "13",
+        "nom": "Teclats",
+        "codiCategoria": "6358dbc837f31074692d427a"
+    },
+    {
+        "codi": "01",
+        "nom": "Farmacioles",
+        "codiCategoria": "6358dbc837f31074692d427b"
+    },
+    {
+        "codi": "01",
+        "nom": "Màquines d'escriure",
+        "codiCategoria": "6358dbc837f31074692d427c"
+    },
+    {
+        "codi": "01",
+        "nom": "Fotocopiadores",
+        "codiCategoria": "6358dbc837f31074692d427d"
+    },
+    {
+        "codi": "01",
+        "nom": "Altaveus",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "02",
+        "nom": "Aparells de TV",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "03",
+        "nom": "Aparells de video",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "04",
+        "nom": "Càmeres de video",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "05",
+        "nom": "Càmeres fotogràfiques",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "06",
+        "nom": "Centraletes",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "07",
+        "nom": "FAX's",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "08",
+        "nom": "Pantalles",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "09",
+        "nom": "Pissarres digitals",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "10",
+        "nom": "Radiocassettes",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "11",
+        "nom": "Reproductors de CD's",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "12",
+        "nom": "Reproductors de DVD's",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "13",
+        "nom": "Retroprojectors",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "14",
+        "nom": "Telèfons",
+        "codiCategoria": "6358dbc837f31074692d427e"
+    },
+    {
+        "codi": "01",
+        "nom": "CD's",
+        "codiCategoria": "6358dbc837f31074692d427f"
+    },
+    {
+        "codi": "02",
+        "nom": "Instruments",
+        "codiCategoria": "6358dbc837f31074692d427f"
+    },
+    {
+        "codi": "03",
+        "nom": "Videos",
+        "codiCategoria": "6358dbc837f31074692d427f"
+    },
+    {
+        "codi": "01",
+        "nom": "Cartabons",
+        "codiCategoria": "6358dbc837f31074692d4280"
+    },
+    {
+        "codi": "02",
+        "nom": "Compassos",
+        "codiCategoria": "6358dbc837f31074692d4280"
+    },
+    {
+        "codi": "03",
+        "nom": "Escaires",
+        "codiCategoria": "6358dbc837f31074692d4280"
+    },
+    {
+        "codi": "04",
+        "nom": "Regles",
+        "codiCategoria": "6358dbc837f31074692d4280"
+    },
+    {
+        "codi": "01",
+        "nom": "Bats de Beisbol",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "02",
+        "nom": "Boles de Hockei",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "03",
+        "nom": "Boles de POMPOM",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "04",
+        "nom": "Bruixoles",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "05",
+        "nom": "Cercols",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "06",
+        "nom": "Colxonetes per Abdominals",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "07",
+        "nom": "Conos",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "08",
+        "nom": "Esticks de Hockei",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "09",
+        "nom": "Pales de Platja",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "10",
+        "nom": "Pales de POMPOM",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "11",
+        "nom": "Pales de Shutleball",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "12",
+        "nom": "Petos",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "13",
+        "nom": "Pilotes",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "14",
+        "nom": "Piques",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "15",
+        "nom": "Taules de Ping-Pong",
+        "codiCategoria": "6358dbc837f31074692d4281"
+    },
+    {
+        "codi": "01",
+        "nom": "Estacions",
+        "codiCategoria": "6358dbc837f31074692d4282"
+    },
+    {
+        "codi": "02",
+        "nom": "Termometres",
+        "codiCategoria": "6358dbc837f31074692d4282"
+    },
+    {
+        "codi": "01",
+        "nom": "Arquests",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "02",
+        "nom": "Dibuix",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "03",
+        "nom": "Eines",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "04",
+        "nom": "Emmotlladores",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "05",
+        "nom": "Maletes de mesurar",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "06",
+        "nom": "Maquinetes foradar",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "07",
+        "nom": "Mecanització",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "08",
+        "nom": "Multímetres",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "09",
+        "nom": "Plegadores",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "10",
+        "nom": "Serres",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "11",
+        "nom": "Soldadors",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "12",
+        "nom": "Torns",
+        "codiCategoria": "6358dbc837f31074692d4283"
+    },
+    {
+        "codi": "01",
+        "nom": "Aparells",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "02",
+        "nom": "Destructors de documents",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "03",
+        "nom": "Enquadernadors",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "04",
+        "nom": "Grapadores",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "05",
+        "nom": "Guillotines",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "06",
+        "nom": "Perforadores",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "07",
+        "nom": "Plastificadores",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "08",
+        "nom": "Portacel·los",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "09",
+        "nom": "Taladradores",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "10",
+        "nom": "Tampons",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "11",
+        "nom": "Tisores",
+        "codiCategoria": "6358dbc837f31074692d4284"
+    },
+    {
+        "codi": "01",
+        "nom": "Cafeteres",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "02",
+        "nom": "Exprimidors",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "03",
+        "nom": "Forns",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "04",
+        "nom": "Microones",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "05",
+        "nom": "Paelles",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "06",
+        "nom": "Setrilleres",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "07",
+        "nom": "Vaixella",
+        "codiCategoria": "6358dbc837f31074692d4285"
+    },
+    {
+        "codi": "01",
+        "nom": "Aparells aire condicionat",
+        "codiCategoria": "6358dbc837f31074692d4286"
+    },
+    {
+        "codi": "02",
+        "nom": "Estufes",
+        "codiCategoria": "6358dbc837f31074692d4286"
+    },
+    {
+        "codi": "03",
+        "nom": "Termostats",
+        "codiCategoria": "6358dbc837f31074692d4286"
+    },
+    {
+        "codi": "01",
+        "nom": "Cobertes",
+        "codiCategoria": "6358dbc837f31074692d4287"
+    },
+    {
+        "codi": "02",
+        "nom": "Fluorescents",
+        "codiCategoria": "6358dbc837f31074692d4287"
+    },
+    {
+        "codi": "03",
+        "nom": "Focus",
+        "codiCategoria": "6358dbc837f31074692d4287"
+    },
+    {
+        "codi": "04",
+        "nom": "Làmpares - Plafons",
+        "codiCategoria": "6358dbc837f31074692d4287"
+    },
+    {
+        "codi": "01",
+        "nom": "Centraletes d'alarma",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "02",
+        "nom": "Detectors de moviment",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "03",
+        "nom": "Detectors incendi",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "04",
+        "nom": "Extintors",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "05",
+        "nom": "Llums d'emergència",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "06",
+        "nom": "Luxòmetres",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "07",
+        "nom": "Mànegues incendis",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "08",
+        "nom": "Materials de Protecció",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "09",
+        "nom": "Sonòmetres",
+        "codiCategoria": "6358dbc837f31074692d4288"
+    },
+    {
+        "codi": "01",
+        "nom": "Aerèmetres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "02",
+        "nom": "Agitadors",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "03",
+        "nom": "Anells de Gravesande",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "04",
+        "nom": "Aros de suport",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "05",
+        "nom": "Balances",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "06",
+        "nom": "Bombes de vuit",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "07",
+        "nom": "Bombones de butà",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "08",
+        "nom": "Bots de vidres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "09",
+        "nom": "Buretes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "10",
+        "nom": "Caixes de disecció d'insectes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "11",
+        "nom": "Caixes de figures geometriques",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "12",
+        "nom": "Caixes de ressonàncies",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "13",
+        "nom": "Càmares humides",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "14",
+        "nom": "Campanes de gasos - vitrina",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "15",
+        "nom": "Càpsules de Petri",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "16",
+        "nom": "Centrifugadores",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "17",
+        "nom": "Comptagotes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "18",
+        "nom": "Conductos tèrmics",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "19",
+        "nom": "Conjunt d'anatomia",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "20",
+        "nom": "Cristalitzadors",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "21",
+        "nom": "Cronòmetres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "22",
+        "nom": "Desecadors",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "23",
+        "nom": "Diapasons",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "24",
+        "nom": "Diapositives",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "25",
+        "nom": "Disecció",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "26",
+        "nom": "Eines",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "27",
+        "nom": "Embuts",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "28",
+        "nom": "Estatius",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "29",
+        "nom": "Estufes Cultius",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "30",
+        "nom": "Evaporaritzadors",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "31",
+        "nom": "Frascos",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "32",
+        "nom": "Geologia",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "33",
+        "nom": "Germinadors",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "34",
+        "nom": "Gots de precipitat",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "35",
+        "nom": "Gradilles",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "36",
+        "nom": "Jocs",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "37",
+        "nom": "Llupes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "38",
+        "nom": "Mantes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "39",
+        "nom": "Matrassos",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "40",
+        "nom": "Metxeros",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "41",
+        "nom": "Microscopis",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "42",
+        "nom": "Microtoms",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "43",
+        "nom": "Morters",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "44",
+        "nom": "Neveres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "45",
+        "nom": "Ones",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "46",
+        "nom": "Òptiques",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "47",
+        "nom": "Peres de camp",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "48",
+        "nom": "Peses",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "49",
+        "nom": "Pinses",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "50",
+        "nom": "Pipetes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "51",
+        "nom": "Portapeses",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "52",
+        "nom": "Potets",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "53",
+        "nom": "Prensa-cortxos",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "54",
+        "nom": "Probetes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "55",
+        "nom": "Regles",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "56",
+        "nom": "Rexilles difursores",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "57",
+        "nom": "Serres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "58",
+        "nom": "Termometres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "59",
+        "nom": "Transportadors d'angles",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "60",
+        "nom": "Tripodes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "61",
+        "nom": "Tubs",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "62",
+        "nom": "Ulleres",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "63",
+        "nom": "Varilles",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "64",
+        "nom": "Vidres de rellotge",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    },
+    {
+        "codi": "65",
+        "nom": "Xarxes",
+        "codiCategoria": "6358dbc837f31074692d4289"
+    }
+]
