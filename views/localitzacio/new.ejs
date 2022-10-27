@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Nova Localitzacio</h5>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="/localitzacio/create">
+                    <div class="form-group">
+                        <label for="codi">Codi</label>
+                        <input type="text" name="codi" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">nom</label>
+                        <input type="text" name="nom" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="codiCentre">codiCentre</label>
+                        <select type="text" name="CodiCentre" class="form-control">
+                            <% centreList.forEach(function(codiCentre) { %>
+                           <option value="<%= codiCentre.id %>">		      
+                             <%= codiCentre.codi %>				  	      
+                           </option>
+                          <% }); %>	
+                        </select>
+                        </div>
+                    <div class="form-group">
+                        <label for="Especial">Especial</label> <br>
+                        <input type="checkbox" id="true" value="true">True<br>
+                        <input type="checkbox" id="false" value="false">False
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                    </button>
+                </form>
+
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+
+            </div>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

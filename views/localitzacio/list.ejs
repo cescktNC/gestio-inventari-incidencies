@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+    <div class="card-body">
+	    <h5 class="card-title">Localitzacio</h5>
+
+								 
+				      	 
+		<table class="table table-striped">
+	  		<thead>
+			    <tr>		      
+			      <th scope="col">Codi</th>
+			      <th scope="col">Nom</th>
+			      <th scope="col">CodiCentre</th>
+				  <th scope="col">Especial</th>
+			      <th scope="col">			      	
+				      <a href="/localitzacio/create" class="btn btn-primary">New</a>
+			      </th>
+			    </tr>
+	  	</thead>
+		  	<tbody>
+		  		<% list.forEach(function(localitzacio) { %>
+				    <tr>		      
+				      <td><%= localitzacio.Codi %></td>
+				      <td><%= localitzacio.Nom %></td>
+				      <td><%= localitzacio.CodiCentre %></td>
+					  <td><%= localitzacio.Especial %></td>
+					  <td>					      	
+						<a class="btn btn-secondary" href="/localitzacio/update/<%=localitzacio._id%>" class="card-link">Edit</a>
+					</td>
+						      
+				    </tr>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    
+    
+	</div>
+		
+	</div>
+      
+  
+
+    
+   
+  
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

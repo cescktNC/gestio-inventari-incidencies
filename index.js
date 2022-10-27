@@ -7,6 +7,7 @@ var categoriesRouter = require('./routes/categoriesRouter');
 var subcategoriasRouter = require('./routes/subcategoriasRouter');
 var exemplarRouter = require('./routes/exemplarRouter');
 var materialRouter = require('./routes/materialsRouter');
+var localitzacioRouter = require('./routes/localitzacioRouter');
 
 //var indexRouter = require('./routes/indexRouter');
 //var genresRouter = require('./routes/genresRouter');
@@ -49,6 +50,7 @@ app.use('/categories', categoriesRouter);
 app.use('/subcategorias', subcategoriasRouter);
 app.use('/exemplar', exemplarRouter);
 app.use('/materials', materialRouter);
+app.use('/localitzacio', localitzacioRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
