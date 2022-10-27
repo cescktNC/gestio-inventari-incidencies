@@ -1,91 +1,91 @@
 var Subcategoria = require("../models/subcategoria");
 var Categoria = require("../models/categoria");
 
-class SubcategoriaController{
-    
-    static async list(req,res,next) {
-        try {
-          var list_subcategoria = await Subcategoria.find();
-          res.render('subcategorias/list',{list:list_subcategoria})   
-        }
-        catch(e) {
-          res.send('Error!');
-        }          
-      }
-   
-      static async create_get(req, res, next) {
+class SubcategoriaController {
 
-        const categoria_list = await Categoria.find();
-        res.render('subcategorias/new',{categoriaList:categoria_list,})
-      }
-   
-static async create_post(req, res) {
-  // console.log(req.body)
-  // req.body serà algo similar a  { name: 'Aventura' }
-  const categoria_list = await Categoria.find();
-  Subcategoria.create(req.body, function (error, newsubCategorias)  {
-      if(error){
-          res.render('subcategorias/new',{error:error.message, categoriaList:categoria_list})
-      }else{             
-          res.redirect('/subcategorias')
-      }
-  })    
-}
+  static async list(req, res, next) {
+    try {
+      var list_subcategoria = await Subcategoria.find();
+      res.render('subcategorias/list', { list: list_subcategoria })
+    }
+    catch (e) {
+      res.send('Error!');
+    }
+  }
 
-static update_get(req, res, next) {
-  Subcategoria.findById(req.params.id, function (err, subcategoria_list) {
+  static async create_get(req, res, next) {
+
+    const categoria_list = await Categoria.find();
+    res.render('subcategorias/new', { categoriaList: categoria_list, })
+  }
+
+  static async create_post(req, res) {
+    // console.log(req.body)
+    // req.body serà algo similar a  { name: 'Aventura' }
+    const categoria_list = await Categoria.find();
+    Subcategoria.create(req.body, function (error, newsubCategorias) {
+      if (error) {
+        res.render('subcategorias/new', { error: error.message, categoriaList: categoria_list })
+      } else {
+        res.redirect('/subcategorias')
+      }
+    })
+  }
+
+  static update_get(req, res, next) {
+    Subcategoria.findById(req.params.id, function (err, subcategoria_list) {
       if (err) {
-          return next(err);
+        return next(err);
       }
-      if ( subcategoria_list == null) {
-          // No results.
-          var err = new Error("Subcategory not found");
-          err.status = 404;
-          return next(err);
+      if (subcategoria_list == null) {
+        // No results.
+        var err = new Error("Subcategory not found");
+        err.status = 404;
+        return next(err);
       }
       // Success.
-      res.render("subcategorias/update", { subCategoria:subcategoria_list });
-  });
+      res.render("subcategorias/update", { subCategoria: subcategoria_list });
+    });
 
-}
-static update_post(req, res, next) {
-  var subCategoria = {
+  }
+  static update_post(req, res, next) {
+    var subCategoria = {
       nom: req.body.nom,
       codi: req.body.codi,
-     // codiCategoria: req.params.codiCategoria,
+      // codiCategoria: req.params.codiCategoria,
       _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-  }   ;
+    };
 
-  Subcategoria.findByIdAndUpdate(
+    Subcategoria.findByIdAndUpdate(
       req.params.id,
       subCategoria,
-      {runValidators: true}, // Per a que faci les comprovacions de les restriccions posades al model
+      { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
       function (err, subcategoriafound) {
-          if (err) {
-              //return next(err);
-              res.render("subcategorias/update", { subCategoria: subCategoria, error: err.message });
-          }          
-          //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("subcategorias/update", { subCategoria: subCategoria, message: 'Subcategory Updated'});
+        if (err) {
+          //return next(err);
+          res.render("subcategorias/update", { subCategoria: subCategoria, error: err.message });
+        }
+        //res.redirect('/genres/update/'+ genreFound._id);
+        res.render("subcategorias/update", { subCategoria: subCategoria, message: 'Subcategory Updated' });
       }
-  );
-}
-static async delete_get(req, res, next) {
+    );
+  }
+  static async delete_get(req, res, next) {
 
-  res.render('subcategorias/delete', { id: req.params.id })
+    res.render('subcategorias/delete', { id: req.params.id })
 
-}
+  }
 
-static async delete_post(req, res, next) {
+  static async delete_post(req, res, next) {
 
-  Subcategoria.findByIdAndRemove(req.params.id, (error) => {
+    Subcategoria.findByIdAndRemove(req.params.id, (error) => {
       if (error) {
-          res.redirect('/subcategorias')
+        res.redirect('/subcategorias')
       } else {
-          res.redirect('/subcategorias')
+        res.redirect('/subcategorias')
       }
-  })
-}
+    })
+  }
 
 }
 

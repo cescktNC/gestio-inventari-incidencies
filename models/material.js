@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 // Es crea un nou esquema per a la col·lecio de MongoDB
 var MaterialSchema = new Schema({
-    codi: {type: String, required: true},
+    codi: { type: String, required: true },
     nom: { type: String, required: true },
     descripcio: { type: String },
     preuCompra: { type: Number },
