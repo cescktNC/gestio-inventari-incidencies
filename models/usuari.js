@@ -9,14 +9,12 @@ var UsuariSchema = new Schema({
     nom: { type: String, required: true },
     cognoms: { type: String },
     dni: { type: String },
-    dataNaixement: { type: Date },
     carrec: {
         type: String,
-        enum : ['Director','Professor','Alumne','Conserge','Administrador Centre','Manteniment','Encarregat Inventari'],
+        enum : ['Director','Professor','Alumne','Conserge','Administrador','Manteniment','Encarregat Inventari'],
         default: 'Professor'
     },
     email: {type: String, required: true },
-    username: { type: String, required: true },
     password: { type: String, required: true },
 });
 
