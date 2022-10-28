@@ -15,34 +15,20 @@
 
         <div class="card mt-4">
             <div class="card-header">
-                <h5 class="card-title">Nova Localitzacio</h5>
+                <h5 class="card-title">Nou Centre</h5>
             </div>
             <div class="card-body">
 
-                <form method="POST" action="/localitzacio/create">
+                <form method="POST" action="/centre/create">
                     <div class="form-group">
                         <label for="codi">Codi</label>
-                        <input type="text" name="codi" class="form-control">
+                        <input type="number" name="codi" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="nom">nom</label>
+                        <label for="nom">Name</label>
                         <input type="text" name="nom" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <label for="codiCentre">codiCentre</label>
-                        <select type="text" name="codiCentre" class="form-control">
-                            <% centreList.forEach(function(codiCentre) { %>
-                           <option value="<%= codiCentre.id %>">		      
-                             <%= codiCentre.codi %>				  	      
-                           </option>
-                          <% }); %>	
-                        </select>
-                        </div>
-                    <div class="form-group">
-                        <label for="especial">Especial</label> <br>
-                        <input type="checkbox" name="especial" id="true" value="true">True<br>
-                        <input type="checkbox" name="especial" id="false" value="false">False
-                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Save
                     </button>
                 </form>

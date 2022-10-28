@@ -49,16 +49,20 @@ static update_get(req, res, next) {
   
   }
   static update_post(req, res, next) {
-    var Localitzacio = {
+
+    if(req.body.especial===undefined) req.body.especial=false;
+    var localitzacio = {
         codi: req.body.codi,
         nom: req.body.nom,
         especial: req.body.especial,
         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
     }   ;
+
+    console.log(localitzacio)
   
     Localitzacio.findByIdAndUpdate(
         req.params.id,
-        Localitzacio,
+        localitzacio,
         {runValidators: true}, // Per a que faci les comprovacions de les restriccions posades al model
         function (err, localitzaciofound) {
             if (err) {
