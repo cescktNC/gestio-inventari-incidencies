@@ -1,19 +1,19 @@
 var Material = require('../models/material');
 var Categoria = require('../models/categoria');
-
-var async = require("async");
+var formidable = require('formidable');
+var fs = require('fs');
 
 class MaterialController {
     static async list(req, res, next) {
 
-        Material.find()  
-        .populate('codiCategoria')      
-        .exec(function (err, list) {
-          if (err) {
-            return next(err);
-          }
-          res.render('materials/list',{list:list})
-        }); 
+        Material.find()
+            .populate('codiCategoria')
+            .exec(function (err, list) {
+                if (err) {
+                    return next(err);
+                }
+                res.render('materials/list', { list: list })
+            });
     }
 
     static async create_get(req, res, next) {
@@ -26,22 +26,41 @@ class MaterialController {
         // console.log(req.body)
         // req.body serà algo similar a  { name: 'Aventura' }
         const list_categoria = await Categoria.find();
-        var list_material = {
-            nom: req.body.nom,
-            codi: req.body.codi,
-            descripcio: req.body.descripcio,
-            preuCompra: req.body.preuCompra,
-            anyCompra: req.body.anyCompra,
-            fotografia: 'URL/Imagen/' + req.body.fotografia,
-            codiCategoria: req.body.codiCategoria
-        };
-        Material.create(list_material, function (error, newMaterial) {
-            if (error) {
-                res.render('materials/new', { error: error.message, list_cat: list_categoria })
-            } else {
-                res.redirect('/materials')
-            }
-        })
+
+        if (req.url == '/create') {
+
+            var form = new formidable.IncomingForm();
+
+            form.parse(req, function (err, fields, files) {
+                console.log(files.fotografia);
+                var oldpath = files.fotografia.filepath;
+                var newpath = '/public/URL/Imagen/' + files.fotografia.originalFilename;
+                fs.rename(oldpath, newpath, function (err) {
+                    if (err) throw err;
+                    res.write('File uploaded and moved!');
+                    res.end();
+                });
+
+                var list_material = {
+                    nom: fields.nom,
+                    codi: fields.codi,
+                    descripcio: fields.descripcio,
+                    preuCompra: fields.preuCompra,
+                    anyCompra: fields.anyCompra,
+                    fotografia: 'URL/Imagen/' + files.fotografia.originalFilename,
+                    codiCategoria: fields.codiCategoria
+                };
+
+                Material.create(list_material, function (error, newMaterial) {
+                    if (error) {
+                        res.render('materials/new', { error: error.message, list_cat: list_categoria })
+                    } else {
+                        res.redirect('/materials')
+                    }
+                })
+            });
+        }
+
     }
 
     static async update_get(req, res, next) {
@@ -62,6 +81,7 @@ class MaterialController {
 
     }
     static async update_post(req, res, next) {
+
         const list_categoria = await Categoria.find();
         var list_material = {
             nom: req.body.nom,
