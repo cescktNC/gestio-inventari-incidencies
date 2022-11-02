@@ -10,23 +10,21 @@
 </header>
 
 <main>
-
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Confirm Delete Sessio</h5>
-	  </div>
-	  <div class="card-body">
-
+	<div class="card mt-2" style="width: 25rem;">
+    <div class="card-body">
+	    <h5 class="card-title">Confirm Delete Reserva</h5>
+		
 			
-				<form method="POST" action="/sessio/delete/<%= id %>">		
-					
+				<form method="POST" action="/reserva/delete/<%= id %>">		
+					Segur que vols eliminar la reserva?
 					<div class="alert alert-danger" role="alert">
-  					Do you really want to delete this sessio?
+  					
 					</div>	
 					<button type="submit" class="btn btn-danger">
 						Delete
 					</button>
-			  </form>	
+			  </form>
+				
 		
 
 	<% if (typeof error !== "undefined") { %>

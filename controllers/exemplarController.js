@@ -28,7 +28,7 @@ class ExemplarController {
     const material_list = await Material.find();
     Exemplar.create(req.body, function (error, newExemplar) {
       if (error) {
-        res.render('exemplar/new', { error: error.message, LocalitzacioList: localitzacio_list, materialList: material_list })
+        res.render('exemplar/new', { error: error.message, localitzacioList: localitzacio_list, materialList: material_list })
       } else {
         res.redirect('/exemplar')
       }

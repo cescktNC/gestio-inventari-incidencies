@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+    <div class="card-body">
+	    <h5 class="card-title">Reserva</h5>
+
+								 
+				      	 
+		<table class="table table-striped">
+	  		<thead>
+			    <tr>
+                  <th scope="col">Codi</th> 		      
+			      <th scope="col">Hora</th>
+			      <th scope="col">Data</th>
+                  <th scope="col">dniUsuari</th>
+                  <th scope="col">codiLocalitzacio</th>
+			      <th scope="col">			      	
+				      <a href="/reserva/create" class="btn btn-primary">New</a>
+			      </th>
+			    </tr>
+	  	</thead>
+		  	<tbody>
+		  		<% list.forEach(function(reserva) { %>
+				    <tr>		      
+				      <td><%= reserva.codi %></td>
+				      <td><%= reserva.hora %></td>
+				      <td><%= reserva.data %></td>
+                      <td><%= reserva.dniUsuari %></td>
+                      <td><%= reserva.codiLocalitzacio %></td>
+					  <td>					      	
+						<a class="btn btn-secondary" href="/reserva/update/<%=reserva._id%>" class="card-link">Edit</a>
+					</td>
+						      
+				    </tr>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    
+    
+	</div>
+		
+	</div>
