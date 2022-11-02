@@ -1,19 +1,18 @@
 var Material = require('../models/material');
 var Categoria = require('../models/categoria');
-
-var async = require("async");
+var fs = require('fs')
 
 class MaterialController {
     static async list(req, res, next) {
 
-        Material.find()  
-        .populate('codiCategoria')      
-        .exec(function (err, list) {
-          if (err) {
-            return next(err);
-          }
-          res.render('materials/list',{list:list})
-        }); 
+        Material.find()
+            .populate('codiCategoria')
+            .exec(function (err, list) {
+                if (err) {
+                    return next(err);
+                }
+                res.render('materials/list', { list: list })
+            });
     }
 
     static async create_get(req, res, next) {
@@ -23,25 +22,25 @@ class MaterialController {
     }
 
     static async create_post(req, res) {
-        // console.log(req.body)
-        // req.body serà algo similar a  { name: 'Aventura' }
         const list_categoria = await Categoria.find();
+
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi,
             descripcio: req.body.descripcio,
             preuCompra: req.body.preuCompra,
             anyCompra: req.body.anyCompra,
-            fotografia: 'URL/Imagen/' + req.body.fotografia,
+            fotografia: req.file.path.substring(7, req.file.path.length),
             codiCategoria: req.body.codiCategoria
         };
+
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
-                res.render('materials/new', { error: error.message, list_cat: list_categoria })
+                res.render('materials/new', { error: error.message, list_cat: list_categoria });
             } else {
-                res.redirect('/materials')
+                res.redirect('/materials');
             }
-        })
+        });
     }
 
     static async update_get(req, res, next) {
@@ -61,15 +60,18 @@ class MaterialController {
         });
 
     }
+
     static async update_post(req, res, next) {
+
         const list_categoria = await Categoria.find();
+
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi,
             descripcio: req.body.descripcio,
             preuCompra: req.body.preuCompra,
             anyCompra: req.body.anyCompra,
-            fotografia: 'URL/Imagen/' + req.body.fotografia,
+            //fotografia: req.file.path.substring(7, req.file.path.length),
             codiCategoria: req.body.codiCategoria,
 
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
@@ -81,10 +83,8 @@ class MaterialController {
             { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
             function (err, list_materialfound) {
                 if (err) {
-                    //return next(err);
                     res.render("materials/update", { list: list_material, list_cat: list_categoria, error: err.message });
                 }
-                //res.redirect('/genres/update/'+ genreFound._id);
                 res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material Updated' });
             }
         );
@@ -105,6 +105,40 @@ class MaterialController {
                 res.redirect('/materials')
             }
         })
+    }
+
+    static async import_get(req, res, next) {
+
+        res.render('materials/import')
+
+    }
+
+    static async import_post(req, res, next) {
+        
+        if (req.file !== undefined) {
+            
+            var importData = async (model, dades) => {
+                
+                try {
+                    await model.create(dades);
+                    res.redirect('/materials');
+                } catch (error) {
+                    console.log(error)
+                    res.render('materials/import', {message: error.message})
+                }
+                
+            };
+    
+            var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
+
+            importData(Material, dades);
+            
+        } else{
+            res.render("materials/import", { message: 'No has seleccionat cap fitxer' });
+        }
+
+        
+
     }
 }
 
