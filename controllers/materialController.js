@@ -2,6 +2,7 @@ var Material = require('../models/material');
 var Categoria = require('../models/categoria');
 var fs = require('fs')
 
+
 class MaterialController {
     static async list(req, res, next) {
 
@@ -115,30 +116,32 @@ class MaterialController {
 
     static async import_post(req, res, next) {
         
-        if (req.file !== undefined) {
-            
-            var importData = async (model, dades) => {
+        /*console.log('a')
+        const importData = async (model, dades) => {
+            console.log('c')
+            try {
+                console.log(res)
+                await model.create(dades);
+                res.redirect('/materials');
+                console.log('a funcionat')
                 
-                try {
-                    await model.create(dades);
-                    res.redirect('/materials');
-                } catch (error) {
-                    console.log(error)
-                    res.render('materials/import', {message: error.message})
-                }
-                
-            };
-    
-            var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
+                //res.redirect('/materials', {massage: 'Dades importades correctament'});
+            } catch (error) {
+                console.log('error')
+                res.render('materials/import')
+                //res.render('materials/import', { message: error.message })
+            }
 
-            importData(Material, dades);
-            
-        } else{
-            res.render("materials/import", { message: 'No has seleccionat cap fitxer' });
-        }
+        };
 
-        
+        var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
+        console.log('b')
 
+        //importData(Material, dades);
+        await Material.create(dades);
+        console.log('c')*/
+        //res.redirect('/materials');
+        res.render('materials/list')
     }
 }
 

@@ -1,11 +1,12 @@
-var Categoria = require("../models/categoria");
+var Incidencia = require("../models/incidencia");
+var Exemplar = require('../models/exemplar')
 
-class CategoriaController {
+class IncidenciaController {
 
     static async list(req, res, next) {
         try {
-            var list_categoria = await Categoria.find();
-            res.render('categories/list', { list: list_categoria })
+            var list_incidencia = await Incidencia.find().populate('codiExemplar').populate('codiCentre');
+            res.render('incidencies/list', { list: list_incidencia })
         }
         catch (e) {
             res.send('Error!');
@@ -13,22 +14,39 @@ class CategoriaController {
     }
 
     static async create_get(req, res, next) {
-        res.render('categories/new')
+        var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        res.render('incidencies/new', {list: list_prioritat})
     }
 
     static create_post(req, res, next) {
 
-        Categoria.create(req.body, (error, newRecord) => {
+        var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+
+        var codi = Exemplar.findOne({ codiLocalitzacio: req.body.codiExemplar });
+        console.log(codi)
+
+        var incidencia = {
+
+    data: Date.now(),
+    proposta: req.body.proposta,
+    prioritat: req.body.prioritat,
+    descripcio: req.body.descripcio,
+    ubicacio: req.body.ubicacio,
+    codiExemplar: req.body.codiExemplar,
+    codiCentre: codi.id,
+        }
+
+        Incidencia.create(incidencia, (error, newRecord) => {
             if (error) {
-                res.render('categories/new', { error: 'error' })
+                res.render('incidencies/new', { error: 'error', list: list_prioritat })
             } else {
 
-                res.redirect('/categories')
+                res.redirect('/incidencies')
             }
         })
     }
 
-    static update_get(req, res, next) {
+    /*static update_get(req, res, next) {
         Categoria.findById(req.params.id, function (err, list_categoria) {
             if (err) {
                 return next(err);
@@ -83,8 +101,8 @@ class CategoriaController {
                 res.redirect('/categories')
             }
         })
-    }
+    }*/
 
 }
 
-module.exports = CategoriaController;
+module.exports = IncidenciaController;

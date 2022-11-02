@@ -7,7 +7,7 @@ var ExemplarSchema = new Schema({ // Diem que creem un nou esquema per a les col
     codi :{ type: Number, required: true },
     demarca: {type: Boolean, required: true},
     qr: {type: String, required: true},
-    codiMateral: [{ type: Schema.ObjectId, ref: "Material" }],
+    codiMaterial: [{ type: Schema.ObjectId, ref: "Material" }],
     codiLocalitzacio : [{ type: Schema.ObjectId, ref: "Localitzacio" }],
 
 });

@@ -21,6 +21,7 @@ class ExemplarController {
     res.render('exemplar/new', { localitzacioList: localitzacio_list, materialList: material_list })
 
   }
+  
   static async create_post(req, res) {
     // console.log(req.body)
     // req.body serà algo similar a  { name: 'Aventura' }
