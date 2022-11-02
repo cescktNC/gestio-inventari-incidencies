@@ -20,7 +20,7 @@ var IncidenciaSchema = new Schema({
     descripcio: { type: String },
     ubicacio: { type: String },
     codiExemplar: [{ type: Schema.ObjectId, ref: "Exemplar" }],
-    codiCentre: [{ type: Schema.ObjectId, ref: "Centre" }],
+    codiLocalitzacio: [{ type: Schema.ObjectId, ref: "Localitzacio" }],
 
 });
 
