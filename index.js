@@ -13,6 +13,9 @@ var sessioRouter = require('./routes/sessioRouter');
 var reservaRouter = require('./routes/reservaRouter');
 var cadiraRouter = require('./routes/cadiraRouter');
 
+var incidenciaRouter = require('./routes/incidenciesRouter');
+
+
 //var indexRouter = require('./routes/indexRouter');
 //var genresRouter = require('./routes/genresRouter');
 
@@ -59,6 +62,8 @@ app.use('/centre', centreRouter);
 app.use('/sessio', sessioRouter);
 app.use('/reserva', reservaRouter);
 app.use('/cadira', cadiraRouter);
+app.use('/incidencies', incidenciaRouter);
+
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
