@@ -1,4 +1,5 @@
 var Sessio = require('../models/sessio');
+var Reserva = require("../models/reserva");
 
 class sessioController{
 
@@ -11,7 +12,16 @@ class sessioController{
           res.send('Error!');
         }          
       }
+
+      static async create_get(req, res, next) {
+
+        const reserva_list = await Reserva.find();
+        res.render('sessio/new', { reservaList: reserva_list, })
+      }
+    
+
       
+
       static async create_post(req, res) {
         // console.log(req.body)
         // req.body serà algo similar a  { name: 'Aventura' }
