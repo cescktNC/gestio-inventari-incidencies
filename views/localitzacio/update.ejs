@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Edit Localitzacio</h5>
+	  </div>
+	  <div class="card-body">
+	
+		<form method="POST" action="/localitzacio/update/<%= Localitzacio._id %>">
+            <div class="form-group">
+				<label for="codi">Codi</label>
+				<input type="number" name="codi" class="form-control" value="<%= Localitzacio.codi %>">
+			</div>
+			<div class="form-group">
+				<label for="nom">Nom</label>
+				<input type="text" name="nom" class="form-control" value="<%= Localitzacio.nom %>">
+			</div>
+			<div class="form-group">
+				<label for="especial">Especial</label><br>
+			   <input type="checkbox" name="especial" id="true" value="true">True<br>
+			 
+		   </div>
+			
+			<button type="submit" class="btn btn-primary">Save
+			</button>
+			<a class="btn btn-danger" href="/localitzacio/delete/<%= Localitzacio._id %>" role="button">Delete</a>
+
+		</form>
+
+		<% if (typeof error !== "undefined") { %>
+			<div class="alert alert-primary mt-2" role="alert">
+			    <p><%= error %></p>
+			</div>
+		<% } %>
+
+		<% if (typeof message !== "undefined") { %>
+			<div class="alert alert-primary mt-2" role="alert">
+			    <p><%= message %></p>
+			</div>
+		<% } %>
+
+	</div>
+		
+	</div>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

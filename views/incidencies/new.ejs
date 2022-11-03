@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Nova Incidencia</h5>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="/incidencies/create">
+                    <div class="form-group">
+                        <label for="codiExemplar"> Codi del exemplar</label>
+                        <input type="text" name="codiExemplar" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="ubicacio">ubicació</label>
+                        <input type="text" name="ubicacio" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcio">descripció</label>
+                        <input type="text" name="descripcio" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="prioritat">prioritat</label>
+                        <select name="prioritat">
+                            <% list.forEach(function(prioritat) { if(prioritat=='Mitjana' ){%>
+                                <option value="<%= prioritat %>" selected>
+                                    <%= prioritat %>
+                                </option>
+                                <% } else {%>
+                                    <option value="<%= prioritat %>">
+                                        <%= prioritat %>
+                                    </option>
+                            <% }}); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="proposta">proposta</label>
+                        <input type="textarea" name="proposta" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                    </button>
+                </form>
+
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+
+            </div>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

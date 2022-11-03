@@ -22,12 +22,15 @@
                             <th scope="col">codi</th>
                             <th scope="col">nom</th>
                             <th scope="col">descripció</th>
-                            <th scope="col">preuCompra</th>
-                            <th scope="col">anyCompra</th>
+                            <th scope="col">preu de compra</th>
+                            <th scope="col">any de compra</th>
                             <th scope="col">fotografia</th>
-                            <th scope="col">codiCategoria</th>
+                            <th scope="col">Nom Categoria</th>
                             <th scope="col">
                                 <a href="/materials/create" class="btn btn-primary">New</a>
+                            </th>
+                            <th scope="col">
+                                <a href="/materials/import" class="btn btn-primary">Importar</a>
                             </th>
                         </tr>
                     </thead>
@@ -47,23 +50,36 @@
                                     <%= material.preuCompra %>
                                 </td>
                                 <td>
-                                    <%= material.anyCompra %>
+                                    <%= material.formatarDate %>
                                 </td>
                                 <td>
                                     <img src=" <%= material.fotografia %>" alt="">
                                 </td>
                                 <td>
-                                    <%= material.codiCategoria %>
+                                    <%= material.codiCategoria[0].nom %>
                                 </td>
                                 <td>
                                     <a href="/materials/update/<%=material._id%>" class="btn btn-secondary">Edit</a>
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                             <% }); %>
                     </tbody>
                 </table>
 
-
+                <% if (typeof error !== "undefined") { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p><%= error %></p>
+                    </div>
+                <% } %>
+        
+                <% if (typeof message !== "undefined") { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p><%= message %></p>
+                    </div>
+                <% } %>
+                
             </div>
 
         </div>

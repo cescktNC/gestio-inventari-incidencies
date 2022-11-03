@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Edit Reserva</h5>
+	  </div>
+	  <div class="card-body">
+	
+		<form method="POST" action="/reserva/update/<%= Reserva._id %>">
+			<div class="form-group">
+				 <label for="codi">Codi</label>
+				<input type="text" name="codi" class="form-control" value="<%= Reserva.codi %>">
+			</div>
+			<div class="form-group">
+				<label for="hora">Hora</label>
+				<input type="text" name="hora" class="form-control" value="<%= Reserva.hora %>">
+			</div>
+			<div class="form_group">
+                <label for="data">Data</label>
+                <input type="text" name="data" class="form-control" value="<%= Reserva.data %>">
+            </div>
+            
+			<button type="submit" class="btn btn-primary">Save
+			</button>
+			<a class="btn btn-danger" href="/reserva/delete/<%= Reserva._id %>" role="button">Delete</a>
+
+		</form>
+
+		<% if (typeof error !== "undefined") { %>
+			<div class="alert alert-primary mt-2" role="alert">
+			    <p><%= error %></p>
+			</div>
+		<% } %>
+
+		<% if (typeof message !== "undefined") { %>
+			<div class="alert alert-primary mt-2" role="alert">
+			    <p><%= message %></p>
+			</div>
+		<% } %>
+
+	</div>
+		
+	</div>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

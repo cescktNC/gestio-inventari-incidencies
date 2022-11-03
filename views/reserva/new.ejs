@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Nova Reserva</h5>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="/reserva/create">
+                    <div class="form-group">
+                        <label for="codi">Codi</label>
+                        <input type="text" name="codi" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="hora">Hora</label> <br>
+                        <input type="text" name="hora" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="data">Data</label>
+                        <input type="text" name="data" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="dniUsuari">dniUsuari</label>
+                        <select type="text" name="dniUsuari" class="form-control">
+                            <% dniUsuariList.forEach(function(dniUsuari) { %>
+                           <option value="<%= dniUsuari.id %>">		      
+                             <%= dniUsuari.dni %>				  	      
+                           </option>
+                          <% }); %>	
+                    </select>			
+                    </div>
+                    <div class="form-group">
+                        <label for="CodiLocalitzacio">CodiLocalitzacio</label>
+                        <select type="text" name="CodiLocalitzacio" class="form-control">
+                            <% localitzacioList.forEach(function(CodiLocalitzacio) { %>
+                           <option value="<%= CodiLocalitzacio.id %>">		      
+                             <%= CodiLocalitzacio.codi %>				  	      
+                           </option>
+                          <% }); %>	
+                    </select>			
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                    </button>
+                </form>
+
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+
+            </div>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

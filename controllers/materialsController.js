@@ -1,38 +1,51 @@
 var Material = require('../models/material');
 var Categoria = require('../models/categoria');
+var fs = require('fs')
+
 
 class MaterialController {
     static async list(req, res, next) {
-        try {
-            var list_material = await Material.find();
-            res.render('materials/list', { list: list_material })
-        }
-        catch (e) {
-            res.send('Error!');
-        }
+
+        Material.find()
+            .populate('codiCategoria')
+            .exec(function (err, list) {
+                if (err) {
+                    return next(err);
+                }
+                res.render('materials/list', { list: list })
+            });
     }
 
     static async create_get(req, res, next) {
-
         const list_material = await Material.find();
         const list_categoria = await Categoria.find();
         res.render('materials/new', { list: list_material, list_cat: list_categoria });
     }
 
     static async create_post(req, res) {
-        // console.log(req.body)
-        // req.body serà algo similar a  { name: 'Aventura' }
-        const list_material = await Categoria.find();
-        Material.create(req.body, function (error, newMaterial) {
+        const list_categoria = await Categoria.find();
+
+        var list_material = {
+            nom: req.body.nom,
+            codi: req.body.codi,
+            descripcio: req.body.descripcio,
+            preuCompra: req.body.preuCompra,
+            anyCompra: req.body.anyCompra,
+            fotografia: req.file.path.substring(7, req.file.path.length),
+            codiCategoria: req.body.codiCategoria
+        };
+
+        Material.create(list_material, function (error, newMaterial) {
             if (error) {
-                res.render('materials/new', { error: error.message, list: list_material })
+                res.render('materials/new', { error: error.message, list_cat: list_categoria });
             } else {
-                res.redirect('/materials')
+                res.redirect('/materials');
             }
-        })
+        });
     }
 
-    static update_get(req, res, next) {
+    static async update_get(req, res, next) {
+        const list_categoria = await Categoria.find();
         Material.findById(req.params.id, function (err, list_material) {
             if (err) {
                 return next(err);
@@ -44,34 +57,91 @@ class MaterialController {
                 return next(err);
             }
             // Success.
-            res.render("materials/update", { list: list_material });
+            res.render("materials/update", { list: list_material, list_cat: list_categoria });
         });
 
     }
-    static update_post(req, res, next) {
+
+    static async update_post(req, res, next) {
+
+        const list_categoria = await Categoria.find();
+
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi,
             descripcio: req.body.descripcio,
             preuCompra: req.body.preuCompra,
+            anyCompra: req.body.anyCompra,
+            //fotografia: req.file.path.substring(7, req.file.path.length),
+            codiCategoria: req.body.codiCategoria,
 
-            // codiCategoria: req.params.codiCategoria,
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };
 
-        list_material.findByIdAndUpdate(
+        Material.findByIdAndUpdate(
             req.params.id,
             list_material,
             { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
             function (err, list_materialfound) {
                 if (err) {
-                    //return next(err);
-                    res.render("materials/update", { list: list_material, error: err.message });
+                    res.render("materials/update", { list: list_material, list_cat: list_categoria, error: err.message });
                 }
-                //res.redirect('/genres/update/'+ genreFound._id);
-                res.render("materials/update", { list: list_material, message: 'material Updated' });
+                res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material Updated' });
             }
         );
+    }
+
+    static async delete_get(req, res, next) {
+
+        res.render('materials/delete', { id: req.params.id })
+
+    }
+
+    static async delete_post(req, res, next) {
+
+        Material.findByIdAndRemove(req.params.id, (error) => {
+            if (error) {
+                res.redirect('/materials')
+            } else {
+                res.redirect('/materials')
+            }
+        })
+    }
+
+    static async import_get(req, res, next) {
+
+        res.render('materials/import')
+
+    }
+
+    static async import_post(req, res, next) {
+        
+        /*console.log('a')
+        const importData = async (model, dades) => {
+            console.log('c')
+            try {
+                console.log(res)
+                await model.create(dades);
+                res.redirect('/materials');
+                console.log('a funcionat')
+                
+                //res.redirect('/materials', {massage: 'Dades importades correctament'});
+            } catch (error) {
+                console.log('error')
+                res.render('materials/import')
+                //res.render('materials/import', { message: error.message })
+            }
+
+        };
+
+        var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
+        console.log('b')
+
+        //importData(Material, dades);
+        await Material.create(dades);
+        console.log('c')*/
+        //res.redirect('/materials');
+        res.render('materials/list')
     }
 }
 
