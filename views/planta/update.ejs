@@ -13,27 +13,23 @@
 
 	<div class="card mt-4">
 	  <div class="card-header">
-	     <h5 class="card-title">Edit Subcategory</h5>
+	     <h5 class="card-title">Edit Planta</h5>
 	  </div>
 	  <div class="card-body">
 	
-		<form method="POST" action="/exemplar/update/<%= Exemplar._id %>">
-			<div class="form-group">
-				 <label for="codi">Codi</label>
-				<input type="text" name="codi" class="form-control" value="<%= Exemplar.codi %>">
+		<form method="POST" action="/planta/update/<%= Planta._id %>">
+            <div class="form-group">
+				<label for="codi">Codi</label>
+				<input type="number" name="codi" class="form-control" value="<%= Planta.codi %>">
 			</div>
 			<div class="form-group">
-				<label for="demarca">Demarca</label><br>
-				<input type="checkbox" name="demarca" id="true" value="true">True
+				<label for="planol">Planol</label>
+				<input type="text" name="planol" class="form-control" value="<%= Planta.planol %>">
 			</div>
-			<div class="form_group">
-                <label for="qr">QR</label>
-                <input type="text" name="qr" class="form-control" value="<%= Exemplar.qr %>">
-            </div>
-            
+		
 			<button type="submit" class="btn btn-primary">Save
 			</button>
-			<a class="btn btn-danger" href="/exemplar/delete/<%= Exemplar._id %>" role="button">Delete</a>
+			<a class="btn btn-danger" href="/planta/delete/<%= Planta._id %>" role="button">Delete</a>
 
 		</form>
 

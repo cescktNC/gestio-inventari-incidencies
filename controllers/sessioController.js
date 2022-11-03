@@ -48,7 +48,7 @@ class sessioController{
     
       }
       static update_post(req, res, next) {
-        var Sessio = {
+        var sessio = {
           codi: req.body.codi,
           nom: req.body.nom,
           // codiReserva: req.params.codiReserva,
@@ -57,7 +57,7 @@ class sessioController{
     
         Sessio.findByIdAndUpdate(
           req.params.id,
-          Sessio,
+          sessio,
           { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
           function (err, sessiofound) {
             if (err) {

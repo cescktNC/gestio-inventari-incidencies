@@ -52,7 +52,7 @@ class reservaController{
     
       }
       static update_post(req, res, next) {
-        var Reserva = {
+        var reserva = {
           codi: req.body.codi,
           hora: req.body.hora,
           data: req.body.data,
@@ -63,7 +63,7 @@ class reservaController{
     
         Reserva.findByIdAndUpdate(
           req.params.id,
-          Reserva,
+          reserva,
           { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
           function (err, reservafound) {
             if (err) {
