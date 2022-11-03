@@ -4,24 +4,22 @@ var dotenv = require('dotenv'); // Per a insertar el fitxer '.env' amb totes les
 
 var indexRouter = require('./routes/indexRouter');
 var categoriesRouter = require('./routes/categoriesRouter');
-var subcategoriasRouter = require('./routes/subcategoriasRouter');
-var materialRouter = require('./routes/materialsRouter');
-
-//var indexRouter = require('./routes/indexRouter');
-//var genresRouter = require('./routes/genresRouter');
+var subcategoriesRouter = require('./routes/subcategoriesRouter');
+var materialsRouter = require('./routes/materialsRouter');
+var usuarisRouter = require('./routes/usuarisRouter');
 
 var app = express();
 
 dotenv.config();  // Per a poder utilitzar les variables del fitxer '.env' (**)
 
 const port = process.env.PORT || 8000;  // Ja es pot accedir a les variables de la següent manera 
-//'process.env.nom_variable' (**)
+                                        //'process.env.nom_variable' (**)
 
-// Set up mongoose connection
+// Importar el mòdul 'mongoose' i configurar la connexió a la base de dades de MongoDB
 var mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI;
-
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
 //mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -43,10 +41,12 @@ const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-app.use('/home', indexRouter);
+// Configuració del sistema de rutes.
+app.use('/', indexRouter);
 app.use('/categories', categoriesRouter);
-app.use('/subcategorias', subcategoriasRouter);
-app.use('/materials', materialRouter);
+app.use('/subcategories', subcategoriesRouter);
+app.use('/materials', materialsRouter);
+app.use('/usuaris', usuarisRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'

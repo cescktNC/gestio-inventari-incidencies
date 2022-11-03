@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var material_controller = require('../controllers/materialController');
+var material_controller = require('../controllers/materialsController');
 
 router.get('/', material_controller.list); 
 
