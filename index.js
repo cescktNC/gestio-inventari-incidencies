@@ -11,7 +11,7 @@ var localitzacioRouter = require('./routes/localitzacioRouter');
 var centreRouter = require('./routes/centreRouter');
 var sessioRouter = require('./routes/sessioRouter');
 var reservaRouter = require('./routes/reservaRouter');
-var cadiraRouter = require('./routes/cadiraRouter');
+//var cadiraRouter = require('./routes/cadiraRouter');
 
 var incidenciaRouter = require('./routes/incidenciesRouter');
 
@@ -61,7 +61,7 @@ app.use('/localitzacio', localitzacioRouter);
 app.use('/centre', centreRouter);
 app.use('/sessio', sessioRouter);
 app.use('/reserva', reservaRouter);
-app.use('/cadira', cadiraRouter);
+//app.use('/cadira', cadiraRouter);
 app.use('/incidencies', incidenciaRouter);
 
 

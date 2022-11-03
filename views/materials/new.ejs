@@ -52,6 +52,14 @@
                             <% }); %>
                         </select>
                     </div>
+                     <div class="form-group">
+                        <label for="codiCategoria">Categoria</label>
+                        <select name="codiCategoria">
+                            <% list_cat.forEach(function(categoria) { %>
+                                <option value="<%= categoria.id %>"><%= categoria.nom %></option>
+                            <% }); %>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Save
                     </button>
                 </form>
