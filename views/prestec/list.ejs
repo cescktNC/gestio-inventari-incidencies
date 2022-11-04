@@ -12,7 +12,7 @@
 <main>
 	<div class="card mt-2">
     <div class="card-body">
-	    <h5 class="card-title">Planta</h5>
+	    <h5 class="card-title">Prestec</h5>
 
 								 
 				      	 
@@ -20,21 +20,25 @@
 	  		<thead>
 			    <tr>		      
 			      <th scope="col">Codi</th>
-			      <th scope="col">Codi del Centre</th>
-                  <th scope="col">Planol</th>
+			      <th scope="col">Data d'inici</th>
+			      <th scope="col">Data Retorn</th>
+				  <th scope="col">Codi Exemplar</th>
+                  <th scope="col">DNI Usuari</th>
 			      <th scope="col">			      	
-				      <a href="/planta/create" class="btn btn-primary">New</a>
+				      <a href="/prestec/create" class="btn btn-primary">New</a>
 			      </th>
 			    </tr>
 	  	</thead>
 		  	<tbody>
-		  		<% list.forEach(function(planta) { %>
+		  		<% list.forEach(function(prestec) { %>
 				    <tr>		      
-				      <td><%= planta.codi %></td>
-				      <td><%= planta.codiCentre %></td>
-                      <td><%= planta.planol %></td>
+				      <td><%= prestec.codi %></td>
+				      <td><%= prestec.dataInici %></td>
+				      <td><%= prestec.dataRetorn %></td>
+					  <td><%= prestec.codiExemplar %></td>
+                      <td><%= prestec.dniUsuari %></td>
 					  <td>					      	
-						<a class="btn btn-secondary" href="/planta/update/<%=planta._id%>" class="card-link">Edit</a>
+						<a class="btn btn-secondary" href="/prestec/update/<%=prestec._id%>" class="card-link">Edit</a>
 					</td>
 						      
 				    </tr>

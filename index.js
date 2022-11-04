@@ -14,6 +14,7 @@ var sessioRouter = require('./routes/sessioRouter');
 var reservaRouter = require('./routes/reservaRouter');
 var cadiraRouter = require('./routes/cadiraRouter');
 var plantaRouter = require('./routes/plantaRouter');
+var prestecRouter = require('./routes/prestecRouter');
 var incidenciaRouter = require('./routes/incidenciesRouter');
 
 var app = express();
@@ -65,6 +66,7 @@ app.use('/sessio', sessioRouter);
 app.use('/reserva', reservaRouter);
 app.use('/cadira', cadiraRouter);
 app.use('/incidencies', incidenciaRouter);
+app.use('/prestec', prestecRouter);
 
 
 

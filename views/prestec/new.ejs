@@ -15,39 +15,39 @@
 
         <div class="card mt-4">
             <div class="card-header">
-                <h5 class="card-title">Nova Reserva</h5>
+                <h5 class="card-title">Nou Prestec</h5>
             </div>
             <div class="card-body">
 
-                <form method="POST" action="/reserva/create">
+                <form method="POST" action="/prestec/create">
                     <div class="form-group">
                         <label for="codi">Codi</label>
                         <input type="text" name="codi" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="hora">Hora</label> <br>
-                        <input type="text" name="hora" class="form-control">
+                        <label for="dataInici">Data d'inici</label> <br>
+                        <input type="date" name="dataInici" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="data">Data</label>
-                        <input type="date" name="data" class="form-control">
+                        <label for="dataRetorn">Data Retorn</label><br>
+                        <input type="date" name="dataRetorn" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="dniUsuari">dniUsuari</label>
-                        <select type="text" name="dniUsuari" class="form-control">
-                            <% dniUsuariList.forEach(function(dniUsuari) { %>
-                           <option value="<%= dniUsuari.id %>">		      
-                             <%= dniUsuari.dni %>				  	      
+                        <label for="codiExemplar">Codi Exemplar</label>
+                        <select type="text" name="codiExemplar" class="form-control">
+                            <% exemplarList.forEach(function(codiExemplar) { %>
+                           <option value="<%= codiExemplar.id %>">		      
+                             <%= codiExemplar.codi %>				  	      
                            </option>
                           <% }); %>	
                     </select>			
                     </div>
                     <div class="form-group">
-                        <label for="codiLocalitzacio">CodiLocalitzacio</label>
-                        <select type="text" name="codiLocalitzacio" class="form-control">
-                            <% localitzacioList.forEach(function(codiLocalitzacio) { %>
-                           <option value="<%= codiLocalitzacio.id %>">		      
-                             <%= codiLocalitzacio.codi %>				  	      
+                        <label for="dniUsuari">DNI de l'usuari</label>
+                        <select type="text" name="dniUsuari" class="form-control">
+                            <% usuariList.forEach(function(dniUsuari) { %>
+                           <option value="<%= dniUsuari.id %>">		      
+                             <%= dniUsuari.dni %>				  	      
                            </option>
                           <% }); %>	
                     </select>			
