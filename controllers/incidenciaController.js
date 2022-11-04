@@ -1,5 +1,6 @@
 var Incidencia = require("../models/incidencia");
-var Exemplar = require('../models/exemplar')
+var Exemplar = require('../models/exemplar');
+var Localitzacio = require('../models/localitzacio');
 
 class IncidenciaController {
 
@@ -15,19 +16,20 @@ class IncidenciaController {
 
     static async create_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
-        res.render('incidencies/new', { list: list_prioritat })
+        var list_localitzacio = await Localitzacio.find();
+        res.render('incidencies/new', { list: list_prioritat, list_loc: list_localitzacio })
     }
 
     static async create_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var list_localitzacio = await Localitzacio.find();
 
-        Usuari.findOne({ codi: req.body.codiExemplar }, function (err, exemnplar) {
+        Exemplar.findOne({ codi: req.body.codiExemplar }, function (err, exemnplar) {
             if (err) {
                 return next(err);
             }
-            if (usuari == null) {
-                // Guardar usuari a la base de dades
+            console.log(exemplar)
                 var incidencia = {
                     codi: Math.random() * 100,
                     data: Date.now(),
@@ -39,18 +41,14 @@ class IncidenciaController {
                     codiCentre: exemplar.id,
                 }
         
-                Incidencia.create(incidencia, (error, newRecord) => {
+                Incidencia.create(incidencia, function (error, newRecord) {
                     if (error) {
-                        res.render('incidencies/new', { error: 'error', list: list_prioritat })
+                        res.render('incidencies/new', { error: 'error', list: list_prioritat, list_loc: list_localitzacio })
                     } else {
         
                         res.redirect('/incidencies')
                     }
                 })
-            } else {
-                var list_carrecs = Usuari.schema.path('carrec').enumValues;
-                res.render('incidencies/new', {carrecs:list_carrecs, error: "Usuari ja registrat"});
-            }
         });
 
        
