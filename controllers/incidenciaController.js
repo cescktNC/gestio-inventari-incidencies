@@ -20,7 +20,7 @@ class IncidenciaController {
         res.render('incidencies/new', { list: list_prioritat, list_loc: list_localitzacio })
     }
 
-    static async create_post(req, res, next) {
+   /* static async create_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
         var list_localitzacio = await Localitzacio.find();
