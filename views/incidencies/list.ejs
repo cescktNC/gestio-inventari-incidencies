@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title">Incidencia</h5>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">codi</th>
+                            <th scope="col">seguiment</th>
+                            <th scope="col">estat</th>
+                            <th scope="col">data</th>
+                            <th scope="col">proposta</th>
+                            <th scope="col">prioritat</th>
+                            <th scope="col">descripció</th>
+                            <th scope="col">ubicaci</th>
+                            <th scope="col">codi del Exemplar</th>
+                            <th scope="col">codi del Centre</th>
+                            <th scope="col">
+                                <a href="/incidencies/create" class="btn btn-primary">New</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% list.forEach(function(incidencia) { %>
+                            <tr>
+                                <td>
+                                    <%= incidencia.codi %>
+                                </td>
+                                <td>
+                                    <%= incidencia.seguiment %>
+                                </td>
+                                <td>
+                                    <%= incidencia.estat %>
+                                </td>
+                                <td>
+                                    <%= incidencia.data %>
+                                </td>
+                                <td>
+                                    <%= incidencia.proposta %>
+                                </td>
+                                <td>
+                                    <%= incidencia.prioritat %>
+                                </td>
+                                <td>
+                                    <%= incidencia.descripcio %>
+                                </td>
+                                <td>
+                                    <%= incidencia.ubicacio %>
+                                </td>
+                                <td>
+                                    <%= incidencia.codiExemplar.codiMaterial.nom %>
+                                </td>
+                                <td>
+                                    <%= incidencia.codiLocalitzacio.nom %>
+                                </td>
+                                <td>
+                                    <a href="/incidencies/update/<%=incidencia._id%>" class="btn btn-secondary">Edit</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
