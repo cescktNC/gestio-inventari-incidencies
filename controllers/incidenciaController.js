@@ -15,35 +15,45 @@ class IncidenciaController {
 
     static async create_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
-        res.render('incidencies/new', {list: list_prioritat})
+        res.render('incidencies/new', { list: list_prioritat })
     }
 
-    static create_post(req, res, next) {
+    static async create_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
 
-        var codi = Exemplar.findOne({ codiLocalitzacio: req.body.codiExemplar });
-        console.log(codi)
-
-        var incidencia = {
-
-    data: Date.now(),
-    proposta: req.body.proposta,
-    prioritat: req.body.prioritat,
-    descripcio: req.body.descripcio,
-    ubicacio: req.body.ubicacio,
-    codiExemplar: req.body.codiExemplar,
-    codiCentre: codi.id,
-        }
-
-        Incidencia.create(incidencia, (error, newRecord) => {
-            if (error) {
-                res.render('incidencies/new', { error: 'error', list: list_prioritat })
-            } else {
-
-                res.redirect('/incidencies')
+        Usuari.findOne({ codi: req.body.codiExemplar }, function (err, exemnplar) {
+            if (err) {
+                return next(err);
             }
-        })
+            if (usuari == null) {
+                // Guardar usuari a la base de dades
+                var incidencia = {
+                    codi: Math.random() * 100,
+                    data: Date.now(),
+                    proposta: req.body.proposta,
+                    prioritat: req.body.prioritat,
+                    descripcio: req.body.descripcio,
+                    ubicacio: req.body.ubicacio,
+                    codiExemplar: req.body.codiExemplar,
+                    codiCentre: exemplar.id,
+                }
+        
+                Incidencia.create(incidencia, (error, newRecord) => {
+                    if (error) {
+                        res.render('incidencies/new', { error: 'error', list: list_prioritat })
+                    } else {
+        
+                        res.redirect('/incidencies')
+                    }
+                })
+            } else {
+                var list_carrecs = Usuari.schema.path('carrec').enumValues;
+                res.render('incidencies/new', {carrecs:list_carrecs, error: "Usuari ja registrat"});
+            }
+        });
+
+       
     }
 
     /*static update_get(req, res, next) {
