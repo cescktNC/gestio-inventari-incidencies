@@ -13,6 +13,7 @@ var centreRouter = require('./routes/centreRouter');
 var sessioRouter = require('./routes/sessioRouter');
 var reservaRouter = require('./routes/reservaRouter');
 var cadiraRouter = require('./routes/cadiraRouter');
+var plantaRouter = require('./routes/plantaRouter');
 var incidenciaRouter = require('./routes/incidenciesRouter');
 
 var app = express();
@@ -44,10 +45,13 @@ app.get('/', function (req, res) {
 });
 
 
+
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
+app.use('/planta', plantaRouter);
+app.use('/home', indexRouter);
 // Configuració del sistema de rutes.
 app.use('/', indexRouter);
 app.use('/categories', categoriesRouter);
@@ -61,5 +65,14 @@ app.use('/sessio', sessioRouter);
 app.use('/reserva', reservaRouter);
 app.use('/cadira', cadiraRouter);
 app.use('/incidencies', incidenciaRouter);
+
+
+
+
+
+// Per a poder utilitzar el sistema de rutes
+//app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
+//app.use('/genres', genresRouter);       // Qualssevol ruta amb la barra '/genres' anirà al fitxer 'genresRouter'
+
 
 module.exports = app;

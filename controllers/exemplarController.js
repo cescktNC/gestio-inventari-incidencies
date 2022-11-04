@@ -53,7 +53,10 @@ class ExemplarController {
 
   }
   static update_post(req, res, next) {
-    var Exemplar = {
+
+
+    if(req.body.demarca===undefined) req.body.demarca=false;
+    var exemplar = {
       codi: req.body.codi,
       demarca: req.body.demarca,
       qr: req.body.qr,
@@ -63,7 +66,7 @@ class ExemplarController {
 
     Exemplar.findByIdAndUpdate(
       req.params.id,
-      Exemplar,
+      exemplar,
       { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
       function (err, exemplarfound) {
         if (err) {

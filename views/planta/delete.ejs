@@ -10,21 +10,23 @@
 </header>
 
 <main>
-	<div class="card mt-2" style="width: 25rem;">
-    <div class="card-body">
-	    <h5 class="card-title">Confirm Delete Reserva</h5>
-		
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Confirm Delete Localitzacio</h5>
+	  </div>
+	  <div class="card-body">
+
 			
-				<form method="POST" action="/reserva/delete/<%= id %>">		
-				
+				<form method="POST" action="/planta/delete/<%= id %>">		
+					
 					<div class="alert alert-danger" role="alert">
-						Segur que vols eliminar la reserva?
+  					Segur que vols eliminar la planta?
 					</div>	
 					<button type="submit" class="btn btn-danger">
 						Delete
 					</button>
-			  </form>
-				
+			  </form>	
 		
 
 	<% if (typeof error !== "undefined") { %>
