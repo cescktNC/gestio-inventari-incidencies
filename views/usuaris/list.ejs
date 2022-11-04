@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+    <div class="card-body">
+	    <h5 class="card-title">Usuaris</h5>
+		      	 
+		<table class="table table-striped">
+	  		<thead>
+			    <tr>		      
+			      <th scope="col">Nom</th>
+			      <th scope="col">Cognoms</th>
+			      <th scope="col">DNI</th>
+                  <th scope="col">Càrrec</th>
+                  <th scope="col">Email</th>
+			      <th scope="col">
+				      <a href="/usuaris/create" class="btn btn-primary">Nou</a>
+			      </th>
+			    </tr>
+	  	</thead>
+		  	<tbody>
+		  		<% usuaris.forEach(function(usuari) { %>
+				    <tr>		      
+				      <td><%= usuari.nom %></td>
+				      <td><%= usuari.cognoms %></td>
+				      <td><%= usuari.dni %></td>
+                      <td><%= usuari.carrec %></td>
+                      <td><%= usuari.email %></td>
+					  <td>					      	
+						<a class="btn btn-secondary" href="/usuaris/update/<%=usuari._id%>" class="card-link">Edit</a>
+					</td>
+						      
+				    </tr>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    
+    
+	</div>
+		
+	</div>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

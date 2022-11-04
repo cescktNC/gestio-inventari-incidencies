@@ -3,12 +3,12 @@ var Categoria = require("../models/categoria");
 
 class SubcategoriaController {
 
-  static async list(req, res, next) {
+  static async list(req,res,next) {
     try {
       var list_subcategoria = await Subcategoria.find();
-      res.render('subcategorias/list', { list: list_subcategoria })
+      res.render('subcategories/list', { list:list_subcategoria });
     }
-    catch (e) {
+    catch(e) {
       res.send('Error!');
     }
   }
