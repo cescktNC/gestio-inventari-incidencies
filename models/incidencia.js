@@ -24,6 +24,12 @@ var IncidenciaSchema = new Schema({
 
 });
 
+IncidenciaSchema.virtual('formatarDate')
+  .get(function(){
+    // el valor devuelto será un string en formato 'dd-mm-yyyy'
+    return this.data.toISOString().substring(0,10).split("-").reverse().join("-");
+  });
+
 
 // Export model.
 module.exports = mongoose.model("Incidencia", IncidenciaSchema);
