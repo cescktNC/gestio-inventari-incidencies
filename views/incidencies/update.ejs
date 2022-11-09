@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+        <script type="text/javascript">
+            function comprobaEstat(){
+                if('<%= list.estat %>' != 'Notificada'){
+                    var elements = document.getElementsByClassName('form-control')
+                    for(i = 0; i < elements.length; i++){
+                        elements[i].setAttribute('disabled', 'true');
+                    }
+                }
+            }
+        </script>
+</head>
+
+<body class="container" onload="comprobaEstat()">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Edit Incidencia</h5>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="/incidencies/update/<%= list._id %>">
+                    <div class="form-group">
+                        <label for="codiExemplar"> Codi del exemplar</label>
+                        <% list_exe.forEach(function(exemplar) { if (list.codiExemplar == exemplar.id){ %>
+                            <input type="text" name="codiExemplar" value="<%= exemplar.codi %>" class="form-control">
+                        <% }}); %>
+                    </div>
+                    <div class="form-group">
+                        <label for="ubicacio">Ubicació</label>
+                        <textarea name="ubicacio" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="codiLocalitzacio">Codi localització</label>
+                        <select type="text" name="codiLocalitzacio" class="form-control">
+                            <% list_loc.forEach(function(localitzacio) { if(localitzacio.id == list.codiLocalitzacio){%>
+                                <option value="<%= localitzacio.id %>" selected>
+                                    <%= localitzacio.nom %>
+                                </option>
+                                <% }else { %>
+                                    <option value="<%= localitzacio.id %>">
+                                        <%= localitzacio.nom %>
+                                    </option>
+                            <% }}); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="estat">Estat</label>
+                        <select type="text" name="estat" class="form-control">
+                            <% list_est.forEach(function(estat) { if(estat == list.estat){%>
+                                <option value="<%= estat %>" selected>
+                                    <%= estat %>
+                                </option>
+                                <% }else { %>
+                                    <option value="<%= estat %>">
+                                        <%= estat %>
+                                    </option>
+                            <% }}); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcio">descripció</label>
+                        <input type="text" name="descripcio" value="<%= list.descripcio %>" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="prioritat">prioritat</label>
+                        <select name="prioritat" class="form-control">
+                            <% list_pri.forEach(function(prioritat) { if(prioritat==list.estat ){%>
+                                    <option value="<%= prioritat %>" selected>
+                                        <%= prioritat %>
+                                    </option>
+                                <% } else {%>
+                                    <option value="<%= prioritat %>">
+                                        <%= prioritat %>
+                                    </option>
+                            <% }}); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="proposta">Proposta</label>
+                        <textarea name="proposta" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="seguiment">Seguiment</label>
+                        <textarea name="seguiment" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                    </button>
+                    <a class="btn btn-danger" href="/incidencies/delete/<%= list._id %>" role="button">Delete</a>
+
+                </form>
+
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+
+                        <% if (typeof message !=="undefined" ) { %>
+                            <div class="alert alert-primary mt-2" role="alert">
+                                <p>
+                                    <%= message %>
+                                </p>
+                            </div>
+                            <% } %>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
