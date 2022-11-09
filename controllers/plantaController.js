@@ -4,14 +4,16 @@ var Centre = require("../models/centre");
 class plantaController{
 
     static async list(req, res, next) {
-        try {
-          var list_planta = await Planta.find();
-          res.render('planta/list', { list: list_planta })
-        }
-        catch (e) {
-          res.send('Error!');
-        }
-      }
+      Planta.find()
+      .populate('codiCentre')
+      .exec(function (err, list) {
+          if (err) {
+              return next(err);
+          }
+          res.render('planta/list', { list: list })
+      });
+}
+
       static async create_get(req, res, next) {
 
         const centre_list = await Centre.find();

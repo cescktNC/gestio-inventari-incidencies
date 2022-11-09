@@ -7,14 +7,16 @@ var Usuari = require("../models/usuari");
 class prestecController {
 
     static async list(req, res, next) {
-        try {
-            var list_prestec = await Prestec.find();
-            res.render('prestec/list', { list: list_prestec })
-        }
-        catch (e) {
-            res.send('Error!');
-        }
-    }
+      Prestec.find()
+      .populate('codiExemplar') .populate('dniUsuari')
+      .exec(function (err, list) {
+          if (err) {
+              return next(err);
+          }
+          res.render('prestec/list', { list: list })
+      });
+}
+
 
     static async create_get(req, res, next) {
 

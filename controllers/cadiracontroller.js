@@ -1,18 +1,18 @@
-const cadira = require("../models/cadira");
 var Cadira = require("../models/cadira");
 var Sessio = require("../models/sessio");
 
-class cadiracontroller {
+class cadiraController {
 
   static async list(req, res, next) {
-    try {
-      var list_cadira = await Cadira.find();
-      res.render('cadira/list', { list: list_cadira })
-    }
-    catch (e) {
-      res.send('Error!');
-    }
-  }
+    Cadira.find()
+    .populate('codiSessio')
+    .exec(function (err, list) {
+        if (err) {
+            return next(err);
+        }
+        res.render('cadira/list', { list: list })
+    });
+}
 
   static async create_get(req, res, next) {
 
@@ -88,4 +88,4 @@ class cadiracontroller {
   }
 
 }
-module.exports=cadiracontroller;
+module.exports=cadiraController;

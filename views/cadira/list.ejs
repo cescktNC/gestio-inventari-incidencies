@@ -30,7 +30,7 @@
 		  		<% list.forEach(function(cadira) { %>
 				    <tr>		      
 				      <td><%= cadira.numeroCadira %></td>
-				      <td><%= cadira.codiSessio %></td>
+				      <td><%= cadira.codiSessio[0].codi %></td>
 					  <td>					      	
 						<a class="btn btn-secondary" href="/cadira/update/<%=cadira._id%>" class="card-link">Edit</a>
 					</td>

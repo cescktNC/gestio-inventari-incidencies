@@ -35,8 +35,8 @@
 				      <td><%= prestec.codi %></td>
 				      <td><%= prestec.dataInici %></td>
 				      <td><%= prestec.dataRetorn %></td>
-					  <td><%= prestec.codiExemplar %></td>
-                      <td><%= prestec.dniUsuari %></td>
+					  <td><%= prestec.codiExemplar[0].codi %></td>
+                      <td><%= prestec.dniUsuari[0].dni %></td>
 					  <td>					      	
 						<a class="btn btn-secondary" href="/prestec/update/<%=prestec._id%>" class="card-link">Edit</a>
 					</td>
