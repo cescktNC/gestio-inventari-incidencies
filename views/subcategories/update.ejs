@@ -17,19 +17,19 @@
 	  </div>
 	  <div class="card-body">
 	
-		<form method="POST" action="/subcategorias/update/<%= subCategoria._id %>">
+		<form method="POST" action="/subcategories/update/<%= subCategoria._id %>">
 			<div class="form-group">
-				 <label for="nom">Name</label>
+				 <label for="nom">Nom</label>
 				<input type="text" name="nom" class="form-control" value="<%= subCategoria.nom %>">
 			</div>
 			<div class="form-group">
 				<label for="codi">Codi</label>
-				<input type="number" name="codi" class="form-control" min="1" max="100" value="<%= subCategoria.codi %>">
+				<input type="text" name="codi" class="form-control" value="<%= subCategoria.codi %>">
 			</div>
 			
 			<button type="submit" class="btn btn-primary">Save
 			</button>
-			<a class="btn btn-danger" href="/subcategorias/delete/<%= subCategoria._id %>" role="button">Delete</a>
+			<a class="btn btn-danger" href="/subcategories/delete/<%= subCategoria._id %>" role="button">Delete</a>
 
 		</form>
 
