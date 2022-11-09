@@ -4,19 +4,20 @@ var Categoria = require("../models/categoria");
 class SubcategoriaController {
 
   static async list(req,res,next) {
-    try {
-      var list_subcategoria = await Subcategoria.find();
-      res.render('subcategories/list', { list:list_subcategoria });
+    Subcategoria.find()
+            .populate('codiCategoria')
+            .exec(function (err, list) {
+                if (err) {
+                    return next(err);
+                }
+                res.render('subcategories/list', { list: list })
+            });
     }
-    catch(e) {
-      res.send('Error!');
-    }
-  }
 
   static async create_get(req, res, next) {
 
     const categoria_list = await Categoria.find();
-    res.render('subcategorias/new', { categoriaList: categoria_list, })
+    res.render('subcategories/new', { categoriaList: categoria_list, })
   }
 
   static async create_post(req, res) {
@@ -25,9 +26,9 @@ class SubcategoriaController {
     const categoria_list = await Categoria.find();
     Subcategoria.create(req.body, function (error, newsubCategorias) {
       if (error) {
-        res.render('subcategorias/new', { error: error.message, categoriaList: categoria_list })
+        res.render('subcategories/new', { error: error.message, categoriaList: categoria_list })
       } else {
-        res.redirect('/subcategorias')
+        res.redirect('/subcategories')
       }
     })
   }
@@ -39,12 +40,12 @@ class SubcategoriaController {
       }
       if (subcategoria_list == null) {
         // No results.
-        var err = new Error("Subcategory not found");
+        var err = new Error("Subcategoria no trobada");
         err.status = 404;
         return next(err);
       }
       // Success.
-      res.render("subcategorias/update", { subCategoria: subcategoria_list });
+      res.render("subcategories/update", { subCategoria: subcategoria_list });
     });
 
   }
@@ -63,16 +64,16 @@ class SubcategoriaController {
       function (err, subcategoriafound) {
         if (err) {
           //return next(err);
-          res.render("subcategorias/update", { subCategoria: subCategoria, error: err.message });
+          res.render("subcategories/update", { subCategoria: subCategoria, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("subcategorias/update", { subCategoria: subCategoria, message: 'Subcategory Updated' });
+        res.render("subcategories/update", { subCategoria: subCategoria, message: 'Subcategory Updated' });
       }
     );
   }
   static async delete_get(req, res, next) {
 
-    res.render('subcategorias/delete', { id: req.params.id })
+    res.render('subcategories/delete', { id: req.params.id })
 
   }
 
@@ -80,9 +81,9 @@ class SubcategoriaController {
 
     Subcategoria.findByIdAndRemove(req.params.id, (error) => {
       if (error) {
-        res.redirect('/subcategorias')
+        res.redirect('/subcategories')
       } else {
-        res.redirect('/subcategorias')
+        res.redirect('/subcategories')
       }
     })
   }

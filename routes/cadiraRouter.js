@@ -13,21 +13,4 @@ router.get("/update/:id",  cadira_controller.update_get);
 router.post("/update/:id",  cadira_controller.update_post);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports=router;
+module.exports = router;

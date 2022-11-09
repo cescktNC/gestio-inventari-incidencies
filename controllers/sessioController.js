@@ -4,14 +4,15 @@ var Reserva = require("../models/reserva");
 class sessioController{
 
     static async list(req,res,next) {
-        try {
-          var list_sessio = await Sessio.find();
-          res.render('sessio/list',{list:list_sessio})   
-        }
-        catch(e) {
-          res.send('Error!');
-        }          
-      }
+      Sessio.find()
+      .populate('codiReserva')
+      .exec(function (err, list) {
+          if (err) {
+              return next(err);
+          }
+          res.render('sessio/list', { list: list })
+      });
+}
 
       static async create_get(req, res, next) {
 

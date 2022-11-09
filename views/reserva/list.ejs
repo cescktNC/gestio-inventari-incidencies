@@ -35,8 +35,8 @@
 				      <td><%= reserva.codi %></td>
 				      <td><%= reserva.hora %></td>
 				      <td><%= reserva.data %></td>
-                      <td><%= reserva.dniUsuari %></td>
-                      <td><%= reserva.codiLocalitzacio %></td>
+                      <td><%= reserva.dniUsuari[0].dni %></td>
+                      <td><%= reserva.codiLocalitzacio[0].nom %></td>
 					  <td>					      	
 						<a class="btn btn-secondary" href="/reserva/update/<%=reserva._id%>" class="card-link">Edit</a>
 					</td>

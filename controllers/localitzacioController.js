@@ -4,14 +4,15 @@ var Centre = require("../models/centre");
 class LocalitzacioController{
 
     static async list(req,res,next) {
-        try {
-          var list_localitzacio = await Localitzacio.find();
-          res.render('localitzacio/list',{list:list_localitzacio})   
-        }
-        catch(e) {
-          res.send('Error!');
-        }          
-      }
+      Localitzacio.find()
+      .populate('codiCentre')
+      .exec(function (err, list) {
+          if (err) {
+              return next(err);
+          }
+          res.render('localitzacio/list', { list: list })
+      });
+}
 
       static async create_get(req, res, next) {
 

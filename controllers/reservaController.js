@@ -5,14 +5,15 @@ var Usuari = require("../models/usuari");
 
 class reservaController{
     static async list(req,res,next) {
-        try {
-          var list_reserva = await Reserva.find();
-          res.render('reserva/list',{list:list_reserva})   
-        }
-        catch(e) {
-          res.send('Error!');
-        }          
-      }
+      Reserva.find()
+      .populate('dniUsuari') .populate('codiLocalitzacio')
+      .exec(function (err, list) {
+          if (err) {
+              return next(err);
+          }
+          res.render('reserva/list', { list: list })
+      });
+}
 
       static async create_get(req, res, next) {
 
