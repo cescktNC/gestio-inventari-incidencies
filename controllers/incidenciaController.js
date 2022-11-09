@@ -1,5 +1,6 @@
 var Incidencia = require("../models/incidencia");
-var Exemplar = require('../models/exemplar')
+var Exemplar = require('../models/exemplar');
+var Localitzacio = require('../models/localitzacio');
 
 class IncidenciaController {
 
@@ -15,35 +16,42 @@ class IncidenciaController {
 
     static async create_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
-        res.render('incidencies/new', {list: list_prioritat})
+        var list_localitzacio = await Localitzacio.find();
+        res.render('incidencies/new', { list: list_prioritat, list_loc: list_localitzacio })
     }
 
-    static create_post(req, res, next) {
+    static async create_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var list_localitzacio = await Localitzacio.find();
 
-        var codi = Exemplar.findOne({ codiLocalitzacio: req.body.codiExemplar });
-        console.log(codi)
-
-        var incidencia = {
-
-    data: Date.now(),
-    proposta: req.body.proposta,
-    prioritat: req.body.prioritat,
-    descripcio: req.body.descripcio,
-    ubicacio: req.body.ubicacio,
-    codiExemplar: req.body.codiExemplar,
-    codiCentre: codi.id,
-        }
-
-        Incidencia.create(incidencia, (error, newRecord) => {
-            if (error) {
-                res.render('incidencies/new', { error: 'error', list: list_prioritat })
-            } else {
-
-                res.redirect('/incidencies')
+        Exemplar.findOne({ codi: req.body.codiExemplar }, function (err, exemnplar) {
+            if (err) {
+                return next(err);
             }
-        })
+            console.log(exemplar)
+                var incidencia = {
+                    codi: Math.random() * 100,
+                    data: Date.now(),
+                    proposta: req.body.proposta,
+                    prioritat: req.body.prioritat,
+                    descripcio: req.body.descripcio,
+                    ubicacio: req.body.ubicacio,
+                    codiExemplar: req.body.codiExemplar,
+                    codiCentre: exemplar.id,
+                }
+        
+                Incidencia.create(incidencia, function (error, newRecord) {
+                    if (error) {
+                        res.render('incidencies/new', { error: 'error', list: list_prioritat, list_loc: list_localitzacio })
+                    } else {
+        
+                        res.redirect('/incidencies')
+                    }
+                })
+        });
+
+       
     }
 
     /*static update_get(req, res, next) {
