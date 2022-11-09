@@ -17,28 +17,27 @@
 		<table class="table table-striped">
 	  		<thead>
 			    <tr>		      
-			      <th scope="col">Nom</th>
-			      <th scope="col">Cognoms</th>
-			      <th scope="col">DNI</th>
-                  <th scope="col">Càrrec</th>
-                  <th scope="col">Email</th>
-			      <th scope="col">
-				      <a href="/usuaris/create" class="btn btn-primary">Nou</a>
-			      </th>
+					<th scope="col">Nom</th>
+					<th scope="col">Cognoms</th>
+					<th scope="col">DNI</th>
+					<th scope="col">Càrrec</th>
+					<th scope="col">Email</th>
+					<th scope="col">
+						<a href="/usuaris/create" class="btn btn-primary">Nou</a>
+					</th>
 			    </tr>
 	  	</thead>
 		  	<tbody>
 		  		<% usuaris.forEach(function(usuari) { %>
 				    <tr>		      
-				      <td><%= usuari.nom %></td>
-				      <td><%= usuari.cognoms %></td>
-				      <td><%= usuari.dni %></td>
-                      <td><%= usuari.carrec %></td>
-                      <td><%= usuari.email %></td>
-					  <td>					      	
-						<a class="btn btn-secondary" href="/usuaris/update/<%=usuari._id%>" class="card-link">Edit</a>
-					</td>
-						      
+						<td><%= usuari.nom %></td>
+						<td><%= usuari.cognoms %></td>
+						<td><%= usuari.dni %></td>
+						<td><%= usuari.carrec %></td>
+                      	<td><%= usuari.email %></td>
+						<td>					      	
+							<a class="btn btn-secondary" href="/usuaris/update/<%=usuari._id%>" class="card-link">Edit</a>
+						</td>      
 				    </tr>
 		   		<% }); %>	     
 		    </tbody>

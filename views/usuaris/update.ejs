@@ -12,39 +12,44 @@
     <main>
         <div class="card mt-4">
             <div class="card-header">
-                <h5 class="card-title">Nou Usuari</h5>
+                <h5 class="card-title">Actualitzar Usuari</h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="/usuaris/create">
+                <form method="POST" action="/usuaris/update/<%= usuari._id %>">
                     <div class="form-group">
                         <label for="nom">Nom</label>
-                        <input type="text" name="nom" class="form-control" required>
+                        <input type="text" name="nom" class="form-control" value="<%= usuari.nom %>" required>
                     </div>
                     <div class="form-group">
                         <label for="cognoms">Cognoms</label>
-                        <input type="text" name="cognoms" class="form-control">
+                        <input type="text" name="cognoms" class="form-control" value="<%= usuari.cognoms %>">
                     </div>
                     <div class="form-group">
                         <label for="dni">Dni</label>
-                        <input type="text" name="dni" class="form-control">
+                        <input type="text" name="dni" class="form-control" value="<%= usuari.dni %>">
                     </div>
                     <div class="form-group">
                         <label for="carrec">Càrrec</label><br>
                         <select name="carrec">
-                            <% carrecs.forEach(function(carrec) { %>
-                                <option value="<%= carrec %>"><%= carrec %></option>
-                            <% }); %>
+                            <% carrecs.forEach(function(carrec) { 
+                                if (carrec == usuari.carrec) { %>
+                                    <option value="<%= carrec %>" selected><%= carrec %></option>
+                                <% } else { %>
+                                    <option value="<%= carrec %>"><%= carrec %></option>
+                                <% }
+                            }); %>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" required>
+                        <input type="email" name="email" value="<%= usuari.email %>" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" oninvalid="setCustomValidity('Entre 8 i 16 caràcters \(almenys una mínuscula, una majúscula, un número i un símbol\)')" name="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$" required>
+                        <input type="password" value="<%= usuari.password %>" oninvalid="setCustomValidity('Entre 8 i 16 caràcters \(almenys una mínuscula, una majúscula, un número i un símbol\)')" name="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <a class="btn btn-danger" href="/usuaris/delete/<%= usuari._id %>" role="button">Delete</a>
                 </form>
 
                 <% if (typeof error !== "undefined") { %>
