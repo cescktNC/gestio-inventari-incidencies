@@ -6,7 +6,10 @@ class ExemplarController {
 
   static async list(req, res, next) {
     try {
-      var list_exemplar = await Exemplar.find().sort({ codi: 1, codiMaterial: 1 });
+      var list_exemplar = await Exemplar.find()
+        .populate('codiMaterial')
+        .populate('codiLocalitzacio')
+        .sort({ codi: 1, codiMaterial: 1 });
       res.render('exemplar/list', { list: list_exemplar })
     }
     catch (e) {

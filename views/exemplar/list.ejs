@@ -35,8 +35,8 @@
 				      <td><%= exemplar.codi %></td>
 				      <td><%= exemplar.demarca %></td>
 				      <td><%= exemplar.qr %></td>
-					  <td><%= exemplar.codiMaterial %></td>
-                      <td><%= exemplar.codiLocalitzacio %></td>
+					  <td><%= exemplar.codiMaterial[0].nom %></td>
+                      <td><%= exemplar.codiLocalitzacio[0].nom %></td>
 					  <td>					      	
 						<a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>" class="card-link">Edit</a>
 					</td>

@@ -6,7 +6,7 @@ class cadiraController {
   static async list(req, res, next) {
     Cadira.find()
       .populate('codiSessio')
-      .soft({ codiSessio: 1, numeroCadira: 1 })
+      .sort({ codiSessio: 1, numeroCadira: 1 })
       .exec(function (err, list) {
         if (err) {
           return next(err);
