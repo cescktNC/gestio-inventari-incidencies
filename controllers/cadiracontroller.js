@@ -39,7 +39,7 @@ class cadiraController {
       }
       if (cadira_list == null) {
         // No results.
-        var err = new Error("Cadira not found");
+        var err = new Error("Cadira ja assignada");
         err.status = 404;
         return next(err);
       }
@@ -65,7 +65,7 @@ class cadiraController {
           res.render("cadira/update", { Cadira: Cadira, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("cadira/update", { Cadira: Cadira, message: 'Cadira Updated' });
+        res.render("cadira/update", { Cadira: Cadira, message: 'Cadira actualitzada' });
       }
     );
   }

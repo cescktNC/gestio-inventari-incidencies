@@ -43,7 +43,7 @@ class ExemplarController {
       }
       if (exemplar_list == null) {
         // No results.
-        var err = new Error("Exemplar not found");
+        var err = new Error("Exemplar no trobat");
         err.status = 404;
         return next(err);
       }
@@ -74,7 +74,7 @@ class ExemplarController {
           res.render("exemplar/update", { Exemplar: Exemplar, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("exemplar/update", { Exemplar: Exemplar, message: 'Exemplar Updated' });
+        res.render("exemplar/update", { Exemplar: Exemplar, message: 'Exemplar actualitzat' });
       }
     );
   }

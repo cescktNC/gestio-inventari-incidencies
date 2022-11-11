@@ -75,7 +75,7 @@ class prestecController {
               res.render("prestec/update", { Prestec: Prestec, error: err.message });
             }
             //res.redirect('/genres/update/'+ genreFound._id);
-            res.render("prestec/update", { Prestec: Prestec, message: 'Prestec Updated' });
+            res.render("prestec/update", { Prestec: Prestec, message: 'Prestec actualitzat' });
           }
         );
       }

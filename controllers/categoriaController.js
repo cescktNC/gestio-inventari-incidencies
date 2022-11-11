@@ -35,7 +35,7 @@ class CategoriaController {
             }
             if (list_categoria == null) {
                 // No results.
-                var err = new Error("Categoria not found");
+                var err = new Error("Aquesta categoria no existeix");
                 err.status = 404;
                 return next(err);
             }
@@ -63,7 +63,7 @@ class CategoriaController {
     
               }          
               
-              res.render("categories/update", { list: list_categoria, message: 'Categoria Updated'});
+              res.render("categories/update", { list: list_categoria, message: 'Categoria actualitzada'});
             }
           );
     }

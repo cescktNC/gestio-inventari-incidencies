@@ -67,7 +67,7 @@ class SubcategoriaController {
           res.render("subcategories/update", { subCategoria: subCategoria, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("subcategories/update", { subCategoria: subCategoria, message: 'Subcategory Updated' });
+        res.render("subcategories/update", { subCategoria: subCategoria, message: 'Subcategoria actualitzada' });
       }
     );
   }

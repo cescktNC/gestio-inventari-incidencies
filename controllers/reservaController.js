@@ -43,7 +43,7 @@ class reservaController{
           }
           if (reserva_list == null) {
             // No results.
-            var err = new Error("Reserva not found");
+            var err = new Error("La reserva no existeix en el nostre sistema");
             err.status = 404;
             return next(err);
           }
@@ -72,7 +72,7 @@ class reservaController{
               res.render("reserva/update", { Reserva: Reserva, error: err.message });
             }
             //res.redirect('/genres/update/'+ genreFound._id);
-            res.render("reserva/update", { Reserva: Reserva, message: 'Reserva Updated' });
+            res.render("reserva/update", { Reserva: Reserva, message: 'Reserva actualitzada' });
           }
         );
       }

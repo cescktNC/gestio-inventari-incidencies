@@ -68,7 +68,7 @@ static update_get(req, res, next) {
                 res.render("planta/update", { Planta: Planta, error: err.message });
             }          
             //res.redirect('/genres/update/'+ genreFound._id);
-            res.render("planta/update", { Planta: Planta, message: 'Planta Updated'});
+            res.render("planta/update", { Planta: Planta, message: 'Planta actualitzada'});
         }
     );
   }

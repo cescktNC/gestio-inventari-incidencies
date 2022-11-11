@@ -52,7 +52,7 @@ class MaterialController {
             }
             if (list_material == null) {
                 // No results.
-                var err = new Error("Material not found");
+                var err = new Error("No hem trobat el material");
                 err.status = 404;
                 return next(err);
             }
@@ -86,7 +86,7 @@ class MaterialController {
                 if (err) {
                     res.render("materials/update", { list: list_material, list_cat: list_categoria, error: err.message });
                 }
-                res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material Updated' });
+                res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material actualitzat' });
             }
         );
     }

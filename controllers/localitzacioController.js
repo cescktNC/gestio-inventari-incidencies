@@ -40,7 +40,7 @@ static update_get(req, res, next) {
         }
         if ( localitzacio_list == null) {
             // No results.
-            var err = new Error("Localitzacio not found");
+            var err = new Error("No hem pogut trobar la localització que ens indiques");
             err.status = 404;
             return next(err);
         }
@@ -71,7 +71,7 @@ static update_get(req, res, next) {
                 res.render("localitzacio/update", { Localitzacio: Localitzacio, error: err.message });
             }          
             //res.redirect('/genres/update/'+ genreFound._id);
-            res.render("localitzacio/update", { Localitzacio: Localitzacio, message: 'Localitzacio Updated'});
+            res.render("localitzacio/update", { Localitzacio: Localitzacio, message: 'Localitzacio actualitzada'});
         }
     );
   }

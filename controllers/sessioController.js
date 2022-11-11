@@ -70,7 +70,7 @@ class sessioController{
               res.render("sessio/update", { Sessio: Sessio, error: err.message });
             }
             //res.redirect('/genres/update/'+ genreFound._id);
-            res.render("sessio/update", { Sessio: Sessio, message: 'Sessio Updated' });
+            res.render("sessio/update", { Sessio: Sessio, message: 'Sessio actualitzada' });
           }
         );
       }

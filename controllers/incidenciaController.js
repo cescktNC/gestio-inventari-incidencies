@@ -61,7 +61,7 @@ class IncidenciaController {
             }
             if (list_incidencia == null) {
                 // No results.
-                var err = new Error("Incidencia not found");
+                var err = new Error("Aquesta incidencia no està registrada al sistema");
                 err.status = 404;
                 return next(err);
             }
@@ -105,7 +105,7 @@ class IncidenciaController {
                 }
 
                 res.render("incidencies/update", { list: list_incidencia, list_pri: list_prioritat, 
-                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, message: 'Categoria Updated' });
+                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, message: 'Incidencia actualitzada' });
             }
         );
     }

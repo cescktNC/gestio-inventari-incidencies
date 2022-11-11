@@ -35,7 +35,7 @@ class CentreController{
             }
             if (list_centre == null) {
                 // No results.
-                var err = new Error("Centre not found");
+                var err = new Error("Aquest centre no existeix");
                 err.status = 404;
                 return next(err);
             }
@@ -63,7 +63,7 @@ class CentreController{
     
               }          
               
-              res.render("centre/update", { list: list_centre, message: 'Centre Updated'});
+              res.render("centre/update", { list: list_centre, message: 'Centre actualitzat'});
             }
           );
     }
