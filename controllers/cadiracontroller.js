@@ -5,14 +5,15 @@ class cadiraController {
 
   static async list(req, res, next) {
     Cadira.find()
-    .populate('codiSessio')
-    .exec(function (err, list) {
+      .populate('codiSessio')
+      .soft({ codiSessio: 1, numeroCadira: 1 })
+      .exec(function (err, list) {
         if (err) {
-            return next(err);
+          return next(err);
         }
         res.render('cadira/list', { list: list })
-    });
-}
+      });
+  }
 
   static async create_get(req, res, next) {
 
@@ -88,4 +89,4 @@ class cadiraController {
   }
 
 }
-module.exports=cadiraController;
+module.exports = cadiraController;

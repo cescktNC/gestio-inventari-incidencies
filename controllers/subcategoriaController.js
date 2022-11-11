@@ -3,16 +3,17 @@ var Categoria = require("../models/categoria");
 
 class SubcategoriaController {
 
-  static async list(req,res,next) {
+  static async list(req, res, next) {
     Subcategoria.find()
-            .populate('codiCategoria')
-            .exec(function (err, list) {
-                if (err) {
-                    return next(err);
-                }
-                res.render('subcategories/list', { list: list })
-            });
-    }
+      .populate('codiCategoria')
+      .sort({ codiCategoria: 1, codi: 1 })
+      .exec(function (err, list) {
+        if (err) {
+          return next(err);
+        }
+        res.render('subcategories/list', { list: list })
+      });
+  }
 
   static async create_get(req, res, next) {
 

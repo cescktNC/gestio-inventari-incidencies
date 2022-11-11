@@ -8,6 +8,7 @@ class MaterialController {
 
         Material.find()
             .populate('codiCategoria')
+            .sort({ codi: 1, codiCategoria: 1 })
             .exec(function (err, list) {
                 if (err) {
                     return next(err);
@@ -115,7 +116,7 @@ class MaterialController {
     }
 
     static async import_post(req, res, next) {
-        
+
         /*console.log('a')
         const importData = async (model, dades) => {
             console.log('c')

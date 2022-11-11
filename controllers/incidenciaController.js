@@ -7,7 +7,10 @@ class IncidenciaController {
 
     static async list(req, res, next) {
         try {
-            var list_incidencia = await Incidencia.find().populate('codiExemplar').populate('codiLocalitzacio');
+            var list_incidencia = await Incidencia.find()
+                .populate('codiExemplar')
+                .populate('codiLocalitzacio')
+                .sort({ codi: 1 });
             var list_material = await Material.find();
             res.render('incidencies/list', { list: list_incidencia, list_mat: list_material })
         }
@@ -66,8 +69,10 @@ class IncidenciaController {
                 return next(err);
             }
             // Success.
-            res.render("incidencies/update", { list: list_incidencia, list_pri: list_prioritat, 
-                list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat });
+            res.render("incidencies/update", {
+                list: list_incidencia, list_pri: list_prioritat,
+                list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat
+            });
         });
 
     }
@@ -99,13 +104,17 @@ class IncidenciaController {
             function (err, list_incidenciaFound) {
                 if (err) {
 
-                    res.render("incidencies/update", { list: list_incidencia, list_pri: list_prioritat, 
-                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, error: err.message });
+                    res.render("incidencies/update", {
+                        list: list_incidencia, list_pri: list_prioritat,
+                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, error: err.message
+                    });
 
                 }
 
-                res.render("incidencies/update", { list: list_incidencia, list_pri: list_prioritat, 
-                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, message: 'Incidencia actualitzada' });
+                res.render("incidencies/update", {
+                    list: list_incidencia, list_pri: list_prioritat,
+                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, message: 'Incidencia actualitzada'
+                });
             }
         );
     }
