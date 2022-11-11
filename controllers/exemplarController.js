@@ -6,7 +6,7 @@ class ExemplarController {
 
   static async list(req, res, next) {
     try {
-      var list_exemplar = await Exemplar.find();
+      var list_exemplar = await Exemplar.find().sort({ codi: 1, codiMaterial: 1 });
       res.render('exemplar/list', { list: list_exemplar })
     }
     catch (e) {
@@ -21,7 +21,7 @@ class ExemplarController {
     res.render('exemplar/new', { localitzacioList: localitzacio_list, materialList: material_list })
 
   }
-  
+
   static async create_post(req, res) {
     // console.log(req.body)
     // req.body serà algo similar a  { name: 'Aventura' }
@@ -55,7 +55,7 @@ class ExemplarController {
   static update_post(req, res, next) {
 
 
-    if(req.body.demarca===undefined) req.body.demarca=false;
+    if (req.body.demarca === undefined) req.body.demarca = false;
     var exemplar = {
       codi: req.body.codi,
       demarca: req.body.demarca,

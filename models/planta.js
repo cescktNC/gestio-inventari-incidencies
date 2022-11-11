@@ -3,10 +3,10 @@ var mongoose = require("mongoose"); // Diem que utilitzem el paquet 'mongoose'
 var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les collecions de MongoDB
 
 var PlantaSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
-    
-    codi :{ type: Number, required: true },
-    codiCentre : [{ type: Schema.ObjectId, ref: "Centre" }],
-    planol: {type: String, required: true },
+
+    codi: { type: Number, required: true },
+    codiCentre: [{ type: Schema.ObjectId, ref: "Centre" }],
+    planol: { type: String, required: true },
 
 });
 

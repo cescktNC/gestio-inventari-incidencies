@@ -9,8 +9,25 @@ var PrestecSchema = new Schema({ // Diem que creem un nou esquema per a les coll
     dataRetorn: { type: Date, required: true},
     codiExemplar : [{ type: Schema.ObjectId, ref: "Exemplar" }],
     dniUsuari: [{ type: Schema.ObjectId, ref: "Usuari"}],
-    
 
+});
+
+PrestecSchema.virtual('formatarDataInici')
+.get(function(){
+  // el valor devuelto será un string en formato 'dd-mm-yyyy'
+  return this.dataInici.toISOString().substring(0,10).split("-").reverse().join("-");
+});
+
+PrestecSchema.virtual('formatarDataRetorn')
+.get(function(){
+  // el valor devuelto será un string en formato 'dd-mm-yyyy'
+  return this.dataRetorn.toISOString().substring(0,10).split("-").reverse().join("-");
+});
+
+PrestecSchema.virtual('updateDate')
+.get(function(){
+  // el valor devuelto será un string en formato 'dd-mm-yyyy'
+  return this.dataRetorn.toISOString().substring(0,10);
 });
 
 

@@ -4,7 +4,7 @@ class CategoriaController {
 
     static async list(req, res, next) {
         try {
-            var list_categoria = await Categoria.find();
+            var list_categoria = await Categoria.find().sort({ codi: 1 });
             res.render('categories/list', { list: list_categoria })
         }
         catch (e) {
@@ -50,22 +50,22 @@ class CategoriaController {
             nom: req.body.nom,
             codi: req.body.codi,
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-          });    
-        
-          Categoria.findByIdAndUpdate(
+        });
+
+        Categoria.findByIdAndUpdate(
             req.params.id,
             list_categoria,
-            {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+            { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
             function (err, list_categoriaFound) {
-              if (err) {
-                
-                res.render("categories/update", { list: list_categoria, error: err.message });
-    
-              }          
-              
-              res.render("categories/update", { list: list_categoria, message: 'Categoria actualitzada'});
+                if (err) {
+
+                    res.render("categories/update", { list: list_categoria, error: err.message });
+
+                }
+
+                res.render("categories/update", { list: list_categoria, message: 'Categoria actualitzada' });
             }
-          );
+        );
     }
 
     static async delete_get(req, res, next) {
