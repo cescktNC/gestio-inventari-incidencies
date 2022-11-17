@@ -18,5 +18,17 @@ var UsuariSchema = new Schema({
     password: { type: String, required: true },
 });
 
+UsuariSchema.methods.checkLetterDNI = function(dni) {
+    let letters = ['T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'];
+    dni = dni.replaceAll(' ', ''); // Eliminar espais en blanc
+    let lletra = dni.substring(dni.length - 1); // S'extreu la lletra
+    dni = dni.substring(0, dni.length - 1); // S'extreu la numeració
+    let index = dni % 23;
+
+    if (letters[index] == lletra) {
+        return true;
+    } else return false;
+};
+
 // Es creo i s'exporta el model
 module.exports = mongoose.model("Usuari", UsuariSchema);

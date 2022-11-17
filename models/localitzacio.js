@@ -7,7 +7,6 @@ var LocalitzacioSchema = new Schema({
     nom: { type: String, required: true, },
     codiCentre: [{ type: Schema.ObjectId, ref: "Centre" }],
     especial: { type: Boolean,  required: true,},
-
 });
 
 

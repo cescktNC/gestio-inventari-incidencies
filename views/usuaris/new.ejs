@@ -38,11 +38,11 @@
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" required>
+                        <input type="email" name="email" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" oninvalid="setCustomValidity('Entre 8 i 16 caràcters \(almenys una mínuscula, una majúscula, un número i un símbol\)')" name="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$" required>
+                        <input type="password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

@@ -42,12 +42,23 @@
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email" value="<%= usuari.email %>" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" required>
+                        <input type="email" name="email" value="<%= usuari.email %>" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" value="<%= usuari.password %>" oninvalid="setCustomValidity('Entre 8 i 16 caràcters \(almenys una mínuscula, una majúscula, un número i un símbol\)')" name="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$" required>
+
+                    <p>
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#password" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Canviar Password
+                        </a>
+                    </p>
+                    <div class="collapse" id="password">
+                        <div class="form-group card card-body">
+                            <label for="password">Contrasenya Nova</label>
+                            <input type="password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" name="password1" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                            <label for="password">Repeteix Contrasenya Nova</label>
+                            <input type="password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" name="password2" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                        </div>
                     </div>
+                    
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a class="btn btn-danger" href="/usuaris/delete/<%= usuari._id %>" role="button">Delete</a>
                 </form>
@@ -55,6 +66,11 @@
                 <% if (typeof error !== "undefined") { %>
                     <div class="alert alert-primary mt-2" role="alert">   
                         <p><%= error %></p>
+                    </div>
+                <% } %>
+                <% if (typeof message !== "undefined") { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p><%= message %></p>
                     </div>
                 <% } %>
             </div>

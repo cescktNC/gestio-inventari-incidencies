@@ -45,8 +45,6 @@ app.get('/', function (req, res) {
   res.render('home');
 });
 
-
-
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
@@ -68,13 +66,8 @@ app.use('/cadira', cadiraRouter);
 app.use('/incidencies', incidenciaRouter);
 app.use('/prestec', prestecRouter);
 
-
-
-
-
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
 //app.use('/genres', genresRouter);       // Qualssevol ruta amb la barra '/genres' anirà al fitxer 'genresRouter'
-
 
 module.exports = app;
