@@ -31,7 +31,7 @@
 		  		<% list.forEach(function(planta) { %>
 				    <tr>		      
 				      <td><%= planta.codi %></td>
-				      <td><%= planta.codiCentre %></td>
+				      <td><%= planta.codiCentre[0].codi %></td>
                       <td><%= planta.planol %></td>
 					  <td>					      	
 						<a class="btn btn-secondary" href="/planta/update/<%=planta._id%>" class="card-link">Edit</a>

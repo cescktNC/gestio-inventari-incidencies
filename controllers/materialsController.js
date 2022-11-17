@@ -8,6 +8,7 @@ class MaterialController {
 
         Material.find()
             .populate('codiCategoria')
+            .sort({ codi: 1, codiCategoria: 1 })
             .exec(function (err, list) {
                 if (err) {
                     return next(err);
@@ -52,7 +53,7 @@ class MaterialController {
             }
             if (list_material == null) {
                 // No results.
-                var err = new Error("Material not found");
+                var err = new Error("No hem trobat el material");
                 err.status = 404;
                 return next(err);
             }
@@ -86,7 +87,7 @@ class MaterialController {
                 if (err) {
                     res.render("materials/update", { list: list_material, list_cat: list_categoria, error: err.message });
                 }
-                res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material Updated' });
+                res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material actualitzat' });
             }
         );
     }
@@ -115,7 +116,7 @@ class MaterialController {
     }
 
     static async import_post(req, res, next) {
-        
+
         /*console.log('a')
         const importData = async (model, dades) => {
             console.log('c')

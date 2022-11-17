@@ -6,7 +6,10 @@ class ExemplarController {
 
   static async list(req, res, next) {
     try {
-      var list_exemplar = await Exemplar.find();
+      var list_exemplar = await Exemplar.find()
+        .populate('codiMaterial')
+        .populate('codiLocalitzacio')
+        .sort({ codi: 1, codiMaterial: 1 });
       res.render('exemplar/list', { list: list_exemplar })
     }
     catch (e) {
@@ -21,7 +24,7 @@ class ExemplarController {
     res.render('exemplar/new', { localitzacioList: localitzacio_list, materialList: material_list })
 
   }
-  
+
   static async create_post(req, res) {
     // console.log(req.body)
     // req.body serà algo similar a  { name: 'Aventura' }
@@ -43,7 +46,7 @@ class ExemplarController {
       }
       if (exemplar_list == null) {
         // No results.
-        var err = new Error("Exemplar not found");
+        var err = new Error("Exemplar no trobat");
         err.status = 404;
         return next(err);
       }
@@ -55,7 +58,7 @@ class ExemplarController {
   static update_post(req, res, next) {
 
 
-    if(req.body.demarca===undefined) req.body.demarca=false;
+    if (req.body.demarca === undefined) req.body.demarca = false;
     var exemplar = {
       codi: req.body.codi,
       demarca: req.body.demarca,
@@ -74,7 +77,7 @@ class ExemplarController {
           res.render("exemplar/update", { Exemplar: Exemplar, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("exemplar/update", { Exemplar: Exemplar, message: 'Exemplar Updated' });
+        res.render("exemplar/update", { Exemplar: Exemplar, message: 'Exemplar actualitzat' });
       }
     );
   }

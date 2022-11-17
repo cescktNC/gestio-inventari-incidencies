@@ -27,8 +27,8 @@
                             <th scope="col">prioritat</th>
                             <th scope="col">descripció</th>
                             <th scope="col">ubicació</th>
-                            <th scope="col">codi del Exemplar</th>
-                            <th scope="col">codi del Centre</th>
+                            <th scope="col">Material</th>
+                            <th scope="col">Localització</th>
                             <th scope="col">
                                 <a href="/incidencies/create" class="btn btn-primary">New</a>
                             </th>
@@ -47,7 +47,7 @@
                                     <%= incidencia.estat %>
                                 </td>
                                 <td>
-                                    <%= incidencia.data %>
+                                    <%= incidencia.formatarDate %>
                                 </td>
                                 <td>
                                     <%= incidencia.proposta %>
@@ -62,10 +62,12 @@
                                     <%= incidencia.ubicacio %>
                                 </td>
                                 <td>
-                                    <%= incidencia.codiExemplar.codiMaterial.nom %>
+                                    <% list_mat.forEach(function(material) { if(incidencia.codiExemplar[0].codiMaterial == material.id) {%>
+                                        <%= material.nom %>
+                                    <% }}); %>
                                 </td>
                                 <td>
-                                    <%= incidencia.codiLocalitzacio.nom %>
+                                    <%= incidencia.codiLocalitzacio[0].nom %>
                                 </td>
                                 <td>
                                     <a href="/incidencies/update/<%=incidencia._id%>" class="btn btn-secondary">Edit</a>

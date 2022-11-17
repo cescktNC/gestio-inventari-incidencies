@@ -1,6 +1,10 @@
 var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv'); // Per a insertar el fitxer '.env' amb totes les variables (**)
+//var favicon = require('serve-favicon');
+
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));  //Preguntar a Ramón
+
 
 var indexRouter = require('./routes/indexRouter');
 var categoriesRouter = require('./routes/categoriesRouter');
@@ -22,7 +26,7 @@ var app = express();
 dotenv.config();  // Per a poder utilitzar les variables del fitxer '.env' (**)
 
 const port = process.env.PORT || 8000;  // Ja es pot accedir a les variables de la següent manera 
-                                        //'process.env.nom_variable' (**)
+//'process.env.nom_variable' (**)
 
 // Importar el mòdul 'mongoose' i configurar la connexió a la base de dades de MongoDB
 var mongoose = require('mongoose');

@@ -1,17 +1,18 @@
-const cadira = require("../models/cadira");
 var Cadira = require("../models/cadira");
 var Sessio = require("../models/sessio");
 
-class cadiracontroller {
+class cadiraController {
 
   static async list(req, res, next) {
-    try {
-      var list_cadira = await Cadira.find();
-      res.render('cadira/list', { list: list_cadira })
-    }
-    catch (e) {
-      res.send('Error!');
-    }
+    Cadira.find()
+      .populate('codiSessio')
+      .sort({ codiSessio: 1, numeroCadira: 1 })
+      .exec(function (err, list) {
+        if (err) {
+          return next(err);
+        }
+        res.render('cadira/list', { list: list })
+      });
   }
 
   static async create_get(req, res, next) {
@@ -39,7 +40,7 @@ class cadiracontroller {
       }
       if (cadira_list == null) {
         // No results.
-        var err = new Error("Cadira not found");
+        var err = new Error("Cadira ja assignada");
         err.status = 404;
         return next(err);
       }
@@ -65,7 +66,7 @@ class cadiracontroller {
           res.render("cadira/update", { Cadira: Cadira, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("cadira/update", { Cadira: Cadira, message: 'Cadira Updated' });
+        res.render("cadira/update", { Cadira: Cadira, message: 'Cadira actualitzada' });
       }
     );
   }
@@ -88,4 +89,4 @@ class cadiracontroller {
   }
 
 }
-module.exports=cadiracontroller;
+module.exports = cadiraController;
