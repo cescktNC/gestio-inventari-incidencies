@@ -28,13 +28,31 @@ class reservaController {
     // req.body serà algo similar a  { name: 'Aventura' }
     const localitzacio_list = await Localitzacio.find();
     const usuari_list = await Usuari.find();
-    Reserva.create(req.body, function (error, newReserva) {
-      if (error) {
-        res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list })
-      } else {
-        res.redirect('/reserva')
-      }
-    })
+    const reserves_list = await Reserva.find();
+
+    let dataReserva = new Date(req.body.data.toString());
+    let dataAvui = new Date();
+    if (dataReserva >= dataAvui) {
+      var reserva = {
+        codi: ++reserves_list.pop().codi,
+        hora: req.body.hora,
+        data: dataReserva,
+        dniUsuari: req.body.dniUsuari,
+        codiLocalitzacio: req.body.codiLocalitzacio,
+      };
+  
+      Reserva.create(reserva, function (error, newReserva) {
+        if (error) {
+          res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list })
+        } else {
+          res.redirect('/reserva')
+        }
+      });
+    } else {
+      let error = new Error("La data no pot ser anterior a la data actual.");
+      res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
+    }
+    
   }
 
   static update_get(req, res, next) {
