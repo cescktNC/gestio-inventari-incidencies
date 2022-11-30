@@ -12,12 +12,12 @@
     <main>
         <div class="card mt-4">
             <div class="card-header">
-                <h5 class="card-title">Confirm Delete User</h5>
+                <h5 class="card-title">Eliminar usuari</h5>
             </div>
             <div class="card-body">
                 <form method="POST" action="/usuaris/delete/<%= id %>">		
                     <div class="alert alert-danger" role="alert">
-                        Do you really want to delete this User?
+                        Estàs segur d'eliminar aquest usuari?
                     </div>	
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
