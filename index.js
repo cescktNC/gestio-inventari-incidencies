@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv'); // Per a insertar el fitxer '.env' amb totes les variables (**)
-//var favicon = require('serve-favicon');
+var session = require('express-session');
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));  //Preguntar a Ramón
 
@@ -33,6 +33,15 @@ var mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
+// Configuració de la sessió
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  name: 'M12', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'M12'
+  saveUninitialized: true,
+  cookie: { maxAge: 1000*60*60 }, // ms de durada de la cookie
+}));
+
 //mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -44,6 +53,16 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
+
+// Guardar dades d'usuari a la variable local per a poder accedir des de les vistes
+app.use(function (req, res, next) {
+  if(req.session.data) {
+    res.locals.userId = req.session.data.userId;
+    res.locals.fullname = req.session.data.fullname;
+    res.locals.role = req.session.data.role;
+  }
+  next(); 
+});
 
 app.get('/', function (req, res) {
   res.render('home');
