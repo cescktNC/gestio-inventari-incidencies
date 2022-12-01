@@ -38,7 +38,7 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
-  name: 'M12', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'M12'
+  name: 'usuari', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'M12'
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 }, // ms de durada de la cookie
 }));
