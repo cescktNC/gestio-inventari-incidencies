@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // Require user controller.
-var authController = require('../controllers/authController');
+var authController = require('../controllers/autenticacioController');
 
 
 
