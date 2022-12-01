@@ -48,7 +48,9 @@
                         <label for="codiCategoria">Categoria</label>
                         <select name="codiCategoria">
                             <% list_cat.forEach(function(categoria) { %>
-                                <option value="<%= categoria.id %>"><%= categoria.nom %></option>
+                                <option value="<%= categoria.id %>">
+                                    <%= categoria.nom %>
+                                </option>
                             <% }); %>
                         </select>
                     </div>
@@ -62,7 +64,7 @@
                             <%= error %>
                         </p>
                     </div>
-                    <% } %>
+                <% } %>
 
             </div>
         </div>

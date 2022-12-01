@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
+	<main>
 
 	<div class="card mt-4">
 	  <div class="card-header">
@@ -17,34 +19,37 @@
 	  </div>
 	  <div class="card-body">
 
-			
-				<form method="POST" action="/sessio/delete/<%= id %>">		
-					
+				<form method="POST" action="/sessio/delete/<%= id %>">
+
 					<div class="alert alert-danger" role="alert">
   					Estàs segur d'eliminar aquesta sessió?
 					</div>	
+
 					<button type="submit" class="btn btn-danger">
 						Delete
 					</button>
-			  </form>	
-		
+				</form>
 
-	<% if (typeof error !== "undefined") { %>
-		<div class="alert alert-primary mt-2" role="alert">
-		    <p>Form could not be submitted due to the following error:</p>
-		    <p><%= error %></p>
+
+				<% if (typeof error !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p>Form could not be submitted due to the following error:</p>
+						<p>
+							<%= error %>
+						</p>
+					</div>
+				<% } %>
+
+			</div>
+
 		</div>
-	<% } %>
 
-	</div>
-		
-	</div>
+	</main>
 
-</main>
-
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>

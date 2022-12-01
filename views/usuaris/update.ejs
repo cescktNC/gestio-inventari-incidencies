@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
     <header>
@@ -31,53 +33,71 @@
                     <div class="form-group">
                         <label for="carrec">Càrrec</label><br>
                         <select name="carrec">
-                            <% carrecs.forEach(function(carrec) { 
-                                if (carrec == usuari.carrec) { %>
-                                    <option value="<%= carrec %>" selected><%= carrec %></option>
+                            <% carrecs.forEach(function(carrec) { if (carrec==usuari.carrec) { %>
+                                <option value="<%= carrec %>" selected>
+                                    <%= carrec %>
+                                </option>
                                 <% } else { %>
-                                    <option value="<%= carrec %>"><%= carrec %></option>
-                                <% }
-                            }); %>
+                                    <option value="<%= carrec %>">
+                                        <%= carrec %>
+                                    </option>
+                                <% } %>
+                            <% }); %>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email" value="<%= usuari.email %>" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')" placeholder="exemple@domini.com" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" class="form-control" required>
+                        <input type="email" name="email" value="<%= usuari.email %>"
+                            oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')"
+                            placeholder="exemple@domini.com" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+                            class="form-control" required>
                     </div>
 
                     <p>
-                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#password" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#password" role="button"
+                            aria-expanded="false" aria-controls="collapseExample">
                             Canviar Password
                         </a>
                     </p>
                     <div class="collapse" id="password">
                         <div class="form-group card card-body">
                             <label for="password">Contrasenya Nova</label>
-                            <input type="password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" name="password1" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                            <input type="password"
+                                oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
+                                name="password1" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                             <label for="password">Repeteix Contrasenya Nova</label>
-                            <input type="password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" name="password2" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                            <input type="password"
+                                oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
+                                name="password2" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                         </div>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a class="btn btn-danger" href="/usuaris/delete/<%= usuari._id %>" role="button">Delete</a>
                 </form>
 
-                <% if (typeof error !== "undefined") { %>
-                    <div class="alert alert-primary mt-2" role="alert">   
-                        <p><%= error %></p>
-                    </div>
-                <% } %>
-                <% if (typeof message !== "undefined") { %>
+                <% if (typeof error !=="undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
-                        <p><%= message %></p>
+                        <p>
+                            <%= error %>
+                        </p>
                     </div>
-                <% } %>
+                    <% } %>
+                    <% if (typeof message !=="undefined" ) { %>
+                        <div class="alert alert-primary mt-2" role="alert">
+                            <p>
+                                <%= message %>
+                            </p>
+                        </div>
+                    <% } %>
             </div>
         </div>
     </main>
 
-    <footer><%- include('../partials/footer'); %></footer>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
 </body>
+
 </html>
