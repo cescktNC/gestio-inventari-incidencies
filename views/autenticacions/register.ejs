@@ -29,15 +29,15 @@
                         </div>
                         <div class="col-12">
                              <label for="email">Email</label>
-                             <input type="text" name="email"  value="<%= usuari.email %>" class="form-control" placeholder="exemple@exemple.com">
+                             <input type="text" name="email"  value="<%= usuari.email %>" oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')"placeholder="exemple@domini.com" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" class="form-control" required>
                         </div>
                         <div class="col-12">
                              <label for="password">Contrasenya</label>
-                             <input type="password" name="password" class="form-control" placeholder="contrasenya">
+                             <input type="password" name="password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                         </div>
                         <div class="col-12">
                             <label for="confirm_password">Confirma Contrasenya</label>
-                            <input type="password" name="confirm_password" class="form-control" placeholder="confirma contrasenya">
+                            <input type="password" name="confirm_password" oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                        </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-dark float-end">Guardar</button>
