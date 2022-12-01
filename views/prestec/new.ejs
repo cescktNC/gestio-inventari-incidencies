@@ -36,21 +36,21 @@
                         <label for="codiExemplar">Codi Exemplar</label>
                         <select type="text" name="codiExemplar" class="form-control">
                             <% exemplarList.forEach(function(codiExemplar) { %>
-                           <option value="<%= codiExemplar.id %>">		      
-                             <%= codiExemplar.codi %>				  	      
-                           </option>
-                          <% }); %>	
-                    </select>			
+                                <option value="<%= codiExemplar.id %>">
+                                    <%= codiExemplar.codi %>
+                                </option>
+                            <% }); %>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="dniUsuari">DNI de l'usuari</label>
                         <select type="text" name="dniUsuari" class="form-control">
                             <% usuariList.forEach(function(dniUsuari) { %>
-                           <option value="<%= dniUsuari.id %>">		      
-                             <%= dniUsuari.dni %>				  	      
-                           </option>
-                          <% }); %>	
-                    </select>			
+                                <option value="<%= dniUsuari.id %>">
+                                    <%= dniUsuari.dni %>
+                                </option>
+                            <% }); %>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Save
                     </button>
@@ -62,7 +62,7 @@
                             <%= error %>
                         </p>
                     </div>
-                    <% } %>
+                <% } %>
 
             </div>
         </div>

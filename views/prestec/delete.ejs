@@ -1,48 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
-	<div class="card mt-2" style="width: 25rem;">
-    <div class="card-body">
-	    <h5 class="card-title">Confirm Delete Prestec</h5>
-		
-			
-				<form method="POST" action="/prestec/delete/<%= id %>">		
-				
+	<main>
+		<div class="card mt-2" style="width: 25rem;">
+			<div class="card-body">
+				<h5 class="card-title">Confirm Delete Prestec</h5>
+
+
+				<form method="POST" action="/prestec/delete/<%= id %>">
+
 					<div class="alert alert-danger" role="alert">
 						Segur que vols eliminar el prestec?
-					</div>	
+					</div>
 					<button type="submit" class="btn btn-danger">
 						Delete
 					</button>
-			  </form>
-				
-		
+				</form>
 
-	<% if (typeof error !== "undefined") { %>
-		<div class="alert alert-primary mt-2" role="alert">
-		    <p>Form could not be submitted due to the following error:</p>
-		    <p><%= error %></p>
+
+
+				<% if (typeof error !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p>Form could not be submitted due to the following error:</p>
+						<p>
+							<%= error %>
+						</p>
+					</div>
+				<% } %>
+
+			</div>
+
 		</div>
-	<% } %>
 
-	</div>
-		
-	</div>
+	</main>
 
-</main>
-
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>

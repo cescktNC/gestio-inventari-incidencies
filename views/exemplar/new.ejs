@@ -28,7 +28,7 @@
                         <label for="demarca">Demarca</label> <br>
                         <input type="checkbox" id="true" name="demarca" value="true">True<br>
                         <input type="checkbox" id="false" name="demarca" value="false">False
-                       
+
                     </div>
                     <div class="form-group">
                         <label for="qr">QR</label>
@@ -38,24 +38,23 @@
                         <label for="codiMaterial">codiMaterial</label>
                         <select type="text" name="codiMaterial" class="form-control">
                             <% materialList.forEach(function(codiMaterial) { %>
-                           <option value="<%= codiMaterial.id %>">		      
-                             <%= codiMaterial.codi %>				  	      
-                           </option>
-                          <% }); %>	
-                    </select>			
+                                <option value="<%= codiMaterial.id %>">
+                                    <%= codiMaterial.codi %>
+                                </option>
+                            <% }); %>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="codiLocalitzacio">CodiLocalitzacio</label>
                         <select type="text" name="codiLocalitzacio" class="form-control">
                             <% localitzacioList.forEach(function(CodiLocalitzacio) { %>
-                           <option value="<%= CodiLocalitzacio.id %>">		      
-                             <%= CodiLocalitzacio.codi %>				  	      
-                           </option>
-                          <% }); %>	
-                    </select>			
+                                <option value="<%= CodiLocalitzacio.id %>">
+                                    <%= CodiLocalitzacio.codi %>
+                                </option>
+                            <% }); %>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save
-                    </button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </form>
 
                 <% if (typeof error !=="undefined" ) { %>
@@ -64,7 +63,7 @@
                             <%= error %>
                         </p>
                     </div>
-                    <% } %>
+                <% } %>
 
             </div>
         </div>

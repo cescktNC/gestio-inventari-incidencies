@@ -1,63 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
-	<div class="card mt-2">
-    <div class="card-body">
-	    <h5 class="card-title">Planta</h5>
+	<main>
+		<div class="card mt-2">
+			<div class="card-body">
+				<h5 class="card-title">Planta</h5>
 
-								 
-				      	 
-		<table class="table table-striped">
-	  		<thead>
-			    <tr>		      
-			      <th scope="col">Codi</th>
-			      <th scope="col">Codi del Centre</th>
-                  <th scope="col">Planol</th>
-			      <th scope="col">			      	
-				      <a href="/planta/create" class="btn btn-primary">New</a>
-			      </th>
-			    </tr>
-	  	</thead>
-		  	<tbody>
-		  		<% list.forEach(function(planta) { %>
-				    <tr>		      
-				      <td><%= planta.codi %></td>
-				      <td><%= planta.codiCentre[0].codi %></td>
-                      <td><%= planta.planol %></td>
-					  <td>					      	
-						<a class="btn btn-secondary" href="/planta/update/<%=planta._id%>" class="card-link">Edit</a>
-					</td>
-						      
-				    </tr>
-		   		<% }); %>	     
-		    </tbody>
-	    </table>
-	    
-    
-	</div>
-		
-	</div>
-      
-  
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Codi</th>
+							<th scope="col">Codi del Centre</th>
+							<th scope="col">Planol</th>
+							<th scope="col">
+								<a href="/planta/create" class="btn btn-primary">New</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% list.forEach(function(planta) { %>
+							<tr>
+								<td>
+									<%= planta.codi %>
+								</td>
+								<td>
+									<%= planta.codiCentre[0].codi %>
+								</td>
+								<td>
+									<%= planta.planol %>
+								</td>
+								<td>
+									<a class="btn btn-secondary" href="/planta/update/<%=planta._id%>"
+										class="card-link">Edit</a>
+								</td>
 
-    
-   
-  
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
 
-</main>
 
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+	</main>
+
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>
