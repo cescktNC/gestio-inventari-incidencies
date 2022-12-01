@@ -7,21 +7,22 @@
 
 <body class="container">
 
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
 
-	<main>
-		<div class="card mt-2" style="width: 25rem;">
-			<div class="card-body">
-				<h5 class="card-title">Confirm Delete Reserva</h5>
+<header>
+  <%- include('../partials/header'); %>
+</header>
 
-
-				<form method="POST" action="/reserva/delete/<%= id %>">
-
+<main>
+	<div class="card mt-2" style="width: 25rem;">
+    <div class="card-body">
+	    <h5 class="card-title">Eliminar reserva</h5>
+		
+				<form method="POST" action="/reserva/delete/<%= id %>">		
+				
 					<div class="alert alert-danger" role="alert">
-						Segur que vols eliminar la reserva?
-					</div>
+						Estàs segur que vols eliminar la reserva?
+					</div>	
+
 					<button type="submit" class="btn btn-danger">
 						Delete
 					</button>

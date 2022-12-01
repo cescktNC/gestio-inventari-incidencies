@@ -7,21 +7,23 @@
 
 <body class="container">
 
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
 
-	<main>
-		<div class="card mt-2" style="width: 25rem;">
-			<div class="card-body">
-				<h5 class="card-title">Confirm Delete Prestec</h5>
+<header>
+  <%- include('../partials/header'); %>
+</header>
 
-
-				<form method="POST" action="/prestec/delete/<%= id %>">
-
+<main>
+	<div class="card mt-2" style="width: 25rem;">
+    <div class="card-body">
+	    <h5 class="card-title">Eliminar prestec</h5>
+		
+			
+				<form method="POST" action="/prestec/delete/<%= id %>">		
+				
 					<div class="alert alert-danger" role="alert">
-						Segur que vols eliminar el prestec?
-					</div>
+						Estàs segur que vols eliminar el prestec?
+					</div>	
+
 					<button type="submit" class="btn btn-danger">
 						Delete
 					</button>
