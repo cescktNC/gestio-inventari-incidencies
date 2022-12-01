@@ -20,6 +20,7 @@ var cadiraRouter = require('./routes/cadiraRouter');
 var plantaRouter = require('./routes/plantaRouter');
 var prestecRouter = require('./routes/prestecRouter');
 var incidenciaRouter = require('./routes/incidenciesRouter');
+var authRouter = require('./routes/authRouter');
 
 var app = express();
 
@@ -39,7 +40,7 @@ app.use(session({
   resave: false,
   name: 'M12', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'M12'
   saveUninitialized: true,
-  cookie: { maxAge: 1000*60*60 }, // ms de durada de la cookie
+  cookie: { maxAge: 1000 * 60 * 60 }, // ms de durada de la cookie
 }));
 
 //mongoose.Promise = global.Promise;
@@ -56,12 +57,12 @@ app.use(express.static(path.join(__dirname + '/public')));
 
 // Guardar dades d'usuari a la variable local per a poder accedir des de les vistes
 app.use(function (req, res, next) {
-  if(req.session.data) {
+  if (req.session.data) {
     res.locals.userId = req.session.data.userId;
     res.locals.fullname = req.session.data.fullname;
     res.locals.role = req.session.data.role;
   }
-  next(); 
+  next();
 });
 
 app.get('/', function (req, res) {
@@ -88,6 +89,7 @@ app.use('/reserva', reservaRouter);
 app.use('/cadira', cadiraRouter);
 app.use('/incidencies', incidenciaRouter);
 app.use('/prestec', prestecRouter);
+app.use('/autenticacions', authRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
