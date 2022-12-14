@@ -147,4 +147,4 @@ class autenticacioController {
 
 }
 
-module.exports = authController;
+module.exports = autenticacioController;
