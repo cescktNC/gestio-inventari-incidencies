@@ -64,22 +64,26 @@
                                 <td>
                                 </td>
                             </tr>
-                            <% }); %>
+                        <% }); %>
                     </tbody>
                 </table>
 
-                <% if (typeof error !== "undefined") { %>
+                <% if (typeof error !=="undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
-                        <p><%= error %></p>
+                        <p>
+                            <%= error %>
+                        </p>
                     </div>
                 <% } %>
-        
-                <% if (typeof message !== "undefined") { %>
+
+                <% if (typeof message !=="undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
-                        <p><%= message %></p>
+                        <p>
+                            <%= message %>
+                        </p>
                     </div>
                 <% } %>
-                
+
             </div>
 
         </div>

@@ -1,83 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+    <%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
 
-<main>
+    <main>
 
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Edit Material</h5>
-	  </div>
-	  <div class="card-body">
-	
-		<form method="POST" enctype="multipart/form-data" action="/materials/update/<%= list.id %>">
-            <div class="form-group">
-                <label for="nom">Name</label>
-                <input type="text" name="nom" class="form-control" value="<%= list.nom %>">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Edit Material</h5>
             </div>
-            <div class="form-group">
-                <label for="codi">Codi</label>
-                <input type="text" name="codi" class="form-control" value="<%= list.codi %>">
+            <div class="card-body">
+
+                <form method="POST" enctype="multipart/form-data" action="/materials/update/<%= list.id %>">
+                    <div class="form-group">
+                        <label for="nom">Name</label>
+                        <input type="text" name="nom" class="form-control" value="<%= list.nom %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="codi">Codi</label>
+                        <input type="text" name="codi" class="form-control" value="<%= list.codi %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcio">Descripció</label>
+                        <input type="text" name="descripcio" class="form-control" value="<%= list.descripcio %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="preuCompra">Preu de compra</label>
+                        <input type="number" name="preuCompra" step="0.01" class="form-control"
+                            value="<%= list.preuCompra %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="anyCompra">Any de compra</label>
+                        <input type="date" name="anyCompra" class="form-control" value="<%= list.updateDate %>">
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="fotografia">Fotografia</label>
+                        <input type="file" name="fotografia" accept="image/png, .jpeg, .jpg" class="form-control">
+                    </div>-->
+                    <div class="form-group">
+                        <label for="codiCategoria">Categoria</label>
+                        <select name="codiCategoria">
+                            <% list_cat.forEach(function(categoria) { if (list.codiCategoria==categoria.id) {%>
+                                <option value="<%= categoria.id %>" selected>
+                                    <%= categoria.nom %>
+                                </option>
+                                <% } else { %>
+                                    <option value="<%= categoria.id %>">
+                                        <%= categoria.nom %>
+                                    </option>
+                                    <% }}); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a class="btn btn-danger" href="/materials/delete/<%= list.id %>" role="button">Delete</a>
+
+                </form>
+
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                <% } %>
+
+                <% if (typeof message !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= message %>
+                        </p>
+                    </div>
+                <% } %>
+
             </div>
-            <div class="form-group">
-                <label for="descripcio">Descripció</label>
-                <input type="text" name="descripcio" class="form-control" value="<%= list.descripcio %>">
-            </div>
-            <div class="form-group"> 
-                <label for="preuCompra">Preu de compra</label>
-                <input type="number" name="preuCompra" step="0.01" class="form-control" value="<%= list.preuCompra %>">
-            </div>
-            <div class="form-group">
-                <label for="anyCompra">Any de compra</label>
-                <input type="date" name="anyCompra" class="form-control" value="<%= list.updateDate %>">
-            </div>
-            <!--<div class="form-group">
-                <label for="fotografia">Fotografia</label>
-                <input type="file" name="fotografia" accept="image/png, .jpeg, .jpg" class="form-control">
-            </div>-->
-            <div class="form-group">
-                <label for="codiCategoria">Categoria</label>
-                <select name="codiCategoria">
-                    <% list_cat.forEach(function(categoria) { if (list.codiCategoria == categoria.id) {%>
-                        <option value="<%= categoria.id %>" selected><%= categoria.nom %></option>
-                    <% } else { %>
-                        <option value="<%= categoria.id %>"><%= categoria.nom %></option>
-                    <% }}); %>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-			<a class="btn btn-danger" href="/materials/delete/<%= list.id %>" role="button">Delete</a>
 
-		</form>
+        </div>
 
-		<% if (typeof error !== "undefined") { %>
-			<div class="alert alert-primary mt-2" role="alert">
-			    <p><%= error %></p>
-			</div>
-		<% } %>
+    </main>
 
-		<% if (typeof message !== "undefined") { %>
-			<div class="alert alert-primary mt-2" role="alert">
-			    <p><%= message %></p>
-			</div>
-		<% } %>
-
-	</div>
-		
-	</div>
-
-</main>
-
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
 </body>
+
 </html>

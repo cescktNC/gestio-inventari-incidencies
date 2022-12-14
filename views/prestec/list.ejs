@@ -1,67 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
-	<div class="card mt-2">
-    <div class="card-body">
-	    <h5 class="card-title">Prestec</h5>
+	<main>
+		<div class="card mt-2">
+			<div class="card-body">
+				<h5 class="card-title">Prestec</h5>
 
-								 
-				      	 
-		<table class="table table-striped">
-	  		<thead>
-			    <tr>		      
-			      <th scope="col">Codi</th>
-			      <th scope="col">Data d'inici</th>
-			      <th scope="col">Data Retorn</th>
-				  <th scope="col">Codi Exemplar</th>
-                  <th scope="col">DNI Usuari</th>
-			      <th scope="col">			      	
-				      <a href="/prestec/create" class="btn btn-primary">New</a>
-			      </th>
-			    </tr>
-	  	</thead>
-		  	<tbody>
-		  		<% list.forEach(function(prestec) { %>
-				    <tr>		      
-				      <td><%= prestec.codi %></td>
-				      <td><%= prestec.formatarDataInici %></td>
-				      <td><%= prestec.formatarDataRetorn %></td>
-					  <td><%= prestec.codiExemplar[0].codi %></td>
-                      <td><%= prestec.dniUsuari[0].dni %></td>
-					  <td>					      	
-						<a class="btn btn-secondary" href="/prestec/update/<%=prestec._id%>" class="card-link">Edit</a>
-					</td>
-						      
-				    </tr>
-		   		<% }); %>	     
-		    </tbody>
-	    </table>
-	    
-    
-	</div>
-		
-	</div>
-      
-  
 
-    
-   
-  
 
-</main>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Codi</th>
+							<th scope="col">Data d'inici</th>
+							<th scope="col">Data Retorn</th>
+							<th scope="col">Codi Exemplar</th>
+							<th scope="col">DNI Usuari</th>
+							<th scope="col">
+								<a href="/prestec/create" class="btn btn-primary">New</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% list.forEach(function(prestec) { %>
+							<tr>
+								<td>
+									<%= prestec.codi %>
+								</td>
+								<td>
+									<%= prestec.formatarDataInici %>
+								</td>
+								<td>
+									<%= prestec.formatarDataRetorn %>
+								</td>
+								<td>
+									<%= prestec.codiExemplar[0].codi %>
+								</td>
+								<td>
+									<%= prestec.dniUsuari[0].dni %>
+								</td>
+								<td>
+									<a class="btn btn-secondary" href="/prestec/update/<%=prestec._id%>"
+										class="card-link">Edit</a>
+								</td>
 
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+	</main>
+
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>

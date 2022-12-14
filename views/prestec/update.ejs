@@ -1,54 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
+	<main>
 
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Edit Prestec</h5>
-	  </div>
-	  <div class="card-body">
-	
-		<form method="POST" action="/prestec/update/<%= Prestec._id %>">
-			<div class="form-group">
-				<label for="dataRetorn">Data Retorn</label>
-				<input type="date" name="dataRetorn" class="form-control" value="<%= Prestec.updateDate %>">
+		<div class="card mt-4">
+			<div class="card-header">
+				<h5 class="card-title">Edit Prestec</h5>
 			</div>
-			<button type="submit" class="btn btn-primary">Save
-			</button>
-			<a class="btn btn-danger" href="/prestec/delete/<%= Prestec._id %>" role="button">Delete</a>
+			<div class="card-body">
 
-		</form>
+				<form method="POST" action="/prestec/update/<%= Prestec._id %>">
+					<div class="form-group">
+						<label for="dataRetorn">Data Retorn</label>
+						<input type="date" name="dataRetorn" class="form-control" value="<%= Prestec.updateDate %>">
+					</div>
+					<button type="submit" class="btn btn-primary">Save
+					</button>
+					<a class="btn btn-danger" href="/prestec/delete/<%= Prestec._id %>" role="button">Delete</a>
 
-		<% if (typeof error !== "undefined") { %>
-			<div class="alert alert-primary mt-2" role="alert">
-			    <p><%= error %></p>
+				</form>
+
+				<% if (typeof error !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p>
+							<%= error %>
+						</p>
+					</div>
+				<% } %>
+
+				<% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p>
+							<%= message %>
+						</p>
+					</div>
+				<% } %>
+
 			</div>
-		<% } %>
 
-		<% if (typeof message !== "undefined") { %>
-			<div class="alert alert-primary mt-2" role="alert">
-			    <p><%= message %></p>
-			</div>
-		<% } %>
+		</div>
 
-	</div>
-		
-	</div>
+	</main>
 
-</main>
-
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>
