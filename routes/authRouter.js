@@ -10,7 +10,7 @@ var authController = require('../controllers/autenticacioController');
 router.get('/login', authController.login_get);
 
 // POST request for login page.
-router.post('/login', authController.loginRules, authController.login_post);
+router.post('/login', authController.loginRegles, authController.login_post);
 
 // GET request for logout page.
 router.get('/logout', authController.logout_get);
@@ -19,7 +19,8 @@ router.get('/logout', authController.logout_get);
 router.get('/register', authController.register_get);
 
 // POST request for create User.
-router.post('/register', authController.registerRules, authController.register_post);
+// router.post('/register', authController.registerRules, authController.register_post);
+router.post('/register', authController.loginRegles, authController.register_post);
 
 
 module.exports = router;
