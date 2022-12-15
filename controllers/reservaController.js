@@ -24,13 +24,11 @@ class reservaController {
 
   }
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
     const localitzacio_list = await Localitzacio.find();
     const usuari_list = await Usuari.find();
     const reserves_list = await Reserva.find();
 
-    let dataReserva = new Date(req.body.data.toString());
+    let dataReserva = new Date(req.body.data.toString() + 'T' + req.body.hora.split('-')[0].trim());
     let dataAvui = new Date();
     if (dataReserva >= dataAvui) {
       var reserva = {
