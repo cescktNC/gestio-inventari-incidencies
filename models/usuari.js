@@ -11,8 +11,13 @@ var UsuariSchema = new Schema({
     dni: { type: String },
     carrec: {
         type: String,
+<<<<<<< HEAD
         enum : ['Director','Professor','Alumne','Conserge','Administrador','Manteniment','Encarregat Inventari'],
         default: 'Professor'
+=======
+        enum : ['director','professor','alumne','conserge','administrador','manteniment','encarregatInventari'],
+        default: 'professor'
+>>>>>>> bd12da1f123b0b3332021853951549e7976b2578
     },
     email: {type: String, required: true },
     password: { type: String, required: true },
