@@ -10,7 +10,6 @@
     <header>
         <%- include('../partials/header'); %>
     </header>
-
     <main>
         <div class="card mt-2">
             <div class="card-body">
@@ -63,22 +62,25 @@
                                 </td>
                                 <td>
                                     <% list_mat.forEach(function(material) {
-                                        if(incidencia.codiExemplar[0].codiMaterial==material.id) {%>
-                                        <%= material.nom %>
-                                    <% }}); %>
+                                        if(incidencia.codiExemplar[0].codiMaterial == material.id) {%>
+                                            <%= material.nom %>
+                                        <% } %>
+                                    <% }); %>
                                 </td>
                                 <td>
                                     <%= incidencia.codiLocalitzacio[0].nom %>
                                 </td>
                                 <td>
-                                    <a href="/incidencies/update/<%=incidencia._id%>" class="btn btn-secondary">Edit</a>
+                                    <a href="/incidencies/update/<%=incidencia._id%>"
+                                        class="btn btn-secondary">Edit</a>
                                 </td>
                             </tr>
-                            <% }); %>
+                        <% }); %>
                     </tbody>
                 </table>
 
             </div>
+
 
         </div>
 
