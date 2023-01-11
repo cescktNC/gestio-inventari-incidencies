@@ -2,7 +2,6 @@ var Material = require('../models/material');
 var Categoria = require('../models/categoria');
 var fs = require('fs')
 
-
 class MaterialController {
     static async list(req, res, next) {
 
@@ -117,32 +116,23 @@ class MaterialController {
 
     static async import_post(req, res, next) {
 
-        /*console.log('a')
         const importData = async (model, dades) => {
-            console.log('c')
+            console.log('a')
             try {
-                console.log(res)
+                console.log('b')
                 await model.create(dades);
-                res.redirect('/materials');
                 console.log('a funcionat')
-                
-                //res.redirect('/materials', {massage: 'Dades importades correctament'});
+                res.redirect('/materials');
             } catch (error) {
-                console.log('error')
-                res.render('materials/import')
-                //res.render('materials/import', { message: error.message })
+                console.log(error.message)
+                res.render('materials/import', { message: error.message })
             }
 
         };
 
         var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
-        console.log('b')
-
-        //importData(Material, dades);
-        await Material.create(dades);
-        console.log('c')*/
-        //res.redirect('/materials');
-        res.render('materials/list')
+        importData(Material, dades);
+    
     }
 }
 

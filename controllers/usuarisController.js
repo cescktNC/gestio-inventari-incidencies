@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const Usuari = require("../models/usuari");
+var Usuari = require('../models/usuari');
 
 class UsuariController {
 
