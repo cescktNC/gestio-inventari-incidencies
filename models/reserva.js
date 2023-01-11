@@ -4,7 +4,7 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 
 var ReservaSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
     
-    codi :{ type: String, required: true },
+    codi :{ type: Number, required: true },
     hora: { type: String, required: true},
     data: { type: Date, required: true},
     dniUsuari: [{ type: Schema.ObjectId , ref: "Usuari"}],
