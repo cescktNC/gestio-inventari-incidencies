@@ -63,7 +63,6 @@ class UsuariController {
     }
 
     static async update_post(req, res, next) {
-
         // Flag per a comprovar que els passwords introduits siguin iguals
         let correctPassword = true;
         // Es recuperen el llistat de càrrecs

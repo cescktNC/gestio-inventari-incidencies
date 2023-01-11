@@ -20,7 +20,7 @@ router.get('/register', authController.register_get);
 
 // POST request for create User.
 // router.post('/register', authController.registerRules, authController.register_post);
-router.post('/register', authController.loginRegles, authController.register_post);
+router.post('/register', authController.registerRegles, authController.register_post);
 
 
 module.exports = router;
