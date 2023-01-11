@@ -32,7 +32,10 @@ class reservaController {
 
     let dataReserva = new Date(req.body.data.toString());
     let dataAvui = new Date();
-    if (dataReserva >= dataAvui) {
+    let diaReserva = dataReserva.getDate();
+    let diaAvui = dataAvui.getDate();
+    let horaReserva = (req.body.hora).substring(0, 2);
+    if (diaReserva >= diaAvui && horaReserva > dataAvui.getHours()) {
       var reserva = {
         codi: ++reserves_list.pop().codi,
         hora: req.body.hora,

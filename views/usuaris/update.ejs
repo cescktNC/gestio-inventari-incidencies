@@ -33,10 +33,11 @@
                     <div class="form-group">
                         <label for="carrec">Càrrec</label><br>
                         <select name="carrec">
-                            <% carrecs.forEach(function(carrec) { if (carrec==usuari.carrec) { %>
-                                <option value="<%= carrec %>" selected>
-                                    <%= carrec %>
-                                </option>
+                            <% carrecs.forEach(function(carrec) {
+                                if (carrec==usuari.carrec) { %>
+                                    <option value="<%= carrec %>" selected>
+                                        <%= carrec %>
+                                    </option>
                                 <% } else { %>
                                     <option value="<%= carrec %>">
                                         <%= carrec %>
