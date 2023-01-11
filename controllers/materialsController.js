@@ -2,7 +2,6 @@ var Material = require('../models/material');
 var Categoria = require('../models/categoria');
 var fs = require('fs')
 
-
 class MaterialController {
     static async list(req, res, next) {
 
@@ -117,11 +116,11 @@ class MaterialController {
 
     static async import_post(req, res, next) {
 
-        const importData = async(model, dades) => {
+        const importData = async (model, dades) => {
             console.log('a')
             try {
                 console.log('b')
-                await model.create(JSON.parse(dades));
+                await model.create(dades);
                 console.log('a funcionat')
                 res.redirect('/materials');
             } catch (error) {
@@ -132,7 +131,6 @@ class MaterialController {
         };
 
         var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
-        console.log(dades)
         importData(Material, dades);
     
     }

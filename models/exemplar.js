@@ -4,7 +4,7 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 
 var ExemplarSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
     
-    codi:{ type: Number, required: true },
+    codi:{ type: Number, required: true, unique: true },
     demarca: {type: Boolean },
     qr: {type: String, required: true},
     codiMaterial: [{ type: Schema.ObjectId, ref: "Material" }],
