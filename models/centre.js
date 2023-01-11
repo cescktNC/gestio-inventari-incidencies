@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var CentreSchema = new Schema({
-    codi: { type: Number, required: true, },
+    codi: { type: String, required: true, unique: true },
     nom: { type: String, required: true, },
 });
 
