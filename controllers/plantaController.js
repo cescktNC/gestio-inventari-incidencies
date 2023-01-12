@@ -25,7 +25,13 @@ class plantaController {
         // console.log(req.body)
         // req.body serà algo similar a  { name: 'Aventura' }
         const centre_list = await Centre.find();
-        Planta.create(req.body, function (error, newPlanta) {
+        const centre = await Centre.findById(req.body.codiCentre);
+        var planta = {
+            codi: req.body.codi + '/' + centre.codi,
+            codiCentre: req.body.codiCentre,
+            planol: req.body.planol,
+        }
+        Planta.create(planta, function (error, newPlanta) {
             if (error) {
                 res.render('planta/new', { error: error.message, centreList: centre_list })
             } else {

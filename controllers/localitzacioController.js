@@ -1,11 +1,11 @@
 var Localitzacio = require("../models/localitzacio");
-var Centre = require("../models/centre");
+var Planta = require("../models/planta");
 
 class LocalitzacioController {
 
     static async list(req, res, next) {
         Localitzacio.find()
-            .populate('codiCentre')
+            .populate('codiPlanta')
             .sort({ codi: 1 })
             .exec(function (err, list) {
                 if (err) {
@@ -17,17 +17,23 @@ class LocalitzacioController {
 
     static async create_get(req, res, next) {
 
-        const centre_list = await Centre.find();
-        res.render('localitzacio/new', { centreList: centre_list, })
+        const planta_list = await Planta.find();
+        res.render('localitzacio/new', { plantaList: planta_list, })
     }
 
     static async create_post(req, res) {
-        // console.log(req.body)
-        // req.body serà algo similar a  { name: 'Aventura' }
-        const centre_list = await Centre.find();
-        Localitzacio.create(req.body, function (error, newLocalitzacio) {
+
+        const planta_list = await Planta.find();
+        const planta = await Planta.findById(req.body.codiCentre);
+        var localitzacio = {
+            codi: req.body.codi + '/' + planta.codi,
+            nom: req.body.nom,
+            codiCentre: req.body.codiPlanta,
+            especial: req.body.especial,
+        }
+        Localitzacio.create(localitzacio, function (error, newLocalitzacio) {
             if (error) {
-                res.render('localitzacio/new', { error: error.message, centreList: centre_list })
+                res.render('localitzacio/new', { error: error.message, plantaList: planta_list })
             } else {
                 res.redirect('/localitzacio')
             }

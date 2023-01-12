@@ -1,13 +1,13 @@
 var Material = require('../models/material');
-var Categoria = require('../models/categoria');
+var SubCategoria = require('../models/subcategoria');
 var fs = require('fs')
 
 class MaterialController {
     static async list(req, res, next) {
 
         Material.find()
-            .populate('codiCategoria')
-            .sort({ codi: 1, codiCategoria: 1 })
+            .populate('codiSubCategoria')
+            .sort({ codi: 1, codiSubCategoria: 1 })
             .exec(function (err, list) {
                 if (err) {
                     return next(err);
@@ -18,21 +18,21 @@ class MaterialController {
 
     static async create_get(req, res, next) {
         const list_material = await Material.find();
-        const list_categoria = await Categoria.find();
-        res.render('materials/new', { list: list_material, list_cat: list_categoria });
+        const list_subcategoria = await SubCategoria.find();
+        res.render('materials/new', { list: list_material, list_subcat: list_subcategoria });
     }
 
     static async create_post(req, res) {
-        const list_categoria = await Categoria.find();
-
+        const list_categoria = await SubCategoria.find();
+        const subcategoria = await SubCategoria.findById(req.body.codiCategoria);
         var list_material = {
             nom: req.body.nom,
-            codi: req.body.codi,
+            codi: req.body.codi + '-' + subcategoria.codi,
             descripcio: req.body.descripcio,
             preuCompra: req.body.preuCompra,
             anyCompra: req.body.anyCompra,
             fotografia: req.file.path.substring(7, req.file.path.length),
-            codiCategoria: req.body.codiCategoria
+            codiSubCategoria: req.body.codiSubCategoria
         };
 
         Material.create(list_material, function (error, newMaterial) {
@@ -45,7 +45,7 @@ class MaterialController {
     }
 
     static async update_get(req, res, next) {
-        const list_categoria = await Categoria.find();
+        const list_subcategoria = await SubCategoria.find();
         Material.findById(req.params.id, function (err, list_material) {
             if (err) {
                 return next(err);
@@ -64,7 +64,7 @@ class MaterialController {
 
     static async update_post(req, res, next) {
 
-        const list_categoria = await Categoria.find();
+        const list_subcategoria = await SubCategoria.find();
 
         var list_material = {
             nom: req.body.nom,
@@ -73,7 +73,7 @@ class MaterialController {
             preuCompra: req.body.preuCompra,
             anyCompra: req.body.anyCompra,
             //fotografia: req.file.path.substring(7, req.file.path.length),
-            codiCategoria: req.body.codiCategoria,
+            codiCategoria: req.body.codiSubCategoria,
 
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };
@@ -84,9 +84,9 @@ class MaterialController {
             { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
             function (err, list_materialfound) {
                 if (err) {
-                    res.render("materials/update", { list: list_material, list_cat: list_categoria, error: err.message });
+                    res.render("materials/update", { list: list_material, list_cat: list_subcategoria, error: err.message });
                 }
-                res.render("materials/update", { list: list_material, list_cat: list_categoria, message: 'Material actualitzat' });
+                res.render("materials/update", { list: list_material, list_cat: list_subcategoria, message: 'Material actualitzat' });
             }
         );
     }
@@ -132,7 +132,7 @@ class MaterialController {
 
         var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
         importData(Material, dades);
-    
+
     }
 }
 

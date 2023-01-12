@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var LocalitzacioSchema = new Schema({
     codi: { type: String, required: true, },
     nom: { type: String, required: true, },
-    codiCentre: [{ type: Schema.ObjectId, ref: "Centre" }],
+    codiPlanta: [{ type: Schema.ObjectId, ref: "Planta" }],
     especial: { type: Boolean,  required: true,},
 });
 

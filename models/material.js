@@ -12,7 +12,7 @@ var MaterialSchema = new Schema({
     preuCompra: { type: Number },
     anyCompra: { type: Date },
     fotografia: { type: String },
-    codiCategoria: [{ type: Schema.ObjectId, ref: "Categoria" }],
+    codiSubCategoria: [{ type: Schema.ObjectId, ref: "Subcategoria" }],
 });
 
 // El schema.virtual són propietats del document que podeu obtenir i establir però que no es conserven a MongoDB.
