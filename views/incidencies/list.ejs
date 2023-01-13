@@ -62,7 +62,9 @@
                                 </td>
                                 <td>
                                     <% list_mat.forEach(function(material) {
-                                        if(incidencia.codiExemplar.codiMaterial == material.id) {%>
+                                        console.log(incidencia.codiExemplar)
+                                        
+                                        if(incidencia.codiExemplar == material.id) {%>
                                             <%= material.nom %>
                                         <% } %>
                                     <% }); %>
