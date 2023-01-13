@@ -36,7 +36,7 @@ class IncidenciaController {
         var incidencia = {
             codi: Math.random() * 100,
             data: Date.now(),
-            tipologia: req.bodi.tipologia,
+            tipologia: req.body.tipologia,
             proposta: req.body.proposta,
             prioritat: req.body.prioritat,
             descripcio: req.body.descripcio,
