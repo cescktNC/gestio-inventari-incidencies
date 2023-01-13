@@ -25,7 +25,14 @@ class SubcategoriaController {
     // console.log(req.body)
     // req.body serà algo similar a  { name: 'Aventura' }
     const categoria_list = await Categoria.find();
-    Subcategoria.create(req.body, function (error, newsubCategorias) {
+    const categoria = await Categoria.findById(req.body.codiCategoria);
+    var subCategoria = {
+      nom: req.body.nom,
+      codi: req.body.codi + '/' + categoria.codi,
+      codiCategoria: req.body.codiCategoria,
+    }
+
+    Subcategoria.create(subCategoria, function (error, newsubCategorias) {
       if (error) {
         res.render('subcategories/new', { error: error.message, categoriaList: categoria_list })
       } else {

@@ -30,7 +30,15 @@ class ExemplarController {
     // req.body serà algo similar a  { name: 'Aventura' }
     const localitzacio_list = await Localitzacio.find();
     const material_list = await Material.find();
-    Exemplar.create(req.body, function (error, newExemplar) {
+    const material = await Material.findById(req.body.codiMaterial);
+    var exemplar = {
+      codi: req.body.codi + '/' + material.codi,
+      demarca: req.body.demarca,
+      qr: req.body.qr,
+      codiMaterial: req.body.codiMaterial,
+      codiLocalitzacio: req.body.codiLocalitzacio,
+    }
+    Exemplar.create(exemplar, function (error, newExemplar) {
       if (error) {
         res.render('exemplar/new', { error: error.message, localitzacioList: localitzacio_list, materialList: material_list })
       } else {
