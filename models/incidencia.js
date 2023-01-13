@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var IncidenciaSchema = new Schema({
 
-  codi: { type: String, required: true, unique: true },
+    codi: { type: String, required: true, unique: true},
     data:{ type: Date},
     tipologia : {
       type: String,
