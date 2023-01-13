@@ -57,6 +57,7 @@ class IncidenciaController {
 
     static async update_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var tipologias = Incidencia.schema.path('tipologia').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var list_exemplar = await Exemplar.find();
@@ -74,7 +75,8 @@ class IncidenciaController {
             // Success.
             res.render("incidencies/update", {
                 list: list_incidencia, list_pri: list_prioritat,
-                list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat
+                list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,
+                list_tipo: tipologias
             });
         });
 
@@ -83,13 +85,14 @@ class IncidenciaController {
     static async update_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var tipologias = Incidencia.schema.path('tipologia').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var list_exemplar = await Exemplar.find();
         var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
 
         var list_incidencia = new Incidencia({
-            proposta: req.body.proposta,
+            tipologia: req.body.tipologia,
             prioritat: req.body.prioritat,
             estat: req.body.estat,
             descripcio: req.body.descripcio,
@@ -109,14 +112,16 @@ class IncidenciaController {
 
                     res.render("incidencies/update", {
                         list: list_incidencia, list_pri: list_prioritat,
-                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, error: err.message
+                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, list_tipo: tipologias,
+                         error: err.message
                     });
 
                 }
 
                 res.render("incidencies/update", {
                     list: list_incidencia, list_pri: list_prioritat,
-                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, message: 'Incidencia actualitzada'
+                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,
+                    list_tipo: tipologias, message: 'Incidencia actualitzada'
                 });
             }
         );

@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var IncidenciaSchema = new Schema({
 
     codi: { type: String, required: true, unique: true},
+    data:{ type: Date},
     tipologia : {
       type: String,
       enum: ['Mal ús','Desgast','Obsolet','Avariat','Altres'],
@@ -15,7 +16,6 @@ var IncidenciaSchema = new Schema({
         enum : ['Notificada','En tràmit', 'En execució', 'Resolta', 'Desestimada', 'Anul·lada'],
         default: 'Notificada'
     },
-    data: { type: Date },
     proposta: { type: String },
     prioritat: { 
         type: String, 
