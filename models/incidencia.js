@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 
 var IncidenciaSchema = new Schema({
     codi: { type: Number, required: true, },
-    seguiment: { type: String },
+    tipologia : {
+      type: String,
+      enum: ['Mal ús','Desgast','Obsolet','Avariat','Altres'],
+    },
     estat: { 
         type: String, 
         enum : ['Notificada','En tràmit', 'En execució', 'Resolta', 'Desestimada', 'Anul·lada'],
