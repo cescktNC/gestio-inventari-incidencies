@@ -3,14 +3,12 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var IncidenciaSchema = new Schema({
-    codi: { type: Number, required: true, },
+    codi: { type: String, required: true, unique: true },
     tipologia : {
       type: String,
       enum: ['Mal ús','Desgast','Obsolet','Avariat','Altres'],
     },
-    codi: { type: String, required: true, unique: true },
     seguiment: { type: String },
-
     estat: { 
         type: String, 
         enum : ['Notificada','En tràmit', 'En execució', 'Resolta', 'Desestimada', 'Anul·lada'],

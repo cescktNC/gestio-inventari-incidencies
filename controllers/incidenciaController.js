@@ -55,6 +55,7 @@ class IncidenciaController {
     static async update_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
+        var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var list_exemplar = await Exemplar.find();
 
@@ -70,7 +71,7 @@ class IncidenciaController {
             }
             // Success.
             res.render("incidencies/update", {
-                list: list_incidencia, list_pri: list_prioritat,
+                list: list_incidencia, list_pri: list_prioritat, list_tipo: list_tipologia,
                 list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat
             });
         });
@@ -86,6 +87,7 @@ class IncidenciaController {
         var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
 
         var list_incidencia = new Incidencia({
+            tipologia: req.body.tipologia,
             proposta: req.body.proposta,
             prioritat: req.body.prioritat,
             estat: req.body.estat,

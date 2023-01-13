@@ -75,13 +75,27 @@
                     <div class="form-group">
                         <label for="prioritat">prioritat</label>
                         <select name="prioritat" class="form-control">
-                            <% list_pri.forEach(function(prioritat) { if(prioritat==list.estat ){%>
+                            <% list_pri.forEach(function(prioritat) { if(prioritat==list.prioritat ){%>
                                     <option value="<%= prioritat %>" selected>
                                         <%= prioritat %>
                                     </option>
                                 <% } else {%>
                                     <option value="<%= prioritat %>">
                                         <%= prioritat %>
+                                    </option>
+                            <% }}); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipologia">Tipologia</label>
+                        <select name="tipologia" class="form-control">
+                            <% list_tipo.forEach(function(tipologia) { if(tipologia==list.tipologia ){%>
+                                    <option value="<%= tipologia %>" selected>
+                                        <%= tipologia %>
+                                    </option>
+                                <% } else {%>
+                                    <option value="<%= tipologia %>">
+                                        <%= tipologia %>
                                     </option>
                             <% }}); %>
                         </select>
