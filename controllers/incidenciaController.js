@@ -21,19 +21,22 @@ class IncidenciaController {
 
     static async create_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
-        res.render('incidencies/new', { list: list_prioritat, list_loc: list_localitzacio })
+        res.render('incidencies/new', { list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
     }
 
     static async create_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
 
         var incidencia = {
             codi: Math.random() * 100,
             data: Date.now(),
+            tipologia: req.bodi.tipologia,
             proposta: req.body.proposta,
             prioritat: req.body.prioritat,
             descripcio: req.body.descripcio,
@@ -44,7 +47,7 @@ class IncidenciaController {
 
         Incidencia.create(incidencia, function (error, newRecord) {
             if (error) {
-                res.render('incidencies/new', { error: 'error', list: list_prioritat, list_loc: list_localitzacio })
+                res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
             } else {
 
                 res.redirect('/incidencies')
