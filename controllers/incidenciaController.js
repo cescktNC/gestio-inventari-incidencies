@@ -21,19 +21,22 @@ class IncidenciaController {
 
     static async create_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
-        res.render('incidencies/new', { list: list_prioritat, list_loc: list_localitzacio })
+        res.render('incidencies/new', { list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
     }
 
     static async create_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
 
         var incidencia = {
             codi: Math.random() * 100,
             data: Date.now(),
+            tipologia: req.body.tipologia,
             proposta: req.body.proposta,
             prioritat: req.body.prioritat,
             descripcio: req.body.descripcio,
@@ -44,7 +47,7 @@ class IncidenciaController {
 
         Incidencia.create(incidencia, function (error, newRecord) {
             if (error) {
-                res.render('incidencies/new', { error: 'error', list: list_prioritat, list_loc: list_localitzacio })
+                res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
             } else {
 
                 res.redirect('/incidencies')
@@ -54,6 +57,7 @@ class IncidenciaController {
 
     static async update_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var tipologias = Incidencia.schema.path('tipologia').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
@@ -81,6 +85,7 @@ class IncidenciaController {
     static async update_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
+        var tipologias = Incidencia.schema.path('tipologia').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var list_exemplar = await Exemplar.find();
@@ -108,14 +113,16 @@ class IncidenciaController {
 
                     res.render("incidencies/update", {
                         list: list_incidencia, list_pri: list_prioritat,
-                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, error: err.message
+                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, list_tipo: tipologias,
+                         error: err.message
                     });
 
                 }
 
                 res.render("incidencies/update", {
                     list: list_incidencia, list_pri: list_prioritat,
-                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, message: 'Incidencia actualitzada'
+                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,
+                    list_tipo: tipologias, message: 'Incidencia actualitzada'
                 });
             }
         );
