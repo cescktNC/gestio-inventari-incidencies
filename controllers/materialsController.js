@@ -19,7 +19,7 @@ class MaterialController {
     static async create_get(req, res, next) {
         const list_material = await Material.find();
         const list_subcategoria = await SubCategoria.find();
-        res.render('materials/new', { list: list_material, list_subcat: list_subcategoria });
+        res.render('materials/new', { list: list_material, list_cat: list_subcategoria });
     }
 
     static async create_post(req, res) {
@@ -34,6 +34,8 @@ class MaterialController {
             fotografia: req.file.path.substring(7, req.file.path.length),
             codiSubCategoria: req.body.codiSubCategoria
         };
+
+        console.log(typeof list_material)
 
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
@@ -57,7 +59,7 @@ class MaterialController {
                 return next(err);
             }
             // Success.
-            res.render("materials/update", { list: list_material, list_cat: list_categoria });
+            res.render("materials/update", { list: list_material, list_cat: list_subcategoria });
         });
 
     }
@@ -73,7 +75,7 @@ class MaterialController {
             preuCompra: req.body.preuCompra,
             anyCompra: req.body.anyCompra,
             //fotografia: req.file.path.substring(7, req.file.path.length),
-            codiCategoria: req.body.codiSubCategoria,
+            codiSubCategoria: req.body.codiSubCategoria,
 
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };
@@ -116,22 +118,39 @@ class MaterialController {
 
     static async import_post(req, res, next) {
 
-        const importData = async (model, dades) => {
-            console.log('a')
-            try {
-                console.log('b')
-                await model.create(dades);
-                console.log('a funcionat')
-                res.redirect('/materials');
-            } catch (error) {
-                console.log(error.message)
-                res.render('materials/import', { message: error.message })
-            }
+        // const importData = async (model, dades) => {
+        //     console.log('a')
+        //     try {
+        //         console.log('b')
+        //         await model.create(dades);
+        //         console.log('a funcionat')
+        //         res.redirect('/materials');
+        //     } catch (error) {
+        //         console.log(error.message)
+        //         res.render('materials/import', { message: error.message })
+        //     }
 
-        };
+        // };
+        try {
+            console.log('a');
+            var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
+            console.log(typeof dades)
+            console.log('b');
+            Material.create(dades, function (error, newMaterial) {
+                if (error) {
+                    res.render('materials/import', { message: error.message })
+                } else {
+                    res.redirect('/materials');
+                }
+            });
+            console.log('c');
+            //res.redirect('/materials');
+        } catch (error) {
+            console.log(error.message)
+            res.render('materials/import', { message: error.message })
+        }
 
-        var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
-        importData(Material, dades);
+        //importData(Material, dades);
 
     }
 }
