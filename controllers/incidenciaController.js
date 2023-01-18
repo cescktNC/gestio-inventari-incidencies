@@ -32,21 +32,21 @@ class IncidenciaController {
         var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
-
         var incidencia = {
             codi: Math.random() * 100,
             data: Date.now(),
             tipologia: req.body.tipologia,
-            proposta: req.body.proposta,
+            proposta: '',
             prioritat: req.body.prioritat,
             descripcio: req.body.descripcio,
             ubicacio: req.body.ubicacio,
             codiExemplar: exemplar[0].id,
             codiLocalitzacio: req.body.codiLocalitzacio,
         }
-
+        console.log(incidencia);
         Incidencia.create(incidencia, function (error, newRecord) {
             if (error) {
+                console.log(error)
                 res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
             } else {
 
@@ -57,7 +57,6 @@ class IncidenciaController {
 
     static async update_get(req, res, next) {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
-        var tipologias = Incidencia.schema.path('tipologia').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
@@ -85,7 +84,7 @@ class IncidenciaController {
     static async update_post(req, res, next) {
 
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
-        var tipologias = Incidencia.schema.path('tipologia').enumValues;
+        var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var list_exemplar = await Exemplar.find();
@@ -99,7 +98,7 @@ class IncidenciaController {
             descripcio: req.body.descripcio,
             ubicacio: req.body.ubicacio,
             seguiment: req.body.seguiment,
-            codiExemplar: exemplar.id,
+            codiExemplar: exemplar[0].id,
             codiLocalitzacio: req.body.codiLocalitzacio,
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         });
@@ -113,7 +112,7 @@ class IncidenciaController {
 
                     res.render("incidencies/update", {
                         list: list_incidencia, list_pri: list_prioritat,
-                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, list_tipo: tipologias,
+                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, list_tipo: list_tipologia,
                          error: err.message
                     });
 
@@ -122,7 +121,7 @@ class IncidenciaController {
                 res.render("incidencies/update", {
                     list: list_incidencia, list_pri: list_prioritat,
                     list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,
-                    list_tipo: tipologias, message: 'Incidencia actualitzada'
+                    list_tipo: list_tipologia, message: 'Incidencia actualitzada'
                 });
             }
         );
