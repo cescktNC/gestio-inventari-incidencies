@@ -45,8 +45,8 @@
                         <input type="file" name="fotografia" accept="image/png, .jpeg, .jpg" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="codiCategoria">Categoria</label>
-                        <select name="codiCategoria">
+                        <label for="codiSubCategoria">Categoria</label>
+                        <select name="codiSubCategoria" class="form-control">
                             <% list_cat.forEach(function(categoria) { %>
                                 <option value="<%= categoria.id %>">
                                     <%= categoria.nom %>
