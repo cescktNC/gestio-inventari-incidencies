@@ -61,7 +61,10 @@
                                     <%= incidencia.ubicacio %>
                                 </td>
                                 <td>
-                                    <% list_mat.forEach(function(material) {
+                                    <% list_mat.forEach(function(material, index) {
+                                        console.log(incidencia.codiExemplar[0]);
+                                        //console.log(material.id);
+                                        //console.log("hola");
                                         if(incidencia.codiExemplar.codiMaterial == material.id) {%>
                                             <%= material.nom %>
                                         <% } %>

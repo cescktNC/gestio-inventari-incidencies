@@ -41,7 +41,7 @@ class IncidenciaController {
             prioritat: req.body.prioritat,
             descripcio: req.body.descripcio,
             ubicacio: req.body.ubicacio,
-            codiExemplar: exemplar.id,
+            codiExemplar: exemplar[0].id,
             codiLocalitzacio: req.body.codiLocalitzacio,
         }
 
