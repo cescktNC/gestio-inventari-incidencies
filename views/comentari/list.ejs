@@ -19,23 +19,22 @@
                     <thead>
                         <tr>
                             <th scope="col">codi incidencia</th>
-                            <th scope="col">codi usuari</th>
+                            <th scope="col">nom usuari</th>
                             <th scope="col">data</th>
                             <th scope="col">descripcio</th>
-
                             <th scope="col">
-                                <a href="/incidencies/create" class="btn btn-primary">New</a>
+                                <a href="/comentari/create" class="btn btn-primary">New</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% list.forEach(function(comentari) { %>
+                        <% list.forEach(function(descripcio) { %>
                             <tr>
                                 <td>
-                                    <%= descripcio.codi %>
+                                    <%= descripcio.codiIncidencia[0].codi %>
                                 </td>
                                 <td>
-                                    <%= descripcio.seguiment %>
+                                    <%= descripcio.codiUsuari[0].nom %>
                                 </td>
                                 <td>
                                     <%= descripcio.formatarDate %>
@@ -45,7 +44,7 @@
                                 </td>
                                 
                                 <td>
-                                    <a href="/comentari/update/<%=comentari._id%>" class="btn btn-secondary">Edit</a>
+                                    <a href="/comentari/update/<%=descripcio._id%>" class="btn btn-secondary">Edit</a>
                                 </td>
                             </tr>
                             <% }); %>
