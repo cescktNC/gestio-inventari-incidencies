@@ -115,21 +115,40 @@ class MaterialController {
     }
 
     static async import_post(req, res, next) {
-
+        let proba = req.file.path; 
+        let jsonArray;
+        console.log(proba.slice(proba.lastIndexOf('.')));
+        if(proba.slice(proba.lastIndexOf('.') == '.csv')){
+            console.log('HOLA');
+            jsonArray = csvToJson(proba);
+        }
+        else{
+            jsonArray = proba;
+        }
+        
         try {
-
-            var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
-
-            dades.forEach( async element => {
-               await Material.create(element);
+            var dades = JSON.parse(fs.readFileSync(jsonArray, "utf-8"));
+            await Material.create(dades, function (error, newMaterial) {
+                if (error) {
+                    res.render('materials/import', { message: error.message })
+                } else {
+                    res.redirect('/materials');
+                }
             });
-
-            res.redirect('/materials');
         } catch (error) {
-            console.log(error.message)
             res.render('materials/import', { message: error.message })
         }
+    }
 
+    static async csvToJson(csvFilePath) {
+        // const csvFilePath='<path to csv file>'
+        const csv = require('csvtojson')
+        csv()
+        .fromFile(csvFilePath)
+        .then((jsonObj));
+        
+        const jsonArray = await csv().fromFile(csvFilePath);
+        return jsonArray;
     }
 }
 
