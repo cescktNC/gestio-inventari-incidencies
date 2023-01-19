@@ -24,7 +24,7 @@ class MaterialController {
 
     static async create_post(req, res) {
         const list_categoria = await SubCategoria.find();
-        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
+        const subcategoria = await SubCategoria.findById(req.body.codiCategoria);
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi + '-' + subcategoria.codi,
@@ -34,6 +34,8 @@ class MaterialController {
             fotografia: req.file.path.substring(7, req.file.path.length),
             codiSubCategoria: req.body.codiSubCategoria
         };
+
+        console.log(typeof list_material)
 
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
@@ -106,6 +108,7 @@ class MaterialController {
                 res.redirect('/materials')
             }
         })
+        
     }
 
     static async import_get(req, res, next) {
@@ -115,20 +118,19 @@ class MaterialController {
     }
 
     static async import_post(req, res, next) {
-        let proba = req.file.path; 
+        const csv = require('csvtojson') // Mòdul per a poder convertir un CSV a JSON
+
+        let filePath = req.file.path; 
         let jsonArray;
-        console.log(proba.slice(proba.lastIndexOf('.')));
-        if(proba.slice(proba.lastIndexOf('.') == '.csv')){
-            console.log('HOLA');
-            jsonArray = csvToJson(proba);
+        if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
+            jsonArray = await csv().fromFile(filePath);
         }
         else{
-            jsonArray = proba;
+            jsonArray = JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
         
         try {
-            var dades = JSON.parse(fs.readFileSync(jsonArray, "utf-8"));
-            await Material.create(dades, function (error, newMaterial) {
+            await Material.create(jsonArray, function (error, newMaterial) {
                 if (error) {
                     res.render('materials/import', { message: error.message })
                 } else {
@@ -139,17 +141,7 @@ class MaterialController {
             res.render('materials/import', { message: error.message })
         }
     }
-
-    static async csvToJson(csvFilePath) {
-        // const csvFilePath='<path to csv file>'
-        const csv = require('csvtojson')
-        csv()
-        .fromFile(csvFilePath)
-        .then((jsonObj));
-        
-        const jsonArray = await csv().fromFile(csvFilePath);
-        return jsonArray;
-    }
+    
 }
 
 module.exports = MaterialController;
