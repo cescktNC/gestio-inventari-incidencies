@@ -24,7 +24,7 @@ class MaterialController {
 
     static async create_post(req, res) {
         const list_categoria = await SubCategoria.find();
-        const subcategoria = await SubCategoria.findById(req.body.codiCategoria);
+        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi + '-' + subcategoria.codi,
@@ -34,8 +34,6 @@ class MaterialController {
             fotografia: req.file.path.substring(7, req.file.path.length),
             codiSubCategoria: req.body.codiSubCategoria
         };
-
-        console.log(typeof list_material)
 
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
@@ -118,39 +116,19 @@ class MaterialController {
 
     static async import_post(req, res, next) {
 
-        // const importData = async (model, dades) => {
-        //     console.log('a')
-        //     try {
-        //         console.log('b')
-        //         await model.create(dades);
-        //         console.log('a funcionat')
-        //         res.redirect('/materials');
-        //     } catch (error) {
-        //         console.log(error.message)
-        //         res.render('materials/import', { message: error.message })
-        //     }
-
-        // };
         try {
-            console.log('a');
+
             var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
-            console.log(typeof dades)
-            console.log('b');
-            Material.create(dades, function (error, newMaterial) {
-                if (error) {
-                    res.render('materials/import', { message: error.message })
-                } else {
-                    res.redirect('/materials');
-                }
+
+            dades.forEach( async element => {
+               await Material.create(element);
             });
-            console.log('c');
-            //res.redirect('/materials');
+
+            res.redirect('/materials');
         } catch (error) {
             console.log(error.message)
             res.render('materials/import', { message: error.message })
         }
-
-        //importData(Material, dades);
 
     }
 }
