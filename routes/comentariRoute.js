@@ -5,7 +5,7 @@ const comentari_controller = require("../controllers/comentariController");
 
 
 
-// router.get("/", comentari_controller.list);
+router.get("/:id", comentari_controller.list);
 
 // router.get("/create", comentari_controller.create_get);
 // router.post("/create", comentari_controller.create_post);
