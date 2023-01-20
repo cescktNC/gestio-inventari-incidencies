@@ -1,6 +1,7 @@
 var Material = require('../models/material');
 var SubCategoria = require('../models/subcategoria');
-var fs = require('fs')
+var fs = require('fs');
+const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 
 class MaterialController {
     static async list(req, res, next) {
@@ -112,28 +113,32 @@ class MaterialController {
     }
 
     static async import_get(req, res, next) {
-
         res.render('materials/import')
 
     }
 
     static async import_post(req, res, next) {
-        const csv = require('csvtojson') // Mòdul per a poder convertir un CSV a JSON
 
         let filePath = req.file.path; 
         let jsonArray;
+
         if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
+           
             jsonArray = await csv().fromFile(filePath);
         }
         else{
-            jsonArray = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+            jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
-        
+
+        console.log(jsonArray);
         try {
+            console.log('a')
             await Material.create(jsonArray, function (error, newMaterial) {
                 if (error) {
+                    console.log('c')
                     res.render('materials/import', { message: error.message })
                 } else {
+                    console.log('b')
                     res.redirect('/materials');
                 }
             });
