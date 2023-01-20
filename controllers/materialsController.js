@@ -1,6 +1,7 @@
 var Material = require('../models/material');
 var SubCategoria = require('../models/subcategoria');
-var fs = require('fs')
+var fs = require('fs');
+const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 
 class MaterialController {
     static async list(req, res, next) {
@@ -118,28 +119,22 @@ class MaterialController {
     }
 
     static async import_post(req, res, next) {
-        const csv = require('csvtojson') // Mòdul per a poder convertir un CSV a JSON
-
-        let filePath = req.file.path; 
+        let filePath = req.file.path;
         let jsonArray;
         if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
             jsonArray = await csv().fromFile(filePath);
+        } else {
+            jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
-        else{
-            jsonArray = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-        }
+
+        let promesa = new Promise((resolve, reject) => {
+            Material.create(jsonArray);
+        });
         
-        try {
-            await Material.create(jsonArray, function (error, newMaterial) {
-                if (error) {
-                    res.render('materials/import', { message: error.message })
-                } else {
-                    res.redirect('/materials');
-                }
-            });
-        } catch (error) {
-            res.render('materials/import', { message: error.message })
-        }
+        // Executo la promesa
+        promesa
+            .then(res.redirect('/materials')) // s'executa si es compleix la promesa
+            .catch(error => res.render('materials/import', { message: error.message })); // s'executa si no es compleix la promesa
     }
     
 }
