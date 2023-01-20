@@ -125,26 +125,20 @@ class MaterialController {
         if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
            
             jsonArray = await csv().fromFile(filePath);
-        }
-        else{
+        } else {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
 
-        console.log(jsonArray);
-        try {
-            console.log('a')
-            await Material.create(jsonArray, function (error, newMaterial) {
-                if (error) {
-                    console.log('c')
-                    res.render('materials/import', { message: error.message })
-                } else {
-                    console.log('b')
-                    res.redirect('/materials');
-                }
-            });
-        } catch (error) {
-            res.render('materials/import', { message: error.message })
-        }
+
+        let promesa = new Promise((resolve, reject) => {
+            Material.create(jsonArray);
+        });
+        
+        // Executo la promesa
+        promesa
+            .then(res.redirect('/materials')) // s'executa si es compleix la promesa
+            .catch(error => res.render('materials/import', { message: error.message })); // s'executa si no es compleix la promesa
+
     }
     
 }
