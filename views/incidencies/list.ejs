@@ -62,13 +62,13 @@
                                 </td>
                                 <td>
                                     <% list_mat.forEach(function(material) {
-                                        if(incidencia.codiExemplar[0].codiMaterial[0]==material.id) {%>
-                                        <%= material.nom %>
-                                            <% } %>
-                                                <% }); %>
+                                        if(incidencia.codiExemplar.codiMaterial==material.id) {%>
+                                            <%= material.nom %>
+                                        <% } %>
+                                    <% }); %>
                                 </td>
                                 <td>
-                                    <%= incidencia.codiLocalitzacio[0].nom %>
+                                    <%= incidencia.codiLocalitzacio.nom %>
                                 </td>
                                 <td>
                                     <a href="/incidencies/update/<%=incidencia._id%>" class="btn btn-secondary">Edit</a>

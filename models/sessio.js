@@ -6,7 +6,7 @@ var SessioSchema = new Schema({ // Diem que creem un nou esquema per a les colle
     
     codi :{ type: String, required: true },
     nom: { type: String, required: true},
-    codiReserva: [{ type: Schema.ObjectId, ref: "Reserva"}],
+    codiReserva: { type: Schema.ObjectId, ref: "Reserva"},
 
 });
 

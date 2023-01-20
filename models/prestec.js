@@ -7,8 +7,8 @@ var PrestecSchema = new Schema({ // Diem que creem un nou esquema per a les coll
     codi :{ type: String, required: true },
     dataInici: { type: Date, required: true},
     dataRetorn: { type: Date, required: true},
-    codiExemplar : [{ type: Schema.ObjectId, ref: "Exemplar" }],
-    dniUsuari: [{ type: Schema.ObjectId, ref: "Usuari"}],
+    codiExemplar : { type: Schema.ObjectId, ref: "Exemplar" },
+    dniUsuari: { type: Schema.ObjectId, ref: "Usuari"},
 
 });
 

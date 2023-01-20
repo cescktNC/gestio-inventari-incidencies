@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="prioritat">prioritat</label>
                         <select name="prioritat" class="form-control">
-                            <% list_prio.forEach(function(prioritat) { if(prioritat=='Mitjana' ){%>
+                            <% list_prio.forEach(function(prioritat) { if(prioritat == 'Mitjana' ){%>
                                 <option value="<%= prioritat %>" selected>
                                     <%= prioritat %>
                                 </option>
@@ -73,7 +73,7 @@
                     </button>
                 </form>
 
-                <% if (typeof error !=="undefined" ) { %>
+                <% if (typeof error !== "undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
                         <p>
                             <%= error %>

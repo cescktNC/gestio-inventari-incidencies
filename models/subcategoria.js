@@ -4,9 +4,9 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 
 var SubcategoriaSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
     
-    nom :{ type: String, required: true },
-    codi :{ type: String, required: true },
-    codiCategoria : [{ type: Schema.ObjectId, ref: "Categoria" }],
+    nom: { type: String, required: true },
+    codi: { type: String, required: true },
+    codiCategoria: { type: Schema.ObjectId, ref: "Categoria" },
 
 });
 

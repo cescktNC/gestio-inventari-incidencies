@@ -5,7 +5,7 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 var PlantaSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
 
     codi: { type: String, required: true, unique: true },
-    codiCentre: [{ type: Schema.ObjectId, ref: "Centre" }],
+    codiCentre: { type: Schema.ObjectId, ref: "Centre" },
     planol: { type: String, required: true },
 
 });
