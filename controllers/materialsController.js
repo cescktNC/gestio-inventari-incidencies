@@ -113,19 +113,22 @@ class MaterialController {
     }
 
     static async import_get(req, res, next) {
-
         res.render('materials/import')
 
     }
 
     static async import_post(req, res, next) {
-        let filePath = req.file.path;
+
+        let filePath = req.file.path; 
         let jsonArray;
+
         if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
+           
             jsonArray = await csv().fromFile(filePath);
         } else {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
+
 
         let promesa = new Promise((resolve, reject) => {
             Material.create(jsonArray);
@@ -135,6 +138,7 @@ class MaterialController {
         promesa
             .then(res.redirect('/materials')) // s'executa si es compleix la promesa
             .catch(error => res.render('materials/import', { message: error.message })); // s'executa si no es compleix la promesa
+
     }
     
 }
