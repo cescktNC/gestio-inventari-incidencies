@@ -1,5 +1,6 @@
 var Material = require('../models/material');
 var SubCategoria = require('../models/subcategoria');
+var Exemplar = require('../models/exemplar');
 var fs = require('fs');
 const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 
@@ -128,7 +129,6 @@ class MaterialController {
         } else {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
-
 
         let promesa = new Promise((resolve, reject) => {
             Material.create(jsonArray);

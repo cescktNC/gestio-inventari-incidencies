@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ComentariSchema = new Schema({
-    codiIncidencia: [{ type: Schema.ObjectId, ref: "Incidencia" }],
-    codiUsuari: [{ type: Schema.ObjectId, ref: "Usuari" }],
+    codiIncidencia: { type: Schema.ObjectId, ref: "Incidencia" },
+    codiUsuari: { type: Schema.ObjectId, ref: "Usuari" },
     data: { type: Date },
     descripcio: { type: String, required: true }
 });

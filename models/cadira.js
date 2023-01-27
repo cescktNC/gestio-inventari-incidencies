@@ -5,7 +5,7 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 var CadiraSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
     
     numeroCadira: {type: Number, required: true},
-    codiSessio: [{ type: Schema.ObjectId, ref: "Sessio"}],
+    codiSessio: { type: Schema.ObjectId, ref: "Sessio"},
 
 });
 
