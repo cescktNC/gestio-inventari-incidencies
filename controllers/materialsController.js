@@ -1,4 +1,5 @@
 var Material = require('../models/material');
+var Exemplar = require('../models/exemplar');
 var SubCategoria = require('../models/subcategoria');
 var fs = require('fs');
 const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
@@ -102,14 +103,29 @@ class MaterialController {
 
     static async delete_post(req, res, next) {
 
+        Exemplar.find()
+            .exec(function (err, list) {
+                if (err) {
+                    return next(err);
+                }
+                let exemplars = list.filter(exemplar => exemplar.codiMaterial ==  req.params.id);
+                exemplars.forEach(exemplar => {
+                    Exemplar.findByIdAndRemove(exemplar.id, (error) => {
+                        if (error) {
+                            res.redirect('/materials');
+                        }
+                    });
+                });
+            });
+
         Material.findByIdAndRemove(req.params.id, (error) => {
             if (error) {
-                res.redirect('/materials')
+                res.redirect('/materials');
             } else {
-                res.redirect('/materials')
+                res.redirect('/materials');
             }
         })
-        
+
     }
 
     static async import_get(req, res, next) {
@@ -130,13 +146,13 @@ class MaterialController {
         let promesa = new Promise((resolve, reject) => {
             Material.create(jsonArray);
         });
-        
+
         // Executo la promesa
         promesa
             .then(res.redirect('/materials')) // s'executa si es compleix la promesa
             .catch(error => res.render('materials/import', { message: error.message })); // s'executa si no es compleix la promesa
     }
-    
+
 }
 
 module.exports = MaterialController;
