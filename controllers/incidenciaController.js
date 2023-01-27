@@ -31,29 +31,39 @@ class IncidenciaController {
         var list_prioritat = Incidencia.schema.path('prioritat').enumValues;
         var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
-        var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
-        var codi = await Incidencia.count();
-        var incidencia = {
-            codi: codi + 1,
-            data: Date.now(),
-            tipologia: req.body.tipologia,
-            proposta: '',
-            prioritat: req.body.prioritat,
-            descripcio: req.body.descripcio,
-            ubicacio: req.body.ubicacio,
-            codiExemplar: exemplar[0].id,
-            codiLocalitzacio: req.body.codiLocalitzacio,
-        }
-        console.log(incidencia);
-        Incidencia.create(incidencia, function (error, newRecord) {
-            if (error) {
-                console.log(error)
-                res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
-            } else {
 
-                res.redirect('/incidencies')
+        var codi = await Incidencia.count();
+
+        Exemplar.find({ codi: req.body.codiExemplar }, function (err, exemplar) {
+            if (err) {
+                return next(err);
             }
-        })
+            var incidencia = {
+                codi: codi + 1,
+                data: Date.now(),
+                tipologia: req.body.tipologia,
+                proposta: '',
+                prioritat: req.body.prioritat,
+                descripcio: req.body.descripcio,
+                ubicacio: req.body.ubicacio,
+                codiLocalitzacio: req.body.codiLocalitzacio,
+            }
+            if (exemplar.length == 0) {
+                incidencia["codiExemplar"] = undefined;
+            } else {
+                incidencia["codiExemplar"] = exemplar[0].id;
+            }
+            Incidencia.create(incidencia, function (error, newRecord) {
+                if (error) {
+                    console.log(error)
+                    res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
+                } else {
+    
+                    res.redirect('/incidencies')
+                }
+            })
+        });
+
     };
 
     static async update_get(req, res, next) {
