@@ -1,6 +1,7 @@
 var Material = require('../models/material');
 var SubCategoria = require('../models/subcategoria');
-var fs = require('fs')
+var fs = require('fs');
+const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 
 class MaterialController {
     static async list(req, res, next) {
@@ -19,7 +20,7 @@ class MaterialController {
     static async create_get(req, res, next) {
         const list_material = await Material.find();
         const list_subcategoria = await SubCategoria.find();
-        res.render('materials/new', { list: list_material, list_subcat: list_subcategoria });
+        res.render('materials/new', { list: list_material, list_cat: list_subcategoria });
     }
 
     static async create_post(req, res) {
@@ -34,6 +35,8 @@ class MaterialController {
             fotografia: req.file.path.substring(7, req.file.path.length),
             codiSubCategoria: req.body.codiSubCategoria
         };
+
+        console.log(typeof list_material)
 
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
@@ -57,7 +60,7 @@ class MaterialController {
                 return next(err);
             }
             // Success.
-            res.render("materials/update", { list: list_material, list_cat: list_categoria });
+            res.render("materials/update", { list: list_material, list_cat: list_subcategoria });
         });
 
     }
@@ -73,7 +76,7 @@ class MaterialController {
             preuCompra: req.body.preuCompra,
             anyCompra: req.body.anyCompra,
             //fotografia: req.file.path.substring(7, req.file.path.length),
-            codiCategoria: req.body.codiSubCategoria,
+            codiSubCategoria: req.body.codiSubCategoria,
 
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };
@@ -106,34 +109,38 @@ class MaterialController {
                 res.redirect('/materials')
             }
         })
+        
     }
 
     static async import_get(req, res, next) {
-
         res.render('materials/import')
 
     }
 
     static async import_post(req, res, next) {
 
-        const importData = async (model, dades) => {
-            console.log('a')
-            try {
-                console.log('b')
-                await model.create(dades);
-                console.log('a funcionat')
-                res.redirect('/materials');
-            } catch (error) {
-                console.log(error.message)
-                res.render('materials/import', { message: error.message })
-            }
+        let filePath = req.file.path; 
+        let jsonArray;
 
-        };
+        if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
+           
+            jsonArray = await csv().fromFile(filePath);
+        } else {
+            jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        }
 
-        var dades = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
-        importData(Material, dades);
+
+        let promesa = new Promise((resolve, reject) => {
+            Material.create(jsonArray);
+        });
+        
+        // Executo la promesa
+        promesa
+            .then(res.redirect('/materials')) // s'executa si es compleix la promesa
+            .catch(error => res.render('materials/import', { message: error.message })); // s'executa si no es compleix la promesa
 
     }
+    
 }
 
 module.exports = MaterialController;

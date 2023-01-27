@@ -8,7 +8,7 @@ var IncidenciaSchema = new Schema({
     data:{ type: Date},
     tipologia : {
       type: String,
-      enum: ['Mal ús','Desgast','Obsolet','Avariat','Altres'],
+      enum: ['Mal ús','Desgast','Obsolet','Avariat','Altres',' '],
     },
     seguiment: { type: String },
     estat: { 

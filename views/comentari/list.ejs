@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title">Comentari</h5>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">codi incidencia</th>
+                            <th scope="col">nom usuari</th>
+                            <th scope="col">data</th>
+                            <th scope="col">descripcio</th>
+                            <th scope="col">
+                                <a href="/comentari/create" class="btn btn-primary">New</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% list.forEach(function(descripcio) { %>
+                            <tr>
+                                <td>
+                                    <%= descripcio.codiIncidencia[0].codi %>
+                                </td>
+                                <td>
+                                    <%= descripcio.codiUsuari[0].nom %>
+                                </td>
+                                <td>
+                                    <%= descripcio.formatarDate %>
+                                </td>
+                                <td>
+                                    <%= descripcio.descripcio %>
+                                </td>
+                                
+                                <td>
+                                    <a href="/comentari/update/<%=descripcio._id%>" class="btn btn-secondary">Edit</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+                </table>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

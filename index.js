@@ -21,6 +21,7 @@ var plantaRouter = require('./routes/plantaRouter');
 var prestecRouter = require('./routes/prestecRouter');
 var incidenciaRouter = require('./routes/incidenciesRouter');
 var authRouter = require('./routes/authRouter');
+var comentariRouter = require('./routes/comentariRoute');
 
 var app = express();
 
@@ -90,6 +91,7 @@ app.use('/cadira', cadiraRouter);
 app.use('/incidencies', incidenciaRouter);
 app.use('/prestec', prestecRouter);
 app.use('/autenticacions', authRouter);
+app.use('/comentari', comentariRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'

@@ -1,0 +1,29 @@
+[
+    {
+     "codi": "03",
+     "nom": "Portatil",
+     "descripcio": "ordinador portatil",
+     "preuCompra": "120.36",
+     "anyCompra": "2020-5-10",
+     "fotografia": "URL/Imagen",
+     "codiSubCategoria": "6359235e590f65673496c6dd"
+   },
+   {
+     "codi": "04",
+     "nom": "Portatil",
+     "descripcio": "ordinador portatil",
+     "preuCompra": "120.36",
+     "anyCompra": "2020-5-10",
+     "fotografia": "URL/Imagen",
+     "codiSubCategoria": "6359235e590f65673496c6dd"
+   },
+   {
+     "codi": "05",
+     "nom": "Portatil",
+     "descripcio": "ordinador portatil",
+     "preuCompra": "120.36",
+     "anyCompra": "2020-5-10",
+     "fotografia": "URL/Imagen",
+     "codiSubCategoria": "6359235e590f65673496c6dd"
+   }
+ ]
