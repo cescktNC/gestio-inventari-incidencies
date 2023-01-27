@@ -57,7 +57,7 @@
                                     <%= incidencia.ubicacio %>
                                 </td>
                                 <td>
-                                    <% if(incidencia.codiExemplar === undefined){ %>
+                                    <% if(incidencia.codiExemplar == null){ %>
                                         Element no inventariat
                                     <% }  else { %>
                                         <% list_mat.forEach(function(material) { %>
