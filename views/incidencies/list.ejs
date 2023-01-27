@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th scope="col">Codi</th>
-                            <th scope="col">Seguiment</th>
                             <th scope="col">Estat</th>
                             <th scope="col">Data</th>
                             <th scope="col">Tipologia</th>
@@ -38,9 +37,6 @@
                             <tr>
                                 <td>
                                     <%= incidencia.codi %>
-                                </td>
-                                <td>
-                                    <%= incidencia.seguiment %>
                                 </td>
                                 <td>
                                     <%= incidencia.estat %>
@@ -62,7 +58,7 @@
                                 </td>
                                 <td>
                                     <% list_mat.forEach(function(material) {
-                                        if(incidencia.codiExemplar.codiMaterial==material.id) {%>
+                                        if(incidencia.codiExemplar.codiMaterial == material.id) {%>
                                             <%= material.nom %>
                                         <% } %>
                                     <% }); %>
