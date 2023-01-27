@@ -32,8 +32,9 @@ class IncidenciaController {
         var list_tipologia = Incidencia.schema.path('tipologia').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
+        var codi = await Incidencia.count();
         var incidencia = {
-            codi: Math.random() * 100,
+            codi: codi + 1,
             data: Date.now(),
             tipologia: req.body.tipologia,
             proposta: '',
