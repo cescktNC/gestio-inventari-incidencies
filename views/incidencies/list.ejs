@@ -57,11 +57,15 @@
                                     <%= incidencia.ubicacio %>
                                 </td>
                                 <td>
-                                    <% list_mat.forEach(function(material) { 
-                                        if(incidencia.codiExemplar != null && incidencia.codiExemplar.codiMaterial == material.id) {%>
-                                            <%= material.nom %>
-                                        <% } %>
-                                    <% }); %>
+                                    <% if(incidencia.codiExemplar === undefined){ %>
+                                        Element no inventariat
+                                    <% }  else { %>
+                                        <% list_mat.forEach(function(material) { %>
+                                            <% if(incidencia.codiExemplar.codiMaterial == material.id) { %>
+                                                <%= material.nom %>
+                                            <% } %>
+                                        <% }); %>
+                                    <% } %>
                                 </td>
                                 <td>
                                     <%= incidencia.codiLocalitzacio.nom %>
