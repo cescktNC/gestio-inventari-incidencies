@@ -4,7 +4,7 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 
 var PrestecSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
     
-    codi :{ type: String, required: true },
+    // codi :{ type: String, required: true },
     dataInici: { type: Date, required: true},
     dataRetorn: { type: Date, required: true},
     codiExemplar : { type: Schema.ObjectId, ref: "Exemplar" },
