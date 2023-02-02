@@ -26,6 +26,7 @@
 							<th scope="col">Data Retorn</th>
 							<th scope="col">Codi Exemplar</th>
 							<th scope="col">DNI Usuari</th>
+							<th scope="col">Estat</th>
 							<th scope="col">
 								<a href="/prestec/create" class="btn btn-primary">New</a>
 							</th>
@@ -48,6 +49,9 @@
 								</td>
 								<td>
 									<%= prestec.dniUsuari.dni %>
+								</td>
+								<td>
+									<%= prestec.estat %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/prestec/update/<%=prestec._id%>"

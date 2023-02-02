@@ -28,11 +28,22 @@ class prestecController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
+    var codi = await Prestec.count();
+
     const exemplar_list = await Exemplar.find();
     const usuari_list = await Usuari.find();
-    Prestec.create(req.body, function (error, newPrestec) {
+
+    console.log(Prestec.schema.path('estat').default)
+
+    let prestec = {
+      codi: codi,
+      dataInici: req.body.dataInici,
+      dataRetorn: req.body.dataRetorn,
+      estat: Prestec.schema.path('estat').default,
+      codiExemplar: req.body.codiExemplar,
+      dniUsuari: req.body.dniUsuari
+    }
+    Prestec.create(prestec, function (error, newPrestec) {
       if (error) {
         res.render('prestec/new', { error: error.message, exemplarList: exemplar_list, usuariList: usuari_list })
       } else {
