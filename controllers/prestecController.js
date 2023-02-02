@@ -34,7 +34,7 @@ class prestecController {
     const usuari_list = await Usuari.find();
 
     let prestec = {
-      codi: codi,
+      codi: codi + 1,
       dataInici: req.body.dataInici,
       dataRetorn: req.body.dataRetorn,
       codiExemplar: req.body.codiExemplar,
