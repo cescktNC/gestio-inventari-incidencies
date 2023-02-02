@@ -47,10 +47,9 @@ class IncidenciaController {
                 descripcio: req.body.descripcio,
                 ubicacio: req.body.ubicacio,
                 codiLocalitzacio: req.body.codiLocalitzacio,
+                codiExemplar: null
             }
-            if (exemplar.length == 0) {
-                incidencia["codiExemplar"] = undefined;
-            } else {
+            if (exemplar.length != 0) {
                 incidencia["codiExemplar"] = exemplar[0].id;
             }
             Incidencia.create(incidencia, function (error, newRecord) {
@@ -99,43 +98,49 @@ class IncidenciaController {
         var list_estat = Incidencia.schema.path('estat').enumValues;
         var list_localitzacio = await Localitzacio.find();
         var list_exemplar = await Exemplar.find();
-        var exemplar = await Exemplar.find({ codi: req.body.codiExemplar });
 
-        var list_incidencia = new Incidencia({
-            tipologia: req.body.tipologia,
-            proposta: req.body.proposta,
-            prioritat: req.body.prioritat,
-            estat: req.body.estat,
-            descripcio: req.body.descripcio,
-            ubicacio: req.body.ubicacio,
-            seguiment: req.body.seguiment,
-            codiExemplar: exemplar[0].id,
-            codiLocalitzacio: req.body.codiLocalitzacio,
-            _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-        });
+        Exemplar.find({ codi: req.body.codiExemplar }, function (err, exemplar) {
+            if (err) {
+                return next(err);
+            }
+            var list_incidencia = new Incidencia({
+                tipologia: req.body.tipologia,
+                proposta: req.body.proposta,
+                prioritat: req.body.prioritat,
+                estat: req.body.estat,
+                descripcio: req.body.descripcio,
+                ubicacio: req.body.ubicacio,
+                seguiment: req.body.seguiment,
+                codiExemplar: null,
+                codiLocalitzacio: req.body.codiLocalitzacio,
+                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+            });
 
-        Incidencia.findByIdAndUpdate(
-            req.params.id,
-            list_incidencia,
-            { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
-            function (err, list_incidenciaFound) {
-                if (err) {
+            if (exemplar.length != 0) list_incidencia["codiExemplar"] = exemplar[0].id;
 
+            Incidencia.findByIdAndUpdate(
+                req.params.id,
+                list_incidencia,
+                { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+                function (err, list_incidenciaFound) {
+                    if (err) {
+                        res.render("incidencies/update", {
+                            list: list_incidencia, list_pri: list_prioritat,
+                            list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, list_tipo: list_tipologia,
+                             error: err.message
+                        });
+                    }
+                    console.log(list_incidencia);
                     res.render("incidencies/update", {
                         list: list_incidencia, list_pri: list_prioritat,
-                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat, list_tipo: list_tipologia,
-                         error: err.message
+                        list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,
+                        list_tipo: list_tipologia, message: 'Incidencia actualitzada'
                     });
-
                 }
+            );
 
-                res.render("incidencies/update", {
-                    list: list_incidencia, list_pri: list_prioritat,
-                    list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,
-                    list_tipo: list_tipologia, message: 'Incidencia actualitzada'
-                });
-            }
-        );
+        });
+        
     }
 
     static async delete_get(req, res, next) {
