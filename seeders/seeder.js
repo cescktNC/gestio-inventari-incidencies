@@ -64,11 +64,21 @@ if (process.argv[2] === '-u') {
     }
 } else if (process.argv[2] === '-sc') {
     const Subcategoria = require('../models/subcategoria');
+    const Categoria = require('../models/categoria');
     if (process.argv[3] === '-i') {
-        const dades = JSON.parse(
+        let dades = JSON.parse(
             fs.readFileSync(`subcategories.json`, "utf-8")
         );
-        importData(Subcategoria, dades);
+
+        let count = 0;
+
+        dades.forEach( async element => {
+            let categoria = await Categoria.findById(element.codiCategoria);
+            element.codi += '/'+categoria.codi;
+           count++;
+           if(count == dades.length) return importData(Subcategoria, dades);;
+        }); 
+              
     } else if (process.argv[3] === '-d') {
         deleteData(Subcategoria);
     }

@@ -28,11 +28,28 @@ class prestecController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
+
+    let codi = await Prestec.count();
     const exemplar_list = await Exemplar.find();
     const usuari_list = await Usuari.find();
-    Prestec.create(req.body, function (error, newPrestec) {
+
+    let prestec = {
+      codi: codi + 1,
+      dataInici: req.body.dataInici,
+      dataRetorn: req.body.dataRetorn,
+      codiExemplar: req.body.codiExemplar,
+      dniUsuari: req.body.dniUsuari
+    }
+
+    const codiExemplarusat = await Prestec.findOne({codiExemplar: prestec.codiExemplar});
+    if (codiExemplarusat) {
+      return res.render('prestec/new', {
+        error: "L'exemplar ja está utilitzat en un altre préstec",
+        exemplarList: exemplar_list,
+        usuariList: usuari_list
+      });
+    }
+    Prestec.create(prestec, function (error, newPrestec) {
       if (error) {
         res.render('prestec/new', { error: error.message, exemplarList: exemplar_list, usuariList: usuari_list })
       } else {
