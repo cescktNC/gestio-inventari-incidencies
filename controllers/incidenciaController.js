@@ -130,7 +130,6 @@ class IncidenciaController {
                              error: err.message
                         });
                     }
-                    console.log(list_incidencia);
                     res.render("incidencies/update", {
                         list: list_incidencia, list_pri: list_prioritat,
                         list_loc: list_localitzacio, list_exe: list_exemplar, list_est: list_estat,

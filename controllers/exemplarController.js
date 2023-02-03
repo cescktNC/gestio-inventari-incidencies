@@ -106,6 +106,17 @@ class ExemplarController {
     })
   }
 
+  static async informacio(req, res, next) {
+    try {
+      var exemplar = await Exemplar.findById(req.params.id)
+        .populate('codiMaterial')
+        .populate('codiLocalitzacio');
+      res.render('exemplar/informacio', { exemplar: exemplar });
+    } catch (e) {
+      res.send('Error!');
+    }
+  }
+
 }
 
 module.exports = ExemplarController;

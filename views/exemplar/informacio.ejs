@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title">Informació dels exemplars</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codi</th>
+                            <th scope="col">Demarca</th>
+                            <th scope="col">Codi del Material</th>
+                            <th scope="col">Codi de la Localitzacio</th>
+                            <th scope="col">Imatge</th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            <tr>
+                                <td>
+                                    <%= exemplar.codi %>
+                                </td>
+                                <td>
+                                    <%= exemplar.demarca %>
+                                </td>
+                                <td>
+                                    <%= exemplar.codiMaterial.nom %>
+                                </td>
+                                <td>
+                                    <%= exemplar.codiLocalitzacio.nom %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
+                                        class="card-link">Edit</a>
+                                </td>
+
+
+                            </tr>
+                           
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
