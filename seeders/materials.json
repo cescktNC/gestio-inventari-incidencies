@@ -1,29 +1,11 @@
 [
     {
-     "codi": "03",
-     "nom": "Portatil",
-     "descripcio": "ordinador portatil",
-     "preuCompra": "120.36",
-     "anyCompra": "2020-5-10",
-     "fotografia": "URL/Imagen",
-     "codiSubCategoria": "63d38c9071e166debd26403e"
-   },
-   {
-     "codi": "04",
-     "nom": "Portatil",
-     "descripcio": "ordinador portatil",
-     "preuCompra": "120.36",
-     "anyCompra": "2020-5-10",
-     "fotografia": "URL/Imagen",
-     "codiSubCategoria": "63d38c9071e166debd26403e"
-   },
-   {
-     "codi": "05",
-     "nom": "Portatil",
-     "descripcio": "ordinador portatil",
-     "preuCompra": "120.36",
-     "anyCompra": "2020-5-10",
-     "fotografia": "URL/Imagen",
-     "codiSubCategoria": "63d38c9071e166debd26403e"
+     "codi": "01-08",
+     "nom": "Portatil DELL",
+     "descripcio": "Ordinador portàtil",
+     "preuCompra": "499",
+     "anyCompra": "2021-12-01",
+     "fotografia": "URL/Imagen/0108portatildell",
+     "codiSubCategoria": "6358dbc837f31074692d427a"
    }
  ]
