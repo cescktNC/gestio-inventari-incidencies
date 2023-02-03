@@ -41,6 +41,14 @@ class prestecController {
       dniUsuari: req.body.dniUsuari
     }
 
+    const codiExemplarusat = await Prestec.findOne({codiExemplar: prestec.codiExemplar});
+    if (codiExemplarusat) {
+      return res.render('prestec/new', {
+        error: "L'exemplar ja está utilitzat en un altre préstec",
+        exemplarList: exemplar_list,
+        usuariList: usuari_list
+      });
+    }
     Prestec.create(prestec, function (error, newPrestec) {
       if (error) {
         res.render('prestec/new', { error: error.message, exemplarList: exemplar_list, usuariList: usuari_list })
