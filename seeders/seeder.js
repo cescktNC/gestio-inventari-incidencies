@@ -74,13 +74,33 @@ if (process.argv[2] === '-u') {
 
         dades.forEach( async element => {
             let categoria = await Categoria.findById(element.codiCategoria);
-            element.codi += '/'+categoria.codi;
+            element.codi += '/' + categoria.codi;
            count++;
-           if(count == dades.length) return importData(Subcategoria, dades);;
+           if(count == dades.length) return importData(Subcategoria, dades);
         }); 
               
     } else if (process.argv[3] === '-d') {
         deleteData(Subcategoria);
+    }
+} else if (process.argv[2] === '-m') {
+    const Subcategoria = require('../models/subcategoria');
+    const Material = require('../models/material');
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`materials.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach( async element => {
+            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);         
+            element.codi += '-' + subcategoria.codi;
+            count++;
+            if(count == dades.length) return importData(Material, dades);
+        }); 
+              
+    } else if (process.argv[3] === '-d') {
+        deleteData(Material);
     }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
