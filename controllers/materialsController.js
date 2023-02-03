@@ -27,7 +27,7 @@ class MaterialController {
 
     static async create_post(req, res) {
         const list_categoria = await SubCategoria.find();
-        const subcategoria = await SubCategoria.findById(req.body.codiCategoria);
+        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi + '-' + subcategoria.codi,
