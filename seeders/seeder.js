@@ -76,7 +76,7 @@ if (process.argv[2] === '-u') {
             let categoria = await Categoria.findById(element.codiCategoria);
             element.codi += '/'+categoria.codi;
            count++;
-           if(count == dades.length) return importData(Subcategoria, dades);;
+           if(count == dades.length) return importData(Subcategoria, dades);
         }); 
               
     } else if (process.argv[3] === '-d') {
