@@ -1,182 +1,182 @@
 [
   {
-    "codi": "01-08",
+    "codi": "01",
     "nom": "Portatil DELL",
     "descripcio": "Ordinador portàtil",
-    "preuCompra": "499",
+    "preuCompra": 499,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0108portatildell.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427a"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa98"
   },
   {
-    "codi": "02-22",
+    "codi": "02",
     "nom": "Pissara blanca",
     "descripcio": "Pissarra blanca",
-    "preuCompra": "171,19",
+    "preuCompra": 171.19,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0222pissarra_blanca.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa82"
   },
   {
-    "codi": "03-13",
+    "codi": "03",
     "nom": "Projector EPSON",
     "descripcio": "Projector",
-    "preuCompra": "649,99",
+    "preuCompra": 649.99,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0313projector_epson.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427e"
+    "codiSubCategoria": "63dcbdad76ae079d3e33faad"
   },
   {
-    "codi": "04-01",
+    "codi": "04",
     "nom": "Altaveus Genius",
     "descripcio": "Altaveus",
-    "preuCompra": "16",
+    "preuCompra": 16,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0401altaveus_genius.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427a"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa91"
   },
   {
-    "codi": "05-07",
+    "codi": "05",
     "nom": "Monitor Lenovo",
     "descripcio": "El monitor mostra la informació del teu equip com a imatges i textos, que són generats gràcies a una targeta de vídeo que es troba a l'interior de la torre de l'ordinador.",
-    "preuCompra": "49,80",
+    "preuCompra": 49.8,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0507monitor_lenovo.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427a"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa97"
   },
   {
-    "codi": "06-08",
+    "codi": "06",
     "nom": "Torre d'ordinador",
     "descripcio": "Una torre de color negre.",
-    "preuCompra": "250",
+    "preuCompra": 250,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0608armario_torre.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427a"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa98"
   },
   {
-    "codi": "07-09",
+    "codi": "07",
     "nom": "Ratolí Logitech",
     "descripcio": "és un dispositiu apuntador utilitzat per facilitar el maneig d'un entorn gràfic en un ordinador.",
-    "preuCompra": "10",
+    "preuCompra": 10,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0709ratoli_logitech.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427a"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa99"
   },
   {
-    "codi": "08-35",
+    "codi": "08",
     "nom": "Taula de fusta",
     "descripcio": "Taula de fusta 200 X 70.",
-    "preuCompra": "180",
+    "preuCompra": 180,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0835taula_fusta200X70.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa8f"
   },
   {
-    "codi": "09-06",
+    "codi": "09",
     "nom": "Cadires",
     "descripcio": "Cadires de fusta.",
-    "preuCompra": "120",
+    "preuCompra": 120,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0906cadira_fusta.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa72"
   },
   {
-    "codi": "10-32",
+    "codi": "10",
     "nom": "Suros",
     "descripcio": " Tauler de suro 200 X 70.",
-    "preuCompra": "32",
+    "preuCompra": 32,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1032tauler_suro_200X70.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa8c"
   },
   {
-    "codi": "11-20",
+    "codi": "11",
     "nom": "Penjadors",
     "descripcio": "Penjadors de 8 unitats.",
-    "preuCompra": "60",
+    "preuCompra": 60,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1120penjador_8unitats.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa80"
   },
   {
-    "codi": "15-02",
+    "codi": "15",
     "nom": "fluorescent",
     "descripcio": "Fluorescent.",
-    "preuCompra": "32",
+    "preuCompra": 32,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1502fluorescent.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4287"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fae9"
   },
   {
-    "codi": "01-01",
+    "codi": "01",
     "nom": "Armari",
     "descripcio": "Armari per guardar material.",
-    "preuCompra": "48.76",
+    "preuCompra": 48.76,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0101armari.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa6d"
   },
   {
-    "codi": "01-01",
+    "codi": "02",
     "nom": "Armari dels routers",
     "descripcio": "Armari per guardar els cables i routers.",
-    "preuCompra": "78",
+    "preuCompra": 78,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0101armari_routers.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa6d"
   },
   {
-    "codi": "02-10",
+    "codi": "02",
     "nom": "Router",
     "descripcio": "Un router és un dispositiu que ofereix una connexió Wi‑Fi, que normalment està connectat a un mòdem i que envia informació d'Internet als dispositius personals, com ara ordinadors, telèfons o tauletes..",
-    "preuCompra": "55",
+    "preuCompra": 55,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0210router.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d427a"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa9a"
   },
   {
-    "codi": "01-35",
+    "codi": "01",
     "nom": "Taula dels professors",
     "descripcio": "Taula personal dels professors.",
-    "preuCompra": "100",
+    "preuCompra": 100,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/0135taula_professor.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4279"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fa8f"
   },
   {
-    "codi": "17-41",
+    "codi": "17",
     "nom": "Microscoi Ceti",
     "descripcio": "Microscopis biològics són perfectes per als exàmens microscòpics diaris de laboratori..",
-    "preuCompra": "349",
+    "preuCompra": 349,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1741microscopi_ceti.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4289"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fb1d"
   },
   {
-    "codi": "17-02",
+    "codi": "17",
     "nom": "Estufa Pselecta",
     "descripcio": "L'estufa d'assecatge és un equip comunament usat per deshidratar reactius o mostres de laboratori o assecar instruments.",
-    "preuCompra": "1099.36",
+    "preuCompra": 1099.36,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1702estufa_pselecta.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4286"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fae6"
   },
   {
-    "codi": "17-45",
+    "codi": "17",
     "nom": "Osciloscopi Hameg",
     "descripcio": "Un dispositiu de visualització gràfica que mostra senyals elèctrics variables en el temps.",
-    "preuCompra": "643",
+    "preuCompra": 643,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1745osciloscopi_hameg.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4289"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fb0e"
   },
   {
-    "codi": "17-48",
+    "codi": "18",
     "nom": "Laboratori Masses",
     "descripcio": "Laboratori masses.",
-    "preuCompra": "356",
+    "preuCompra": 356,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1748laboratori_masses.jpg",
-    "codiSubCategoria": "6358dbc837f31074692d4289"
+    "codiSubCategoria": "63dcbdad76ae079d3e33fb0e"
   }
- ]
+]
