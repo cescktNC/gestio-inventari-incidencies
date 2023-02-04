@@ -1,6 +1,8 @@
 var Exemplar = require("../models/exemplar");
 var Localitzacio = require("../models/localitzacio");
 var Material = require("../models/material");
+var QRCode = require('qrcode');
+var url  = require('url');
 
 class ExemplarController {
 
@@ -26,25 +28,49 @@ class ExemplarController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
+
     const localitzacio_list = await Localitzacio.find();
     const material_list = await Material.find();
     const material = await Material.findById(req.body.codiMaterial);
+
     var exemplar = {
       codi: req.body.codi + '/' + material.codi,
       demarca: req.body.demarca,
-      qr: req.body.qr,
       codiMaterial: req.body.codiMaterial,
       codiLocalitzacio: req.body.codiLocalitzacio,
     }
+
     Exemplar.create(exemplar, function (error, newExemplar) {
       if (error) {
         res.render('exemplar/new', { error: error.message, localitzacioList: localitzacio_list, materialList: material_list })
       } else {
-        res.redirect('/exemplar')
+        const exemplar_path = url.parse(req.protocol + '://' + req.get('host')).href + 'exemplar/' + newExemplar.id;
+        // Genero el QR
+        QRCode.toString(exemplar_path, {
+          errorCorrectionLevel: 'H',
+          type: 'svg'
+        }, function(err, qr_svg) {
+          if (err) throw err;
+          newExemplar['qr'] = qr_svg;
+          Exemplar.findByIdAndUpdate(
+            newExemplar.id,
+            newExemplar,
+            { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
+            function (err, exemplarfound) {
+              if (err) {
+                //return next(err);
+                res.render("exemplar/new", { error: error.message, localitzacioList: localitzacio_list, materialList: material_list });
+              }
+            }
+          );
+          console.log(qr_svg);
+        });
+        
+        res.redirect('/exemplar');
+
       }
-    })
+    });
+
   }
 
   static update_get(req, res, next) {
@@ -63,8 +89,8 @@ class ExemplarController {
     });
 
   }
-  static update_post(req, res, next) {
 
+  static update_post(req, res, next) {
 
     if (req.body.demarca === undefined) req.body.demarca = false;
     var exemplar = {
@@ -89,10 +115,9 @@ class ExemplarController {
       }
     );
   }
+
   static async delete_get(req, res, next) {
-
     res.render('exemplar/delete', { id: req.params.id })
-
   }
 
   static async delete_post(req, res, next) {
