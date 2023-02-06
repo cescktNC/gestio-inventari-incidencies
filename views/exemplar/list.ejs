@@ -39,7 +39,8 @@
 									<%= exemplar.demarca %>
 								</td>
 								<td>
-									<%= exemplar.qr %>
+									<!-- A l'insertar una etiqueta HTML (svg), en comptes de posar '=', s'ha de posar el '-'  -->
+									<%- exemplar.qr %>
 								</td>
 								<td>
 									<%= exemplar.codiMaterial.nom %>
@@ -58,7 +59,6 @@
 						<% }); %>
 					</tbody>
 				</table>
-
 
 			</div>
 
