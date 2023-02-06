@@ -8,7 +8,8 @@ var ExemplarSchema = new Schema({ // Diem que creem un nou esquema per a les col
     demarca: {type: Boolean },
     qr: {type: String, required: true},
     codiMaterial: { type: Schema.ObjectId, ref: "Material" },
-    codiLocalitzacio : { type: Schema.ObjectId, ref: "Localitzacio" }
+    codiLocalitzacio : { type: Schema.ObjectId, ref: "Localitzacio" },
+    fotografiaMaterial : {type: Schema.ObjectId, ref: "Fotografia"}
 });
 
 
