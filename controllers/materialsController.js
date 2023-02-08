@@ -10,7 +10,7 @@ class MaterialController {
 
         Material.find()
             .populate('codiSubCategoria')
-            .sort({ codi: 1, codiSubCategoria: 1 })
+            .sort({ codiSubCategoria: 1, codi: 1 })
             .exec(function (err, list) {
                 if (err) {
                     return next(err);
@@ -37,8 +37,6 @@ class MaterialController {
             fotografia: req.file.path.substring(7, req.file.path.length),
             codiSubCategoria: req.body.codiSubCategoria
         };
-
-        console.log(typeof list_material)
 
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
