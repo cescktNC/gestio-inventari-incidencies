@@ -10,7 +10,7 @@ class MaterialController {
 
         Material.find()
             .populate('codiSubCategoria')
-            .sort({ codi: 1, codiSubCategoria: 1 })
+            .sort({ codiSubCategoria: 1, codi: 1 })
             .exec(function (err, list) {
                 if (err) {
                     return next(err);
@@ -27,7 +27,8 @@ class MaterialController {
 
     static async create_post(req, res) {
         const list_categoria = await SubCategoria.find();
-        const subcategoria = await SubCategoria.findById(req.body.codiCategoria);
+        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
+        console.log(req.body.codiSubCategoria)
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi + '-' + subcategoria.codi,
@@ -149,6 +150,8 @@ class MaterialController {
         let promesa = new Promise((resolve, reject) => {
             Material.create(jsonArray);
         });
+
+        // let subcategoria = await Subcategoria.find({nom: element.codiSubCategoria});
 
         // Executo la promesa
         promesa
