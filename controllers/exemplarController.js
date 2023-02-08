@@ -134,7 +134,8 @@ class ExemplarController {
     try {
       var exemplar = await Exemplar.findById(req.params.id)
         .populate('codiMaterial')
-        .populate('codiLocalitzacio');
+        .populate('codiLocalitzacio')
+        .populate('fotografiaMaterial');
       res.render('exemplar/show', { exemplar: exemplar });
     } catch (e) {
       res.send('Error!');

@@ -25,28 +25,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
-                            <tr>
-                                <td>
-                                    <%= exemplar.codi %>
-                                </td>
-                                <td>
-                                    <%= exemplar.demarca %>
-                                </td>
-                                <td>
-                                    <%= exemplar.codiMaterial.nom %>
-                                </td>
-                                <td>
-                                    <%= exemplar.codiLocalitzacio.nom %>
-                                </td>
-                                <td>
-                                    <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
-                                        class="card-link">Edit</a>
-                                </td>
+
+                        <tr>
+                            <td>
+                                <%= exemplar.codi %>
+                            </td>
+                            <td>
+                                <%= exemplar.demarca %>
+                            </td>
+                            <td>
+                                <%= exemplar.codiMaterial.nom %>
+                            </td>
+                            <td>
+                                <%= exemplar.codiLocalitzacio.nom %>
+                            </td>
+                            <td>
+                                <%= exemplar.fotografia %>
+                            </td> 
+                            <td>
+                                <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
+                                    class="card-link">Edit</a>
+                            </td>
 
 
-                            </tr>
-                           
+                        </tr>
+
                     </tbody>
                 </table>
 
