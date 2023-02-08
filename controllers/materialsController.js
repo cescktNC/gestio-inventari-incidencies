@@ -28,10 +28,6 @@ class MaterialController {
     static async create_post(req, res) {
         const list_categoria = await SubCategoria.find();
         const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
-<<<<<<< HEAD
-        console.log(req.body.codiSubCategoria)
-=======
->>>>>>> 9af845f35ed6208001f2c4813442b1a2b2ca8d42
         var list_material = {
             nom: req.body.nom,
             codi: req.body.codi + '-' + subcategoria.codi,
@@ -41,8 +37,6 @@ class MaterialController {
             fotografia: req.file.path.substring(7, req.file.path.length),
             codiSubCategoria: req.body.codiSubCategoria
         };
-
-        console.log(typeof list_material)
 
         Material.create(list_material, function (error, newMaterial) {
             if (error) {
