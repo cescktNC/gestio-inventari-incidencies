@@ -40,11 +40,13 @@
                                 <%= exemplar.codiLocalitzacio.nom %>
                             </td>
                             <td>
-                                <%= exemplar.fotografia %>
-                            </td> 
+                            <img class="w-25" src="../../<%= exemplar.codiMaterial.fotografia %>" alt="<%= exemplar.codiMaterial.nom %>">
+                            </td>
                             <td>
                                 <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
                                     class="card-link">Edit</a>
+                                <a class="btn btn-info" href="/exemplar/list/<%=exemplar.qr%>" download
+                                    class="card-link">Descargar</a>
                             </td>
 
 
