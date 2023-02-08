@@ -13,6 +13,7 @@ router.get("/delete/:id",  exemplar_controller.delete_get);
 router.post("/delete/:id",  exemplar_controller.delete_post);
 router.get("/update/:id",  exemplar_controller.update_get);
 router.post("/update/:id",  exemplar_controller.update_post);
+router.get("/informacio/:id", exemplar_controller.informacio);
 
 
 module.exports = router;

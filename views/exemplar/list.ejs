@@ -39,7 +39,8 @@
 									<%= exemplar.demarca %>
 								</td>
 								<td>
-									<%= exemplar.qr %>
+									<!-- A l'insertar una etiqueta HTML (svg), en comptes de posar '=', s'ha de posar el '-'  -->
+									<%- exemplar.qr %>
 								</td>
 								<td>
 									<%= exemplar.codiMaterial.nom %>
@@ -50,13 +51,14 @@
 								<td>
 									<a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
 										class="card-link">Edit</a>
+									<a class="btn btn-secondary" href="/exemplar/informacio/<%=exemplar._id%>"
+										class="card-link">Mostrar</a>
 								</td>
 
 							</tr>
 						<% }); %>
 					</tbody>
 				</table>
-
 
 			</div>
 
