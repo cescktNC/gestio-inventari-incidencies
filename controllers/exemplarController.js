@@ -63,7 +63,6 @@ class ExemplarController {
               }
             }
           );
-          console.log(qr_svg);
         });
         
         res.redirect('/exemplar');
@@ -131,12 +130,12 @@ class ExemplarController {
     })
   }
 
-  static async informacio(req, res, next) {
+  static async show(req, res, next) {
     try {
       var exemplar = await Exemplar.findById(req.params.id)
         .populate('codiMaterial')
         .populate('codiLocalitzacio');
-      res.render('exemplar/informacio', { exemplar: exemplar });
+      res.render('exemplar/show', { exemplar: exemplar });
     } catch (e) {
       res.send('Error!');
     }

@@ -31,15 +31,11 @@
 
                     </div>
                     <div class="form-group">
-                        <label for="qr">QR</label>
-                        <input type="text" name="qr" class="form-control">
-                    </div>
-                    <div class="form-group">
                         <label for="codiMaterial">codiMaterial</label>
                         <select type="text" name="codiMaterial" class="form-control">
-                            <% materialList.forEach(function(codiMaterial) { %>
-                                <option value="<%= codiMaterial.id %>">
-                                    <%= codiMaterial.codi %>
+                            <% materialList.forEach(function(material) { %>
+                                <option value="<%= material.id %>">
+                                    <%= material.nom %>
                                 </option>
                             <% }); %>
                         </select>
@@ -47,9 +43,9 @@
                     <div class="form-group">
                         <label for="codiLocalitzacio">CodiLocalitzacio</label>
                         <select type="text" name="codiLocalitzacio" class="form-control">
-                            <% localitzacioList.forEach(function(CodiLocalitzacio) { %>
-                                <option value="<%= CodiLocalitzacio.id %>">
-                                    <%= CodiLocalitzacio.codi %>
+                            <% localitzacioList.forEach(function(localitzacio) { %>
+                                <option value="<%= localitzacio.id %>">
+                                    <%= localitzacio.nom %>
                                 </option>
                             <% }); %>
                         </select>

@@ -22,8 +22,6 @@ class SubcategoriaController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
     const categoria_list = await Categoria.find();
     const categoria = await Categoria.findById(req.body.codiCategoria);
     var subCategoria = {
