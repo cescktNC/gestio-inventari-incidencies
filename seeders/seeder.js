@@ -7,12 +7,12 @@ const fs = require('fs');
 
 // Importar el mòdul 'dotenv' per a insertar el fitxer '.env' amb totes les variables
 var dotenv = require('dotenv');
-dotenv.config({ path:"../.env" }); // S'especifica on està el fitxer '.env'
+dotenv.config({ path: "../.env" }); // S'especifica on està el fitxer '.env'
 
 // Importar el mòdul 'mongoose' i configurar la connexió a la base de dades de MongoDB
 var mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI;
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Per a importar les dades del fitxer JSON a la base de dades de MongoDB
 const importData = async (model, dades) => {
@@ -72,13 +72,13 @@ if (process.argv[2] === '-u') {
 
         let count = 0;
 
-        dades.forEach( async element => {
+        dades.forEach(async element => {
             let categoria = await Categoria.findById(element.codiCategoria);
             element.codi += '/' + categoria.codi;
-           count++;
-           if(count == dades.length) return importData(Subcategoria, dades);
-        }); 
-              
+            count++;
+            if (count == dades.length) return importData(Subcategoria, dades);
+        });
+
     } else if (process.argv[3] === '-d') {
         deleteData(Subcategoria);
     }
@@ -92,20 +92,91 @@ if (process.argv[2] === '-u') {
 
         let count = 0;
 
-        dades.forEach( async element => {
-            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);         
+        dades.forEach(async element => {
+            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
             element.codi += '-' + subcategoria.codi;
             count++;
-            if(count == dades.length) return importData(Material, dades);
-        }); 
-              
+            if (count == dades.length) return importData(Material, dades);
+        });
+
     } else if (process.argv[3] === '-d') {
         deleteData(Material);
+    }
+} else if (process.argv[2] === '-e') {
+    const Exemplar = require('../models/exemplar');
+    const Material = require('../models/material');
+    const Localitzacio = require('../models/localitzacio');
+    var QRCode = require('qrcode');
+    var url = require('url');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`exemplars.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let material = await Material.find({ nom: element.nomMaterial });
+            let localitzacio = await Localitzacio.find({ nom: element.nomLocalitzacio });
+            element.codi += '-' + material[0].codi + '-' + localitzacio[0].codi;
+            element.codiMaterial = material[0].id;
+            element.codiLocalitzacio = localitzacio[0].id;
+            console.log(element)
+            await Exemplar.create(element);
+
+            var exemplar = await Exemplar.find({ codi: element.codi });
+
+            console.log(exemplar);
+
+            let promesa = new Promise((resolve, reject) => {
+                creaQR(exemplar[0], Exemplar);
+            });
+    
+            // Executo la promesa
+            promesa
+                .then(count++) 
+                .catch(error => console.log(error));
+             console.log(count);
+
+            if (count == dades.length) process.exit();
+        });
+
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Exemplar);
     }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
     "-u" per a importar usuaris\n\
     "-c" per a importar categories\n\
-    "-sc" per a importar subcategories');
+    "-sc" per a importar subcategories\n\
+    "-m" per a importar materials\n\
+    "-e" per a importar exemplars');
     process.exit();
+}
+
+ function creaQR(dada, model) {
+    const exemplar_path = url.parse('http://localhost:5000/exemplar/show/' + dada.id);
+    // Genero el QR
+
+    QRCode.toString(exemplar_path.href, {
+        errorCorrectionLevel: 'H',
+        type: 'svg'
+    }, async function (err, qr_svg) {
+        if (err) throw err;
+        dada.qr = qr_svg;
+        await model.findByIdAndUpdate(
+            dada.id,
+            dada,
+            { runValidators: true },
+            function (err) {
+                if (err) console.log(err);
+                else (console.log('b'))
+            }
+        );
+    });
+
+    console.log('a');
 }

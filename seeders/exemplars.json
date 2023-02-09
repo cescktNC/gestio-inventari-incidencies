@@ -1,9 +1,23 @@
 [
     {
-      "codi": "01-08",
+      "codi": "01",
       "demarca": false,
-      "qr": "Ordinador portàtil",
-      "codiMaterial": "499",
-      "codiLocalitzacio": "2021-12-01"
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "C001"
+    },
+    {
+      "codi": "02",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "C001"
+    },
+    {
+      "codi": "03",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "C001"
     }
 ]

@@ -32,7 +32,7 @@
                         <label for="codiPlanta">codiPlanta</label>
                         <select type="text" name="codiPlanta" class="form-control">
                             <% plantaList.forEach(function(Planta) { %>
-                                <option value="<%= codiCentre.id %>">
+                                <option value="<%= Planta.id %>">
                                     <%= Planta.codi %>
                                 </option>
                             <% }); %>
