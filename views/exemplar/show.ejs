@@ -45,8 +45,8 @@
                             <td>
                                 <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
                                     class="card-link">Edit</a>
-                                <a class="btn btn-info" href="/exemplar/list/<%=exemplar.qr%>" download
-                                    class="card-link">Descargar</a>
+                                    <a class="btn btn-info" href="data:image/svg+xml;utf8,<%=encodeURIComponent(exemplar.qr)%>" 
+                                    download="qr.svg" class="card-link">Descargar</a>
                             </td>
 
 
