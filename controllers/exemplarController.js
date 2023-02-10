@@ -58,7 +58,6 @@ class ExemplarController {
             { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
             function (err, exemplarfound) {
               if (err) {
-                //return next(err);
                 res.render("exemplar/new", { error: error.message, localitzacioList: localitzacio_list, materialList: material_list });
               }
             }
