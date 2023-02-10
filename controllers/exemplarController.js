@@ -90,8 +90,9 @@ class ExemplarController {
   }
 
   static update_post(req, res, next) {
-
-    if (req.body.demarca == undefined) req.body.demarca = false;
+    
+    // if (req.body.demarca == undefined) req.body.demarca = false;
+    req.body.demarca = req.body.demarca == "true";
 
     
     var exemplar = {
