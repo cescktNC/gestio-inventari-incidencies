@@ -8,10 +8,13 @@ const fs = require('fs');
 // Importar el mòdul 'dotenv' per a insertar el fitxer '.env' amb totes les variables
 var dotenv = require('dotenv');
 dotenv.config({ path: "../.env" }); // S'especifica on està el fitxer '.env'
+dotenv.config({ path: "../.env" }); // S'especifica on està el fitxer '.env'
 
 // Importar el mòdul 'mongoose' i configurar la connexió a la base de dades de MongoDB
 var mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 var mongoDB = process.env.MONGODB_URI;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Per a importar les dades del fitxer JSON a la base de dades de MongoDB
@@ -73,8 +76,13 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let categoria = await Categoria.findById(element.codiCategoria);
-            element.codi += '/' + categoria.codi;
+            dades.forEach(async element => {
+                let categoria = await Categoria.findById(element.codiCategoria);
+                element.codi += '/' + categoria.codi;
+                count++;
+                if (count == dades.length) return importData(Subcategoria, dades);
+            });
+
             count++;
             if (count == dades.length) return importData(Subcategoria, dades);
         });
@@ -94,8 +102,13 @@ if (process.argv[2] === '-u') {
 
         dades.forEach(async element => {
             let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
-            element.codi += '-' + subcategoria.codi;
-            count++;
+            dades.forEach(async element => {
+                let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
+                element.codi += '-' + subcategoria.codi;
+                count++;
+                if (count == dades.length) return importData(Material, dades);
+            });
+
             if (count == dades.length) return importData(Material, dades);
         });
 
@@ -120,63 +133,63 @@ if (process.argv[2] === '-u') {
 
             let material = await Material.find({ nom: element.nomMaterial });
             let localitzacio = await Localitzacio.find({ nom: element.nomLocalitzacio });
-            element.codi += '-' + material[0].codi + '-' + localitzacio[0].codi;
+
+            element._id = ObjectId();
+            element.codi += '/' + material[0].codi + '-' + localitzacio[0].codi;
             element.codiMaterial = material[0].id;
             element.codiLocalitzacio = localitzacio[0].id;
-            console.log(element)
-            await Exemplar.create(element);
 
-            var exemplar = await Exemplar.find({ codi: element.codi });
+            const exemplar_path = url.parse('http://localhost:5000/exemplar/show/' + element._id);
+            // Genero el QR
+            QRCode.toString(exemplar_path.href, {
+                errorCorrectionLevel: 'H',
+                type: 'svg'
+            }, function (err, qr_svg) {
+                if (err) throw err;
+                element.qr = qr_svg;
 
-            console.log(exemplar);
-
-            let promesa = new Promise((resolve, reject) => {
-                creaQR(exemplar[0], Exemplar);
             });
-    
-            // Executo la promesa
-            promesa
-                .then(count++) 
-                .catch(error => console.log(error));
-             console.log(count);
-
-            if (count == dades.length) process.exit();
+            count++;
+            if (count == dades.length) return importData(Exemplar, dades);
         });
-
 
     } else if (process.argv[3] === '-d') {
         deleteData(Exemplar);
     }
+} else if (process.argv[2] === '-p') {
+    const Prestec = require('../models/prestec');
+    const Exemplar = require('../models/exemplar');
+    const Usuari = require('../models/usuari');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`prestec.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let exemplar = await Exemplar.find({ codi: element.codiExemplar });
+            let usuari = await Usuari.find({ dni: element.dniUsuari });
+
+            element.codiExemplar = exemplar[0].id;
+            element.dniUsuari = usuari[0].id;
+
+            count++;
+            if (count == dades.length) return importData(Prestec, dades);
+        });
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Prestec);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
-    "-u" per a importar usuaris\n\
-    "-c" per a importar categories\n\
-    "-sc" per a importar subcategories\n\
-    "-m" per a importar materials\n\
-    "-e" per a importar exemplars');
+        "-u" per a importar usuaris\n\
+        "-c" per a importar categories\n\
+        "-sc" per a importar subcategories\n\
+        "-m" per a importar materials\n\
+        "-e" per a importar exemplars');
+
     process.exit();
-}
-
- function creaQR(dada, model) {
-    const exemplar_path = url.parse('http://localhost:5000/exemplar/show/' + dada.id);
-    // Genero el QR
-
-    QRCode.toString(exemplar_path.href, {
-        errorCorrectionLevel: 'H',
-        type: 'svg'
-    }, async function (err, qr_svg) {
-        if (err) throw err;
-        dada.qr = qr_svg;
-        await model.findByIdAndUpdate(
-            dada.id,
-            dada,
-            { runValidators: true },
-            function (err) {
-                if (err) console.log(err);
-                else (console.log('b'))
-            }
-        );
-    });
-
-    console.log('a');
 }

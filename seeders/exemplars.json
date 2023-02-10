@@ -19,5 +19,47 @@
       "qr": "",
       "nomMaterial": "Portatil DELL",
       "nomLocalitzacio": "C001"
+    },
+    {
+      "codi": "04",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "Magatzem"
+    },
+    {
+      "codi": "05",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "Magatzem"
+    },
+    {
+      "codi": "06",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "Magatzem"
+    },
+    {
+      "codi": "07",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "Magatzem"
+    },
+    {
+      "codi": "08",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "Magatzem"
+    },
+    {
+      "codi": "09",
+      "demarca": false,
+      "qr": "",
+      "nomMaterial": "Portatil DELL",
+      "nomLocalitzacio": "Magatzem"
     }
 ]

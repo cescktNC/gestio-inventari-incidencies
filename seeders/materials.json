@@ -47,10 +47,10 @@
   {
     "codi": "06",
     "nom": "Torre d'ordinador",
-    "descripcio": "Una torre de color negre.",
+    "descripcio": "és una variant de caixa de computadora caracterizada per situar-se de manera vertical.",
     "preuCompra": 250,
     "anyCompra": "2021-12-01",
-    "fotografia": "URL/Imagen/0608ordenador_torre.jpg",
+    "fotografia": "URL/Imagen/0608armario_torre.jpg",
     "codiSubCategoria": "63dcbdad76ae079d3e33fa98"
   },
   {
@@ -68,7 +68,7 @@
     "descripcio": "Taula de fusta 200 X 70.",
     "preuCompra": 180,
     "anyCompra": "2021-12-01",
-    "fotografia": "URL/Imagen/0835taula_fusta_200x70.jpg",
+    "fotografia": "URL/Imagen/0835taula_fusta200X70.jpg",
     "codiSubCategoria": "63dcbdad76ae079d3e33fa8f"
   },
   {
@@ -101,7 +101,7 @@
   {
     "codi": "15",
     "nom": "fluorescent",
-    "descripcio": "Fluorescent.",
+    "descripcio": "caracteritza les substàncies que són capaces d'absorbir energia en forma de radiacions electromagnètiques i després emetre part d'aquesta energia en forma de radiació electromagnètica de longitud d'ona diferent.",
     "preuCompra": 32,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1502fluorescent.jpg",
@@ -173,7 +173,7 @@
   {
     "codi": "18",
     "nom": "Laboratori Masses",
-    "descripcio": "Laboratori masses.",
+    "descripcio": "Instrument de laboratori de diferents pesos, .",
     "preuCompra": 356,
     "anyCompra": "2021-12-01",
     "fotografia": "URL/Imagen/1748laboratori_masses.jpg",

@@ -91,7 +91,9 @@ class ExemplarController {
 
   static update_post(req, res, next) {
 
-    if (req.body.demarca === undefined) req.body.demarca = false;
+    if (req.body.demarca == undefined) req.body.demarca = false;
+
+    
     var exemplar = {
       codi: req.body.codi,
       demarca: req.body.demarca,
@@ -135,7 +137,6 @@ class ExemplarController {
       var exemplar = await Exemplar.findById(req.params.id)
         .populate('codiMaterial')
         .populate('codiLocalitzacio')
-        .populate('fotografiaMaterial');
       res.render('exemplar/show', { exemplar: exemplar });
     } catch (e) {
       res.send('Error!');

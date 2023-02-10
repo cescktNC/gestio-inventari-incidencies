@@ -66,7 +66,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', function (req, res) {
+const auth = require('./middlewares/authenticate');
+
+app.get('/', auth.isAuth, function (req, res) {
   res.render('home');
 });
 
