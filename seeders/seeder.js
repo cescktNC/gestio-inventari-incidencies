@@ -5,6 +5,8 @@
 // Importar el mòdul 'fs' que s'inclou a Node (No fa falta instalar-lo)
 const fs = require('fs');
 
+var url  = require('url');
+
 // Importar el mòdul 'dotenv' per a insertar el fitxer '.env' amb totes les variables
 var dotenv = require('dotenv');
 dotenv.config({ path:"../.env" }); // S'especifica on està el fitxer '.env'
@@ -37,7 +39,7 @@ const deleteData = async (model) => {
 };
 
 // Quan s'executa la comanda per a carregar el seeder s'ha d'especificar l'argument
-// que decidirà si importar dades o eliminar-les, i de quin model ha de ser. 
+// que decidirà si importar dades o eliminar-les, i de quin model ha de ser.
 // Per exemple, les dues següents comandes importen i eliminen usuaris de les taules
 // de MongoDB, respectivament:
 //      node seeder -u -i
@@ -77,8 +79,8 @@ if (process.argv[2] === '-u') {
             element.codi += '/' + categoria.codi;
            count++;
            if(count == dades.length) return importData(Subcategoria, dades);
-        }); 
-              
+        });
+
     } else if (process.argv[3] === '-d') {
         deleteData(Subcategoria);
     }
@@ -93,12 +95,12 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach( async element => {
-            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);         
+            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
             element.codi += '-' + subcategoria.codi;
             count++;
             if(count == dades.length) return importData(Material, dades);
-        }); 
-              
+        });
+
     } else if (process.argv[3] === '-d') {
         deleteData(Material);
     }

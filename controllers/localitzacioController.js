@@ -24,11 +24,12 @@ class LocalitzacioController {
     static async create_post(req, res) {
 
         const planta_list = await Planta.find();
-        const planta = await Planta.findById(req.body.codiCentre);
+        const planta = await Planta.findById(req.body.codiPlanta);
+        console.log(planta);
         var localitzacio = {
             codi: req.body.codi + '/' + planta.codi,
             nom: req.body.nom,
-            codiCentre: req.body.codiPlanta,
+            codiPlanta: req.body.codiPlanta,
             especial: req.body.especial,
         }
         Localitzacio.create(localitzacio, function (error, newLocalitzacio) {
@@ -89,7 +90,6 @@ class LocalitzacioController {
     }
 
     static async delete_post(req, res, next) {
-
         Localitzacio.findByIdAndRemove(req.params.id, (error) => {
             if (error) {
                 res.redirect('/localitzacio')

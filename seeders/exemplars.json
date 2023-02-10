@@ -1,9 +1,8 @@
 [
     {
-      "codi": "01-08",
-      "demarca": false,
-      "qr": "Ordinador portàtil",
-      "codiMaterial": "499",
-      "codiLocalitzacio": "2021-12-01"
+      "codi": "01",
+      "codiMaterial": "63deb8eb5112cb8e19fe8e7a",
+      "codiLocalitzacio": "63e368ef98f51d1025a3a800",
+      "demarca": false
     }
 ]

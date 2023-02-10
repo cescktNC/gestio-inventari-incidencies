@@ -21,7 +21,6 @@
                             <th scope="col">Codi del Material</th>
                             <th scope="col">Codi de la Localitzacio</th>
                             <th scope="col">Imatge</th>
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +39,7 @@
                                 <%= exemplar.codiLocalitzacio.nom %>
                             </td>
                             <td>
-                                <%= exemplar.fotografia %>
+                                <img class="w-25" src="../../<%= exemplar.codiMaterial.fotografia %>" alt="">
                             </td> 
                             <td>
                                 <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
