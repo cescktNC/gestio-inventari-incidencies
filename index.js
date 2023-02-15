@@ -39,7 +39,7 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
-  name: 'usuari', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'M12'
+  name: 'usuari', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'usuari'
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 }, // ms de durada de la cookie
 }));
@@ -56,17 +56,20 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
-// Guardar dades d'usuari a la variable local per a poder accedir des de les vistes
+// Guardar dades d'usuari a la variable local per a poder accedir des de les vistes. Per a accedir
+// s'ha de posar 'local.nom_variable'
 app.use(function (req, res, next) {
   if (req.session.data) {
-    res.locals.userId = req.session.data.userId;
-    res.locals.fullname = req.session.data.fullname;
-    res.locals.role = req.session.data.role;
+    res.locals.usuariId = req.session.data.usuariId;
+    res.locals.mom = req.session.data.mom;
+    res.locals.email = req.session.data.email;
+    res.locals.carrec = req.session.data.carrec;
   }
   next();
 });
 
-app.get('/', function (req, res) {
+const auth = require("./middlewares/authenticate");
+app.get('/', auth.isAuth, function (req, res) {
   res.render('home');
 });
 
