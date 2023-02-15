@@ -1,65 +1,380 @@
 [
-    {
-      "codi": "01",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "C001"
-    },
-    {
-      "codi": "02",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "C001"
-    },
-    {
-      "codi": "03",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "C001"
-    },
-    {
-      "codi": "04",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "Magatzem"
-    },
-    {
-      "codi": "05",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "Magatzem"
-    },
-    {
-      "codi": "06",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "Magatzem"
-    },
-    {
-      "codi": "07",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "Magatzem"
-    },
-    {
-      "codi": "08",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "Magatzem"
-    },
-    {
-      "codi": "09",
-      "demarca": false,
-      "qr": "",
-      "nomMaterial": "Portatil DELL",
-      "nomLocalitzacio": "Magatzem"
-    }
+  {
+    "codi": "01",
+    "demarca": false,
+    "nomMaterial": "Portatil DELL",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "02",
+    "demarca": false,
+    "nomMaterial": "Portatil DELL",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "03",
+    "demarca": false,
+    "nomMaterial": "Portatil DELL",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "04",
+    "demarca": false,
+    "nomMaterial": "Portatil DELL",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "05",
+    "demarca": false,
+    "nomMaterial": "Portatil DELL",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "06",
+    "demarca": false,
+    "nomMaterial": "Ratolí Logitech",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "07",
+    "demarca": false,
+    "nomMaterial": "Ratolí Logitech",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "08",
+    "demarca": false,
+    "nomMaterial": "Ratolí Logitech",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "09",
+    "demarca": false,
+    "nomMaterial": "Ratolí Logitech",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "10",
+    "demarca": false,
+    "nomMaterial": "Ratolí Logitech",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "11",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "12",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "13",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "14",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "15",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "16",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "17",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "18",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "19",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "20",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "21",
+    "demarca": false,
+    "nomMaterial": "fluorescent",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "22",
+    "demarca": false,
+    "nomMaterial": "fluorescent",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "23",
+    "demarca": false,
+    "nomMaterial": "fluorescent",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "24",
+    "demarca": false,
+    "nomMaterial": "fluorescent",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "25",
+    "demarca": false,
+    "nomMaterial": "fluorescent",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "26",
+    "demarca": false,
+    "nomMaterial": "fluorescent",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "27",
+    "demarca": false,
+    "nomMaterial": "Pissara blanca",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "28",
+    "demarca": false,
+    "nomMaterial": "Projector EPSON",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "29",
+    "demarca": false,
+    "nomMaterial": "Altaveus Genius",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "30",
+    "demarca": false,
+    "nomMaterial": "Monitor Lenovo",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "31",
+    "demarca": false,
+    "nomMaterial": "Monitor Lenovo",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "32",
+    "demarca": false,
+    "nomMaterial": "Torre d'ordinador",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "33",
+    "demarca": false,
+    "nomMaterial": "Ratolí Logitech",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "34",
+    "demarca": false,
+    "nomMaterial": "Suros",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "35",
+    "demarca": false,
+    "nomMaterial": "Penjadors",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "36",
+    "demarca": false,
+    "nomMaterial": "Penjadors",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "37",
+    "demarca": false,
+    "nomMaterial": "Armari",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "38",
+    "demarca": false,
+    "nomMaterial": "Armari dels routers",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "39",
+    "demarca": false,
+    "nomMaterial": "Router",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "40",
+    "demarca": false,
+    "nomMaterial": "Router",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "41",
+    "demarca": false,
+    "nomMaterial": "Taula dels professors",
+    "nomLocalitzacio": "C001"
+  },
+  {
+    "codi": "42",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "43",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "44",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "45",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "46",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "47",
+    "demarca": false,
+    "nomMaterial": "Cadires",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "48",
+    "demarca": false,
+    "nomMaterial": "Portatil DELL",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "49",
+    "demarca": false,
+    "nomMaterial": "Microscoi Ceti",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "50",
+    "demarca": false,
+    "nomMaterial": "Microscoi Ceti",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "51",
+    "demarca": false,
+    "nomMaterial": "Estufa Pselecta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "52",
+    "demarca": false,
+    "nomMaterial": "Estufa Pselecta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "53",
+    "demarca": false,
+    "nomMaterial": "Osciloscopi Hameg",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "54",
+    "demarca": false,
+    "nomMaterial": "Osciloscopi Hameg",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "55",
+    "demarca": false,
+    "nomMaterial": "Laboratori Masses",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "56",
+    "demarca": false,
+    "nomMaterial": "Laboratori Masses",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "57",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "58",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "59",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "60",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "61",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "62",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  },
+  {
+    "codi": "63",
+    "demarca": false,
+    "nomMaterial": "Taula de fusta",
+    "nomLocalitzacio": "C002"
+  }
 ]
