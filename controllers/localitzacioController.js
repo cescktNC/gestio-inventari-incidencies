@@ -25,7 +25,6 @@ class LocalitzacioController {
 
         const planta_list = await Planta.find();
         const planta = await Planta.findById(req.body.codiPlanta);
-        console.log(planta);
         var localitzacio = {
             codi: req.body.codi + '/' + planta.codi,
             nom: req.body.nom,
@@ -66,8 +65,6 @@ class LocalitzacioController {
             especial: req.body.especial,
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };
-
-        console.log(localitzacio)
 
         Localitzacio.findByIdAndUpdate(
             req.params.id,

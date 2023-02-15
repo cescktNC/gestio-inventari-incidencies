@@ -39,12 +39,15 @@
                                 <%= exemplar.codiLocalitzacio.nom %>
                             </td>
                             <td>
-                                <img class="w-25" src="../../<%= exemplar.codiMaterial.fotografia %>" alt="<%= exemplar.codiMaterial.nom %>">
+                                <img class="w-25" src="../../<%= exemplar.codiMaterial.fotografia %>"
+                                    alt="<%= exemplar.codiMaterial.nom %>">
                             </td>
+
                             <td>
                                 <a class="btn btn-secondary" href="/exemplar/update/<%=exemplar._id%>"
                                     class="card-link">Edit</a>
-                                    <a class="btn btn-info" href="data:image/svg+xml;utf8,<%=encodeURIComponent(exemplar.qr)%>" 
+                                <a class="btn btn-info"
+                                    href="data:image/svg+xml;utf8,<%=encodeURIComponent(exemplar.qr)%>"
                                     download="qr.svg" class="card-link">Descargar</a>
                             </td>
 

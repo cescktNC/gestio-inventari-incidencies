@@ -75,12 +75,12 @@ class autenticacioController {
                   
                   var usuariData = {
                         'usuariId': usuari.id,                  
-                        'mom': usuari.nom,
+                        'nom': usuari.nom,
                         'email': usuari.email,
                         'carrec': usuari.carrec,
                    }
 
-                  req.session.data = usuariData
+                  req.session.data = usuariData;
                   res.redirect('/home');
                }
                else {

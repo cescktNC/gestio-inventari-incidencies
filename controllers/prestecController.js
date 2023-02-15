@@ -21,7 +21,7 @@ class prestecController {
 
   static async create_get(req, res, next) {
 
-    const exemplar_list = await Exemplar.find();
+    const exemplar_list = await Exemplar.find({codiLocalitzacio: '63e5f60069a3437e8c416e93'});
     const usuari_list = await Usuari.find();
     res.render('prestec/new', { exemplarList: exemplar_list, usuariList: usuari_list })
 
@@ -41,8 +41,8 @@ class prestecController {
       dniUsuari: req.body.dniUsuari
     }
 
-    const codiExemplarusat = await Prestec.findOne({codiExemplar: prestec.codiExemplar});
-    if (codiExemplarusat) {
+    const codiExemplarUsat = await Prestec.findOne({codiExemplar: prestec.codiExemplar});
+    if (codiExemplarUsat) {
       return res.render('prestec/new', {
         error: "L'exemplar ja está utilitzat en un altre préstec",
         exemplarList: exemplar_list,

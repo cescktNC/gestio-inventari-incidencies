@@ -31,9 +31,9 @@
                     <div class="form-group">
                         <label for="codiPlanta">codiPlanta</label>
                         <select type="text" name="codiPlanta" class="form-control">
-                            <% plantaList.forEach(function(planta) { %>
-                                <option value="<%= planta.id %>">
-                                    <%= planta.codi %>
+                            <% plantaList.forEach(function(Planta) { %>
+                                <option value="<%= Planta.id %>">
+                                    <%= Planta.codi %>
                                 </option>
                             <% }); %>
                         </select>

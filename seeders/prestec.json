@@ -1,0 +1,34 @@
+[
+    {
+        "codi": "01",
+        "dataInici": "2023-01-19",
+        "dataRetorn": "2023-02-30",
+        "estat": "Pendent",
+        "codiExemplar": "04/01-08/02-03/02/01",
+        "dniUsuari": "11111111A"
+    },
+    {
+        "codi": "02",
+        "dataInici": "2023-01-19",
+        "dataRetorn": "2023-02-30",
+        "estat": "Acceptat",
+        "codiExemplar": "05/01-08/02-03/02/01",
+        "dniUsuari": "11111111A"
+    },
+    {
+        "codi": "03",
+        "dataInici": "2023-01-19",
+        "dataRetorn": "2023-02-30",
+        "estat": "Acceptat",
+        "codiExemplar": "06/01-08/02-03/02/01",
+        "dniUsuari": "11111111A"
+    },
+    {
+        "codi": "04",
+        "dataInici": "2023-01-19",
+        "dataRetorn": "2023-02-30",
+        "estat": "Denegat",
+        "codiExemplar": "07/01-08/02-03/02/01",
+        "dniUsuari": "11111111A"
+    }
+]
