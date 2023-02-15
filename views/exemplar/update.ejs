@@ -3,6 +3,7 @@
 
 <head>
 	<%- include('../partials/head'); %>
+	
 </head>
 
 <body class="container">
@@ -26,8 +27,11 @@
 					</div>
 					<div class="form-group">
 						<label for="demarca">Demarca</label><br>
-						<input type="checkbox" name="demarca" id="true" value="true">True
+						<input type="checkbox" name="demarca" id="demarca" value="true" <% if (Exemplar.demarca) { %>checked<% } %>> True
+
+
 					</div>
+
 
 					<button type="submit" class="btn btn-primary">Save
 					</button>
@@ -41,15 +45,15 @@
 							<%= error %>
 						</p>
 					</div>
-				<% } %>
+					<% } %>
 
-				<% if (typeof message !=="undefined" ) { %>
-					<div class="alert alert-primary mt-2" role="alert">
-						<p>
-							<%= message %>
-						</p>
-					</div>
-				<% } %>
+						<% if (typeof message !=="undefined" ) { %>
+							<div class="alert alert-primary mt-2" role="alert">
+								<p>
+									<%= message %>
+								</p>
+							</div>
+							<% } %>
 
 			</div>
 

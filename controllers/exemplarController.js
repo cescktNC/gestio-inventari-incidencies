@@ -58,7 +58,6 @@ class ExemplarController {
             { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
             function (err, exemplarfound) {
               if (err) {
-                //return next(err);
                 res.render("exemplar/new", { error: error.message, localitzacioList: localitzacio_list, materialList: material_list });
               }
             }
@@ -90,8 +89,9 @@ class ExemplarController {
   }
 
   static update_post(req, res, next) {
-
-    if (req.body.demarca == undefined) req.body.demarca = false;
+    
+    // if (req.body.demarca == undefined) req.body.demarca = false;
+    req.body.demarca = req.body.demarca == "true";
 
     
     var exemplar = {

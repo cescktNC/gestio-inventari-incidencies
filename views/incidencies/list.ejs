@@ -68,7 +68,11 @@
                                     <% } %>
                                 </td>
                                 <td>
-                                    <%= incidencia.codiLocalitzacio.nom %>
+                                    <% if(incidencia.codiLocalitzacio != null){%>
+                                        <%= incidencia.codiLocalitzacio.nom %>
+                                    <%} else {%>
+                                        <p>Ubicació no trobada</p>
+                                    <%}%>
                                 </td>
                                 <td>
                                     <a href="/incidencies/update/<%=incidencia._id%>" class="btn btn-secondary">Edit</a>

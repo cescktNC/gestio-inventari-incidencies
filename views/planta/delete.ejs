@@ -12,24 +12,17 @@
 	</header>
 
 	<main>
-
-
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Eliminar planta</h5>
-	  </div>
-	  <div class="card-body">
-
+		<div class="card mt-4">
+			<div class="card-header">
+				<h5 class="card-title">Eliminar planta</h5>
+			</div>
+			<div class="card-body">
+				<form method="POST" action="/planta/delete/<%= id %>">
 					<div class="alert alert-danger" role="alert">
-
-  					Estàs segur que vols eliminar la planta?
-					</div>	
-
-					<button type="submit" class="btn btn-danger">
-						Delete
-					</button>
+						Estàs segur que vols eliminar la planta?
+					</div>
+					<button type="submit" class="btn btn-danger">Delete</button>
 				</form>
-
 
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
@@ -41,9 +34,7 @@
 				<% } %>
 
 			</div>
-
 		</div>
-
 	</main>
 
 	<footer>

@@ -87,7 +87,6 @@ class LocalitzacioController {
     }
 
     static async delete_post(req, res, next) {
-
         Localitzacio.findByIdAndRemove(req.params.id, (error) => {
             if (error) {
                 res.redirect('/localitzacio')

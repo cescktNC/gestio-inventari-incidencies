@@ -22,5 +22,61 @@
         "carrec": "Director",
         "email": "xaviv@gmail.com",
         "password": "tAZpG4F7^5od"
+    },
+    {
+        "nom": "Nuria",
+        "cognoms": "Pons Camins",
+        "dni": "44444444D",
+        "carrec": "Professor",
+        "email": "npons@gmail.com",
+        "password": "YG9pQu8^F5eW"
+    },
+    {
+        "nom": "Bea",
+        "cognoms": "Ruiz Perez",
+        "dni": "55555555E",
+        "carrec": "Professor",
+        "email": "bruiz@gmail.com",
+        "password": "EDJf6&S@AzoD"
+    },
+    {
+        "nom": "Oriol",
+        "cognoms": "Baltasar Gavaldà",
+        "dni": "66666666F",
+        "carrec": "Alumne",
+        "email": "obaltasar@gmail.com",
+        "password": "Q2SZ3tU%uD5v"
+    },
+    {
+        "nom": "Victor",
+        "cognoms": "Martinez Salvador",
+        "dni": "77777777G",
+        "carrec": "Alumne",
+        "email": "vmartinez@gmail.com",
+        "password": "L2BRrX!^5qHZ"
+    },
+    {
+        "nom": "Alba",
+        "cognoms": "Tomé Puig",
+        "dni": "88888888H",
+        "carrec": "Administrador",
+        "email": "atome@gmail.com",
+        "password": "Z7VqDPi^H!89"
+    },
+    {
+        "nom": "Oscar",
+        "cognoms": "Bo Reig",
+        "dni": "99999999I",
+        "carrec": "Conserge",
+        "email": "oboreig@gmail.com",
+        "password": "xhibXqH43f$2"
+    },
+    {
+        "nom": "David",
+        "cognoms": "Garcia Gómez",
+        "dni": "111111112J",
+        "carrec": "Manteniment",
+        "email": "dgarcia@gmail.com",
+        "password": "k&arcasq6zVR"
     }
 ]
