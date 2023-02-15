@@ -1,34 +1,74 @@
 [
     {
         "codi": "01",
-        "dataInici": "2023-01-19",
-        "dataRetorn": "2023-02-30",
-        "estat": "Pendent",
-        "codiExemplar": "04/01-08/02-03/02/01",
+        "dataInici": "2021-03-19",
+        "dataRetorn": "2021-06-05",
+        "estat": "Acceptat",
+        "codiExemplar": "01/01-08/02-1/Planta 1/1",
         "dniUsuari": "11111111A"
     },
     {
         "codi": "02",
-        "dataInici": "2023-01-19",
-        "dataRetorn": "2023-02-30",
+        "dataInici": "2021-03-19",
+        "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "05/01-08/02-03/02/01",
+        "codiExemplar": "02/01-08/02-1/Planta 1/1",
         "dniUsuari": "11111111A"
     },
     {
         "codi": "03",
-        "dataInici": "2023-01-19",
-        "dataRetorn": "2023-02-30",
+        "dataInici": "2021-03-19",
+        "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "06/01-08/02-03/02/01",
+        "codiExemplar": "03/01-08/02-1/Planta 1/1",
         "dniUsuari": "11111111A"
     },
     {
         "codi": "04",
-        "dataInici": "2023-01-19",
-        "dataRetorn": "2023-02-30",
-        "estat": "Denegat",
-        "codiExemplar": "07/01-08/02-03/02/01",
+        "dataInici": "2021-03-19",
+        "dataRetorn": "2021-06-05",
+        "estat": "Acceptat",
+        "codiExemplar": "06/07-09/02-1/Planta 1/1",
         "dniUsuari": "11111111A"
+    },
+    {
+        "codi": "05",
+        "dataInici": "2021-03-19",
+        "dataRetorn": "2021-06-05",
+        "estat": "Acceptat",
+        "codiExemplar": "07/07-09/02-1/Planta 1/1",
+        "dniUsuari": "11111111A"
+    },
+    {
+        "codi": "06",
+        "dataInici": "2021-03-19",
+        "dataRetorn": "2021-06-05",
+        "estat": "Acceptat",
+        "codiExemplar": "08/07-09/02-1/Planta 1/1",
+        "dniUsuari": "11111111A"
+    },
+    {
+        "codi": "07",
+        "dataInici": "2023-01-20",
+        "dataRetorn": "2023-01-21",
+        "estat": "Denegat",
+        "codiExemplar": "28/03-13/06-1/Planta 1/1",
+        "dniUsuari": "08454874M"
+    },
+    {
+        "codi": "08",
+        "dataInici": "2023-02-25",
+        "dataRetorn": "2023-03-05",
+        "estat": "Pendent",
+        "codiExemplar": "49/17-41/17-2/Planta 1/1",
+        "dniUsuari": "08454874M"
+    },
+    {
+        "codi": "09",
+        "dataInici": "2023-02-25",
+        "dataRetorn": "2023-03-05",
+        "estat": "Pendent",
+        "codiExemplar": "51/17-02/14-2/Planta 1/1",
+        "dniUsuari": "08454874M"
     }
 ]

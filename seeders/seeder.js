@@ -191,7 +191,8 @@ if (process.argv[2] === '-u') {
         "-c" per a importar categories\n\
         "-sc" per a importar subcategories\n\
         "-m" per a importar materials\n\
-        "-e" per a importar exemplars');
+        "-e" per a importar exemplars\n\
+        "-p" per a importar préstecs');
 
     process.exit();
 }
