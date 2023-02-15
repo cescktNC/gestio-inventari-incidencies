@@ -5,7 +5,7 @@
 // Importar el mòdul 'fs' que s'inclou a Node (No fa falta instalar-lo)
 const fs = require('fs');
 
-var url  = require('url');
+var url = require('url');
 
 // Importar el mòdul 'dotenv' per a insertar el fitxer '.env' amb totes les variables
 var dotenv = require('dotenv');
@@ -49,11 +49,20 @@ const deleteData = async (model) => {
 //      node seeder -u -d
 if (process.argv[2] === '-u') {
     const Usuari = require('../models/usuari');
+const bcrypt = require('bcrypt');
+
     if (process.argv[3] === '-i') {
         const dades = JSON.parse(
             fs.readFileSync(`usuaris.json`, "utf-8")
         );
-        importData(Usuari, dades);
+        
+        let count = 0;
+        dades.forEach(async element => {
+            const salt = await bcrypt.genSalt(10);
+            element.password = await bcrypt.hash(element.password, salt);
+            count++;
+            if (count == dades.length) return importData(Usuari, dades);
+        });
     } else if (process.argv[3] === '-d') {
         deleteData(Usuari);
     }
@@ -78,12 +87,8 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            dades.forEach(async element => {
-                let categoria = await Categoria.findById(element.codiCategoria);
-                element.codi += '/' + categoria.codi;
-                count++;
-                if (count == dades.length) return importData(Subcategoria, dades);
-            });
+            let categoria = await Categoria.findById(element.codiCategoria);
+            element.codi += '/' + categoria.codi;
 
             count++;
             if (count == dades.length) return importData(Subcategoria, dades);
@@ -104,13 +109,8 @@ if (process.argv[2] === '-u') {
 
         dades.forEach(async element => {
             let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
-            dades.forEach(async element => {
-                let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
-                element.codi += '-' + subcategoria.codi;
-                count++;
-                if (count == dades.length) return importData(Material, dades);
-            });
-
+            element.codi += '-' + subcategoria.codi;
+            count++;
             if (count == dades.length) return importData(Material, dades);
         });
 
