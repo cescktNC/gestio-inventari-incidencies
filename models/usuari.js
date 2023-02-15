@@ -14,7 +14,7 @@ var UsuariSchema = new Schema({
         enum : ['Director','Professor','Alumne','Conserge','Administrador','Manteniment','Encarregat Inventari'],
         default: 'Professor'
     },
-    email: {type: String, required: true },
+    email: {type: String, required: true, unique: true },
     password: { type: String, required: true },
 });
 

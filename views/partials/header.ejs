@@ -1,44 +1,46 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">Inventari</a>
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="/usuaris">Usuaris</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/categories">Categories</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/subcategories">Subcategorias</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/materials">Materials</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/localitzacio">Localitzacio</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/centre">Centre</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/sessio">Sessio</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/reserva">Reserva</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/cadira">Cadira</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/incidencies">Incidencia</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/planta">Planta</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/prestec">Prestec</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/exemplar">Exemplar</a>
-    </li>
-  </ul>
+  <% if (locals.carrec != undefined) { %>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/usuaris">Usuaris</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/categories">Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/subcategories">Subcategorias</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/materials">Materials</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/localitzacio">Localitzacio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/centre">Centre</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sessio">Sessio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reserva">Reserva</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cadira">Cadira</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/incidencies">Incidencia</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/planta">Planta</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/prestec">Prestec</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/exemplar">Exemplar</a>
+      </li>
+    </ul>
+    <% } %>
 </nav>

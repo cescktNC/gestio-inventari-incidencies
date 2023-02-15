@@ -123,12 +123,12 @@ if (process.argv[2] === '-u') {
 
             let material = await Material.find({ nom: element.nomMaterial });
             let localitzacio = await Localitzacio.find({ nom: element.nomLocalitzacio });
-            element.id = ObjectId();
+            element._id = ObjectId();
             element.codi += '-' + material[0].codi + '-' + localitzacio[0].codi;
             element.codiMaterial = material[0].id;
             element.codiLocalitzacio = localitzacio[0].id;
 
-            const exemplar_path = url.parse('http://localhost:5000/exemplar/show/' + element.id);
+            const exemplar_path = url.parse('http://localhost:5000/exemplar/show/' + element._id);
             // Genero el QR
             QRCode.toString(exemplar_path.href, {
                 errorCorrectionLevel: 'H',
