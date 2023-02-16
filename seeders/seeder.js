@@ -49,13 +49,13 @@ const deleteData = async (model) => {
 //      node seeder -u -d
 if (process.argv[2] === '-u') {
     const Usuari = require('../models/usuari');
-const bcrypt = require('bcrypt');
+    const bcrypt = require('bcrypt');
 
     if (process.argv[3] === '-i') {
         const dades = JSON.parse(
             fs.readFileSync(`usuaris.json`, "utf-8")
         );
-        
+
         let count = 0;
         dades.forEach(async element => {
             const salt = await bcrypt.genSalt(10);
