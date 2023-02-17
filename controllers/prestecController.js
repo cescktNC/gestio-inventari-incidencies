@@ -79,12 +79,20 @@ class prestecController {
   }
   static update_post(req, res, next) {
 
+    const fechaActual = new Date();
+
     var prestec = {
       //codi: req.body.codi,
       //dataInici: req.body.dataInici,
       dataRetorn: req.body.dataRetorn,
       _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
     };
+
+    if (new Date(prestec.dataRetorn) < fechaActual) {
+      return res.render("prestec/update", { Prestec: Prestec, error: "La data de retorn no pot ser anterior a la data actual" });
+    }
+  
+
 
     Prestec.findByIdAndUpdate(
       req.params.id,
