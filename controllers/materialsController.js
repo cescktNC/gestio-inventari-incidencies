@@ -138,7 +138,6 @@ class MaterialController {
         let jsonArray;
 
         if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
-           
             jsonArray = await csv().fromFile(filePath);
         } else {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
