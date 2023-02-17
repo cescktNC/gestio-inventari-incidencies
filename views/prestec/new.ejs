@@ -46,31 +46,53 @@
                 <form method="POST" action="/prestec/create">
                     <div class="form-group">
                         <label for="dataInici">Data d'inici</label> <br>
-                        <input type="date" name="dataInici" id="dataInici" class="form-control" onchange="modificarInputDataRetorn()">
+                        <% if (introduit) { %>
+                            <input type="date" name="dataInici" id="dataInici" class="form-control" value="<%= prestecIntroduit.dataInici %>">
+                        <% } else { %>
+                            <input type="date" name="dataInici" id="dataInici" class="form-control">
+                        <% } %>
                     </div>
                     <div class="form-group">
                         <label for="dataRetorn">Data Retorn</label><br>
-                        <input type="date" name="dataRetorn" id="dataRetorn" class="form-control" disabled>
+                        <% if (introduit) { %>
+                            <input type="date" name="dataRetorn" id="dataRetorn" class="form-control" onclick="dataMinimRetorn()" value="<%= prestecIntroduit.dataRetorn %>">
+                        <% } else { %>
+                            <input type="date" name="dataRetorn" id="dataRetorn" class="form-control" onclick="dataMinimRetorn()">
+                        <% } %>
                     </div>
                     <div class="form-group">
                         <label for="codiExemplar">Codi Exemplar</label>
                         <select type="text" name="codiExemplar" class="form-control">
                             <% exemplarList.forEach(function(codiExemplar) { %>
-                                <option value="<%= codiExemplar.id %>">
-                                    <%= codiExemplar.codi %>
-                                </option>
-                                <% }); %>
+                                <% if (introduit) { %>
+                                    <% if (codiExemplar.id == prestecIntroduit.codiExemplar) { %>
+                                        <option value="<%= codiExemplar.id %>" selected>
+                                            <%= codiExemplar.codi %>
+                                        </option>
+                                    <% } else { %>
+                                        <option value="<%= codiExemplar.id %>">
+                                            <%= codiExemplar.codi %>
+                                        </option>
+                                    <% } %>
+                                <% } else { %>
+                                    <option value="<%= codiExemplar.id %>">
+                                        <%= codiExemplar.codi %>
+                                    </option>
+                                <% } %>
+                            <% }); %>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="dniUsuari">DNI de l'usuari</label>
-                        <select type="text" name="dniUsuari" class="form-control">
+                        <!-- <select type="text" name="dniUsuari" class="form-control">
+                            <option></option>
                             <% usuariList.forEach(function(dniUsuari) { %>
                                 <option value="<%= dniUsuari.id %>">
                                     <%= dniUsuari.dni %>
                                 </option>
                                 <% }); %>
-                        </select>
+                        </select> -->
+                        <input type="text" id="dniUsuari" name="dniUsuari" class="form-control" value="<%= locals.dni %>" disabled>
                     </div>
                     <button type="submit" class="btn btn-primary">Save
                     </button>

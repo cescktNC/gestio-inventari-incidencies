@@ -23,16 +23,16 @@ class prestecController {
 
     const exemplar_list = await Exemplar.find();
     const usuari_list = await Usuari.find();
-    res.render('prestec/new', { exemplarList: exemplar_list, usuariList: usuari_list })
+    res.render('prestec/new', { exemplarList: exemplar_list, usuariList: usuari_list, introduit: false})
 
   }
 
   static async create_post(req, res) {
-
+    
     let codi = await Prestec.count();
     const exemplar_list = await Exemplar.find();
     const usuari_list = await Usuari.find();
-
+    
     let prestec = {
       codi: codi + 1,
       dataInici: req.body.dataInici,
@@ -46,13 +46,15 @@ class prestecController {
       return res.render('prestec/new', {
         error: "L'exemplar ja está utilitzat en un altre préstec",
         exemplarList: exemplar_list,
-        usuariList: usuari_list
+        usuariList: usuari_list,
+        introduit: true,
+        prestecIntroduit: prestec
       });
     }
-
+    
     Prestec.create(prestec, function (error, newPrestec) {
       if (error) {
-        res.render('prestec/new', { error: error.message, exemplarList: exemplar_list, usuariList: usuari_list })
+        res.render('prestec/new', { error: error.message, exemplarList: exemplar_list, usuariList: usuari_list, introduit: true, prestecIntroduit: prestec })
       } else {
         res.redirect('/prestec')
       }
@@ -91,8 +93,6 @@ class prestecController {
     if (new Date(prestec.dataRetorn) < dataActual) {
       return res.render("prestec/update", { Prestec: Prestec, error: "La data de retorn no pot ser anterior a la data actual" });
     }
-  
-
 
     Prestec.findByIdAndUpdate(
       req.params.id,

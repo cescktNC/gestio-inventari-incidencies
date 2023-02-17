@@ -78,6 +78,7 @@ class autenticacioController {
                         'nom': usuari.nom,
                         'email': usuari.email,
                         'carrec': usuari.carrec,
+                        'dni': usuari.dni
                    }
 
                   req.session.data = usuariData;

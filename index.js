@@ -64,6 +64,7 @@ app.use(function (req, res, next) {
     res.locals.mom = req.session.data.mom;
     res.locals.email = req.session.data.email;
     res.locals.carrec = req.session.data.carrec;
+    res.locals.dni = req.session.data.dni;
   }
   next();
 });
