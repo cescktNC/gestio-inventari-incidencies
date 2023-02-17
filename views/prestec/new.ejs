@@ -3,9 +3,31 @@
 
 <head>
     <%- include('../partials/head'); %>
+        <script type="text/javascript">
+            function dataMinima() {
+                let inputDataInici = document.getElementById('dataInici');
+                let inputDataRetorn = document.getElementById('dataRetorn');     
+
+                let data = new Date();
+                let dia = data.getDate();
+                if (dia < 0) dia = '0' + dia;
+                let mes = data.getMonth() + 1;
+                if (mes < 10) mes = '0' + mes
+
+                let dataActual = data.getFullYear() + '-' + mes + '-' + dia;
+                inputDataInici.setAttribute('min', dataActual);
+            }
+
+            function dataMinimRetorn(){
+                let valueDataInici = document.getElementById('dataInici').value;
+                let inputDataRetorn = document.getElementById('dataRetorn');
+
+                inputDataRetorn.setAttribute('min', valueDataInici);
+            }
+        </script>
 </head>
 
-<body class="container">
+<body class="container" onload="dataMinima()">
 
     <header>
         <%- include('../partials/header'); %>
@@ -22,11 +44,11 @@
                 <form method="POST" action="/prestec/create">
                     <div class="form-group">
                         <label for="dataInici">Data d'inici</label> <br>
-                        <input type="date" name="dataInici" class="form-control">
+                        <input type="date" name="dataInici" id="dataInici" class="form-control" >
                     </div>
                     <div class="form-group">
                         <label for="dataRetorn">Data Retorn</label><br>
-                        <input type="date" name="dataRetorn" class="form-control">
+                        <input type="date" name="dataRetorn" id="dataRetorn" class="form-control" onclick="dataMinimRetorn()" disabled>
                     </div>
                     <div class="form-group">
                         <label for="codiExemplar">Codi Exemplar</label>
@@ -35,7 +57,7 @@
                                 <option value="<%= codiExemplar.id %>">
                                     <%= codiExemplar.codi %>
                                 </option>
-                            <% }); %>
+                                <% }); %>
                         </select>
                     </div>
                     <div class="form-group">
@@ -45,7 +67,7 @@
                                 <option value="<%= dniUsuari.id %>">
                                     <%= dniUsuari.dni %>
                                 </option>
-                            <% }); %>
+                                <% }); %>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Save
@@ -58,7 +80,7 @@
                             <%= error %>
                         </p>
                     </div>
-                <% } %>
+                    <% } %>
 
             </div>
         </div>
