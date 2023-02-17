@@ -13,7 +13,7 @@
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
         "codiExemplar": "02/01-08/02-1/Planta 1/1",
-        "dniUsuari": "11111111A"
+        "dniUsuari": "22222222B"
     },
     {
         "codi": "03",
@@ -21,7 +21,7 @@
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
         "codiExemplar": "03/01-08/02-1/Planta 1/1",
-        "dniUsuari": "11111111A"
+        "dniUsuari": "33333333C"
     },
     {
         "codi": "04",
@@ -29,7 +29,7 @@
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
         "codiExemplar": "06/07-09/02-1/Planta 1/1",
-        "dniUsuari": "11111111A"
+        "dniUsuari": "44444444D"
     },
     {
         "codi": "05",
@@ -37,7 +37,7 @@
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
         "codiExemplar": "07/07-09/02-1/Planta 1/1",
-        "dniUsuari": "11111111A"
+        "dniUsuari": "55555555E"
     },
     {
         "codi": "06",
@@ -45,7 +45,7 @@
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
         "codiExemplar": "08/07-09/02-1/Planta 1/1",
-        "dniUsuari": "11111111A"
+        "dniUsuari": "66666666F"
     },
     {
         "codi": "07",
@@ -53,7 +53,7 @@
         "dataRetorn": "2023-01-21",
         "estat": "Denegat",
         "codiExemplar": "28/03-13/06-1/Planta 1/1",
-        "dniUsuari": "08454874M"
+        "dniUsuari": "77777777G"
     },
     {
         "codi": "08",
@@ -61,7 +61,7 @@
         "dataRetorn": "2023-03-05",
         "estat": "Pendent",
         "codiExemplar": "49/17-41/17-2/Planta 1/1",
-        "dniUsuari": "08454874M"
+        "dniUsuari": "88888888H"
     },
     {
         "codi": "09",
@@ -69,6 +69,6 @@
         "dataRetorn": "2023-03-05",
         "estat": "Pendent",
         "codiExemplar": "51/17-02/14-2/Planta 1/1",
-        "dniUsuari": "08454874M"
+        "dniUsuari": "99999999I"
     }
 ]
