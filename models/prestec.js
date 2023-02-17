@@ -35,6 +35,20 @@ PrestecSchema.virtual('updateDate')
     return this.dataRetorn.toISOString().substring(0, 10);
   });
 
+PrestecSchema.path('dataInici').validate(function (value) {
+  var dataActual = new Date();
+  if (value < dataActual) {
+    throw new Error('La dataInici no pot ser anterior a la data actual');
+  }
+  return true;
+}, 'La dataInici no pot ser anterior a la data actual');
+
+PrestecSchema.path('dataRetorn').validate(function (value) {
+  if (value < this.dataInici) {
+    throw new Error('La dataRetorn no pot ser anterior a la dataInici');
+  }
+  return true;
+}, 'La dataRetorn no pot ser anterior a la dataInici');
 
 // Export model.
 module.exports = mongoose.model("Prestec", PrestecSchema);    // Creo el model esquema per a poder-lo
