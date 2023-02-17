@@ -175,6 +175,8 @@ if (process.argv[2] === '-u') {
             let exemplar = await Exemplar.find({ codi: element.codiExemplar });
             let usuari = await Usuari.find({ dni: element.dniUsuari });
 
+            console.log(usuari);
+
             element.codiExemplar = exemplar[0].id;
             element.dniUsuari = usuari[0].id;
 

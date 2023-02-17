@@ -21,7 +21,7 @@ class prestecController {
 
   static async create_get(req, res, next) {
 
-    const exemplar_list = await Exemplar.find({codiLocalitzacio: '63e5f60069a3437e8c416e93'});
+    const exemplar_list = await Exemplar.find();
     const usuari_list = await Usuari.find();
     res.render('prestec/new', { exemplarList: exemplar_list, usuariList: usuari_list })
 
@@ -49,6 +49,7 @@ class prestecController {
         usuariList: usuari_list
       });
     }
+
     Prestec.create(prestec, function (error, newPrestec) {
       if (error) {
         res.render('prestec/new', { error: error.message, exemplarList: exemplar_list, usuariList: usuari_list })
@@ -63,12 +64,14 @@ class prestecController {
       if (err) {
         return next(err);
       }
+
       if (prestec_list == null) {
         // No results.
         var err = new Error("Prestec no trobat");
         err.status = 404;
         return next(err);
       }
+      
       // Success.
       res.render("prestec/update", { Prestec: prestec_list });
     });
