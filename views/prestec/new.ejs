@@ -18,11 +18,13 @@
                 inputDataInici.setAttribute('min', dataActual);
             }
 
-            function dataMinimRetorn(){
+            function modificarInputDataRetorn(){
                 let valueDataInici = document.getElementById('dataInici').value;
-                let inputDataRetorn = document.getElementById('dataRetorn');
-
-                inputDataRetorn.setAttribute('min', valueDataInici);
+                let inputDataRetorn = document.getElementById('dataRetorn');   
+                if(valueDataInici != '') {
+                    inputDataRetorn.removeAttribute('disabled'); 
+                    inputDataRetorn.setAttribute('min', valueDataInici);
+                }
             }
         </script>
 </head>
@@ -44,11 +46,11 @@
                 <form method="POST" action="/prestec/create">
                     <div class="form-group">
                         <label for="dataInici">Data d'inici</label> <br>
-                        <input type="date" name="dataInici" id="dataInici" class="form-control" >
+                        <input type="date" name="dataInici" id="dataInici" class="form-control" onchange="modificarInputDataRetorn()">
                     </div>
                     <div class="form-group">
                         <label for="dataRetorn">Data Retorn</label><br>
-                        <input type="date" name="dataRetorn" id="dataRetorn" class="form-control" onclick="dataMinimRetorn()">
+                        <input type="date" name="dataRetorn" id="dataRetorn" class="form-control" disabled>
                     </div>
                     <div class="form-group">
                         <label for="codiExemplar">Codi Exemplar</label>
