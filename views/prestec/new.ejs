@@ -18,11 +18,13 @@
                 inputDataInici.setAttribute('min', dataActual);
             }
 
-            function dataMinimRetorn(){
+            function modificarInputDataRetorn(){
                 let valueDataInici = document.getElementById('dataInici').value;
-                let inputDataRetorn = document.getElementById('dataRetorn');
-
-                inputDataRetorn.setAttribute('min', valueDataInici);
+                let inputDataRetorn = document.getElementById('dataRetorn');   
+                if(valueDataInici != '') {
+                    inputDataRetorn.removeAttribute('disabled'); 
+                    inputDataRetorn.setAttribute('min', valueDataInici);
+                }
             }
         </script>
 </head>
