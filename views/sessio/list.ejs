@@ -37,7 +37,11 @@
 									<%= sessio.nom %>
 								</td>
 								<td>
-									<%= sessio.codiReserva.codi %>
+									<% if(sessio.codiReserva == null) { %>
+										Error a la base de dades
+									<% } else { %>
+										<%= sessio.codiReserva.codi %>
+									<% } %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/sessio/update/<%=sessio._id%>"

@@ -34,7 +34,11 @@
 									<%= planta.codi %>
 								</td>
 								<td>
-									<%= planta.codiCentre.nom %>
+									<% if(planta.codiCentre == null) { %>
+										Error a la base de dades
+									<% } else { %>
+										<%= planta.codiCentre.nom %>
+									<% } %>
 								</td>
 								<td>
 									<%= planta.planol %>

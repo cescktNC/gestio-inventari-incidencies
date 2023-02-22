@@ -16,8 +16,6 @@
 			<div class="card-body">
 				<h5 class="card-title">Localitzacio</h5>
 
-
-
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -40,7 +38,11 @@
 									<%= localitzacio.nom %>
 								</td>
 								<td>
-									<%= localitzacio.codiPlanta.codi %>
+									<% if(localitzacio.codiPlanta == null) {%>
+										Error a la base de dades
+									<% } else { %>
+										<%= localitzacio.codiPlanta.codi %>
+									<% } %>
 								</td>
 								<td>
 									<%= localitzacio.especial %>
