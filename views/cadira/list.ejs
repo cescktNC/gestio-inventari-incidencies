@@ -35,7 +35,11 @@
 									<%= cadira.numeroCadira %>
 								</td>
 								<td>
-									<%= cadira.codiSessio.codi %>
+									<% if(cadira.codiSessio == null) { %>
+										Error
+									<% } else { %>
+										<%= cadira.codiSessio.codi %>
+									<% } %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/cadira/update/<%=cadira._id%>"

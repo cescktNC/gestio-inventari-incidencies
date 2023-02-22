@@ -43,10 +43,18 @@
 									<%- exemplar.qr %>
 								</td>
 								<td class="align-middle">
-									<%= exemplar.codiMaterial.nom %>
+									<% if(exemplar.codiMaterial == null) { %>
+										Error a la base de dades
+									<% } else { %>
+										<%= exemplar.codiMaterial.nom %>
+									<% } %>
 								</td>
 								<td class="align-middle">
-									<%= exemplar.codiLocalitzacio.nom %>
+									<% if(exemplar.codiLocalitzacio == null) { %>
+										Error a la base de dades
+									<% } else { %>
+										<%= exemplar.codiLocalitzacio.nom %>
+									<% } %>
 								</td>
 								<td class="align-middle">
 									<a class="btn btn-warning" href="/exemplar/update/<%=exemplar._id%>"

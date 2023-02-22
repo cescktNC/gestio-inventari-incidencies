@@ -37,7 +37,11 @@
 									<%= subcategoria.codi %>
 								</td>
 								<td>
-									<%= subcategoria.codiCategoria.nom %>
+									<% if(subcategoria.codiCategoria == null) {%>
+										Error a la base de dades
+									<% } else { %>
+										<%= subcategoria.codiCategoria.nom %>
+									<% } %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/subcategories/update/<%=subcategoria._id%>"

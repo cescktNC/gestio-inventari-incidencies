@@ -31,10 +31,19 @@
                         <% list.forEach(function(descripcio) { %>
                             <tr>
                                 <td>
-                                    <%= descripcio.codiIncidencia.codi %>
+                                    <% if(descripcio.codiIncidencia == null) { %>
+                                        Error a la base de dades
+                                    <% } else { %>
+                                        <%= descripcio.codiIncidencia.codi %>
+                                    <% } %>
                                 </td>
                                 <td>
-                                    <%= descripcio.codiUsuari.nom %>
+                                    <% if(descripcio.codiUsuari == null) { %>
+                                        Error a la base de dades
+                                    <% } else { %>
+                                        <%= descripcio.codiUsuari.nom %>
+                                    <% } %>
+
                                 </td>
                                 <td>
                                     <%= descripcio.formatarDate %>

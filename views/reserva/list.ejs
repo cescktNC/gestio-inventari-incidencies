@@ -42,10 +42,18 @@
 									<%= reserva.formatarDate %>
 								</td>
 								<td>
-									<%= reserva.dniUsuari.dni %>
+									<% if(reserva.dniUsuari == null) {%>
+										Error a la base de dades
+									<%} else {%>
+										<%= reserva.dniUsuari.dni %>
+									<% } %>
 								</td>
 								<td>
-									<%= reserva.codiLocalitzacio.nom %>
+									<% if(reserva.codiLocalitzacio == null) {%>
+										Error a la base de dades
+									<%} else {%>
+										<%= reserva.codiLocalitzacio.nom %>
+									<% } %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/reserva/update/<%=reserva._id%>"
@@ -53,7 +61,7 @@
 								</td>
 
 							</tr>
-						<% }); %>
+							<% }); %>
 					</tbody>
 				</table>
 

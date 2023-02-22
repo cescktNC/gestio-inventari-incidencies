@@ -56,7 +56,11 @@
                                     <img class="w-25" src=" <%= material.fotografia %>" alt="">
                                 </td>
                                 <td>
-                                    <%= material.codiSubCategoria.nom %>
+                                    <% if(material.codiSubCategoria == null) {%>
+                                        Error a la base de dades
+                                    <% } else { %>
+                                        <%= material.codiSubCategoria.nom %>
+                                    <% } %>
                                 </td>
                                 <td>
                                     <a href="/materials/update/<%=material._id%>" class="btn btn-secondary">Edit</a>
