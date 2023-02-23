@@ -6,6 +6,7 @@ class LocalitzacioController {
     static async list(req, res, next) {
         Localitzacio.find()
             .populate('codiPlanta')
+            .sort({codiPlanta: 1})
             .sort({ codi: 1 })
             .exec(function (err, list) {
                 if (err) {
