@@ -1,6 +1,615 @@
 [
     {
         "codi":"01",
-        "nom":""
+        "nom":"Conserjeria",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"02",
+        "nom":"Aula 001",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"03",
+        "nom":"Aula 003",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"04",
+        "nom":"Aula 005",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"05",
+        "nom":"Aula Polivalent",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"06",
+        "nom":"Cuina",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"07",
+        "nom":"Bar",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"08",
+        "nom":"Magatzem-1",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"08",
+        "nom":"Magatzem-2",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"09",
+        "nom":"Administrador",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"10",
+        "nom":"Arxiu",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"11",
+        "nom":"Secretaria",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"12",
+        "nom":"Electricitat",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"13",
+        "nom":"Aula 002",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"14",
+        "nom":"Aula 004",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"15",
+        "nom":"Aula 006",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"16",
+        "nom":"Aula 008",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"17",
+        "nom":"Aula C-001",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"18",
+        "nom":"Aula C-003",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"19",
+        "nom":"Aula C-005",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"20",
+        "nom":"Aula C-007",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"21",
+        "nom":"Aula C-002",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"22",
+        "nom":"Aula C-004",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"23",
+        "nom":"Aula C-006",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"24",
+        "nom":"Aula C-008",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"25",
+        "nom":"Sala d'actes",
+        "nomPlanta":"Planta Baixa",
+        "especial": true
+    },
+    {
+        "codi":"01",
+        "nom":"Guardia",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"02",
+        "nom":"Aula 103",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"03",
+        "nom":"Aula 105",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"04",
+        "nom":"Aula 107",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"05",
+        "nom":"Aula 109",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"06",
+        "nom":"Aula 111",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"07",
+        "nom":"Biblioteca",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"08",
+        "nom":"Aula 102",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"09",
+        "nom":"Aula 104",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"10",
+        "nom":"Aula 106",
+        "nomPlanta":"Planta Primera",
+        "especial": true
+    },
+    {
+        "codi":"11",
+        "nom":"Magatzem-1",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"12",
+        "nom":"Magatzem-2",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"14",
+        "nom":"Aula Ciencies",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"15",
+        "nom":"Aula Argo",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"13",
+        "nom":"Magatzem-3",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"16",
+        "nom":"Aula Estudis",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"17",
+        "nom":"Departament Ocupació",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"18",
+        "nom":"Direció",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"19",
+        "nom":"Arxiu",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"20",
+        "nom":"Cap EStudis",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"21",
+        "nom":"Sala Professors",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"22",
+        "nom":"Departament Comercial",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"23",
+        "nom":"Aula Multimedia",
+        "nomPlanta":"Planta Primera",
+        "especial": true
+    },
+    {
+        "codi":"24",
+        "nom":"Departament Idiomes",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"25",
+        "nom":"Departament Llengues",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"26",
+        "nom":"Departament Ciéncies",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"27",
+        "nom":"Aula C-101",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"28",
+        "nom":"Aula C-103",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"29",
+        "nom":"Aula Comercial",
+        "nomPlanta":"Planta Primera",
+        "especial": true
+    },
+    {
+        "codi":"30",
+        "nom":"Aula C-102",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"31",
+        "nom":"Aula C-104",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"32",
+        "nom":"Aula C-106",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"33",
+        "nom":"Aula C-108",
+        "nomPlanta":"Planta Primera",
+        "especial": false
+    },
+    {
+        "codi":"01",
+        "nom":"Aula 201",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"02",
+        "nom":"Aula 203",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"03",
+        "nom":"Aula 205",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"04",
+        "nom":"Aula 207",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"05",
+        "nom":"Aula 209",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"06",
+        "nom":"Aula 211",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"07",
+        "nom":"Aula 202",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"08",
+        "nom":"Aula 204",
+        "nomPlanta":"Planta Segona",
+        "especial": true
+    },
+    {
+        "codi":"09",
+        "nom":"Aula 206",
+        "nomPlanta":"Planta Segona",
+        "especial": true
+    },
+    {
+        "codi":"10",
+        "nom":"Aula 208",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"11",
+        "nom":"Suport TIC",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"12",
+        "nom":"Servidors Informàtics",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"13",
+        "nom":"Pedagogia",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"14",
+        "nom":"Departament Serveis Comunitat",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"15",
+        "nom":"Cordinació FCT",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"16",
+        "nom":"Departament Administratiu",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"17",
+        "nom":"Departament Qualitat",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"18",
+        "nom":"Tutors FPCT",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"19",
+        "nom":"Departament Socials",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"20",
+        "nom":"Departament Informàtica",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"21",
+        "nom":"Departament FOL",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"22",
+        "nom":"Mestres Industrials",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"23",
+        "nom":"Sala Calderas",
+        "nomPlanta":"Planta Segona",
+        "especial": false
+    },
+    {
+        "codi":"01",
+        "nom":"Aula 301",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"02",
+        "nom":"Aula 303",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"03",
+        "nom":"Aula 305",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"04",
+        "nom":"Aula 307",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"05",
+        "nom":"Aula 309",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"06",
+        "nom":"Aula 311",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"07",
+        "nom":"Aula 302",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"08",
+        "nom":"Aula 304",
+        "nomPlanta":"Planta Tercera",
+        "especial": true
+    },
+    {
+        "codi":"09",
+        "nom":"Aula 306",
+        "nomPlanta":"Planta Tercera",
+        "especial": true
+    },
+    {
+        "codi":"10",
+        "nom":"Aula 308",
+        "nomPlanta":"Planta Tercera",
+        "especial": false
+    },
+    {
+        "codi":"01",
+        "nom":"Aula 401",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"02",
+        "nom":"Aula 403",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"03",
+        "nom":"Aula 405",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"04",
+        "nom":"Aula 407",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"05",
+        "nom":"Aula 409",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"06",
+        "nom":"Aula 311",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"07",
+        "nom":"Aula 402",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
+    },
+    {
+        "codi":"08",
+        "nom":"Aula 404",
+        "nomPlanta":"Planta Quarta",
+        "especial": true
+    },
+    {
+        "codi":"09",
+        "nom":"Aula 407",
+        "nomPlanta":"Planta Quarta",
+        "especial": true
+    },
+    {
+        "codi":"10",
+        "nom":"Aula 408",
+        "nomPlanta":"Planta Quarta",
+        "especial": false
     }
+    
 ]
