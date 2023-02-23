@@ -3,30 +3,30 @@
     "codi": "01",
     "nom": "Planta Baixa",
     "nomCentre": "Ies Vidal i Barraquer",
-    "planol": "planol"
+    "planol": "URL/imgPlanols/PLANTA_BAIXA.jpg"
   },
   {
     "codi": "02",
     "nom": "Planta Primera",
     "nomCentre": "Ies Vidal i Barraquer",
-    "planol": "planol"
+    "planol": "URL/imgPlanols/PLANTA_PRIMERA.jpg"
   },
   {
     "codi": "03",
     "nom": "Planta Segona",
     "nomCentre": "Ies Vidal i Barraquer",
-    "planol": "planol"
+    "planol": "URL/imgPlanols/PLANTA_SEGONA.jpg"
   },
   {
     "codi": "04",
     "nom": "Planta Tercera",
     "nomCentre": "Ies Vidal i Barraquer",
-    "planol": "planol"
+    "planol": "URL/imgPlanols/PLANTA_TERCERA.jpg"
   },
   {
     "codi": "05",
     "nom": "Planta Quarta",
     "nomCentre": "Ies Vidal i Barraquer",
-    "planol": "planol"
+    "planol": "URL/imgPlanols/PLANTA_QUARTA.jpg"
   }
 ]
