@@ -20,7 +20,8 @@
 					<thead>
 						<tr>
 							<th scope="col">Codi</th>
-							<th scope="col">Codi del Centre</th>
+							<th scope="col">Nom Planta</th>
+							<th scope="col">Nom del Centre</th>
 							<th scope="col">Planol</th>
 							<th scope="col">
 								<a href="/planta/create" class="btn btn-primary">New</a>
@@ -32,6 +33,9 @@
 							<tr>
 								<td>
 									<%= planta.codi %>
+								</td>
+								<td>
+									<%= planta.nom %>
 								</td>
 								<td>
 									<% if(planta.codiCentre == null) { %>
