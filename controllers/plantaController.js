@@ -28,6 +28,7 @@ class plantaController {
         const centre = await Centre.findById(req.body.codiCentre);
         var planta = {
             codi: req.body.codi + '/' + centre.codi,
+            nom: req.body.nom,
             codiCentre: req.body.codiCentre,
             planol: req.body.planol,
         }

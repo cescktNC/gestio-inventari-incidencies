@@ -20,7 +20,8 @@
 					<thead>
 						<tr>
 							<th scope="col">Codi</th>
-							<th scope="col">Codi del Centre</th>
+							<th scope="col">Nom Planta</th>
+							<th scope="col">Nom del Centre</th>
 							<th scope="col">Planol</th>
 							<th scope="col">
 								<a href="/planta/create" class="btn btn-primary">New</a>
@@ -34,6 +35,9 @@
 									<%= planta.codi %>
 								</td>
 								<td>
+									<%= planta.nom %>
+								</td>
+								<td>
 									<% if(planta.codiCentre == null) { %>
 										Error a la base de dades
 									<% } else { %>
@@ -41,7 +45,7 @@
 									<% } %>
 								</td>
 								<td>
-									<%= planta.planol %>
+									<img class="w-25" src=" <%= planta.planol %>" alt="">
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/planta/update/<%=planta._id%>"
