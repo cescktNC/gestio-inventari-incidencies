@@ -185,6 +185,66 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Prestec);
     }
+} else if (process.argv[2] === '-ct') {
+    const Centre = require('../models/centre');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`centre.json`, "utf-8")
+        );
+        importData(Centre, dades);
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Centre);
+    }
+} else if (process.argv[2] === '-pt') {
+    const Planta = require('../models/planta');
+    const Centre = require('../models/centre');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`planta.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let centre = await Centre.find({ nom: element.nomCentre });
+            element.codi += '/' + centre[0].codi
+            element.codiCentre = centre[0].id;
+
+            count++;
+            if (count == dades.length) return importData(Planta, dades);
+        });
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Planta);
+    }
+} else if (process.argv[2] === '-l') {
+    const Planta = require('../models/planta');
+    const Localitzacio = require('../models/localitzacio');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`localitzacio.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let planta = await Planta.find({ nom: element.nomPlanta });
+            element.codi += '/' + planta[0].codi
+            element.codiPlanta = planta[0].id;
+
+            count++;
+            if (count == dades.length) return importData(Localitzacio, dades);
+        });
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Localitzacio);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u" per a importar usuaris\n\
@@ -192,7 +252,9 @@ if (process.argv[2] === '-u') {
         "-sc" per a importar subcategories\n\
         "-m" per a importar materials\n\
         "-e" per a importar exemplars\n\
-        "-p" per a importar préstecs');
+        "-p" per a importar préstecs\n\
+        "-ct" per a importar centres\n\
+        "-pt" per a importar plantas');
 
     process.exit();
 }
