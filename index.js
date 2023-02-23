@@ -42,6 +42,7 @@ app.use(session({
   name: 'usuari', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'usuari'
   saveUninitialized: true,
   // cookie: { maxAge: 1000 * 60 * 60 }, // ms de durada de la cookie
+  cookie: { maxAge: 1000000000000000000000 * 60 * 60 }, // ms de durada de la cookie
 }));
 
 //mongoose.Promise = global.Promise;

@@ -135,7 +135,6 @@ if (process.argv[2] === '-u') {
 
             let material = await Material.find({ nom: element.nomMaterial });
             let localitzacio = await Localitzacio.find({ nom: element.nomLocalitzacio });
-
             element._id = ObjectId();
             element.codi += '/' + material[0].codi + '-' + localitzacio[0].codi;
             element.codiMaterial = material[0].id;
