@@ -240,20 +240,46 @@ if (process.argv[2] === '-u') {
             count++;
             if (count == dades.length) return importData(Localitzacio, dades);
         });
-
     } else if (process.argv[3] === '-d') {
         deleteData(Localitzacio);
     }
+} else if (process.argv[2] === '-r') {
+    const Usuari = require('../models/usuari');
+    const Localitzacio = require('../models/localitzacio');
+    const Reserva = require('../models/reserva');
+    
+    if (process.argv[3] === '-i') {
+        let reserves = JSON.parse(
+            fs.readFileSync(`reserves.json`, "utf-8")
+        );
+
+        let count = 0;
+        
+        reserves.forEach(async reserva => {
+            let usuari = await Usuari.find({ dni: reserva.dniUsuari });
+            reserva.dniUsuari = usuari[0].id;
+            let localitzacio = await Localitzacio.find({ nom: reserva.nomLocalitzacio });
+            reserva.codiLocalitzacio = localitzacio[0].id;
+
+            count++;
+            if (count == reserves.length)
+                return importData(Reserva, reserves);
+        });
+    } else if (process.argv[3] === '-d') {
+        deleteData(Reserva);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
-        "-u" per a importar usuaris\n\
-        "-c" per a importar categories\n\
-        "-sc" per a importar subcategories\n\
-        "-m" per a importar materials\n\
-        "-e" per a importar exemplars\n\
-        "-p" per a importar préstecs\n\
-        "-ct" per a importar centres\n\
-        "-pt" per a importar plantas');
+        "-u"  => per a importar USUARIS\n\
+        "-c"  => per a importar CATEGORIES\n\
+        "-sc" => per a importar SUBCATEGORIES\n\
+        "-m"  => per a importar MATERIALS\n\
+        "-e"  => per a importar EXEMPLARS\n\
+        "-p"  => per a importar PRÉSTECS\n\
+        "-ct" => per a importar CENTRES\n\
+        "-pt" => per a importar PLANTES\n\
+        "-l"  => per a importar LOCALITZACIONS\n\
+        "-r"  => per a importar RESERVES');
 
     process.exit();
 }
