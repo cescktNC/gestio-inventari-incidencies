@@ -29,9 +29,11 @@
 						<label for="codiReserva">Codi Reserva</label>
 						<select type="text" name="codiReserva" class="form-control">
 							<% reservaList.forEach(function(codiReserva) { %>
-								<option value="<%= codiReserva.id %>">
-									<%= codiReserva.codi %>
-								</option>
+								<% if(codiReserva['codiLocalitzacio']['nom'] == "Sala d'actes") { %>
+									<option value="<%= codiReserva.id %>">
+										<%= codiReserva.codi %>
+									</option>
+								<% } %>
 							<% }); %>
 						</select>
 					</div>

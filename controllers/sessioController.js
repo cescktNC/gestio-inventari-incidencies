@@ -17,8 +17,10 @@ class sessioController {
 
   static async create_get(req, res, next) {
 
-    const reserva_list = await Reserva.find();
-    res.render('sessio/new', { reservaList: reserva_list, })
+    const reserva_list = await Reserva.find()
+    .populate('codiLocalitzacio') // Es captura l'objecte localització per a poder accedir als seus camps des de la vista
+    .sort({ codi: 1 }); // '1' - Ordena de petit a gran i '-1' ordena de gran a petit
+    res.render('sessio/new', { reservaList: reserva_list })
   }
 
   static async create_post(req, res) {
