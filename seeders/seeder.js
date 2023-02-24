@@ -268,6 +268,28 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Reserva);
     }
+} else if (process.argv[2] === '-s') {
+    const Reserva = require('../models/reserva');
+    const Sessio = require('../models/sessio');
+
+    if (process.argv[3] === '-i') {
+        let sessions = JSON.parse(
+            fs.readFileSync(`sessions.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        sessions.forEach(async sessio => {
+            let reserva = await Reserva.find({ codi: sessio.codiReserva });
+            sessio.codiReserva = reserva[0].id;
+
+            count++;
+            if (count == sessions.length)
+                return importData(Sessio, sessions);
+        });
+    } else if (process.argv[3] === '-d') {
+        deleteData(Sessio);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u"  => per a importar USUARIS\n\
@@ -279,7 +301,8 @@ if (process.argv[2] === '-u') {
         "-ct" => per a importar CENTRES\n\
         "-pt" => per a importar PLANTES\n\
         "-l"  => per a importar LOCALITZACIONS\n\
-        "-r"  => per a importar RESERVES');
+        "-r"  => per a importar RESERVES\n\
+        "-s"  => per a importar SESSIONS');
 
     process.exit();
 }
