@@ -153,7 +153,7 @@
         "codi":"25",
         "nom":"Sala d'actes",
         "nomPlanta":"Planta Baixa",
-        "especial": true
+        "especial": false
     },
     {
         "codi":"01",
@@ -213,7 +213,7 @@
         "codi":"10",
         "nom":"Aula 106",
         "nomPlanta":"Planta Primera",
-        "especial": true
+        "especial": false
     },
     {
         "codi":"11",
@@ -291,7 +291,7 @@
         "codi":"23",
         "nom":"Aula Multimedia",
         "nomPlanta":"Planta Primera",
-        "especial": true
+        "especial": false
     },
     {
         "codi":"24",
@@ -327,7 +327,7 @@
         "codi":"29",
         "nom":"Aula Comercial",
         "nomPlanta":"Planta Primera",
-        "especial": true
+        "especial": false
     },
     {
         "codi":"30",

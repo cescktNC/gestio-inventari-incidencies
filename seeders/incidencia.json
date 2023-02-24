@@ -1,0 +1,98 @@
+[
+  {
+    "codi": "01",
+    "data": "2022-01-15",
+    "tipologia": "Altres",
+    "estat": "Notificada",
+    "proposta": "",
+    "prioritat": "Mitjana",
+    "descripcio": "Sha fos un fluorescent",
+    "ubicacio": "El tercer de la segona fila",
+    "identificacioExemplar": "21/15-02/15-21/01/01",
+    "nomLocalitzacio": "Aula C-002"
+  },
+  {
+    "codi": "02",
+    "data": "2022-01-15",
+    "tipologia": "Avariat",
+    "estat": "En tràmit",
+    "proposta": "",
+    "prioritat": "Alta",
+    "descripcio": "El boto dret del ratoli no funciona",
+    "ubicacio": "",
+    "identificacioExemplar": "06/07-09/02-21/01/01",
+    "nomLocalitzacio": "Aula C-002"
+  },
+  {
+    "codi": "03",
+    "data": "2022-10-22",
+    "tipologia": "Altres",
+    "estat": "Anul·lada",
+    "proposta": "Cambiar els altaveus",
+    "prioritat": "Molt baixa",
+    "descripcio": "Als altaveus se sent un petit petardeig",
+    "ubicacio": "",
+    "identificacioExemplar": "29/04-01/02-21/01/01",
+    "nomLocalitzacio": "Aula C-002"
+  },
+  {
+    "codi": "04",
+    "data": "2023-01-15",
+    "tipologia": "Mal ús",
+    "estat": "Desestimada",
+    "proposta": "",
+    "prioritat": "Baixa",
+    "descripcio": "Algun alumne a ratllat la taula",
+    "ubicacio": "",
+    "identificacioExemplar": "57/08-35/01-06/03/01 ",
+    "nomLocalitzacio": "Aula 211"
+  },
+  {
+    "codi": "05",
+    "data": "2023-02-12",
+    "tipologia": "Desgast",
+    "estat": "Resolta",
+    "proposta": "",
+    "prioritat": "Alta",
+    "descripcio": "Una finestra no espot obrir",
+    "ubicacio": "La finestra més allunyada de la porta",
+    "identificacioExemplar": "",
+    "nomLocalitzacio": "Aula 405"
+  },
+  {
+    "codi": "06",
+    "data": "2023-02-20",
+    "tipologia": "Avariat",
+    "estat": "En execució",
+    "proposta": "",
+    "prioritat": "Molt Alta",
+    "descripcio": "El radiador no s'apaga",
+    "ubicacio": "Al final de la clase",
+    "identificacioExemplar": "",
+    "nomLocalitzacio": "Aula 208"
+  },
+  {
+    "codi": "07",
+    "data": "2023-02-20",
+    "tipologia": "Obsolet",
+    "estat": "En tràmit",
+    "proposta": "Renovar l'ordinador",
+    "prioritat": "Alta",
+    "descripcio": "L'ordinador no pot executar el programari necesari per poder seguir el curriculum lectiu",
+    "ubicacio": "",
+    "identificacioExemplar": "32/06-08/02-21/01/01",
+    "nomLocalitzacio": "Aula C-002"
+  },
+  {
+    "codi": "08",
+    "data": "2023-02-20",
+    "tipologia": "Mal ús",
+    "estat": "En tràmit",
+    "proposta": "",
+    "prioritat": "Molt Alta",
+    "descripcio": "Costa obrir la porta",
+    "ubicacio": "Passadís de la planta baixa per accedir a les aules C-",
+    "identificacioExemplar": "",
+    "nomLocalitzacio": ""
+  }
+]

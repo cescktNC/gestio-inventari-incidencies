@@ -244,6 +244,32 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Localitzacio);
     }
+} else if (process.argv[2] === '-i') {
+    const Incidencia = require('../models/incidencia');
+    const Localitzacio = require('../models/localitzacio');
+    const Exemplar = require('../models/exemplar');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`incidencia.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let localitzacio = await Localitzacio.find({ nom: element.nomLocalitzacio });
+            if (localitzacio.length != 0) element.codiLocalitzacio = localitzacio[0].id;
+            let exemplar = await Exemplar.find({ codi: element.identificacioExemplar });
+            if (exemplar.length != 0) element.codiExemplar = exemplar[0].id;
+
+            count++;
+            if (count == dades.length) return importData(Incidencia, dades);
+        });
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Incidencia);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u" per a importar usuaris\n\
