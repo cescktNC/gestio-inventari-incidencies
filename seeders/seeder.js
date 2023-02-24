@@ -270,6 +270,32 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Incidencia);
     }
+} else if (process.argv[2] === '-co') {
+    const Incidencia = require('../models/incidencia');
+    const Comentari = require('../models/comentari');
+    const Usuari = require('../models/usuari');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`comentari.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let incidencia = await Incidencia.find({ codi: element.codiIncidencia });
+            let usuari = await Usuari.find({ dni: element.codiUsuari });
+            element.codiIncidencia = incidencia[0].id;
+            element.codiUsuari = usuari[0].id;
+
+            count++;
+            if (count == dades.length) return importData(Comentari, dades);
+        });
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Comentari);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u" per a importar usuaris\n\
@@ -279,7 +305,9 @@ if (process.argv[2] === '-u') {
         "-e" per a importar exemplars\n\
         "-p" per a importar préstecs\n\
         "-ct" per a importar centres\n\
-        "-pt" per a importar plantas');
+        "-pt" per a importar plantas\n\
+        "-i" per a importar incidencies\n\
+        "-co" per a importar comentaris');
 
     process.exit();
 }
