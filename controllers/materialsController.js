@@ -1,7 +1,6 @@
 var Material = require('../models/material');
 var Exemplar = require('../models/exemplar');
 var SubCategoria = require('../models/subcategoria');
-var Exemplar = require('../models/exemplar');
 var fs = require('fs');
 const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 

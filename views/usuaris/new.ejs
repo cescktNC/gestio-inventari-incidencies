@@ -17,7 +17,7 @@
                 <h5 class="card-title">Nou Usuari</h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="/usuaris/create">
+                <form method="POST" action="/usuaris/create" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nom">Nom</label>
                         <input type="text" name="nom" class="form-control" required>
@@ -52,6 +52,10 @@
                         <input type="password"
                             oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
                             name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePicture">Imatge de perfil</label>
+                        <input type="file" name="profilePicture" accept="image/png, .jpeg, .jpg" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

@@ -1,103 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
 
-<head>
-    <%- include('../partials/head'); %>
-</head>
+	<body class="container">
+		<header><%- include('../partials/header'); %></header>
 
-<body class="container">
+		<main>
+			<div class="card mt-4">
+				<div class="card-header">
+					<h5 class="card-title">Actualitzar Usuari</h5>
+				</div>
+				<div class="card-body">
+					<form method="POST" action="/usuaris/update/<%= usuari._id %>" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="nom">Nom</label>
+							<input
+								type="text"
+								name="nom"
+								class="form-control"
+								value="<%= usuari.nom %>"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<label for="cognoms">Cognoms</label>
+							<input
+								type="text"
+								name="cognoms"
+								class="form-control"
+								value="<%= usuari.cognoms %>"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="dni">Dni</label>
+							<input
+								type="text"
+								name="dni"
+								class="form-control"
+								value="<%= usuari.dni %>"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="carrec">Càrrec</label><br />
+							<select name="carrec">
+								<% carrecs.forEach(function(carrec) { if (carrec ==
+								usuari.carrec) { %>
+								<option value="<%= carrec %>" selected><%= carrec %></option>
+								<% } else { %>
+								<option value="<%= carrec %>"><%= carrec %></option>
+								<% } %> <% }); %>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="email">E-mail</label>
+							<input
+								type="email"
+								name="email"
+								value="<%= usuari.email %>"
+								oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')"
+								placeholder="exemple@domini.com"
+								pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+								class="form-control"
+								required
+							/>
+						</div>
 
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
+						<p>
+							<a
+								class="btn btn-primary"
+								data-bs-toggle="collapse"
+								href="#password"
+								role="button"
+								aria-expanded="false"
+								aria-controls="collapseExample"
+							>
+								Canviar Password
+							</a>
+						</p>
+						<div class="collapse" id="password">
+							<div class="form-group card card-body">
+								<label for="password">Contrasenya Nova</label>
+								<input
+									type="password"
+									oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
+									name="password1"
+									class="form-control"
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+								/>
+								<label for="password">Repeteix Contrasenya Nova</label>
+								<input
+									type="password"
+									oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
+									name="password2"
+									class="form-control"
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+								/>
+							</div>
+						</div>
 
-    <main>
-        <div class="card mt-4">
-            <div class="card-header">
-                <h5 class="card-title">Actualitzar Usuari</h5>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="/usuaris/update/<%= usuari._id %>">
-                    <div class="form-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" name="nom" class="form-control" value="<%= usuari.nom %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cognoms">Cognoms</label>
-                        <input type="text" name="cognoms" class="form-control" value="<%= usuari.cognoms %>">
-                    </div>
-                    <div class="form-group">
-                        <label for="dni">Dni</label>
-                        <input type="text" name="dni" class="form-control" value="<%= usuari.dni %>">
-                    </div>
-                    <div class="form-group">
-                        <label for="carrec">Càrrec</label><br>
-                        <select name="carrec">
-                            <% carrecs.forEach(function(carrec) { if (carrec == usuari.carrec) { %>
-                                <option value="<%= carrec %>" selected>
-                                    <%= carrec %>
-                                </option>
-                                <% } else { %>
-                                    <option value="<%= carrec %>">
-                                        <%= carrec %>
-                                    </option>
-                                <% } %>
-                            <% }); %>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" name="email" value="<%= usuari.email %>"
-                            oninvalid="setCustomValidity('Format incorrecte \(exemple@domini.com\)')"
-                            placeholder="exemple@domini.com" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
-                            class="form-control" required>
-                    </div>
+						<div class="form-group">
+							<label for="profilePicture">Imatge de perfil</label>
+							<input type="file" name="profilePicture" accept="image/png, .jpeg, .jpg" class="form-control" />
+						</div>
 
-                    <p>
-                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#password" role="button"
-                            aria-expanded="false" aria-controls="collapseExample">
-                            Canviar Password
-                        </a>
-                    </p>
-                    <div class="collapse" id="password">
-                        <div class="form-group card card-body">
-                            <label for="password">Contrasenya Nova</label>
-                            <input type="password"
-                                oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
-                                name="password1" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                            <label for="password">Repeteix Contrasenya Nova</label>
-                            <input type="password"
-                                oninvalid="setCustomValidity('Mínim 8 caràcters \(almenys una mínuscula, una majúscula i un número\)')"
-                                name="password2" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                        </div>
-                    </div>
+						<button type="submit" class="btn btn-primary">Save</button>
+						<a
+							class="btn btn-danger"
+							href="/usuaris/delete/<%= usuari._id %>"
+							role="button"
+							>Delete</a
+						>
+					</form>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger" href="/usuaris/delete/<%= usuari._id %>" role="button">Delete</a>
-                </form>
+					<% if (typeof error !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= error %></p>
+					</div>
+					<% } %> <% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= message %></p>
+					</div>
+					<% } %>
+				</div>
+			</div>
+		</main>
 
-                <% if (typeof error !=="undefined" ) { %>
-                    <div class="alert alert-primary mt-2" role="alert">
-                        <p>
-                            <%= error %>
-                        </p>
-                    </div>
-                    <% } %>
-                    <% if (typeof message !=="undefined" ) { %>
-                        <div class="alert alert-primary mt-2" role="alert">
-                            <p>
-                                <%= message %>
-                            </p>
-                        </div>
-                    <% } %>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
-
-</body>
-
+		<footer><%- include('../partials/footer'); %></footer>
+	</body>
 </html>
