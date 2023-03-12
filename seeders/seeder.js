@@ -87,8 +87,9 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let categoria = await Categoria.findById(element.codiCategoria);
-            element.codi += '/' + categoria.codi;
+            let categoria = await Categoria.find({ codi: element.codiCategoria });
+            element.codi += '/' + categoria[0].codi;
+            element.codiCategoria = categoria[0].id;
 
             count++;
             if (count == dades.length) return importData(Subcategoria, dades);
@@ -108,8 +109,9 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
-            element.codi += '-' + subcategoria.codi;
+            let subcategoria = await SubCategoria.find({ codi: element.codiSubCategoria });
+            element.codi += '-' + subcategoria[0].codi;
+            element.codiSubCategoria = subcategoria[0].id;
             count++;
             if (count == dades.length) return importData(Material, dades);
         });
