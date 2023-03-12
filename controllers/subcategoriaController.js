@@ -55,10 +55,13 @@ class SubcategoriaController {
     });
 
   }
-  static update_post(req, res, next) {
+
+  static async update_post(req, res, next) {
+    const categoria_list = await Categoria.find();
+    const categoria = await Categoria.findById(req.body.codiCategoria);
     var subCategoria = {
       nom: req.body.nom,
-      codi: req.body.codi,
+      codi: req.body.codi + '/' + categoria.codi,
       // codiCategoria: req.params.codiCategoria,
       _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
     };

@@ -23,7 +23,7 @@
 					<div class="form-group">
 						<label for="codi">Codi</label>
 						
-						<% let codi = Planta.codi.slice(0, Planta.codi.lastIndexOf('/'))%>
+						<% let codi = Planta.codi.slice(0, Planta.codi.indexOf('/'))%>
 						
 						<input type="text" name="codi" class="form-control" value="<%= codi %>">
 						

@@ -43,7 +43,6 @@ class plantaController {
 
 	static async update_get(req, res, next) {
 		const centre_list = await Centre.find();
-		const centre = await Centre.findById(req.body.codiCentre);
 		Planta.findById(req.params.id, function (err, planta_list) {
 			if (err) {
 				return next(err);
@@ -58,6 +57,7 @@ class plantaController {
 			res.render("planta/update", { Planta: planta_list, centreList: centre_list });
 		});
 	}
+
 	static async update_post(req, res, next) {
 		const centre_list = await Centre.find();
 		const centre = await Centre.findById(req.body.codiCentre);
@@ -66,13 +66,11 @@ class plantaController {
 		if (req.file == undefined) {
 			planta = {
 				codi: req.body.codi + "/" + centre.codi,
-				planol: req.body.planol,
 				_id: req.params.id,
 			};
 		} else {
 			planta = {
 				codi: req.body.codi + "/" + centre.codi,
-				planol: req.body.planol,
 				_id: req.params.id,
 				planol: req.file.path.substring(7, req.file.path.length),
 
@@ -86,11 +84,11 @@ class plantaController {
 			function (err, Plantafound) {
 				if (err) {
 					//return next(err);
-					res.render("planta/update", { Planta: Planta, centreList: centre_list, error: err.message });
+					res.render("planta/update", { Planta: planta, centreList: centre_list, error: err.message });
 				}
 				//res.redirect('/genres/update/'+ genreFound._id);
 				res.render("planta/update", {
-					Planta: Planta,
+					Planta: planta,
 					centreList: centre_list,
 					message: "Planta actualitzada",
 				});
