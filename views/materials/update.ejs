@@ -26,7 +26,8 @@
                     </div>
                     <div class="form-group">
                         <label for="codi">Codi</label>
-                        <input type="text" name="codi" class="form-control" value="<%= list.codi %>">
+						<% let codi = list.codi.slice(0, list.codi.indexOf('-'))%>
+                        <input type="text" name="codi" class="form-control" value="<%= codi %>">
                     </div>
                     <div class="form-group">
                         <label for="descripcio">Descripció</label>
@@ -41,10 +42,10 @@
                         <label for="anyCompra">Any de compra</label>
                         <input type="date" name="anyCompra" class="form-control" value="<%= list.updateDate %>">
                     </div>
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="fotografia">Fotografia</label>
                         <input type="file" name="fotografia" accept="image/png, .jpeg, .jpg" class="form-control">
-                    </div>-->
+                    </div>
                     <div class="form-group">
                         <label for="codiSubCategoria">Categoria</label>
                         <select name="codiSubCategoria" class="form-control">
