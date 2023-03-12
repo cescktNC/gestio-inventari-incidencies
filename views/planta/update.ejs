@@ -22,8 +22,22 @@
 				<form method="POST" action="/planta/update/<%= Planta._id %>" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="codi">Codi</label>
-						<input type="number" name="codi" class="form-control" value="<%= Planta.codi %>">
+						
+						<% let codi = Planta.codi.slice(0, Planta.codi.lastIndexOf('/'))%>
+						
+						<input type="text" name="codi" class="form-control" value="<%= codi %>">
+						
 					</div>
+					<div class="form-group">
+                        <label for="codiCentre">codiCentre</label>
+                        <select type="text" name="codiCentre" class="form-control">
+                            <% centreList.forEach(function(codiCentre) { %>
+                                <option value="<%= codiCentre.id %>">
+                                    <%= codiCentre.codi %>
+                                </option>
+                            <% }); %>
+                        </select>
+                    </div>
 					<div class="form-group">
 						<label for="planol">Planol</label>
 						<input type="file" name="planol" accept="image/png, .jpeg, .jpg" class="form-control">

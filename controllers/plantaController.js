@@ -33,7 +33,7 @@ class plantaController {
 			if (error) {
 				res.render("planta/new", {
 					error: error.message,
-					centreList: centre_list,
+					centreList: centre_list
 				});
 			} else {
 				res.redirect("/planta");
@@ -41,7 +41,9 @@ class plantaController {
 		});
 	}
 
-	static update_get(req, res, next) {
+	static async update_get(req, res, next) {
+		const centre_list = await Centre.find();
+		const centre = await Centre.findById(req.body.codiCentre);
 		Planta.findById(req.params.id, function (err, planta_list) {
 			if (err) {
 				return next(err);
@@ -53,24 +55,26 @@ class plantaController {
 				return next(err);
 			}
 			// Success.
-			res.render("planta/update", { Planta: planta_list });
+			res.render("planta/update", { Planta: planta_list, centreList: centre_list });
 		});
 	}
-	static update_post(req, res, next) {
+	static async update_post(req, res, next) {
+		const centre_list = await Centre.find();
+		const centre = await Centre.findById(req.body.codiCentre);
 		var planta;
 
 		if (req.file == undefined) {
 			planta = {
-				codi: req.body.codi,
+				codi: req.body.codi + "/" + centre.codi,
 				planol: req.body.planol,
-				_id: req.params.id, 
+				_id: req.params.id,
 			};
 		} else {
-            planta = {
-				codi: req.body.codi,
+			planta = {
+				codi: req.body.codi + "/" + centre.codi,
 				planol: req.body.planol,
-				_id: req.params.id, 
-			planol: req.file.path.substring(7, req.file.path.length),
+				_id: req.params.id,
+				planol: req.file.path.substring(7, req.file.path.length),
 
 			};
 		}
@@ -82,11 +86,12 @@ class plantaController {
 			function (err, Plantafound) {
 				if (err) {
 					//return next(err);
-					res.render("planta/update", { Planta: Planta, error: err.message });
+					res.render("planta/update", { Planta: Planta, centreList: centre_list, error: err.message });
 				}
 				//res.redirect('/genres/update/'+ genreFound._id);
 				res.render("planta/update", {
 					Planta: Planta,
+					centreList: centre_list,
 					message: "Planta actualitzada",
 				});
 			},
