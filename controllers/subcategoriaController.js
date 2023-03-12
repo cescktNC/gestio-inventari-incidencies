@@ -39,7 +39,9 @@ class SubcategoriaController {
     })
   }
 
-  static update_get(req, res, next) {
+  static async update_get(req, res, next) {
+    const categoria_list = await Categoria.find();
+    const categoria = await Categoria.findById(req.body.codiCategoria);
     Subcategoria.findById(req.params.id, function (err, subcategoria_list) {
       if (err) {
         return next(err);
@@ -51,7 +53,7 @@ class SubcategoriaController {
         return next(err);
       }
       // Success.
-      res.render("subcategories/update", { subCategoria: subcategoria_list });
+      res.render("subcategories/update", { subCategoria: subcategoria_list, categoriaList: categoria_list});
     });
 
   }
@@ -62,7 +64,7 @@ class SubcategoriaController {
     var subCategoria = {
       nom: req.body.nom,
       codi: req.body.codi + '/' + categoria.codi,
-      // codiCategoria: req.params.codiCategoria,
+      codiCategoria: req.body.codiCategoria,
       _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
     };
 
@@ -73,10 +75,10 @@ class SubcategoriaController {
       function (err, subcategoriafound) {
         if (err) {
           //return next(err);
-          res.render("subcategories/update", { subCategoria: subCategoria, error: err.message });
+          res.render("subcategories/update", { subCategoria: subCategoria, categoriaList: categoria_list, error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("subcategories/update", { subCategoria: subCategoria, message: 'Subcategoria actualitzada' });
+        res.render("subcategories/update", { subCategoria: subCategoria, categoriaList: categoria_list, message: 'Subcategoria actualitzada' });
       }
     );
   }

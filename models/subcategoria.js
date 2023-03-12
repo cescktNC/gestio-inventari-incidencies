@@ -10,4 +10,4 @@ var SubcategoriaSchema = new Schema({ // Diem que creem un nou esquema per a les
 
 // Export model.
 module.exports = mongoose.model("Subcategoria", SubcategoriaSchema);    // Creo el model esquema per a poder-lo utilitzar
-                                                       
+
