@@ -242,10 +242,10 @@ if (process.argv[2] === '-u') {
             count++;
             if (count == dades.length) return importData(Localitzacio, dades);
         });
-
     } else if (process.argv[3] === '-d') {
         deleteData(Localitzacio);
     }
+
 } else if (process.argv[2] === '-i') {
     const Incidencia = require('../models/incidencia');
     const Localitzacio = require('../models/localitzacio');
@@ -310,6 +310,5 @@ if (process.argv[2] === '-u') {
         "-pt" per a importar plantas\n\
         "-i" per a importar incidencies\n\
         "-co" per a importar comentaris');
-
     process.exit();
 }
