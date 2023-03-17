@@ -10,7 +10,6 @@ var IncidenciaSchema = new Schema({
       type: String,
       enum: ['Mal ús','Desgast','Obsolet','Avariat','Altres',' '],
     },
-    seguiment: { type: String },
     estat: { 
         type: String, 
         enum : ['Notificada','En tràmit', 'En execució', 'Resolta', 'Desestimada', 'Anul·lada'],

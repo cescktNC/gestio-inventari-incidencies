@@ -87,8 +87,9 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let categoria = await Categoria.findById(element.codiCategoria);
-            element.codi += '/' + categoria.codi;
+            let categoria = await Categoria.find({ codi: element.codiCategoria });
+            element.codi += '/' + categoria[0].codi;
+            element.codiCategoria = categoria[0].id;
 
             count++;
             if (count == dades.length) return importData(Subcategoria, dades);
@@ -108,8 +109,9 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
-            element.codi += '-' + subcategoria.codi;
+            let subcategoria = await SubCategoria.find({ codi: element.codiSubCategoria });
+            element.codi += '-' + subcategoria[0].codi;
+            element.codiSubCategoria = subcategoria[0].id;
             count++;
             if (count == dades.length) return importData(Material, dades);
         });
@@ -243,43 +245,70 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Localitzacio);
     }
-} else if (process.argv[2] === '-r') {
-    const Usuari = require('../models/usuari');
+
+} else if (process.argv[2] === '-i') {
+    const Incidencia = require('../models/incidencia');
     const Localitzacio = require('../models/localitzacio');
-    const Reserva = require('../models/reserva');
-    
+    const Exemplar = require('../models/exemplar');
+
     if (process.argv[3] === '-i') {
-        let reserves = JSON.parse(
-            fs.readFileSync(`reserves.json`, "utf-8")
+        let dades = JSON.parse(
+            fs.readFileSync(`incidencia.json`, "utf-8")
         );
 
         let count = 0;
-        
-        reserves.forEach(async reserva => {
-            let usuari = await Usuari.find({ dni: reserva.dniUsuari });
-            reserva.dniUsuari = usuari[0].id;
-            let localitzacio = await Localitzacio.find({ nom: reserva.nomLocalitzacio });
-            reserva.codiLocalitzacio = localitzacio[0].id;
+
+        dades.forEach(async element => {
+
+            let localitzacio = await Localitzacio.find({ nom: element.nomLocalitzacio });
+            if (localitzacio.length != 0) element.codiLocalitzacio = localitzacio[0].id;
+            let exemplar = await Exemplar.find({ codi: element.identificacioExemplar });
+            if (exemplar.length != 0) element.codiExemplar = exemplar[0].id;
 
             count++;
-            if (count == reserves.length)
-                return importData(Reserva, reserves);
+            if (count == dades.length) return importData(Incidencia, dades);
         });
+
     } else if (process.argv[3] === '-d') {
-        deleteData(Reserva);
+        deleteData(Incidencia);
+    }
+} else if (process.argv[2] === '-co') {
+    const Incidencia = require('../models/incidencia');
+    const Comentari = require('../models/comentari');
+    const Usuari = require('../models/usuari');
+
+    if (process.argv[3] === '-i') {
+        let dades = JSON.parse(
+            fs.readFileSync(`comentari.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        dades.forEach(async element => {
+
+            let incidencia = await Incidencia.find({ codi: element.codiIncidencia });
+            let usuari = await Usuari.find({ dni: element.codiUsuari });
+            element.codiIncidencia = incidencia[0].id;
+            element.codiUsuari = usuari[0].id;
+
+            count++;
+            if (count == dades.length) return importData(Comentari, dades);
+        });
+
+    } else if (process.argv[3] === '-d') {
+        deleteData(Comentari);
     }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
-        "-u"  => per a importar USUARIS\n\
-        "-c"  => per a importar CATEGORIES\n\
-        "-sc" => per a importar SUBCATEGORIES\n\
-        "-m"  => per a importar MATERIALS\n\
-        "-e"  => per a importar EXEMPLARS\n\
-        "-p"  => per a importar PRÉSTECS\n\
-        "-ct" => per a importar CENTRES\n\
-        "-pt" => per a importar PLANTES\n\
-        "-l"  => per a importar LOCALITZACIONS\n\
-        "-r"  => per a importar RESERVES');
-
+        "-u" per a importar usuaris\n\
+        "-c" per a importar categories\n\
+        "-sc" per a importar subcategories\n\
+        "-m" per a importar materials\n\
+        "-e" per a importar exemplars\n\
+        "-p" per a importar préstecs\n\
+        "-ct" per a importar centres\n\
+        "-pt" per a importar plantas\n\
+        "-i" per a importar incidencies\n\
+        "-co" per a importar comentaris');
     process.exit();
 }

@@ -19,14 +19,28 @@
 			</div>
 			<div class="card-body">
 
-				<form method="POST" action="/planta/update/<%= Planta._id %>">
+				<form method="POST" action="/planta/update/<%= Planta._id %>" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="codi">Codi</label>
-						<input type="number" name="codi" class="form-control" value="<%= Planta.codi %>">
+						
+						<% let codi = Planta.codi.slice(0, Planta.codi.indexOf('/'))%>
+						
+						<input type="text" name="codi" class="form-control" value="<%= codi %>">
+						
 					</div>
 					<div class="form-group">
+                        <label for="codiCentre">Centre</label>
+                        <select type="text" name="codiCentre" class="form-control">
+                            <% centreList.forEach(function(codiCentre) { %>
+                                <option value="<%= codiCentre.id %>">
+                                    <%= codiCentre.nom %>
+                                </option>
+                            <% }); %>
+                        </select>
+                    </div>
+					<div class="form-group">
 						<label for="planol">Planol</label>
-						<input type="text" name="planol" class="form-control" value="<%= Planta.planol %>">
+						<input type="file" name="planol" accept="image/png, .jpeg, .jpg" class="form-control">
 					</div>
 
 					<button type="submit" class="btn btn-primary">Save

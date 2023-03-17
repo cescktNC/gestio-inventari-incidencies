@@ -1,7 +1,6 @@
 var Material = require('../models/material');
 var Exemplar = require('../models/exemplar');
 var SubCategoria = require('../models/subcategoria');
-var Exemplar = require('../models/exemplar');
 var fs = require('fs');
 const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 
@@ -68,18 +67,35 @@ class MaterialController {
     static async update_post(req, res, next) {
 
         const list_subcategoria = await SubCategoria.find();
+        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
 
-        var list_material = {
-            nom: req.body.nom,
-            codi: req.body.codi,
-            descripcio: req.body.descripcio,
-            preuCompra: req.body.preuCompra,
-            anyCompra: req.body.anyCompra,
-            //fotografia: req.file.path.substring(7, req.file.path.length),
-            codiSubCategoria: req.body.codiSubCategoria,
+        let list_material;
 
-            _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-        };
+        if(req.file==null){
+            list_material = {
+                nom: req.body.nom,
+                codi: req.body.codi + '-' + subcategoria.codi,
+                descripcio: req.body.descripcio,
+                preuCompra: req.body.preuCompra,
+                anyCompra: req.body.anyCompra,
+                codiSubCategoria: req.body.codiSubCategoria,
+                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+            };
+        }else{
+            list_material = {
+                nom: req.body.nom,
+                codi: req.body.codi + '-' + subcategoria.codi,
+                descripcio: req.body.descripcio,
+                preuCompra: req.body.preuCompra,
+                anyCompra: req.body.anyCompra,
+                fotografia: req.file.path.substring(7, req.file.path.length),
+                codiSubCategoria: req.body.codiSubCategoria,
+    
+                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+            };
+        }
+
+        
 
         Material.findByIdAndUpdate(
             req.params.id,

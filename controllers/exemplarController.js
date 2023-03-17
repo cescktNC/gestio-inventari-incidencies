@@ -71,7 +71,10 @@ class ExemplarController {
 
   }
 
-  static update_get(req, res, next) {
+  static async update_get(req, res, next) {
+    const localitzacio_list = await Localitzacio.find();
+    const material_list = await Material.find();
+    
     Exemplar.findById(req.params.id, function (err, exemplar_list) {
       if (err) {
         return next(err);
@@ -83,22 +86,25 @@ class ExemplarController {
         return next(err);
       }
       // Success.
-      res.render("exemplar/update", { Exemplar: exemplar_list });
+      res.render("exemplar/update", { Exemplar: exemplar_list, localitzacioList: localitzacio_list, materialList: material_list });
     });
 
   }
 
-  static update_post(req, res, next) {
+  static async update_post(req, res, next) {
     
-    // if (req.body.demarca == undefined) req.body.demarca = false;
+    const localitzacio_list = await Localitzacio.find();
+    const material_list = await Material.find();
+    const material = await Material.findById(req.body.codiMaterial);
+
     req.body.demarca = req.body.demarca == "true";
 
     
     var exemplar = {
-      codi: req.body.codi,
+      codi: req.body.codi + '/' + material.codi,
       demarca: req.body.demarca,
-      qr: req.body.qr,
-      codiLocalitzacio: req.params.codiLocalitzacio,
+      codiMaterial: req.body.codiMaterial,
+      codiLocalitzacio: req.body.codiLocalitzacio,
       _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
     };
 
@@ -109,10 +115,10 @@ class ExemplarController {
       function (err, exemplarfound) {
         if (err) {
           //return next(err);
-          res.render("exemplar/update", { Exemplar: Exemplar, error: err.message });
+          res.render("exemplar/update", { Exemplar: exemplar, localitzacioList: localitzacio_list, materialList: material_list,error: err.message });
         }
         //res.redirect('/genres/update/'+ genreFound._id);
-        res.render("exemplar/update", { Exemplar: Exemplar, message: 'Exemplar actualitzat' });
+        res.render("exemplar/update", { Exemplar: exemplar, localitzacioList: localitzacio_list, materialList: material_list, message: 'Exemplar actualitzat' });
       }
     );
   }

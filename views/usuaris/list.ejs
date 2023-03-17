@@ -24,6 +24,7 @@
 							<th scope="col">DNI</th>
 							<th scope="col">Càrrec</th>
 							<th scope="col">Email</th>
+							<th scope="col">Imatge de perfil</th>
 							<th scope="col">
 								<a href="/usuaris/create" class="btn btn-primary">Nou</a>
 							</th>
@@ -47,6 +48,9 @@
 								<td>
 									<%= usuari.email %>
 								</td>
+								<td>
+                                    <img class="w-25" src=" <%= usuari.profilePicture %>" alt="">
+                                </td>
 								<td>
 									<a class="btn btn-secondary" href="/usuaris/update/<%=usuari._id%>"
 										class="card-link">Edit</a>
