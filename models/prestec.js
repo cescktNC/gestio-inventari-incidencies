@@ -35,13 +35,13 @@ PrestecSchema.virtual('updateDate')
     return this.dataRetorn.toISOString().substring(0, 10);
   });
 
-PrestecSchema.path('dataInici').validate(function (value) {
-  var dataActual = new Date();
-  if (value < dataActual) {
-    throw new Error('La dataInici no pot ser anterior a la data actual');
-  }
-  return true;
-}, 'La dataInici no pot ser anterior a la data actual');
+// PrestecSchema.path('dataInici').validate(function (value) {
+//   var dataActual = new Date();
+//   if (value < dataActual) {
+//     throw new Error('La dataInici no pot ser anterior a la data actual');
+//   }
+//   return true;
+// }, 'La dataInici no pot ser anterior a la data actual');
 
 PrestecSchema.path('dataRetorn').validate(function (value) {
   if (value < this.dataInici) {
