@@ -41,7 +41,8 @@ class LocalitzacioController {
         })
     }
 
-    static update_get(req, res, next) {
+    static async update_get(req, res, next) {
+        const planta_list = await Planta.find();
         Localitzacio.findById(req.params.id, function (err, localitzacio_list) {
             if (err) {
                 return next(err);
@@ -53,16 +54,20 @@ class LocalitzacioController {
                 return next(err);
             }
             // Success.
-            res.render("localitzacio/update", { Localitzacio: localitzacio_list });
+            res.render("localitzacio/update", { Localitzacio: localitzacio_list, plantaList: planta_list });
         });
 
     }
-    static update_post(req, res, next) {
+    static async update_post(req, res, next) {
+
+        const planta_list = await Planta.find();
+        const planta = await Planta.findById(req.body.codiPlanta);
 
         if (req.body.especial === undefined) req.body.especial = false;
         var localitzacio = {
-            codi: req.body.codi,
+            codi: req.body.codi + '/' + planta.codi,
             nom: req.body.nom,
+            codiPlanta: req.body.codiPlanta,
             especial: req.body.especial,
             _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
         };
@@ -74,10 +79,10 @@ class LocalitzacioController {
             function (err, localitzaciofound) {
                 if (err) {
                     //return next(err);
-                    res.render("localitzacio/update", { Localitzacio: Localitzacio, error: err.message });
+                    res.render("localitzacio/update", { Localitzacio: localitzacio, plantaList: planta_list, error: err.message });
                 }
                 //res.redirect('/genres/update/'+ genreFound._id);
-                res.render("localitzacio/update", { Localitzacio: Localitzacio, message: 'Localitzacio actualitzada' });
+                res.render("localitzacio/update", { Localitzacio: localitzacio, plantaList: planta_list, message: 'Localitzacio actualitzada' });
             }
         );
     }

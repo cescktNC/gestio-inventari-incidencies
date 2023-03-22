@@ -87,8 +87,9 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let categoria = await Categoria.findById(element.codiCategoria);
-            element.codi += '/' + categoria.codi;
+            let categoria = await Categoria.find({ codi: element.codiCategoria });
+            element.codi += '/' + categoria[0].codi;
+            element.codiCategoria = categoria[0].id;
 
             count++;
             if (count == dades.length) return importData(Subcategoria, dades);
@@ -108,8 +109,9 @@ if (process.argv[2] === '-u') {
         let count = 0;
 
         dades.forEach(async element => {
-            let subcategoria = await Subcategoria.findById(element.codiSubCategoria);
-            element.codi += '-' + subcategoria.codi;
+            let subcategoria = await SubCategoria.find({ codi: element.codiSubCategoria });
+            element.codi += '-' + subcategoria[0].codi;
+            element.codiSubCategoria = subcategoria[0].id;
             count++;
             if (count == dades.length) return importData(Material, dades);
         });
@@ -240,10 +242,10 @@ if (process.argv[2] === '-u') {
             count++;
             if (count == dades.length) return importData(Localitzacio, dades);
         });
-
     } else if (process.argv[3] === '-d') {
         deleteData(Localitzacio);
     }
+
 } else if (process.argv[2] === '-i') {
     const Incidencia = require('../models/incidencia');
     const Localitzacio = require('../models/localitzacio');
@@ -308,6 +310,5 @@ if (process.argv[2] === '-u') {
         "-pt" per a importar plantas\n\
         "-i" per a importar incidencies\n\
         "-co" per a importar comentaris');
-
     process.exit();
 }

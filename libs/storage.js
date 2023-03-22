@@ -2,7 +2,6 @@ var multer = require("multer");
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		console.log(req._parsedOriginalUrl.pathname)
 		let path = req._parsedOriginalUrl.pathname;
 		path = path.slice(1, path.lastIndexOf("/"));
 		cb(null, url(path));
@@ -14,13 +13,12 @@ var storage = multer.diskStorage({
 });
 
 function url(path) {
-	console.log(path)
-	switch (path) {
-		case "materials":
+	switch (true) {
+		case path.includes("materials"):
 			return "public/URL/Imagen";
-		case "planta":
+		case path.includes("planta"):
 			return "public/URL/imgPlanols";
-		case "usuaris":
+		case path.includes("usuaris"):
 			return "public/URL/Profile";
 		default:
 			return "seeders";

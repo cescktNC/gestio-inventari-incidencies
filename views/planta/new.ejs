@@ -30,11 +30,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="codiCentre">codiCentre</label>
+                        <label for="codiCentre">Centre</label>
                         <select type="text" name="codiCentre" class="form-control">
                             <% centreList.forEach(function(codiCentre) { %>
                                 <option value="<%= codiCentre.id %>">
-                                    <%= codiCentre.codi %>
+                                    <%= codiCentre.nom %>
                                 </option>
                             <% }); %>
                         </select>

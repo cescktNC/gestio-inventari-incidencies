@@ -22,12 +22,27 @@
 				<form method="POST" action="/localitzacio/update/<%= Localitzacio._id %>">
 					<div class="form-group">
 						<label for="codi">Codi</label>
-						<input type="number" name="codi" class="form-control" value="<%= Localitzacio.codi %>">
+						<% let codi = Localitzacio.codi.slice(0, Localitzacio.codi.indexOf('/'))%>
+						<input type="text" name="codi" class="form-control" value="<%= codi %>">
 					</div>
 					<div class="form-group">
 						<label for="nom">Nom</label>
 						<input type="text" name="nom" class="form-control" value="<%= Localitzacio.nom %>">
 					</div>
+					<div class="form-group">
+                        <label for="codiPlanta">Planta</label>
+                        <select type="text" name="codiPlanta" class="form-control">
+                            <% plantaList.forEach(function(Planta) { if(Planta.id == Localitzacio.codiPlanta){%>
+                                <option value="<%= Planta.id %>" selected>
+                                    <%= Planta.nom %>
+                                </option>
+                            <% }else{ %>
+								<option value="<%= Planta.id %>">
+                                    <%= Planta.nom %>
+                                </option>
+                            <% }}); %>
+                        </select>
+                    </div>
 					<div class="form-group">
 						<label for="especial">Especial</label><br>
 						<input type="checkbox" name="especial" id="true" value="true">True<br>
