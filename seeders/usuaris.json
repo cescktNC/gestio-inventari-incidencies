@@ -6,7 +6,7 @@
         "carrec": "Professor",
         "email": "jordim@gmail.com",
         "password": "p&3Y55CSxma6",
-        "profilePicture": "URL/Profile/profilePicture.png"
+        "profilePicture": "URL/Profile/jordim.jpg"
     },
     {
         "nom": "Francesc",
@@ -15,7 +15,7 @@
         "carrec": "Alumne",
         "email": "francescnc@gmail.com",
         "password": "V28C0y#h1W#C",
-        "profilePicture": "URL/Profile/profilePicture.png"
+        "profilePicture": "URL/Profile/francescn.jpg"
     },
     {
         "nom": "Xavi",
@@ -24,7 +24,7 @@
         "carrec": "Director",
         "email": "xaviv@gmail.com",
         "password": "tAZpG4F7^5od",
-        "profilePicture": "URL/Profile/profilePicture.png"
+        "profilePicture": "URL/Profile/xaviv.jpg"
     },
     {
         "nom": "Nuria",
@@ -51,7 +51,7 @@
         "carrec": "Alumne",
         "email": "obaltasar@gmail.com",
         "password": "Q2SZ3tU%uD5v",
-        "profilePicture": "URL/Profile/profilePicture.png"
+        "profilePicture": "URL/Profile/piza.jpeg"
     },
     {
         "nom": "Victor",
@@ -60,7 +60,7 @@
         "carrec": "Alumne",
         "email": "vmartinez@gmail.com",
         "password": "L2BRrX!^5qHZ",
-        "profilePicture": "URL/Profile/profilePicture.png"
+        "profilePicture": "URL/Profile/victor.jpg"
     },
     {
         "nom": "Alba",
