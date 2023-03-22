@@ -1,0 +1,22 @@
+[
+    {
+      "codi": "01",
+      "nom": "Presentació Curs DAW",
+      "codiReserva": "01"
+    },
+    {
+      "codi": "02",
+      "nom": "Actuació Nadal",
+      "codiReserva": "07"
+    },
+    {
+      "codi": "03",
+      "nom": "Actuació Nadal",
+      "codiReserva": "08"
+    },
+    {
+      "codi": "04",
+      "nom": "Festa Carnaval",
+      "codiReserva": "12"
+    }
+]

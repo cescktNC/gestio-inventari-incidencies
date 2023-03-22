@@ -298,17 +298,54 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Comentari);
     }
+} else if (process.argv[2] === '-s') {
+    const Reserva = require('../models/reserva');
+    const Sessio = require('../models/sessio');
+
+    if (process.argv[3] === '-i') {
+        let sessions = JSON.parse(
+            fs.readFileSync(`sessions.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        sessions.forEach(async sessio => {
+            let reserva = await Reserva.find({ codi: sessio.codiReserva });
+            sessio.codiReserva = reserva[0].id;
+
+            count++;
+            if (count == sessions.length)
+                return importData(Sessio, sessions);
+        });
+    } else if (process.argv[3] === '-d') {
+        deleteData(Sessio);
+    }
+} else if (process.argv[2] === '-cd') {
+    const Cadira = require('../models/cadira');
+
+    if (process.argv[3] === '-i') {
+        let cadires = JSON.parse(
+            fs.readFileSync(`cadires.json`, "utf-8")
+        );
+        importData(Cadira, cadires);
+    } else if (process.argv[3] === '-d') {
+        deleteData(Cadira);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
-        "-u" per a importar usuaris\n\
-        "-c" per a importar categories\n\
-        "-sc" per a importar subcategories\n\
-        "-m" per a importar materials\n\
-        "-e" per a importar exemplars\n\
-        "-p" per a importar préstecs\n\
-        "-ct" per a importar centres\n\
-        "-pt" per a importar plantas\n\
-        "-i" per a importar incidencies\n\
-        "-co" per a importar comentaris');
+        "-u"  => per a importar USUARIS\n\
+        "-c"  => per a importar CATEGORIES\n\
+        "-sc" => per a importar SUBCATEGORIES\n\
+        "-m"  => per a importar MATERIALS\n\
+        "-e"  => per a importar EXEMPLARS\n\
+        "-p"  => per a importar PRÉSTECS\n\
+        "-ct" => per a importar CENTRES\n\
+        "-pt" => per a importar PLANTES\n\
+        "-i"  => per a importar INCIDENCIES\n\
+        "-co" => per a importar comentaris
+        "-l"  => per a importar LOCALITZACIONS\n\
+        "-r"  => per a importar RESERVES\n\
+        "-s"  => per a importar SESSIONS\n\
+        "-cd" => per a importar CADIRES');
     process.exit();
 }
