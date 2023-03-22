@@ -5,7 +5,8 @@
         "dni": "11111111A",
         "carrec": "Professor",
         "email": "jordim@gmail.com",
-        "password": "p&3Y55CSxma6"
+        "password": "p&3Y55CSxma6",
+        "profilePicture": "URL/Profile/jordim.jpg"
     },
     {
         "nom": "Francesc",
@@ -13,7 +14,8 @@
         "dni": "22222222B",
         "carrec": "Alumne",
         "email": "francescnc@gmail.com",
-        "password": "V28C0y#h1W#C"
+        "password": "V28C0y#h1W#C",
+        "profilePicture": "URL/Profile/francescn.jpg"
     },
     {
         "nom": "Xavi",
@@ -21,7 +23,8 @@
         "dni": "33333333C",
         "carrec": "Director",
         "email": "xaviv@gmail.com",
-        "password": "tAZpG4F7^5od"
+        "password": "tAZpG4F7^5od",
+        "profilePicture": "URL/Profile/xaviv.jpg"
     },
     {
         "nom": "Nuria",
@@ -29,7 +32,8 @@
         "dni": "44444444D",
         "carrec": "Professor",
         "email": "npons@gmail.com",
-        "password": "YG9pQu8^F5eW"
+        "password": "YG9pQu8^F5eW",
+        "profilePicture": "URL/Profile/profilePicture.png"
     },
     {
         "nom": "Bea",
@@ -37,7 +41,8 @@
         "dni": "55555555E",
         "carrec": "Professor",
         "email": "bruiz@gmail.com",
-        "password": "EDJf6&S@AzoD"
+        "password": "EDJf6&S@AzoD",
+        "profilePicture": "URL/Profile/profilePicture.png"
     },
     {
         "nom": "Oriol",
@@ -45,7 +50,8 @@
         "dni": "66666666F",
         "carrec": "Alumne",
         "email": "obaltasar@gmail.com",
-        "password": "Q2SZ3tU%uD5v"
+        "password": "Q2SZ3tU%uD5v",
+        "profilePicture": "URL/Profile/profilePicture.png"
     },
     {
         "nom": "Victor",
@@ -53,7 +59,8 @@
         "dni": "77777777G",
         "carrec": "Alumne",
         "email": "vmartinez@gmail.com",
-        "password": "L2BRrX!^5qHZ"
+        "password": "L2BRrX!^5qHZ",
+        "profilePicture": "URL/Profile/victor.jpg"
     },
     {
         "nom": "Alba",
@@ -61,7 +68,8 @@
         "dni": "88888888H",
         "carrec": "Administrador",
         "email": "atome@gmail.com",
-        "password": "Z7VqDPi^H!89"
+        "password": "Z7VqDPi^H!89",
+        "profilePicture": "URL/Profile/profilePicture.png"
     },
     {
         "nom": "Oscar",
@@ -69,7 +77,8 @@
         "dni": "99999999I",
         "carrec": "Conserge",
         "email": "oboreig@gmail.com",
-        "password": "xhibXqH43f$2"
+        "password": "xhibXqH43f$2",
+        "profilePicture": "URL/Profile/profilePicture.png"
     },
     {
         "nom": "David",
@@ -77,6 +86,7 @@
         "dni": "111111112J",
         "carrec": "Manteniment",
         "email": "dgarcia@gmail.com",
-        "password": "k&arcasq6zVR"
+        "password": "k&arcasq6zVR",
+        "profilePicture": "URL/Profile/profilePicture.png"
     }
 ]

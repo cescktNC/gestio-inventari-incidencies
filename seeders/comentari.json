@@ -1,0 +1,50 @@
+[
+    {
+        "codiIncidencia": "02",
+        "codiUsuari": "111111112J",
+        "data": "2022-01-15",
+        "descripcio": "Podria especificar on esta ubicat el ratoli"
+    },
+    {
+        "codiIncidencia": "02",
+        "codiUsuari": "11111111A",
+        "data": "2022-01-16",
+        "descripcio": "El ratoli es el segon portatil jost entra per la porta, el portatil te el codi 01/01-08/02-21/01/01"
+    },
+    {
+        "codiIncidencia": "03",
+        "codiUsuari": "111111112J",
+        "data": "2022-10-22",
+        "descripcio": "No es cambiaran els altaveus per un petit petardeig"
+    },
+    {
+        "codiIncidencia": "05",
+        "codiUsuari": "111111112J",
+        "data": "2023-02-12",
+        "descripcio": "No hem pogut solucionar el problema, em trucat el tecnic perque vingui"
+    },
+    {
+        "codiIncidencia": "05",
+        "codiUsuari": "44444444D",
+        "data": "2023-02-14",
+        "descripcio": "Han passat 2 dias i no l'incidencia no esta resolta quan vindra el tecnic, no es podria fer alguna cosa per poder tancar"
+    },
+    {
+        "codiIncidencia": "05",
+        "codiUsuari": "111111112J",
+        "data": "2023-02-14",
+        "descripcio": "Em tornat a trucar al tecnic i vindra demá, de totes maneres a l'hora del pati vindrem a probar una solució provisional"
+    },
+    {
+        "codiIncidencia": "07",
+        "codiUsuari": "111111112J",
+        "data": "2023-02-20",
+        "descripcio": "Buscarem un ordinador lliure que pugui executa els programas necesaris"
+    },
+    {
+        "codiIncidencia": "08",
+        "codiUsuari": "55555555E",
+        "data": "2023-02-20",
+        "descripcio": "Necessitem que la porta s'obri completament per poder realitzar un taller amb gent amb dependecies"
+    }
+]
