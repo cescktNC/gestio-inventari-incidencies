@@ -290,6 +290,17 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Sessio);
     }
+} else if (process.argv[2] === '-cd') {
+    const Cadira = require('../models/cadira');
+
+    if (process.argv[3] === '-i') {
+        let cadires = JSON.parse(
+            fs.readFileSync(`cadires.json`, "utf-8")
+        );
+        importData(Cadira, cadires);
+    } else if (process.argv[3] === '-d') {
+        deleteData(Cadira);
+    }
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u"  => per a importar USUARIS\n\
@@ -302,7 +313,8 @@ if (process.argv[2] === '-u') {
         "-pt" => per a importar PLANTES\n\
         "-l"  => per a importar LOCALITZACIONS\n\
         "-r"  => per a importar RESERVES\n\
-        "-s"  => per a importar SESSIONS');
+        "-s"  => per a importar SESSIONS\n\
+        "-cd"  => per a importar CADIRES');
 
     process.exit();
 }

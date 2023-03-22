@@ -2,11 +2,9 @@ var mongoose = require("mongoose"); // Diem que utilitzem el paquet 'mongoose'
 
 var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les collecions de MongoDB
 
-var CadiraSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
-    
-    numeroCadira: {type: Number, required: true},
-    codiSessio: { type: Schema.ObjectId, ref: "Sessio"}
-
+var CadiraSchema = new Schema({ // Esquema per al model 'Cadira'
+    fila: {type: Number, required: true},
+    numero: {type: Number, required: true},
 });
 
 
