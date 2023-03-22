@@ -28,8 +28,8 @@ var app = express();
 // Client i servidor s'executen en diferents ports
 // Apareixen problemes amb Cross-Origin Resource Sharing
 // El paquet 'cors' habilita cors amb possibilitat de passar diferents opcions
-var cors = require('cors') //instalar
-app.use(cors())
+var cors = require('cors');
+app.use(cors());
 
 
 dotenv.config();  // Per a poder utilitzar les variables del fitxer '.env' (**)
