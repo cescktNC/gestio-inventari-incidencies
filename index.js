@@ -25,6 +25,13 @@ var comentariRouter = require('./routes/comentariRoute');
 
 var app = express();
 
+// Client i servidor s'executen en diferents ports
+// Apareixen problemes amb Cross-Origin Resource Sharing
+// El paquet 'cors' habilita cors amb possibilitat de passar diferents opcions
+var cors = require('cors') //instalar
+app.use(cors())
+
+
 dotenv.config();  // Per a poder utilitzar les variables del fitxer '.env' (**)
 
 const port = process.env.PORT || 8000;  // Ja es pot accedir a les variables de la següent manera 
@@ -41,8 +48,7 @@ app.use(session({
   resave: false,
   name: 'usuari', // la sessió funciona a tavés d'una cookie, en aquest cas es dirà 'usuari'
   saveUninitialized: true,
-  // cookie: { maxAge: 1000 * 60 * 60 }, // ms de durada de la cookie
-  cookie: { maxAge: 1000000000000000000000 * 60 * 60 }, // ms de durada de la cookie
+  cookie: { maxAge: 1000 * 60 * 60 }, // ms de durada de la cookie
 }));
 
 //mongoose.Promise = global.Promise;
@@ -72,6 +78,9 @@ app.use(function (req, res, next) {
 
 
 const auth = require('./middlewares/authenticate');
+
+// Format intercanvi de dades JSON
+app.use(express.json());// para que pueda devolver json
 
 app.get('/', auth.isAuth, function (req, res) {
   res.render('home');
