@@ -18,5 +18,10 @@
       "codi": "04",
       "nom": "Festa Carnaval",
       "codiReserva": "12"
+    },
+    {
+      "codi": "05",
+      "nom": "Entrega Diplomes",
+      "codiReserva": "16"
     }
 ]
