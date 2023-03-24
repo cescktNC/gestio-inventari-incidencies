@@ -298,11 +298,41 @@ if (process.argv[2] === '-u') {
     } else if (process.argv[3] === '-d') {
         deleteData(Comentari);
     }
+} else if (process.argv[2] === '-r') {
+
+    const Reserva = require('../models/reserva');
+    const Usuari = require('../models/usuari');
+    const Localitzacio = require('../models/localitzacio');
+
+    if (process.argv[3] === '-i') {
+        let reserves = JSON.parse(
+            fs.readFileSync(`reserves.json`, "utf-8")
+        );
+
+        let count = 0;
+
+        reserves.forEach(async reserva => {
+
+            let usuari = await Usuari.find({ dni: reserva.dniUsuari });
+            let localitzacio = await Localitzacio.find({ nom: reserva.codiLocalitzacio });
+            
+            reserva.dniUsuari = usuari[0].id;
+            reserva.codiLocalitzacio = localitzacio[0].id;
+
+            count++;
+
+            if (count == reserves.length) return importData(Reserva, reserves);
+
+        });
+
+    } else if (process.argv[3] === '-d') deleteData(Reserva);
+
 } else if (process.argv[2] === '-s') {
     const Reserva = require('../models/reserva');
     const Sessio = require('../models/sessio');
 
     if (process.argv[3] === '-i') {
+
         let sessions = JSON.parse(
             fs.readFileSync(`sessions.json`, "utf-8")
         );
@@ -314,13 +344,14 @@ if (process.argv[2] === '-u') {
             sessio.codiReserva = reserva[0].id;
 
             count++;
-            if (count == sessions.length)
-                return importData(Sessio, sessions);
+            if (count == sessions.length) return importData(Sessio, sessions);
+
         });
-    } else if (process.argv[3] === '-d') {
-        deleteData(Sessio);
-    }
+
+    } else if (process.argv[3] === '-d') deleteData(Sessio);
+
 } else if (process.argv[2] === '-cd') {
+
     const Cadira = require('../models/cadira');
 
     if (process.argv[3] === '-i') {
@@ -328,9 +359,41 @@ if (process.argv[2] === '-u') {
             fs.readFileSync(`cadires.json`, "utf-8")
         );
         importData(Cadira, cadires);
-    } else if (process.argv[3] === '-d') {
-        deleteData(Cadira);
-    }
+    } else if (process.argv[3] === '-d') deleteData(Cadira);
+
+} else if (process.argv[2] === '-rcd') {
+
+    const Sessio = require('../models/sessio');
+    const Cadira = require('../models/cadira'); 
+    const ReservaCadira = require('../models/reservaCadira');
+
+    if (process.argv[3] === '-i') {
+
+        let cadiresReservades = JSON.parse(
+            fs.readFileSync(`reservesCadires.json`, "utf-8")
+        );
+
+        let count = 0;
+        
+        cadiresReservades.forEach(async element => {
+            
+            let fila = element.idCadira.substring(0,1);
+            let numero = element.idCadira.substring(1);
+
+            let sessio = await Sessio.find({ codi: element.idSessio });
+            let cadira = await Cadira.find({ fila: fila, numero: numero });
+            
+            element.idSessio = sessio[0].id;
+            element.idCadira = cadira[0].id;
+
+            count++;
+
+            if (count == cadiresReservades.length) return importData(ReservaCadira, cadiresReservades);
+
+        });
+
+    } else if (process.argv[3] === '-d') deleteData(ReservaCadira);
+    
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u"  => per a importar USUARIS\n\
@@ -342,10 +405,11 @@ if (process.argv[2] === '-u') {
         "-ct" => per a importar CENTRES\n\
         "-pt" => per a importar PLANTES\n\
         "-i"  => per a importar INCIDENCIES\n\
-        "-co" => per a importar comentaris
+        "-co" => per a importar COMENTARIS\n\
         "-l"  => per a importar LOCALITZACIONS\n\
         "-r"  => per a importar RESERVES\n\
         "-s"  => per a importar SESSIONS\n\
-        "-cd" => per a importar CADIRES');
+        "-cd" => per a importar CADIRES\n\
+        "-cd" => per a importar RESERVA DE CADIRES');
     process.exit();
 }

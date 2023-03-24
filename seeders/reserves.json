@@ -4,104 +4,111 @@
       "hora": "08:00 - 09:00",
       "data": "2022-09-06",
       "dniUsuari": "33333333C",
-      "nomLocalitzacio": "Sala d'actes"
+      "codiLocalitzacio": "Sala d'actes"
     },
     {
       "codi": "02",
       "hora": "11:30 - 12:30",
       "data": "2022-10-12",
       "dniUsuari": "44444444D",
-      "nomLocalitzacio": "Aula 306"
+      "codiLocalitzacio": "Aula 306"
     },
     {
       "codi": "03",
       "hora": "13:30 - 14:30",
       "data": "2022-10-25",
       "dniUsuari": "111111112J",
-      "nomLocalitzacio": "Aula Comercial"
+      "codiLocalitzacio": "Aula Comercial"
     },
     {
       "codi": "04",
       "hora": "09:00 - 10:00",
       "data": "2022-10-27",
       "dniUsuari": "99999999I",
-      "nomLocalitzacio": "Aula Multimedia"
+      "codiLocalitzacio": "Aula Multimedia"
     },
     {
       "codi": "05",
       "hora": "10:00 - 11:00",
       "data": "2022-11-21",
       "dniUsuari": "88888888H",
-      "nomLocalitzacio": "Aula 106"
+      "codiLocalitzacio": "Aula 106"
     },
     {
       "codi": "06",
       "hora": "13:30 - 14:30",
       "data": "2022-11-30",
       "dniUsuari": "44444444D",
-      "nomLocalitzacio": "Aula 304"
+      "codiLocalitzacio": "Aula 304"
     },
     {
       "codi": "07",
       "hora": "09:00 - 10:00",
       "data": "2022-12-22",
       "dniUsuari": "77777777G",
-      "nomLocalitzacio": "Sala d'actes"
+      "codiLocalitzacio": "Sala d'actes"
     },
     {
       "codi": "08",
       "hora": "10:00 - 11:00",
       "data": "2022-12-22",
       "dniUsuari": "77777777G",
-      "nomLocalitzacio": "Sala d'actes"
+      "codiLocalitzacio": "Sala d'actes"
     },
     {
       "codi": "09",
       "hora": "10:00 - 11:00",
       "data": "2023-01-10",
       "dniUsuari": "66666666F",
-      "nomLocalitzacio": "Aula Multimedia"
+      "codiLocalitzacio": "Aula Multimedia"
     },
     {
       "codi": "10",
       "hora": "13:30 - 14:30",
       "data": "2023-01-24",
       "dniUsuari": "44444444D",
-      "nomLocalitzacio": "Aula 204"
+      "codiLocalitzacio": "Aula 204"
     },
     {
       "codi": "11",
       "hora": "09:00 - 10:00",
       "data": "2023-01-30",
       "dniUsuari": "99999999I",
-      "nomLocalitzacio": "Aula Multimedia"
+      "codiLocalitzacio": "Aula Multimedia"
     },
     {
       "codi": "12",
       "hora": "11:30 - 12:30",
       "data": "2023-02-03",
       "dniUsuari": "55555555E",
-      "nomLocalitzacio": "Sala d'actes"
+      "codiLocalitzacio": "Sala d'actes"
     },
     {
       "codi": "13",
       "hora": "12:30 - 13:30",
       "data": "2023-02-08",
       "dniUsuari": "111111112J",
-      "nomLocalitzacio": "Aula 407"
+      "codiLocalitzacio": "Aula 407"
     },
     {
       "codi": "14",
       "hora": "13:30 - 14:30",
       "data": "2023-03-06",
       "dniUsuari": "55555555E",
-      "nomLocalitzacio": "Aula 404"
+      "codiLocalitzacio": "Aula 404"
     },
     {
       "codi": "15",
       "hora": "13:30 - 14:30",
       "data": "2023-03-17",
       "dniUsuari": "66666666F",
-      "nomLocalitzacio": "Aula Multimedia"
+      "codiLocalitzacio": "Aula Multimedia"
+    },
+    {
+      "codi": "16",
+      "hora": "17:00 - 18:00",
+      "data": "2023-06-01",
+      "dniUsuari": "111111112J",
+      "codiLocalitzacio": "Sala d'actes"
     }
 ]
