@@ -292,7 +292,9 @@ if (process.argv[2] === '-u') {
             element.codiUsuari = usuari[0].id;
 
             count++;
-            if (count == dades.length) return importData(Comentari, dades);
+            if (count == dades.length) {
+                return importData(Comentari, dades);
+            }
         });
 
     } else if (process.argv[3] === '-d') {

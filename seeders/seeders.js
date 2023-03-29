@@ -22,6 +22,7 @@ const Exemplar = require('../models/exemplar');
 const Prestec = require('../models/prestec');
 const Incidencia = require('../models/incidencia');
 const Comentari = require('../models/comentari');
+const Tramet = require('../models/tramet');
 const Reserva = require('../models/reserva');
 const Sessio = require('../models/sessio');
 const Cadira = require('../models/cadira');
@@ -74,6 +75,7 @@ async function eliminar() {
     await deleteData(Prestec);
     await deleteData(Incidencia);
     await deleteData(Comentari);
+    await deleteData(Tramet);
     await deleteData(Reserva);
     await deleteData(Sessio);
     await deleteData(Cadira);
@@ -301,6 +303,7 @@ async function incidencies() {
 }
 
 async function comentaris() {
+    let arrayTramet = [];
 
     dades = JSON.parse(
         fs.readFileSync(`comentari.json`, "utf-8")
@@ -316,14 +319,25 @@ async function comentaris() {
         element.codiIncidencia = incidencia[0].id;
         element.codiUsuari = usuari[0].id;
 
+        arrayTramet.push({
+            codiComentari: element._id,
+            codiIncidencia: element.codiIncidencia,
+            codiUsuari: element.codiUsuari 
+        });
+
         count++;
 
         if (count == dades.length) {
             await importData(Comentari, dades);
-            await cadires();
+            await tramets(arrayTramet);
         };
 
     });
+}
+
+async function tramets(array){
+    await importData(Tramet, array);
+    await cadires();
 }
 
 async function cadires() {
