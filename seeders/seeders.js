@@ -312,6 +312,7 @@ async function comentaris() {
 
         let incidencia = await Incidencia.find({ codi: element.codiIncidencia });
         let usuari = await Usuari.find({ dni: element.codiUsuari });
+        element._id = ObjectId();
         element.codiIncidencia = incidencia[0].id;
         element.codiUsuari = usuari[0].id;
 
