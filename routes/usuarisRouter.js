@@ -15,4 +15,7 @@ router.post("/update/:id", upload.single("profilePicture"), usuaris_controller.u
 router.get("/delete/:id", usuaris_controller.delete_get);
 router.post("/delete/:id", usuaris_controller.delete_post);
 
+//API
+router.get("/user/:id", usuaris_controller.userSowh);
+
 module.exports = router;

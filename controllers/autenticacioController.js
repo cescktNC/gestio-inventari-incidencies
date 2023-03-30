@@ -138,7 +138,45 @@ class autenticacioController {
 
 	//API
 
-	static async login() {};
+	static async login(req, res, next) {
+    // Recuperem els errors possibles de validació
+		const errors = validationResult(req);
+
+		// Si tenim errors en les dades enviades
+		if (!errors.isEmpty()) {
+			// var message = "Email i password són obligatoris.";
+			res.status(400).json({errors:errors.array()});
+		} else {
+			var email = req.body.email;
+			var password = req.body.password;
+
+			Usuari.findOne({ email: email }).exec(function (err, usuari) {
+				if (err) {
+					res.status(400).json({message:"error"});
+				}
+				if (!usuari) {
+					var message = "Usuari no registrat";
+					res.status(400).json({ message: message });
+				} else {
+					if (bcrypt.compareSync(password, usuari.password)) {
+						var usuariData = {
+							usuariId: usuari.id,
+							nom: usuari.nom,
+							email: usuari.email,
+							carrec: usuari.carrec,
+							dni: usuari.dni,
+						};
+
+            			res.status(200).json(usuariData)
+
+					} else {
+						var message = "Password incorrecte";
+						res.status(400).json({ message: message });
+					}
+				}
+			});
+		}
+  };
 }
 
 module.exports = autenticacioController;

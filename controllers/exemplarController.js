@@ -129,13 +129,19 @@ class ExemplarController {
 
   static async delete_post(req, res, next) {
 
-    Exemplar.findByIdAndRemove(req.params.id, (error) => {
+    var exemplar = {
+      demarca: true,
+      _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+    };
+
+    Exemplar.findByIdAndUpdate(req.params.id, exemplar,(error) => {
       if (error) {
         res.redirect('/exemplar')
       } else {
         res.redirect('/exemplar')
       }
     })
+    
   }
 
   static async show(req, res, next) {

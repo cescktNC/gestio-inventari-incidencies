@@ -164,6 +164,32 @@ class UsuariController {
         });
     }
 
+    // API
+    static async userSowh(req, res, next){
+        Usuari.findById(req.params.id,function(err, usuari) {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            if (usuari == null) {
+                // No results.
+                var err = new Error("Usuari not found");
+                res.status(400).json({ message: err });
+
+            }
+            // Success.
+            var usuariJSON={
+                nom: usuari.nom,
+                cognoms: usuari.cognoms,
+                dni: usuari.dni,
+                carrec: usuari.carrec,
+                email: usuari.email,
+                profilePicture: usuari.profilePicture,
+            };
+            res.status(200).json({ usuari: usuariJSON });
+
+        })
+    }
+
 }
 
 module.exports = UsuariController;
