@@ -28,7 +28,7 @@ class ComentariController {
 	static create_post(req, res, next) {
 		var comentari = {
 			codiIncidencia: id_incidencia,
-			codiUsuari: req.body.codiUsuari,
+			codiUsuari: req.session.data.usuariId,
 			data: Date.now(),
 			descripcio: req.body.descripcio,
 		};

@@ -23,4 +23,7 @@ router.get('/register', authController.register_get);
 router.post('/register', authController.registerRegles, authController.register_post);
 
 
+// Rutes API
+router.post('/loginAPI',authController.loginRegles, authController.login);
+
 module.exports = router;
