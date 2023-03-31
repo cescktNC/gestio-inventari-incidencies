@@ -96,12 +96,12 @@ class ExemplarController {
     const localitzacio_list = await Localitzacio.find();
     const material_list = await Material.find();
     const material = await Material.findById(req.body.codiMaterial);
+    const localitzacio = await Localitzacio.findById(req.body.codiLocalitzacio);
 
     req.body.demarca = req.body.demarca == "true";
-
     
     var exemplar = {
-      codi: req.body.codi + '/' + material.codi,
+      codi: req.body.codi + '/' + material.codi+'-'+localitzacio.codi,
       demarca: req.body.demarca,
       codiMaterial: req.body.codiMaterial,
       codiLocalitzacio: req.body.codiLocalitzacio,
@@ -121,38 +121,6 @@ class ExemplarController {
         res.render("exemplar/update", { Exemplar: exemplar, localitzacioList: localitzacio_list, materialList: material_list, message: 'Exemplar actualitzat' });
       }
     );
-  }
-
-  static async delete_get(req, res, next) {
-    res.render('exemplar/delete', { id: req.params.id })
-  }
-
-  static async delete_post(req, res, next) {
-
-    var exemplar = {
-      demarca: true,
-      _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-    };
-
-    Exemplar.findByIdAndUpdate(req.params.id, exemplar,(error) => {
-      if (error) {
-        res.redirect('/exemplar')
-      } else {
-        res.redirect('/exemplar')
-      }
-    })
-    
-  }
-
-  static async show(req, res, next) {
-    try {
-      var exemplar = await Exemplar.findById(req.params.id)
-        .populate('codiMaterial')
-        .populate('codiLocalitzacio')
-      res.render('exemplar/show', { exemplar: exemplar });
-    } catch (e) {
-      res.send('Error!');
-    }
   }
 
 }
