@@ -22,6 +22,7 @@ var prestecRouter = require('./routes/prestecRouter');
 var incidenciaRouter = require('./routes/incidenciesRouter');
 var authRouter = require('./routes/authRouter');
 var comentariRouter = require('./routes/comentariRoute');
+var reservaCadiraRouter = require('./routes/reservaCadiresRouter');
 
 var app = express();
 
@@ -76,7 +77,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-
 const auth = require('./middlewares/authenticate');
 
 // Format intercanvi de dades JSON
@@ -108,6 +108,8 @@ app.use('/incidencies', incidenciaRouter);
 app.use('/prestec', prestecRouter);
 app.use('/autenticacions', authRouter);
 app.use('/comentari', comentariRouter);
+app.use('/comentari', comentariRouter);
+app.use('/reservaCadira', reservaCadiraRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
