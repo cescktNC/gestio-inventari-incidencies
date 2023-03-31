@@ -16,7 +16,7 @@ class autenticacioController {
 	];
 
 	static registerRegles = [
-		body("nom").notEmpty().withMessage("Nom és obligatori"),
+		body("name").notEmpty().withMessage("Nom és obligatori"),
 		body("email", "email is required")
 			.notEmpty()
 			.withMessage("Email és obligatori")
@@ -139,20 +139,20 @@ class autenticacioController {
 	//API
 
 	static async login(req, res, next) {
-    // Recuperem els errors possibles de validació
+		// Recuperem els errors possibles de validació
 		const errors = validationResult(req);
 
 		// Si tenim errors en les dades enviades
 		if (!errors.isEmpty()) {
 			// var message = "Email i password són obligatoris.";
-			res.status(400).json({errors:errors.array()});
+			res.status(400).json({ errors: errors.array() });
 		} else {
 			var email = req.body.email;
 			var password = req.body.password;
 
 			Usuari.findOne({ email: email }).exec(function (err, usuari) {
 				if (err) {
-					res.status(400).json({message:"error"});
+					res.status(400).json({ message: "error" });
 				}
 				if (!usuari) {
 					var message = "Usuari no registrat";
@@ -167,7 +167,7 @@ class autenticacioController {
 							dni: usuari.dni,
 						};
 
-            			res.status(200).json(usuariData)
+						res.status(200).json(usuariData)
 
 					} else {
 						var message = "Password incorrecte";
@@ -176,7 +176,48 @@ class autenticacioController {
 				}
 			});
 		}
-  };
+	};
+
+	static async register(req, res, next) {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const { name, cognoms, confirm_password, email, password } = req.body;
+		console.log(name,cognoms)
+
+		// Validar nombre y apellidos
+		if (!name || !cognoms) {
+			return res.status(400).json({ message: "El nombre y los apellidos son obligatorios" });
+		}
+
+		const existingUser = await user.findOne({ email: email });
+		if (existingUser) {
+			return res.status(400).json({ message: "El correo electrónico ya está registrado" });
+		}
+
+		// Ajustar el factor de costo de hash según las necesidades de seguridad y rendimiento
+		const Password = await bcrypt.hash(password, 10);
+
+		const user = new user({
+			name: name,
+			cognoms: cognoms,
+			email: email,
+			password: Password,
+			confirm_password: confirm_password
+		});
+
+		try {
+			await user.save();
+			return res.status(200).json({ message: "Usuario registrado correctamente",user });
+		} catch (err) {
+			console.error(err);
+			return res.status(400).json({ message: "Error al registrar el usuario" });
+		}
+	};
+
 }
 
 module.exports = autenticacioController;
