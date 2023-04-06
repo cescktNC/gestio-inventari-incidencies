@@ -166,7 +166,7 @@ class UsuariController {
 
     // API
     static async userSowh(req, res, next){
-        Usuari.findById(req.params.id,function(err, usuari) {
+        Usuari.findById(req.params.id, function(err, usuari) {
             if (err) {
                 res.status(400).json({ message: err });
             }

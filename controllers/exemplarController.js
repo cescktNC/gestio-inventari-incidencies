@@ -85,6 +85,11 @@ class ExemplarController {
         err.status = 404;
         return next(err);
       }
+      if(exemplar_list.demarca){
+        var err = new Error('Aquest exemplar no es pot modificar');
+        err.status = 400;
+        return next(err);
+      }
       // Success.
       res.render("exemplar/update", { Exemplar: exemplar_list, localitzacioList: localitzacio_list, materialList: material_list });
     });
@@ -97,6 +102,14 @@ class ExemplarController {
     const material_list = await Material.find();
     const material = await Material.findById(req.body.codiMaterial);
     const localitzacio = await Localitzacio.findById(req.body.codiLocalitzacio);
+
+    const comprobacioExemplar = await Exemplar.findById(req.params.id);
+
+    if(comprobacioExemplar.demarca){
+      var err = new Error('Aquest exemplar no es pot modificar');
+      err.status = 400;
+      return next(err);
+    }
 
     req.body.demarca = req.body.demarca == "true";
     
