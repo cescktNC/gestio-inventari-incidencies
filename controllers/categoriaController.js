@@ -4,8 +4,29 @@ class CategoriaController {
 
     static async list(req, res, next) {
         try {
-            var list_categoria = await Categoria.find().sort({ codi: 1 });
-            res.render('categories/list', { list: list_categoria })
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+            
+            Categoria.countDocuments({}, function(err, count) {
+                if (err) {
+                    return next(err);
+                }
+
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Categoria.find()
+                .sort({ codi: 1 })
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.render('categories/list', { list: list, totalPages: totalPages, currentPage: page });
+                });
+            });
         }
         catch (e) {
             res.send('Error!');

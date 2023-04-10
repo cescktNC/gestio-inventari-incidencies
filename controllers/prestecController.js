@@ -7,15 +7,36 @@ var Usuari = require("../models/usuari");
 class prestecController {
 
   static async list(req, res, next) {
-    Prestec.find()
-      .populate('codiExemplar').populate('dniUsuari')
-      .sort({ codi: 1, codiExemplar: 1, dataInici: 1 })
-      .exec(function (err, list) {
+    try {
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      
+      Prestec.countDocuments({}, function(err, count) {
         if (err) {
-          return next(err);
+            return next(err);
         }
-        res.render('prestec/list', { list: list })
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Prestec.find()
+        .sort({ codi: 1, codiExemplar: 1, dataInici: 1 })
+        .populate('codiExemplar')
+        .populate('dniUsuari')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('prestec/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
       });
+    }
+    catch (e) {
+        res.send('Error!');
+    }
   }
 
 

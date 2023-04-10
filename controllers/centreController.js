@@ -4,8 +4,29 @@ class CentreController {
 
   static async list(req, res, next) {
     try {
-      var list_centre = await Centre.find().sort({ codi: 1 });
-      res.render('centre/list', { list: list_centre })
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      
+      Centre.countDocuments({}, function(err, count) {
+        if (err) {
+            return next(err);
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Centre.find()
+        .sort({ codi: 1 })
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('centre/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
+      });
     }
     catch (e) {
       res.send('Error!');

@@ -7,12 +7,33 @@ class IncidenciaController {
 
     static async list(req, res, next) {
         try {
-            var list_incidencia = await Incidencia.find()
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+            
+            Incidencia.countDocuments({}, async function(err, count) {
+                if (err) {
+                    return next(err);
+                }
+
+                var list_material = await Material.find();
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Incidencia.find()
+                .sort({ codi: 1 })
                 .populate('codiExemplar')
                 .populate('codiLocalitzacio')
-                .sort({ codi: 1 });
-            var list_material = await Material.find();
-            res.render('incidencies/list', { list: list_incidencia, list_mat: list_material })
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.render('incidencies/list', { list: list, totalPages: totalPages, currentPage: page, list_mat: list_material });
+                });
+            });
         }
         catch (e) {
             res.send('Error!');

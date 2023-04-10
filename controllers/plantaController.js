@@ -3,15 +3,35 @@ var Centre = require("../models/centre");
 
 class plantaController {
 	static async list(req, res, next) {
-		Planta.find()
-			.populate("codiCentre")
-			.sort({ codi: 1, codiCentre: 1 })
-			.exec(function (err, list) {
-				if (err) {
-					return next(err);
-				}
-				res.render("planta/list", { list: list });
-			});
+		try {
+			const PAGE_SIZE = 10; // Número de documentos por página
+			const page = req.query.page || 1; // Número de página actual
+			
+            Planta.countDocuments({}, function(err, count) {
+                if (err) {
+                    return next(err);
+                }
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Planta.find()
+                .sort({ codiCentre: 1, codi: 1 })
+                .populate('codiCentre')
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.render('planta/list', { list: list, totalPages: totalPages, currentPage: page });
+                });
+            });
+        }
+        catch (e) {
+            res.send('Error!');
+        }
 	}
 
 	static async create_get(req, res, next) {

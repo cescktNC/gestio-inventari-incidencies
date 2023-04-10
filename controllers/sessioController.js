@@ -4,15 +4,35 @@ var Reserva = require("../models/reserva");
 class sessioController {
 
   static async list(req, res, next) {
-    Sessio.find()
-      .populate('codiReserva')
-      .sort({ codi: 1, codiReserva: 1 })
-      .exec(function (err, list) {
+    try {
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      
+      Sessio.countDocuments({}, function(err, count) {
         if (err) {
-          return next(err);
+            return next(err);
         }
-        res.render('sessio/list', { list: list })
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Sessio.find()
+        .sort({ codi: 1, codiReserva: 1 })
+        .populate('codiReserva')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
       });
+    }
+    catch (e) {
+        res.send('Error!');
+    }
   }
 
   static async create_get(req, res, next) {

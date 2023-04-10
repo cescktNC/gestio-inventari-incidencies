@@ -4,16 +4,38 @@ var Usuari = require("../models/usuari");
 
 
 class reservaController {
+  
   static async list(req, res, next) {
-    Reserva.find()
-      .populate('dniUsuari').populate('codiLocalitzacio')
-      .sort({ codi: 1 })
-      .exec(function (err, list) {
+    try {
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      
+      Reserva.countDocuments({}, function(err, count) {
         if (err) {
-          return next(err);
+            return next(err);
         }
-        res.render('reserva/list', { list: list })
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Reserva.find()
+        .sort({ codi: 1 })
+        .populate('dniUsuari')
+        .populate('codiLocalitzacio')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('reserva/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
       });
+    }
+    catch (e) {
+        res.send('Error!');
+    }
   }
 
   static async create_get(req, res, next) {

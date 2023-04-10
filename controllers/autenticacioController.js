@@ -47,6 +47,7 @@ class autenticacioController {
   static login_get(req, res, next) {
     res.render('autenticacions/login');
   }
+  
   static login_post(req, res, next) {
     // Recuperem els errors possibles de validació
     const errors = validationResult(req);

@@ -8,11 +8,30 @@ class ExemplarController {
 
   static async list(req, res, next) {
     try {
-      var list_exemplar = await Exemplar.find()
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      Exemplar.countDocuments({}, function(err, count) {
+        if (err) {
+            return next(err);
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Exemplar.find()
+        .sort({ codi: 1, codiMaterial: 1 })
         .populate('codiMaterial')
         .populate('codiLocalitzacio')
-        .sort({ codi: 1, codiMaterial: 1 });
-      res.render('exemplar/list', { list: list_exemplar })
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('exemplar/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
+      });
     }
     catch (e) {
       res.send('Error!');

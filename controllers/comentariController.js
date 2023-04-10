@@ -6,14 +6,32 @@ var id_incidencia;
 class ComentariController {
 	static async list(req, res, next) {
 		try {
-			var list_comentari = await Comentari.find({
-				codiIncidencia: req.params.id,
-			})
+			const PAGE_SIZE = 10; // Número de documentos por página
+			const page = req.query.page || 1; // Número de página actual
+			
+			Comentari.countDocuments({codiIncidencia: req.params.id}, function(err, count) {
+				if (err) {
+					return next(err);
+				}
+		
+				const totalItems = count;
+				const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+				const startIndex = (page - 1) * PAGE_SIZE;
+			
+				Comentari.find({codiIncidencia: req.params.id})
 				.sort({ data: 1 })
 				.populate("codiIncidencia")
-				.populate("codiUsuari");
-			id_incidencia = req.params.id;
-			res.render("comentari/list", { list: list_comentari });
+				.populate("codiUsuari")
+				.skip(startIndex)
+				.limit(PAGE_SIZE)
+				.exec(function (err, list) {
+					if (err) {
+						return next(err);
+					}
+					id_incidencia = req.params.id;
+					res.render('comentari/list', { list: list, totalPages: totalPages, currentPage: page });
+				});
+			});
 		} catch (e) {
 			next(e);
 			//res.send(e);
@@ -39,9 +57,9 @@ class ComentariController {
 			} else {
 
 				var tramet = {
-				  codiIncidencia: newRecord.codiIncidencia,
-				  codiUsuari: newRecord.codiUsuari,
-				  codiComentari: newRecord.id
+					codiIncidencia: newRecord.codiIncidencia,
+					codiUsuari: newRecord.codiUsuari,
+					codiComentari: newRecord.id
 				};
 
 				Tramet.create(tramet);
