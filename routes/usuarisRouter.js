@@ -17,5 +17,8 @@ router.post("/delete/:id", usuaris_controller.delete_post);
 
 //API
 router.get("/user/:id", usuaris_controller.userSowh);
+router.get("/user/:id", usuaris_controller.userSowh);
+router.get("/user/:id", usuaris_controller.userSowh);
+router.get("/user/:id", usuaris_controller.userSowh);
 
 module.exports = router;

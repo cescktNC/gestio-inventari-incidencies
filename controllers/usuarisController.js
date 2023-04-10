@@ -190,18 +190,31 @@ class UsuariController {
 
     static async userList(req, res, next) {
         try {
+
             const PAGE_SIZE = 10; // Número de documentos por página
             const page = req.query.page || 1; // Número de página actual
 
-            const startIndex = (page - 1) * PAGE_SIZE;
+            Usuari.countDocuments({}, function(err, count) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Usuari.find()
+                .sort({ nom: 1, cognoms: 1 })
 
-            const list_usuaris = await Usuari.find()
-            .sort({ nom: 1, cognoms: 1 })
-            .skip(startIndex)
-            .limit(PAGE_SIZE);
-
-            // var list_usuaris = await Usuari.find().sort({ nom: 1, cognoms: 1 });
-            res.status(200).json({ usuaris: list_usuaris });
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        res.status(400).json({ error: err });
+                    }
+                    res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+                });
+            });
         }
         catch (e) {
             res.status(400).json({ message: 'Error!' });
@@ -280,7 +293,7 @@ class UsuariController {
         })
     }
 
-    static async update_post(req, res, next) {
+    static async userUpdate(req, res, next) {
 
         // Flag per a comprovar que els passwords introduits siguin iguals
         let correctPassword = true;
