@@ -2,9 +2,8 @@ const Usuari = require("../models/usuari");
 const Token = require("../models/token")
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
-const self = this;
 const jwt = require('jsonwebtoken');
-
+const secret = 'secretDelToken';
 
 class autenticacioController {
 
@@ -168,7 +167,9 @@ class autenticacioController {
 
             let id = usuari.id;
 
-            const token = await self.comprobacioToken(id);
+            const token = await autenticacioController.comprobacioToken(id);
+
+            if(token == null) return res.status(400).json({ message: "Error al inicia sessio" });
 
             var usuariData = {
               usuariId: usuari.id,
@@ -212,7 +213,7 @@ class autenticacioController {
     // Ajustar el factor de costo de hash según las necesidades de seguridad y rendimiento
     const Password = await bcrypt.hash(password, 12);
 
-    const user = new Usuari({
+    const user = ({
       nom: nom,
       cognoms: cognoms,
       dni: dni,
@@ -222,38 +223,54 @@ class autenticacioController {
       profilePicture: 'URL/Profile/profilePicture.png'
     });
 
-    try {
-      await user.save();
-      return res.status(200).json({ message: "Usuari registrat correctament", user });
-    } catch (err) {
-      console.error(err);
-      return res.status(400).json({ message: "Error al registrar l'usuari" });
-    }
+    Usuari.create(user, async (error, newUser) => {
+      if (error) return res.status(400).json({ message: "Error al registrar l'usuari" }); 
+      else {
+
+        let token = await autenticacioController.creacioToken(newUser.id)
+
+        if(token == null) res.status(400).json({ message: "Error al verificar el token" });
+
+        return res.status(200).json({ message: "Usuari registrat correctament", newUser, token });
+      }
+    });
   };
 
-  async comprobacioToken(id){
-    const ahora = new Date();
+  static async creacioToken(id){
+    let token = {
+      token: jwt.sign({ id: id }, secret, {expiresIn: "7d"}),
+      idUsuari: id
+    }
 
-    let token = await Token.findOne({ idUsuario: id }).populate('usuario').exec();
+    await Token.create(token,(error, newToken) => {
+      if (error) return null;
+      else token =  newToken;
+    });
+    return token;
+  }
+
+  static async comprobacioToken(id){
+    let newToken;
+
+    const token = await Token.findOne({ idUsuario: id }).exec();
   
-    if (token == null) {
-      token = new Token({
-        token: uuidv4(),
-        usuario: id,
-        expira: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // expira en 7 días
-      });
-  
-      await token.save();
-    } else if (token.expira < ahora) {
-      const newToken = {
-        token: uuidv4(),
-        expira: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // expira en 7 días
-      };
-  
-      token = await Token.updateOne({_id: token._id}, newToken);
+    if (token == null) newToken = await autenticacioController.creacioToken(id);
+    else {
+      try {
+        const decodedToken = jwt.verify(token.token, secret, { ignoreExpiration: false });
+        newToken = token.token;
+      } catch (err) {
+        if (err.name === 'TokenExpiredError') {
+
+          await Token.findByIdAndRemove(token.id).exec();
+          newToken = await autenticacioController.creacioToken(id);
+        } 
+        else return null;
+
+      }
     }
   
-    return token;
+    return newToken;
   }
 
 }

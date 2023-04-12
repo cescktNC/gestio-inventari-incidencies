@@ -4,7 +4,7 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 
 const tokenSchema = new Schema({
   token: { type: String, required: true },
-  idUsuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
+  idUsuari: { type: Schema.ObjectId , ref: 'Usuari', required: true },
   expira: { type: Date, required: true }
 });
 
