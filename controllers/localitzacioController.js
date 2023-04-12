@@ -4,16 +4,35 @@ var Planta = require("../models/planta");
 class LocalitzacioController {
 
     static async list(req, res, next) {
-        Localitzacio.find()
-            .populate('codiPlanta')
-            .sort({codiPlanta: 1})
-            .sort({ codi: 1 })
-            .exec(function (err, list) {
+        try {
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+
+            Localitzacio.countDocuments({}, function(err, count) {
                 if (err) {
                     return next(err);
                 }
-                res.render('localitzacio/list', { list: list })
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Localitzacio.find()
+                .sort({ codiPlanta: 1, codi: 1 })
+                .populate('codiPlanta')
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.render('localitzacio/list', { list: list, totalPages: totalPages, currentPage: page });
+                });
             });
+        }
+        catch (e) {
+            res.send('Error!');
+        }
     }
 
     static async create_get(req, res, next) {

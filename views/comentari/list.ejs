@@ -56,7 +56,46 @@
                             <% }); %>
                     </tbody>
                 </table>
-                </table>
+                
+                <nav>
+					<ul class="pagination">
+						<li class="page-item  <%= currentPage == 1 ? 'disabled' : '' %>">
+							<a class="page-link" href="?page=1" aria-label="Anterior">
+								<span>Primer</span>
+							</a>
+						</li>
+						<li class="page-item  <%= currentPage == 1 ? 'disabled' : '' %>">
+							<a class="page-link" href="?page=<%= currentPage - 1 %>" aria-label="Anterior">
+								<span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Anterior</span>
+							</a>
+						</li>
+
+						<% let startPage = Math.max(1, currentPage - 2); %>
+						<% let endPage = Math.min(totalPages, startPage + 4); %>
+
+						<% if (endPage - startPage < 4) { %>
+							<% startPage = Math.max(1, endPage - 4); %>
+						<% } %>
+
+						<% for (let i = startPage; i <= endPage; i++) { %>
+							<li class="page-item <%= i == currentPage ? 'active' : '' %>">
+								<a class="page-link" href="?page=<%= i %>"><%= i %></a>
+							</li>
+						<% } %>
+                        <li class="page-item  <%= currentPage == totalPages || totalPages == 0 ? 'disabled' : '' %>">
+							<a class="page-link" href="?page=<%= parseInt(currentPage) + 1 %>" aria-label="Siguiente">
+								<span aria-hidden="true">&raquo;</span>
+								<span class="sr-only">Siguiente</span>
+							</a>
+						</li>
+						<li class="page-item  <%= currentPage == totalPages || totalPages == 0 ? 'disabled' : '' %>">
+							<a class="page-link" href="?page=<%= totalPages %>" aria-label="Anterior">
+								<span>Ultim</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
 
             </div>
 

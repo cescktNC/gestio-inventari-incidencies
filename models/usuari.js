@@ -12,11 +12,11 @@ var UsuariSchema = new Schema({
     carrec: {
         type: String,
         enum : ['Director','Professor','Alumne','Conserge','Administrador','Manteniment','Encarregat Inventari'],
-        default: 'Professor'
+        default: 'Alumne'
     },
     email: {type: String, required: true, unique: true },
     password: { type: String, required: true },
-    profilePicture:{type:String}
+    profilePicture:{ type:String }
 });
 
 UsuariSchema.methods.checkLetterDNI = function(dni) {

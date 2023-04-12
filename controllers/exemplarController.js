@@ -8,11 +8,30 @@ class ExemplarController {
 
   static async list(req, res, next) {
     try {
-      var list_exemplar = await Exemplar.find()
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      Exemplar.countDocuments({}, function(err, count) {
+        if (err) {
+            return next(err);
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Exemplar.find()
+        .sort({ codi: 1, codiMaterial: 1 })
         .populate('codiMaterial')
         .populate('codiLocalitzacio')
-        .sort({ codi: 1, codiMaterial: 1 });
-      res.render('exemplar/list', { list: list_exemplar })
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('exemplar/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
+      });
     }
     catch (e) {
       res.send('Error!');
@@ -85,6 +104,11 @@ class ExemplarController {
         err.status = 404;
         return next(err);
       }
+      if(exemplar_list.demarca){
+        var err = new Error('Aquest exemplar no es pot modificar');
+        err.status = 400;
+        return next(err);
+      }
       // Success.
       res.render("exemplar/update", { Exemplar: exemplar_list, localitzacioList: localitzacio_list, materialList: material_list });
     });
@@ -97,6 +121,14 @@ class ExemplarController {
     const material_list = await Material.find();
     const material = await Material.findById(req.body.codiMaterial);
     const localitzacio = await Localitzacio.findById(req.body.codiLocalitzacio);
+
+    const comprobacioExemplar = await Exemplar.findById(req.params.id);
+
+    if(comprobacioExemplar.demarca){
+      var err = new Error('Aquest exemplar no es pot modificar');
+      err.status = 400;
+      return next(err);
+    }
 
     req.body.demarca = req.body.demarca == "true";
     

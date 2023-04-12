@@ -8,87 +8,87 @@
 
 <body class="container">
 
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
+		<header>
+			<%- include('../partials/header'); %>
+		</header>
 
-	<main>
+		<main>
 
-		<div class="card mt-4">
-			<div class="card-header">
-				<h5 class="card-title">Edit Exemplar</h5>
+			<div class="card mt-4">
+				<div class="card-header">
+					<h5 class="card-title">Edit Exemplar</h5>
+				</div>
+				<div class="card-body">
+
+					<form method="POST" action="/exemplar/update/<%= Exemplar._id %>">
+						<div class="form-group">
+							<label for="codi">Codi</label>
+							<% let codi = Exemplar.codi.slice(0, Exemplar.codi.indexOf('/'))%>
+							<input type="text" name="codi" class="form-control" value="<%= codi %>">
+						</div>
+						<div class="form-group">
+							<label for="codiMaterial">codiMaterial</label>
+							<select type="text" name="codiMaterial" class="form-control">
+								<% materialList.forEach(function(material) { if(material.id == Exemplar.codiMaterial){%>
+									<option value="<%= material.id %>" selected>
+										<%= material.nom %>
+									</option>
+								<% }else{ %>
+									<option value="<%= material.id %>">
+										<%= material.nom %>
+									</option>
+								<% }}); %>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="codiLocalitzacio">CodiLocalitzacio</label>
+							<select type="text" name="codiLocalitzacio" class="form-control">
+								<% localitzacioList.forEach(function(localitzacio) { if(localitzacio.id == Exemplar.codiLocalitzacio) {%>
+									<option value="<%= localitzacio.id %>" selected>
+										<%= localitzacio.nom %>
+									</option>
+								<% }else{ %>
+									<option value="<%= localitzacio.id %>">
+										<%= localitzacio.nom %>
+									</option>
+								<% }}); %>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="demarca">Estat</label><br>
+							<input type="checkbox" name="demarca" id="demarca" value="true" <% if (Exemplar.demarca) { %>checked<% } %>> Baixa
+						</div>
+						<% if(!Exemplar.demarca) { %>
+							<button type="submit" class="btn btn-primary">Save</button>
+						<% }  %>
+						
+					</form>
+
+					<% if (typeof error !=="undefined" ) { %>
+						<div class="alert alert-primary mt-2" role="alert">
+							<p>
+								<%= error %>
+							</p>
+						</div>
+					<% } %>
+
+					<% if (typeof message !=="undefined" ) { %>
+						<div class="alert alert-primary mt-2" role="alert">
+							<p>
+								<%= message %>
+							</p>
+						</div>
+					<% } %>
+
+				</div>
+
 			</div>
-			<div class="card-body">
 
-				<form method="POST" action="/exemplar/update/<%= Exemplar._id %>">
-					<div class="form-group">
-						<label for="codi">Codi</label>
-						<% let codi = Exemplar.codi.slice(0, Exemplar.codi.indexOf('/'))%>
-						<input type="text" name="codi" class="form-control" value="<%= codi %>">
-					</div>
-					<div class="form-group">
-                        <label for="codiMaterial">codiMaterial</label>
-                        <select type="text" name="codiMaterial" class="form-control">
-                            <% materialList.forEach(function(material) { if(material.id == Exemplar.codiMaterial){%>
-                                <option value="<%= material.id %>" selected>
-                                    <%= material.nom %>
-                                </option>
-                            <% }else{ %>
-								<option value="<%= material.id %>">
-                                    <%= material.nom %>
-                                </option>
-                            <% }}); %>
-                        </select>
-                    </div>
-					<div class="form-group">
-                        <label for="codiLocalitzacio">CodiLocalitzacio</label>
-                        <select type="text" name="codiLocalitzacio" class="form-control">
-                            <% localitzacioList.forEach(function(localitzacio) { if(localitzacio.id == Exemplar.codiLocalitzacio) {%>
-                                <option value="<%= localitzacio.id %>" selected>
-                                    <%= localitzacio.nom %>
-                                </option>
-                            <% }else{ %>
-								<option value="<%= localitzacio.id %>">
-                                    <%= localitzacio.nom %>
-                                </option>
-                            <% }}); %>
-                        </select>
-                    </div>
-					<div class="form-group">
-						<label for="demarca">Estat</label><br>
-						<input type="checkbox" name="demarca" id="demarca" value="true" <% if (Exemplar.demarca) { %>checked<% } %>> Baixa
-					</div>
-					<% if(!Exemplar.demarca) { %>
-						<button type="submit" class="btn btn-primary">Save</button>
-					<% }  %>
-					
-				</form>
+		</main>
 
-				<% if (typeof error !=="undefined" ) { %>
-					<div class="alert alert-primary mt-2" role="alert">
-						<p>
-							<%= error %>
-						</p>
-					</div>
-				<% } %>
-
-				<% if (typeof message !=="undefined" ) { %>
-					<div class="alert alert-primary mt-2" role="alert">
-						<p>
-							<%= message %>
-						</p>
-					</div>
-				<% } %>
-
-			</div>
-
-		</div>
-
-	</main>
-
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
+		<footer>
+			<%- include('../partials/footer'); %>
+		</footer>
 
 </body>
 

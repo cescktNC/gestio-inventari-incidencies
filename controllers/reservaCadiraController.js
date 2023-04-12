@@ -31,7 +31,7 @@ class reservaCadiraController {
                 var list_cadiresReservades = await ReservaCadira.find({idSessio: cadiraReservada.idSessio})
                     .populate('idCadira');
                 if (error) {
-                  res.render('reservaCadira/list', { error: error.message, cadiresReservades: list_cadiresReservades });
+                    res.render('reservaCadira/list', { error: error.message, cadiresReservades: list_cadiresReservades });
                 } else {
                     res.render('reservaCadira/list', { cadiresReservades: list_cadiresReservades });
                 }
