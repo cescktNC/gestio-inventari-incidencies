@@ -1,6 +1,10 @@
 const Usuari = require("../models/usuari");
+const Token = require("../models/token")
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
+const self = this;
+const jwt = require('jsonwebtoken');
+
 
 class autenticacioController {
 
@@ -152,7 +156,7 @@ class autenticacioController {
       var email = req.body.email;
       var password = req.body.password;
 
-      Usuari.findOne({ email: email }).exec(function (err, usuari) {
+      Usuari.findOne({ email: email }).exec( async function (err, usuari) {
         if (err) {
           res.status(400).json({ message: "error" });
         }
@@ -161,12 +165,18 @@ class autenticacioController {
           res.status(400).json({ message: message });
         } else {
           if (bcrypt.compareSync(password, usuari.password)) {
+
+            let id = usuari.id;
+
+            const token = await self.comprobacioToken(id);
+
             var usuariData = {
               usuariId: usuari.id,
               nom: usuari.nom,
               email: usuari.email,
               carrec: usuari.carrec,
               dni: usuari.dni,
+              token: token
             };
 
             res.status(200).json(usuariData)
@@ -191,12 +201,12 @@ class autenticacioController {
 
     // Validar nombre y apellidos
     if (!nom || !cognoms) {
-      return res.status(400).json({ message: "El nombre y los apellidos son obligatorios" });
+      return res.status(400).json({ message: "El nom y els cognom son obligatoris" });
     }
 
     const existingUser = await Usuari.findOne({ email: email });
     if (existingUser) {
-      return res.status(400).json({ message: "El correo electrónico ya está registrado" });
+      return res.status(400).json({ message: "El correo electrónic ya está registrat" });
     }
 
     // Ajustar el factor de costo de hash según las necesidades de seguridad y rendimiento
@@ -214,12 +224,37 @@ class autenticacioController {
 
     try {
       await user.save();
-      return res.status(200).json({ message: "Usuario registrado correctamente", user });
+      return res.status(200).json({ message: "Usuari registrat correctament", user });
     } catch (err) {
       console.error(err);
-      return res.status(400).json({ message: "Error al registrar el usuario" });
+      return res.status(400).json({ message: "Error al registrar l'usuari" });
     }
   };
+
+  async comprobacioToken(id){
+    const ahora = new Date();
+
+    let token = await Token.findOne({ idUsuario: id }).populate('usuario').exec();
+  
+    if (token == null) {
+      token = new Token({
+        token: uuidv4(),
+        usuario: id,
+        expira: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // expira en 7 días
+      });
+  
+      await token.save();
+    } else if (token.expira < ahora) {
+      const newToken = {
+        token: uuidv4(),
+        expira: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // expira en 7 días
+      };
+  
+      token = await Token.updateOne({_id: token._id}, newToken);
+    }
+  
+    return token;
+  }
 
 }
 
