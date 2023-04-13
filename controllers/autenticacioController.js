@@ -233,7 +233,7 @@ class autenticacioController {
 
   static async creacioToken(id, carrec){
     let token = {
-      token: jwt.sign({id:id, carrec: carrec},secret, {expiresIn: "7d"}),
+      token: jwt.sign({id: id, carrec: carrec},secret, {expiresIn: "7d"}),
       idUsuari: id
     }
 
@@ -248,10 +248,6 @@ class autenticacioController {
     let newToken;
 
     const token = await Token.findOne({ idUsuari: id }).exec();
-
-    console.log(token)
-
-  
     if (token == null) newToken = await autenticacioController.creacioToken(id, carrec);
     else {
       try {
@@ -260,20 +256,19 @@ class autenticacioController {
       } catch (err) {
         if (err.name === 'TokenExpiredError') {
           await Token.findByIdAndRemove(token.id).exec();
-          newToken = await autenticacioController.creacioToken(id), carrec;
+          newToken = await autenticacioController.creacioToken(id, carrec);
         } else {
-
-          return res.status(400).json({ message: "Error al comprobar el token" });
-
+      return res.status(400).json({ message: "Error al comprobar el token",err: err });
         }
       }
     }
   
-    if (!newToken) return res.status(400).json({ message: "Error al crea un nou token" });
+    if (!newToken) {
+      return res.status(400).json({ message: "Error al crea un nou token" });
+    }
 
     return newToken;
-    
-  
+
   }
 
 }

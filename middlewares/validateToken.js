@@ -17,6 +17,7 @@ exports.protegirRuta = async function (req, res, next) {
 
     try {
       const decodedToken = jwt.verify(token.token, secret, { ignoreExpiration: false });
+      next();
     } catch (err) {
       if (err.name === 'TokenExpiredError') {
         res.status(401).json({ message: "El token ha expirat" });
@@ -26,4 +27,3 @@ exports.protegirRuta = async function (req, res, next) {
     }
   });
 }
-// 
