@@ -165,18 +165,13 @@ class autenticacioController {
         } else {
           if (bcrypt.compareSync(password, usuari.password)) {
 
-            let id = usuari.id;
-
-            const token = await autenticacioController.comprobacioToken(id);
+            const token = await autenticacioController.comprobacioToken();
 
             if(token == null) return res.status(400).json({ message: "Error al inicia sessio" });
 
             var usuariData = {
-              usuariId: usuari.id,
-              nom: usuari.nom,
-              email: usuari.email,
+              id: usuari.id,
               carrec: usuari.carrec,
-              dni: usuari.dni,
               token: token
             };
 
@@ -227,7 +222,7 @@ class autenticacioController {
       if (error) return res.status(400).json({ message: "Error al registrar l'usuari" }); 
       else {
 
-        let token = await autenticacioController.creacioToken(newUser.id)
+        let token = await autenticacioController.creacioToken()
 
         if(token == null) res.status(400).json({ message: "Error al verificar el token" });
 
@@ -236,9 +231,9 @@ class autenticacioController {
     });
   };
 
-  static async creacioToken(id){
+  static async creacioToken(){
     let token = {
-      token: jwt.sign({ id: id }, secret, {expiresIn: "7d"}),
+      token: jwt.sign(secret, {expiresIn: "7d"}),
       idUsuari: id
     }
 
@@ -254,7 +249,7 @@ class autenticacioController {
 
     const token = await Token.findOne({ idUsuario: id }).exec();
   
-    if (token == null) newToken = await autenticacioController.creacioToken(id);
+    if (token == null) newToken = await autenticacioController.creacioToken();
     else {
       try {
         const decodedToken = jwt.verify(token.token, secret, { ignoreExpiration: false });
@@ -263,7 +258,7 @@ class autenticacioController {
         if (err.name === 'TokenExpiredError') {
 
           await Token.findByIdAndRemove(token.id).exec();
-          newToken = await autenticacioController.creacioToken(id);
+          newToken = await autenticacioController.creacioToken();
         } 
         else return null;
 
