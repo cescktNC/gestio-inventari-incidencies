@@ -165,7 +165,7 @@ class autenticacioController {
         } else {
           if (bcrypt.compareSync(password, usuari.password)) {
 
-            const token = await autenticacioController.comprobacioToken();
+            const token = await autenticacioController.comprobacioToken(usuari.id, usuari.carrec);
 
             if(token == null) return res.status(400).json({ message: "Error al inicia sessio" });
 
@@ -222,7 +222,7 @@ class autenticacioController {
       if (error) return res.status(400).json({ message: "Error al registrar l'usuari" }); 
       else {
 
-        let token = await autenticacioController.creacioToken()
+        let token = await autenticacioController.creacioToken(newUser.id, newUser.carrec)
 
         if(token == null) res.status(400).json({ message: "Error al verificar el token" });
 
@@ -231,41 +231,49 @@ class autenticacioController {
     });
   };
 
-  static async creacioToken(){
+  static async creacioToken(id, carrec){
     let token = {
-      token: jwt.sign(secret, {expiresIn: "7d"}),
+      token: jwt.sign({id:id, carrec: carrec},secret, {expiresIn: "7d"}),
       idUsuari: id
     }
 
     await Token.create(token,(error, newToken) => {
       if (error) return null;
-      else token =  newToken;
+      else token =  newToken.token;
     });
     return token;
   }
 
-  static async comprobacioToken(id){
+  static async comprobacioToken(id, carrec){
     let newToken;
 
-    const token = await Token.findOne({ idUsuario: id }).exec();
+    const token = await Token.findOne({ idUsuari: id }).exec();
+
+    console.log(token)
+
   
-    if (token == null) newToken = await autenticacioController.creacioToken();
+    if (token == null) newToken = await autenticacioController.creacioToken(id, carrec);
     else {
       try {
         const decodedToken = jwt.verify(token.token, secret, { ignoreExpiration: false });
         newToken = token.token;
       } catch (err) {
         if (err.name === 'TokenExpiredError') {
-
           await Token.findByIdAndRemove(token.id).exec();
-          newToken = await autenticacioController.creacioToken();
-        } 
-        else return null;
+          newToken = await autenticacioController.creacioToken(id), carrec;
+        } else {
 
+          return res.status(400).json({ message: "Error al comprobar el token" });
+
+        }
       }
     }
   
+    if (!newToken) return res.status(400).json({ message: "Error al crea un nou token" });
+
     return newToken;
+    
+  
   }
 
 }
