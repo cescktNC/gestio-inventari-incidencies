@@ -281,6 +281,7 @@ class UsuariController {
             }
             // Success.
             var usuariJSON={
+                id: usuari.id,
                 nom: usuari.nom,
                 cognoms: usuari.cognoms,
                 dni: usuari.dni,

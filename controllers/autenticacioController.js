@@ -241,7 +241,7 @@ class autenticacioController {
       if (error) return null;
       else token =  newToken.token;
     });
-    return token;
+    return token.token;
   }
 
   static async comprobacioToken(id, carrec){
@@ -258,7 +258,7 @@ class autenticacioController {
           await Token.findByIdAndRemove(token.id).exec();
           newToken = await autenticacioController.creacioToken(id, carrec);
         } else {
-      return res.status(400).json({ message: "Error al comprobar el token",err: err });
+          return res.status(400).json({ message: "Error al comprobar el token"});
         }
       }
     }
