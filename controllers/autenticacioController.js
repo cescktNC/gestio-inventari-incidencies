@@ -163,7 +163,7 @@ class autenticacioController {
           var message = "Usuari no registrat";
           res.status(400).json({ message: message });
         } else {
-          if (bcrypt.compareSync(password, usuari.password)) {
+          if (bcrypt.hash(password, usuari.password)) {
 
             const token = await autenticacioController.comprobacioToken(usuari.id, usuari.carrec);
 
@@ -214,7 +214,7 @@ class autenticacioController {
       dni: dni,
       email: email,
       carrec: "Alumne",
-      password: Password,
+      password: password,
       profilePicture: 'URL/Profile/profilePicture.png'
     });
 
@@ -226,7 +226,7 @@ class autenticacioController {
 
         if(token == null) res.status(400).json({ message: "Error al verificar el token" });
 
-        return res.status(200).json({ message: "Usuari registrat correctament", newUser, token });
+        return res.status(200).json({ message: "Usuari registrat correctament", user: newUser, token });
       }
     });
   };

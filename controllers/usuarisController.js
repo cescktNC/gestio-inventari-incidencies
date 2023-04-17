@@ -222,19 +222,16 @@ class UsuariController {
     }
 
     static async userCreate(req, res) {
-        // Encriptacio de password
-        let password = req.body.password;
-        const salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(password, salt);
+
         let usuariNew;
         if (req.file == undefined) {
             usuariNew = {
-                nom: req.body.nom,
-                cognoms: req.body.cognoms,
-                dni: req.body.dni,
-                carrec: req.body.carrec,
-                email: req.body.email,
-                password: req.body.password,
+                nom: req.body.user.nom,
+                cognoms: req.body.user.cognoms,
+                dni: req.body.user.dni,
+                carrec: req.body.user.carrec,
+                email: req.body.user.email,
+                password: req.body.user.password,
                 profilePicture: 'URL/Profile/profilePicture.png'
             }
         } else {
@@ -251,7 +248,7 @@ class UsuariController {
 
         // Valida que l'email no estigui ja registrat
         Usuari.findOne({ email: req.body.email }, function (err, usuari) {
-            if (err) res.status(400).json({ error: err });
+            if (err) res.status(400).json({ errors: err });
 
             if (usuari == null) {
                 // Guardar usuari a la base de dades
@@ -259,7 +256,7 @@ class UsuariController {
 
                     if (error) res.status(400).json({ error: error.message });
 
-                    else res.status(200).json({ ok: true });
+                    else res.status(200).json({ ok: true, id: newUsuari.id });
 
                 });
             } 
@@ -280,8 +277,7 @@ class UsuariController {
 
             }
             // Success.
-            var usuariJSON={
-                id: usuari.id,
+            var usuariJSON = {
                 nom: usuari.nom,
                 cognoms: usuari.cognoms,
                 dni: usuari.dni,
@@ -304,36 +300,32 @@ class UsuariController {
         if (req.file == undefined) {
             usuari = new Usuari({
                 _id: req.params.id,  
-                nom: req.body.nom,
-                cognoms: req.body.cognoms,
-                dni: req.body.dni,
-                carrec: req.body.carrec,
-                email: req.body.email,
+                nom: req.body.user.nom,
+                cognoms: req.body.user.cognoms,
+                dni: req.body.user.dni,
+                carrec: req.body.user.carrec,
+                email: req.body.user.email,
             });
         } else {
             usuari = new Usuari({
                 _id: req.params.id,  
-                nom: req.body.nom,
-                cognoms: req.body.cognoms,
-                dni: req.body.dni,
-                carrec: req.body.carrec,
-                email: req.body.email,
+                nom: req.body.user.nom,
+                cognoms: req.body.user.cognoms,
+                dni: req.body.user.dni,
+                carrec: req.body.user.carrec,
+                email: req.body.user.email,
                 profilePicture: req.file.path.substring(7, req.file.path.length)
 
             });
         }
-
         // Validar DNI
-        if (usuari.checkLetterDNI(req.body.dni)) {
+        if (usuari.checkLetterDNI(req.body.user.dni)) {
 
             // Validar si es vol canviar el password
-            if (req.body.password1.length != 0 && req.body.password2.length != 0) {
+            if (req.body.user.password1 != '' && req.body.user.password2 != '') {
                 // Validar si els passwords introduits són iguals
-                if (req.body.password1 == req.body.password2) {
-                    // Encriptacio de password
-                    let password = req.body.password1;
-                    const salt = await bcrypt.genSalt(10);
-                    usuari.password = await bcrypt.hash(password, salt);
+                if (req.body.user.password1 == req.body.user.password2) {
+                    usuari.password = req.body.user.password1;
                 } else {
                     correctPassword = false;
                     res.status(400).json({ usuari: usuari, message: 'Les dues contrasenyes han de ser iguals.' });
@@ -342,6 +334,7 @@ class UsuariController {
 
             if (correctPassword) {
                 // Actualitzar les dades de l'usuari
+
                 Usuari.findByIdAndUpdate(
                     req.params.id,
                     usuari,
@@ -350,11 +343,52 @@ class UsuariController {
 
                         if (err) res.status(400).json({ usuari: usuari, error: err.message });
 
-                        res.status(400).json({ usuari: usuari, message: 'Usuari actualitzat correctament' });
+                        res.status(400).json({ id: usuariFound.id, ok: true, message: 'Usuari actualitzat correctament' });
                     }
                 );
             }
+
         } else res.status(400).json({ usuari: usuari, message: 'DNI no vàlid.' });
+        
+    }
+
+    static async passwordUpdate(req, res, next) {
+
+        Usuari.findById(req.params.id, function(err, usuari) {
+            if (err) res.status(400).json({ errors: err });
+
+            if (usuari != null) {
+                let pass = req.body.pass
+                bcrypt.compare(pass.password, usuari.password, async function(err, result) {
+                    if (result) {
+
+                        if (pass.password1 == pass.password2) {
+                            const Password = await bcrypt.hash(pass.password1, 12);
+                            let password = new Usuari({
+                                _id: req.params.id,  
+                                password: Password
+                            });
+
+                            Usuari.findByIdAndUpdate(
+                                req.params.id,
+                                password,
+                                { runValidators: true },
+                                function (err, usuariFound) {
+            
+                                    if (err) res.status(400).json({ error: err.message });
+            
+                                    res.status(400).json({ ok: true, message: 'Contrasenya actualitzada correctament' });
+                                }
+                            );
+                        }
+                    } else {
+                        res.status(400).json({ err: 'La contrasenya no coincideixen' });
+                    }
+                });
+
+            } 
+            else res.status(400).json({ error: 'Usuari no trobat' });
+        })
         
     }
 
@@ -363,8 +397,7 @@ class UsuariController {
             if (error) {
                 res.status(400).json({ error });
             } else {
-                res.status(200).json({ ok: true });
-
+                res.status(200).json({ ok: true, message: 'Usuari eliminat' });
             }
         });
     }

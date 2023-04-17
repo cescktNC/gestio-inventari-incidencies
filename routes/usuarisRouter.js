@@ -23,6 +23,7 @@ router.get("/carrecs", usuaris_controller.carrecs);
 router.post("/user", upload.single("profilePicture"), usuaris_controller.userCreate);
 router.put("/user/:id", upload.single("profilePicture"), usuaris_controller.userUpdate);
 router.delete("/user/:id", usuaris_controller.userDelete);
+router.put("/user/password/:id", usuaris_controller.passwordUpdate);
 
 
 module.exports = router;
