@@ -189,6 +189,40 @@ class MaterialController {
 
     }
 
+    //API
+
+    static async APIlist(req, res, next) {
+        try {
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+            
+            Material.countDocuments({}, function(err, count) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Material.find()
+                .sort({ codiSubCategoria: 1, codi: 1 })
+                .populate('codiSubCategoria')
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        res.status(400).json({ error: err });
+                    }
+                    res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+                });
+            });
+        }
+        catch (e) {
+            res.status(400).json({ message: 'Error!' });
+        }
+    }
+
 }
 
 module.exports = MaterialController;
