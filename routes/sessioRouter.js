@@ -16,5 +16,18 @@ router.post("/delete/:id",  sessio_controller.delete_post);
 router.get("/update/:id",  sessio_controller.update_get);
 router.post("/update/:id",  sessio_controller.update_post);
 
+//API
+
+router.get('/APIlist', sessio_controller.SessioList);
+
+router.post('/APIcreate', sessio_controller.SessioCreate);
+
+router.get('/APIdelete/:id', sessio_controller.SessioDelete);
+router.delete('/APIdelete/:id', sessio_controller.SessioDelete);
+
+router.get('/APIupdate/:id', sessio_controller.SessioUpdate);
+router.put('/APIupdate/:id', sessio_controller.SessioUpdate);
+
+
 
 module.exports = router;
