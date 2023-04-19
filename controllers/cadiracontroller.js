@@ -168,7 +168,7 @@ class cadiraController {
 
       if (cadira == null) {
         // Actualizar la categoría en la base de datos
-        Cadira.findByIdAndUpdate(CentreId, updatedCadiraData, { new: true }, function (error, updatedcadira) {
+        Cadira.findByIdAndUpdate(CadiraId, updatedCadiraData, { new: true }, function (error, updatedcadira) {
           if (error) res.status(400).json({ error: error.message });
 
           else res.status(200).json({ ok: true });
