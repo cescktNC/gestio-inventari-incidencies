@@ -17,11 +17,10 @@ class cadiraController {
         const totalPages = Math.ceil(totalItems / PAGE_SIZE);
         const startIndex = (page - 1) * PAGE_SIZE;
 
-
         Cadira.find()
           .sort({ fila: 1, numero: 1 })
           .skip(startIndex)
-            .limit(PAGE_SIZE)
+          .limit(PAGE_SIZE)
           .exec(function (err, list) {
             if (err) {
               return next(err);
