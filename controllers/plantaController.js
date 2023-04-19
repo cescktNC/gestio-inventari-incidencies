@@ -129,6 +129,85 @@ class plantaController {
 			}
 		});
 	}
+	static async PlantaList(req, res, next) {
+		try {
+	
+		  const PAGE_SIZE = 10; // Número de documentos por página
+		  const page = req.query.page || 1; // Número de página actual
+	
+		  Planta.countDocuments({}, function (err, count) {
+			if (err) {
+			  res.status(400).json({ error: err });
+			}
+	
+			const totalItems = count;
+			const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+			const startIndex = (page - 1) * PAGE_SIZE;
+	
+			Planta.find()
+			  .sort({ nom: 1 })
+			  .skip(startIndex)
+			  .limit(PAGE_SIZE)
+			  .exec(function (err, list) {
+				if (err) {
+				  res.status(400).json({ error: err });
+				}
+				res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+			  });
+		  });
+		}
+		catch (e) {
+		  res.status(400).json({ message: 'Error!' });
+		}
+	  }
+	
+	  static async PlantaCreate(req, res) {
+		let PlantaNew = req.body.PlantaData
+		  ;
+	
+		// Valida que el código no esté ya registrado
+		Planta.findOne({ codi: PlantaNew.codi }, function (err, planta) {
+		  if (err) res.status(400).json({ error: err });
+	
+		  if (planta == null) {
+			// Guardar categoria en la base de datos
+			Planta.create(PlantaNew, function (error, newcennewplantatre) {
+			  if (error) res.status(400).json({ error: error.message });
+	
+			  else res.status(200).json({ ok: true });
+			});
+		  } else res.status(400).json({ error: "Planta ja registrada" });
+		});
+	  }
+	  static async PlantaUpdate(req, res) {
+		const PlantaId = req.params.id;
+		const updatedPlantaData = req.body.PlantaData;
+	
+	
+		// Valida que el código no esté ya registrado en otra categoría
+		Planta.findOne({ codi: updatedPlantaData.codi, _id: { $ne: PlantaId } }, function (err, planta) {
+		  if (err) res.status(400).json({ error: err });
+	
+		  if (planta == null) {
+			// Actualizar la categoría en la base de datos
+			Planta.findByIdAndUpdate(PlantaId, updatedPlantaData, { new: true }, function (error, updatedplanta) {
+			  if (error) res.status(400).json({ error: error.message });
+	
+			  else res.status(200).json({ ok: true });
+			});
+		  } else res.status(400).json({ error: "Codi de la planta ja registrada en un altre planta" });
+		});
+	  }
+	
+	  static async PlantaDelete(req, res) {
+		const PlantaId = req.params.id;
+	
+		Planta.findByIdAndRemove(PlantaId, function (err, deletedplanta) {
+		  if (err) res.status(400).json({ error: err.message });
+	
+		  else res.status(200).json({ ok: true });
+		});
+	  }
 }
 
 module.exports = plantaController;
