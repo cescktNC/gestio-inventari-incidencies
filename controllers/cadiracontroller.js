@@ -107,5 +107,86 @@ class cadiraController {
     })
   }
 
+  static async CadiraList(req, res, next) {
+    try {
+
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+
+      Cadira.countDocuments({}, function (err, count) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+
+        Cadira.find()
+          .sort({ nom: 1 })
+          .skip(startIndex)
+          .limit(PAGE_SIZE)
+          .exec(function (err, list) {
+            if (err) {
+              res.status(400).json({ error: err });
+            }
+            res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+          });
+      });
+    }
+    catch (e) {
+      res.status(400).json({ message: 'Error!' });
+    }
+  }
+
+  static async CadiraCreate(req, res) {
+    let CadiraNew = req.body.CadiraData
+      ;
+
+    // Valida que el código no esté ya registrado
+    Cadira.findOne({ codi: CadiraNew.codi }, function (err, cadira) {
+      if (err) res.status(400).json({ error: err });
+
+      if (cadira == null) {
+        // Guardar categoria en la base de datos
+        Cadira.create(CadiraNew, function (error, newcadira) {
+          if (error) res.status(400).json({ error: error.message });
+
+          else res.status(200).json({ ok: true });
+        });
+      } else res.status(400).json({ error: "Cadira ja registrada" });
+    });
+  }
+  static async CadiraUpdate(req, res) {
+    const CadiraId = req.params.id;
+    const updatedCadiraData = req.body.CentreData;
+
+
+    // Valida que el código no esté ya registrado en otra categoría
+    Cadira.findOne({ codi: updatedCadiraData.codi, _id: { $ne: CadiraId } }, function (err, cadira) {
+      if (err) res.status(400).json({ error: err });
+
+      if (cadira == null) {
+        // Actualizar la categoría en la base de datos
+        Cadira.findByIdAndUpdate(CentreId, updatedCadiraData, { new: true }, function (error, updatedcadira) {
+          if (error) res.status(400).json({ error: error.message });
+
+          else res.status(200).json({ ok: true });
+        });
+      } else res.status(400).json({ error: "Codi de la cadira ja registracz en un altre cadira" });
+    });
+  }
+
+  static async CadiraDelete(req, res) {
+    const cadiraId = req.params.id;
+
+    Cadira.findByIdAndRemove(cadiraId, function (err, deletedcadira) {
+      if (err) res.status(400).json({ error: err.message });
+
+      else res.status(200).json({ ok: true });
+    });
+  }
+
+
 }
 module.exports = cadiraController;

@@ -12,6 +12,17 @@ router.post("/delete/:id",  cadira_controller.delete_post);
 router.get("/update/:id",  cadira_controller.update_get);
 router.post("/update/:id",  cadira_controller.update_post);
 
+//Rutes API
+
+router.get('/APIlist', cadira_controller.CadiraList);
+
+router.post('/APIcreate', cadira_controller.CadiraCreate);
+
+router.get('/APIdelete/:id', cadira_controller.CadiraDelete);
+router.delete('/APIdelete/:id', cadira_controller.CadiraDelete);
+
+router.get('/APIupdate/:id', cadira_controller.CadiraUpdate);
+router.put('/APIupdate/:id', cadira_controller.CadiraUpdate);
 
 
 module.exports = router;
