@@ -6,8 +6,8 @@ class CategoriaController {
         try {
             const PAGE_SIZE = 10; // Número de documentos por página
             const page = req.query.page || 1; // Número de página actual
-            
-            Categoria.countDocuments({}, function(err, count) {
+
+            Categoria.countDocuments({}, function (err, count) {
                 if (err) {
                     return next(err);
                 }
@@ -15,17 +15,17 @@ class CategoriaController {
                 const totalItems = count;
                 const totalPages = Math.ceil(totalItems / PAGE_SIZE);
                 const startIndex = (page - 1) * PAGE_SIZE;
-            
+
                 Categoria.find()
-                .sort({ codi: 1 })
-                .skip(startIndex)
-                .limit(PAGE_SIZE)
-                .exec(function (err, list) {
-                    if (err) {
-                        return next(err);
-                    }
-                    res.render('categories/list', { list: list, totalPages: totalPages, currentPage: page });
-                });
+                    .sort({ codi: 1 })
+                    .skip(startIndex)
+                    .limit(PAGE_SIZE)
+                    .exec(function (err, list) {
+                        if (err) {
+                            return next(err);
+                        }
+                        res.render('categories/list', { list: list, totalPages: totalPages, currentPage: page });
+                    });
             });
         }
         catch (e) {
@@ -104,6 +104,88 @@ class CategoriaController {
                 res.redirect('/categories')
             }
         })
+    }
+
+    //API
+
+    static async categoryList(req, res, next) {
+        try {
+
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+
+            Categoria.countDocuments({}, function (err, count) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+
+                Categoria.find()
+                    .sort({ nom: 1 })
+                    .skip(startIndex)
+                    .limit(PAGE_SIZE)
+                    .exec(function (err, list) {
+                        if (err) {
+                            res.status(400).json({ error: err });
+                        }
+                        res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+                    });
+            });
+        }
+        catch (e) {
+            res.status(400).json({ message: 'Error!' });
+        }
+    }
+
+    static async categoryCreate(req, res) {
+        let categoriaNew = req.body.categoryData  
+        ;
+
+        // Valida que el código no esté ya registrado
+        Categoria.findOne({ codi: categoriaNew.codi }, function (err, categoria) {
+            if (err) res.status(400).json({ error: err });
+
+            if (categoria == null) {
+                // Guardar categoria en la base de datos
+                Categoria.create(categoriaNew, function (error, newCategoria) {
+                    if (error) res.status(400).json({ error: error.message });
+
+                    else res.status(200).json({ ok: true });
+                });
+            } else res.status(400).json({ error: "Categoría ja registrada" });
+        });
+    }
+    static async categoryUpdate(req, res) {
+        const categoryId = req.params.id;
+        const updatedCategoryData = req.body.categoryData;
+        
+
+        // Valida que el código no esté ya registrado en otra categoría
+        Categoria.findOne({ codi: updatedCategoryData.codi, _id: { $ne: categoryId } }, function (err, categoria) {
+            if (err) res.status(400).json({ error: err });
+
+            if (categoria == null) {
+                // Actualizar la categoría en la base de datos
+                Categoria.findByIdAndUpdate(categoryId, updatedCategoryData, { new: true }, function (error, updatedCategoria) {
+                    if (error) res.status(400).json({ error: error.message });
+
+                    else res.status(200).json({ ok: true });
+                });
+            } else res.status(400).json({ error: "Codi de categoría ja registrat en un altre categoria" });
+        });
+    }
+
+    static async categoryDelete(req, res) {
+        const categoryId = req.params.id;
+
+        Categoria.findByIdAndRemove(categoryId, function (err, deletedCategory) {
+            if (err) res.status(400).json({ error: err.message });
+
+            else res.status(200).json({ ok: true });
+        });
     }
 
 }

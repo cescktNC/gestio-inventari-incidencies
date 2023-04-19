@@ -16,5 +16,17 @@ router.post("/delete/:id",  centre_controller.delete_post);
 router.get("/update/:id",  centre_controller.update_get);
 router.post("/update/:id",  centre_controller.update_post);
 
+//Rutes API
+
+router.get('/APIlist', centre_controller.CentreList);
+
+router.post('/APIcreate', centre_controller.CentreCreate);
+
+router.get('/APIdelete/:id', centre_controller.CentreDelete);
+router.delete('/APIdelete/:id', centre_controller.CentreDelete);
+
+router.get('/APIupdate/:id', centre_controller.CentreUpdate);
+router.put('/APIupdate/:id', centre_controller.CentreUpdate);
+
 
 module.exports = router;

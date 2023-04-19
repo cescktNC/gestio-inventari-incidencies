@@ -16,5 +16,16 @@ router.post("/delete/:id",  subcategoria_controller.delete_post);
 router.get("/update/:id",  subcategoria_controller.update_get);
 router.post("/update/:id",  subcategoria_controller.update_post);
 
+//Rutes API
+
+router.get('/APIlist', subcategoria_controller.SubcategoryList);
+
+router.post('/APIcreate', subcategoria_controller.subCategoryCreate);
+
+router.get('/APIdelete/:id', subcategoria_controller.subcategoryDelete);
+router.delete('/APIdelete/:id', subcategoria_controller.subcategoryDelete);
+
+router.get('/APIupdate/:id', subcategoria_controller.subcategoryUpdate);
+router.put('/APIupdate/:id', subcategoria_controller.subcategoryUpdate);
 
 module.exports = router;
