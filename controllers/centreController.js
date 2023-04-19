@@ -140,9 +140,13 @@ class CentreController {
     }
   
     static async CentreCreate(req, res) {
-      let CentreNew = req.body.CentreData
-        ;
-  
+      let codi = req.body.codi;
+      if(parseInt(codi) < 10) codi = '0' + codi;
+      let CentreNew = new Centre({
+        codi:codi,
+        nom: req.body.nom
+      });
+
       // Valida que el código no esté ya registrado
       Centre.findOne({ codi: CentreNew.codi }, function (err, centre) {
         if (err) res.status(400).json({ error: err });
@@ -157,12 +161,38 @@ class CentreController {
         } else res.status(400).json({ error: "Centre ja registrat" });
       });
     }
+
+    static async CentreSowh(req, res, next){
+      Centre.findById(req.params.id, function(err, centre) {
+          if (err) {
+              res.status(400).json({ message: err });
+          }
+          if (centre == null) {
+              // No results.
+              var err = new Error("Centre not found");
+              res.status(400).json({ message: err });
+
+          }
+          // Success.
+          var centreJSON = {
+              nom: centre.nom,
+              codi: centre.codi,
+          };
+          res.status(200).json({ centre: centreJSON });
+
+      })
+    }
+
     static async CentreUpdate(req, res) {
       const CentreId = req.params.id;
-      const updatedCentreData = req.body.CentreData;
+      let codi = req.body.codi;
+      if(parseInt(codi) < 10) codi = '0' + codi;
+      const updatedCentreData = new Centre({
+        _id: req.params.id,
+        codi: codi,
+        nom: req.body.nom
+      });
   
-  
-      // Valida que el código no esté ya registrado en otra categoría
       Centre.findOne({ codi: updatedCentreData.codi, _id: { $ne: CentreId } }, function (err, centre) {
         if (err) res.status(400).json({ error: err });
   

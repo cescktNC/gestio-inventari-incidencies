@@ -120,6 +120,32 @@ class LocalitzacioController {
             }
         })
     }
+
+
+    //API 
+
+    static async localitzacioSowh(req, res, next){
+        Localitzacio.findById(req.params.id)
+        .populate('codiLocalitzacio')
+        .exec(function(err, localitzacio) {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            if (localitzacio == null) {
+                // No results.
+                var err = new Error("Localitzacio not found");
+                res.status(400).json({ message: err });
+
+            }
+            // Success.
+            var localitzacioJSON = {
+                nom: localitzacio.nom,
+                codi: localitzacio.codi,
+            };
+            res.status(200).json({ localitzacio: localitzacioJSON });
+
+        })
+    }
 }
 
 module.exports = LocalitzacioController;

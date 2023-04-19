@@ -14,4 +14,9 @@ router.post("/delete/:id", prestec_controller.delete_post);
 router.get("/update/:id", prestec_controller.update_get);
 router.post("/update/:id", prestec_controller.update_post);
 
+//API
+
+router.get('/APIlist', prestec_controller.prestecList);
+router.post('/APIcreate', prestec_controller.prestecCreate);
+
 module.exports=router;
