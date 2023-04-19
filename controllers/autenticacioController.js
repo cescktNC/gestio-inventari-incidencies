@@ -1,6 +1,9 @@
 const Usuari = require("../models/usuari");
+const Token = require("../models/token")
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
+const jwt = require('jsonwebtoken');
+const secret = 'secretDelToken';
 
 class autenticacioController {
 
@@ -152,7 +155,7 @@ class autenticacioController {
       var email = req.body.email;
       var password = req.body.password;
 
-      Usuari.findOne({ email: email }).exec(function (err, usuari) {
+      Usuari.findOne({ email: email }).exec( async function (err, usuari) {
         if (err) {
           res.status(400).json({ message: "error" });
         }
@@ -160,13 +163,16 @@ class autenticacioController {
           var message = "Usuari no registrat";
           res.status(400).json({ message: message });
         } else {
-          if (bcrypt.compareSync(password, usuari.password)) {
+          if (bcrypt.hash(password, usuari.password)) {
+
+            const token = await autenticacioController.comprobacioToken(usuari.id, usuari.carrec);
+
+            if(token == null) return res.status(400).json({ message: "Error al inicia sessio" });
+
             var usuariData = {
-              usuariId: usuari.id,
-              nom: usuari.nom,
-              email: usuari.email,
+              id: usuari.id,
               carrec: usuari.carrec,
-              dni: usuari.dni,
+              token: token
             };
 
             res.status(200).json(usuariData)
@@ -191,35 +197,79 @@ class autenticacioController {
 
     // Validar nombre y apellidos
     if (!nom || !cognoms) {
-      return res.status(400).json({ message: "El nombre y los apellidos son obligatorios" });
+      return res.status(400).json({ message: "El nom y els cognom son obligatoris" });
     }
 
     const existingUser = await Usuari.findOne({ email: email });
     if (existingUser) {
-      return res.status(400).json({ message: "El correo electrónico ya está registrado" });
+      return res.status(400).json({ message: "El correo electrónic ya está registrat" });
     }
 
     // Ajustar el factor de costo de hash según las necesidades de seguridad y rendimiento
     const Password = await bcrypt.hash(password, 12);
 
-    const user = new Usuari({
+    const user = ({
       nom: nom,
       cognoms: cognoms,
       dni: dni,
       email: email,
       carrec: "Alumne",
-      password: Password,
+      password: password,
       profilePicture: 'URL/Profile/profilePicture.png'
     });
 
-    try {
-      await user.save();
-      return res.status(200).json({ message: "Usuario registrado correctamente", user });
-    } catch (err) {
-      console.error(err);
-      return res.status(400).json({ message: "Error al registrar el usuario" });
-    }
+    Usuari.create(user, async (error, newUser) => {
+      if (error) return res.status(400).json({ message: "Error al registrar l'usuari" }); 
+      else {
+
+        let token = await autenticacioController.creacioToken(newUser.id, newUser.carrec)
+
+        if(token == null) res.status(400).json({ message: "Error al verificar el token" });
+
+        return res.status(200).json({ message: "Usuari registrat correctament", user: newUser, token });
+      }
+    });
   };
+
+  static async creacioToken(id, carrec){
+    let token = {
+      token: jwt.sign({id: id, carrec: carrec},secret, {expiresIn: "7d"}),
+      idUsuari: id
+    }
+
+    await Token.create(token,(error, newToken) => {
+      if (error) return null;
+      else token =  newToken.token;
+    });
+    return token.token;
+  }
+
+  static async comprobacioToken(id, carrec){
+    let newToken;
+
+    const token = await Token.findOne({ idUsuari: id }).exec();
+    if (token == null) newToken = await autenticacioController.creacioToken(id, carrec);
+    else {
+      try {
+        const decodedToken = jwt.verify(token.token, secret, { ignoreExpiration: false });
+        newToken = token.token;
+      } catch (err) {
+        if (err.name === 'TokenExpiredError') {
+          await Token.findByIdAndRemove(token.id).exec();
+          newToken = await autenticacioController.creacioToken(id, carrec);
+        } else {
+          return res.status(400).json({ message: "Error al comprobar el token"});
+        }
+      }
+    }
+  
+    if (!newToken) {
+      return res.status(400).json({ message: "Error al crea un nou token" });
+    }
+
+    return newToken;
+
+  }
 
 }
 

@@ -18,5 +18,9 @@ router.post("/update/:id", upload.single('fotografia'), material_controller.upda
 router.get("/import", material_controller.import_get);
 router.post("/import", upload.single('fitxer'), material_controller.import_post);
 
+//API
+router.get('/material', material_controller.APIlist); 
+
+
 
 module.exports = router;
