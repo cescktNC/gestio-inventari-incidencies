@@ -191,7 +191,7 @@ class MaterialController {
 
     //API
 
-    static async APIlist(req, res, next) {
+    static async materiaLlist(req, res, next) {
         try {
             const PAGE_SIZE = 10; // Número de documentos por página
             const page = req.query.page || 1; // Número de página actual
@@ -221,6 +221,138 @@ class MaterialController {
         catch (e) {
             res.status(400).json({ message: 'Error!' });
         }
+    }
+
+    static async materialCreate(req, res) {
+        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
+        let codi = req.body.codi;
+        if(parseInt(codi) < 10) codi = '0' + codi;
+
+        let materialNew ={
+            nom: req.body.nom,
+            codi: codi + '-' + subcategoria.codi,
+            descripcio: req.body.descripcio,
+            preuCompra: req.body.preuCompra,
+            anyCompra: req.body.anyCompra,
+            fotografia: req.file.path.substring(7, req.file.path.length),
+            codiSubCategoria: req.body.codiSubCategoria
+        }
+        
+        Material.findOne({ codi: materialNew.codi }, function (err, centre) {
+            if (err) res.status(400).json({ error: err });
+
+            if (centre == null) {
+              // Guardar categoria en la base de datos
+                Material.create(materialNew, function (error, newcentre) {
+                    if (error) res.status(400).json({ error: error.message });
+        
+                    else res.status(200).json({ ok: true });
+                });
+            } else res.status(400).json({ error: "Material ja registrat" });
+        });
+
+    }
+
+    static async materialSowh(req, res, next){
+        Material.findById(req.params.id)
+        .populate('codiSubCategoria')
+        .exec(function(err, material) {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            if (material == null) {
+                // No results.
+                var err = new Error("Material not found");
+                res.status(400).json({ message: err });
+            }
+            // Success.
+            var materialJSON = {
+                codi: material.codi,
+                nom: material.nom,
+                descripcio: material.descripcio,
+                preuCompra: material.preuCompra,
+                anyCompra: material.anyCompra,
+                fotografia: material.fotografia,
+            };
+            res.status(200).json({ material: materialJSON });
+        });
+    }
+
+    static async materialUpdate(req, res, next) {
+        let codi = req.body.codi;
+        if(parseInt(codi) < 10) codi = '0' + codi;
+        let material;
+        if(req.file==null){
+            list_material = {
+                nom: req.body.nom,
+                codi: codi + '-' + subcategoria.codi,
+                descripcio: req.body.descripcio,
+                preuCompra: req.body.preuCompra,
+                anyCompra: req.body.anyCompra,
+                codiSubCategoria: req.body.codiSubCategoria,
+                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+            };
+        }else{
+            list_material = {
+                nom: req.body.nom,
+                codi: codi + '-' + subcategoria.codi,
+                descripcio: req.body.descripcio,
+                preuCompra: req.body.preuCompra,
+                anyCompra: req.body.anyCompra,
+                fotografia: req.file.path.substring(7, req.file.path.length),
+                codiSubCategoria: req.body.codiSubCategoria,
+                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+            };
+        }
+
+        
+        Material.findByIdAndUpdate(
+            req.params.id,
+            material,
+            { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+            function (err, materialFound) {
+
+                if (err) res.status(400).json({ material: material, error: err.message });
+
+                res.status(400).json({ id: materialFound.id, ok: true, message: 'Usuari actualitzat correctament' });
+            }
+        );
+            
+
+
+        
+    };
+
+    static async materialDelete(req, res, next) {
+        Material.findByIdAndRemove(req.params.id, function (error) {
+            if (error) {
+                res.status(400).json({ error });
+            } else {
+                res.status(200).json({ ok: true, message: 'Material eliminat' });
+            }
+        });
+    };
+
+    static async materialImport(req, res, next) {
+
+        let filePath = req.file.path; 
+        let jsonArray;
+
+        if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') {
+            jsonArray = await csv().fromFile(filePath);
+        } else {
+            jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        }
+
+        let promesa = new Promise((resolve, reject) => {
+            Material.create(jsonArray);
+        });
+
+        // Executo la promesa
+        promesa
+            .then(res.status(200).json({ok: true})) // s'executa si es compleix la promesa
+            .catch(error => res.status(400).json({ message: error.message })); // s'executa si no es compleix la promesa
+
     }
 
 }

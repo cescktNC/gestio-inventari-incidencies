@@ -15,4 +15,9 @@ router.get("/update/:id",  localitzacio_controller.update_get);
 router.post("/update/:id",  localitzacio_controller.update_post);
 
 
+//API
+
+router.get('/APIshow/:id', localitzacio_controller.localitzacioSowh);
+
+
 module.exports = router;
