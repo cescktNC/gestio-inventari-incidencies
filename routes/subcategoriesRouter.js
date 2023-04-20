@@ -20,7 +20,9 @@ router.post("/update/:id",  subcategoria_controller.update_post);
 
 router.get('/APIlist', subcategoria_controller.SubcategoryList);
 
-router.get('/APIshow/:id', subcategoria_controller.subCategorySowh)
+router.get('/APIAlllist', subcategoria_controller.SubcategoryAllList);
+
+router.get('/APIshow/:id', subcategoria_controller.subCategorySowh);
 
 router.post('/APIcreate', subcategoria_controller.subCategoryCreate);
 

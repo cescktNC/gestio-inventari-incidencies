@@ -2,8 +2,6 @@ var Prestec = require("../models/prestec");
 var Exemplar = require("../models/exemplar");
 var Usuari = require("../models/usuari");
 
-
-
 class prestecController {
 
   static async list(req, res, next) {
@@ -186,7 +184,7 @@ class prestecController {
 
     Usuari.findOne({dni: req.body.prestec.dni}).exec( function(err, usuari){
       if(err) res.status(400).json({error: err});
-      if(usuari == null) res.status(400).json({error: 'Usuari no Trobat'});
+      if(usuari == null) res.status(400).json({error: 'Usuari no trobat'});
       let prestec = {
         codi: codi,
         dataInici: req.body.prestec.dataInici,
@@ -202,18 +200,10 @@ class prestecController {
         }
       })
     })
-    
+  }
 
-    // const codiExemplarUsat = await Prestec.findOne({codiExemplar: prestec.codiExemplar});
-    // if (codiExemplarUsat) {
-    //   return res.render('prestec/new', {
-    //     error: "L'exemplar ja está utilitzat en un altre préstec",
-    //     exemplarList: exemplar_list,
-    //     usuariList: usuari_list,
-    //     introduit: true,
-    //     prestecIntroduit: prestec
-    //   });
-    // }
+  static async prestecUpdateStat(req, res, next){
+    let estat = req.body.estat;
     
   }
 }

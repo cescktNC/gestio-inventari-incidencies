@@ -150,13 +150,29 @@ class SubcategoriaController {
       });
     }
     catch (e) {
-      res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ error: 'Error!' });
+    }
+  }
+
+  static async SubcategoryAllList(req, res, next) {
+    try {
+
+      Subcategoria.find()
+      .sort({ codiCategoria: 1, codi: 1 })
+      .exec(function (err, list) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+        res.status(200).json({ list: list });
+      });
+    }
+    catch (e) {
+      res.status(400).json({ error: 'Error!' });
     }
   }
 
   static async subCategoryCreate(req, res) {
     let subcategoriaNew = req.body.subcategoryData;
-    subcategoriaNew.codiCategoria = subcategoriaNew.codiCategoria.substring(3);
     Categoria.findById(subcategoriaNew.codiCategoria).exec(function(err, categoria){
       if (err) res.status(400).json({ error: err });
       if (categoria === undefined) res.status(400).json({ error: 'Categoria no trobada' });
@@ -199,12 +215,10 @@ class SubcategoriaController {
       };
       res.status(200).json({ subCategoria: subCategoriaJSON });
     })
-}
+  }
 
   static async subcategoryUpdate(req, res) {
     const subcategoryId = req.params.id;
-    let codiCategoria = req.body.subcategoryData.codiCategoria;
-    if(codiCategoria.substring(0, 3) == 'id-') codiCategoria = codiCategoria.substring(3);
 
     let codi = req.body.subcategoryData.codi;
     if(parseInt(codi) < 10) codi = '0' + req.body.subcategoryData.codiCategoria;
@@ -212,7 +226,7 @@ class SubcategoriaController {
       _id: req.params.id,  
       nom: req.body.subcategoryData.nom,
       codi: codi,
-      codiCategoria: codiCategoria
+      codiCategoria: req.body.subcategoryData.codiCategoria
     });
 
     Categoria.findById(updatedsubCategoryData.codiCategoria).exec(function(err, categoria){
