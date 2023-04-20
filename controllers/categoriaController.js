@@ -124,7 +124,7 @@ class CategoriaController {
                 const startIndex = (page - 1) * PAGE_SIZE;
 
                 Categoria.find()
-                    .sort({ nom: 1 })
+                    .sort({ codi: 1 })
                     .skip(startIndex)
                     .limit(PAGE_SIZE)
                     .exec(function (err, list) {
@@ -140,9 +140,24 @@ class CategoriaController {
         }
     }
 
+    static async categoryAllList(req, res, next) {
+        try {
+            Categoria.find()
+            .sort({ codi: 1 })
+            .exec(function (err, list) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+                res.status(200).json({ list: list });
+            });
+        }
+        catch (e) {
+            res.status(400).json({ error: 'Error inesperat!' });
+        }
+    }
+
     static async categoryCreate(req, res) {
-        let categoriaNew = req.body.categoryData  
-        ;
+        let categoriaNew = req.body.categoryData;
 
         // Valida que el código no esté ya registrado
         Categoria.findOne({ codi: categoriaNew.codi }, function (err, categoria) {
@@ -155,12 +170,36 @@ class CategoriaController {
 
                     else res.status(200).json({ ok: true });
                 });
-            } else res.status(400).json({ error: "Categoría ja registrada" });
+            } else res.status(400).json({ error: "Codi de categoria ja registrada" });
         });
+    };
+
+    static async categorySowh(req, res, next){
+        Categoria.findById(req.params.id, function(err, categoria) {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            if (categoria == null) {
+                // No results.
+                var err = new Error("Categoria not found");
+                res.status(400).json({ message: err });
+
+            }
+            // Success.
+            var categoriaJSON = {
+                codi: categoria.codi,
+                nom: categoria.nom
+            };
+            res.status(200).json({ categoria: categoriaJSON });
+
+        })
     }
+
     static async categoryUpdate(req, res) {
         const categoryId = req.params.id;
         const updatedCategoryData = req.body.categoryData;
+
+        if(updatedCategoryData.codi < 10) updatedCategoryData.codi = '0' + updatedCategoryData.codi
         
 
         // Valida que el código no esté ya registrado en otra categoría

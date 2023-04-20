@@ -20,12 +20,12 @@ router.post("/update/:id",  subcategoria_controller.update_post);
 
 router.get('/APIlist', subcategoria_controller.SubcategoryList);
 
+router.get('/APIshow/:id', subcategoria_controller.subCategorySowh)
+
 router.post('/APIcreate', subcategoria_controller.subCategoryCreate);
 
-router.get('/APIdelete/:id', subcategoria_controller.subcategoryDelete);
 router.delete('/APIdelete/:id', subcategoria_controller.subcategoryDelete);
 
-router.get('/APIupdate/:id', subcategoria_controller.subcategoryUpdate);
 router.put('/APIupdate/:id', subcategoria_controller.subcategoryUpdate);
 
 module.exports = router;

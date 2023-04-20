@@ -191,8 +191,8 @@ class UsuariController {
     static async userList(req, res, next) {
         try {
 
-            const PAGE_SIZE = 10; // Número de documentos por página
-            const page = req.query.page || 1; // Número de página actual
+            const PAGE_SIZE = 10; 
+            const page = req.query.page || 1;
 
             Usuari.countDocuments({}, function(err, count) {
                 if (err) {
