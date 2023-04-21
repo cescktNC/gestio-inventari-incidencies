@@ -173,7 +173,7 @@ class cadiraController {
 
           else res.status(200).json({ ok: true });
         });
-      } else res.status(400).json({ error: "Codi de la cadira ja registracz en un altre cadira" });
+      } else res.status(400).json({ error: "Codi de la cadira ja registrat en un altre cadira" });
     });
   }
 
