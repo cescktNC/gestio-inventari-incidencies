@@ -22,7 +22,7 @@ router.post("/import", upload.single('fitxer'), material_controller.import_post)
 router.get('/material', material_controller.materiaLlist); 
 router.get('/material/:id', material_controller.materialSowh); 
 router.post('/material', upload.single('fotografia'), material_controller.materialCreate);
-router.post('/material/import', upload.single('fitxer'), material_controller.materialCreate);
+router.post('/material/import', upload.single('fitxer'), material_controller.materialImport);
 router.put('/material/:id', upload.single('fotografia'), material_controller.materialUpdate); 
 router.delete('/material/:id',material_controller.materialDelete); 
 

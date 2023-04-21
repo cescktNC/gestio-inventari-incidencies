@@ -344,14 +344,30 @@ class MaterialController {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
 
-        let promesa = new Promise((resolve, reject) => {
-            Material.create(jsonArray);
-        });
+            let count = 0;
 
-        // Executo la promesa
-        promesa
-            .then(res.status(200).json({ok: true})) // s'executa si es compleix la promesa
-            .catch(error => res.status(400).json({ message: error.message })); // s'executa si no es compleix la promesa
+            jsonArray.forEach(async element => {
+
+                const subCategoria = await SubCategoria.findOne({ nom: element.nomSubCategoria });
+
+
+                if (subCategoria === null || subCategoria === undefined) {
+                    res.status(400).json({error: 'Subcategoria no trobada'});
+                }
+            
+                element.codi += '-' + subCategoria.codi;
+                element.codiSubCategoria = subCategoria._id;
+            
+                count++;
+                console.log(element);
+            
+                if (count == jsonArray.length) {
+                    Material.create(jsonArray, function(error){
+                        if(error) res.status(400).json({error: error});
+                        else res.status(200).json({ok: true})
+                    });
+                }
+            });
 
     }
 
