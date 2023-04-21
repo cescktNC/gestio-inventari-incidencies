@@ -166,6 +166,8 @@ class ExemplarController {
     }
   }
 
+  //API
+
 <<<<<<< HEAD
   //API
 
@@ -356,7 +358,6 @@ class ExemplarController {
     }
   }
 
->>>>>>> 7934a22 (Solucio conflictes)
 }
 
 module.exports = ExemplarController;

@@ -16,12 +16,6 @@ router.get("/show/:id", exemplar_controller.show);
 //API
 
 router.get('/APIlist', exemplar_controller.exemplarList);
-<<<<<<< HEAD
-router.get('/APIshow/:id', exemplar_controller.exemplarSowh);
-router.post('/APICreate', exemplar_controller.exemplarCreate);
-router.put('/APIUpdate/:id', exemplar_controller.exemplarUpdate);
-=======
->>>>>>> 7934a22 (Solucio conflictes)
 
 
 module.exports = router;

@@ -323,6 +323,23 @@ class LocalitzacioController {
       else res.status(200).json({ ok: true });
     });
   }
+    static async localitzacioAllLlist(req, res, next) {
+        try {
+            Localitzacio.find()
+            .sort({ codiPlanta: 1, codi: 1 })
+            .populate('codiPlanta')
+            .exec(function (err, list) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+                res.status(200).json({ list: list });
+            });
+
+        }
+        catch (e) {
+            res.status(400).json({ message: 'Error!' });
+        }
+    }
 
   static async localitzacioSowh(req, res, next){
     Localitzacio.findById(req.params.id)
