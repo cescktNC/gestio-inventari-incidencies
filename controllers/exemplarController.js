@@ -170,34 +170,34 @@ class ExemplarController {
 
   static async exemplarList(req, res, next) {
     try {
-      const PAGE_SIZE = 10; // Número de documentos por página
+      const PAGE_SIZE = 10; // Número de documents per página
       const page = req.query.page || 1; // Número de página actual
       
       Exemplar.countDocuments({}, function(err, count) {
+        if (err) {
+            res.status(400).json({ error: err });
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Exemplar.find()
+        .sort({ codi: 1, codiMaterial: 1 })
+        .populate('codiMaterial')
+        .populate('codiLocalitzacio')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
           if (err) {
-              res.status(400).json({ error: err });
+            res.status(400).json({ error: err });
           }
-  
-          const totalItems = count;
-          const totalPages = Math.ceil(totalItems / PAGE_SIZE);
-          const startIndex = (page - 1) * PAGE_SIZE;
-      
-          Exemplar.find()
-          .sort({ codi: 1, codiMaterial: 1 })
-          .populate('codiMaterial')
-          .populate('codiLocalitzacio')
-          .skip(startIndex)
-          .limit(PAGE_SIZE)
-          .exec(function (err, list) {
-              if (err) {
-                  res.status(400).json({ error: err });
-              }
-              res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-          });
+          res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+        });
       });
     }
     catch (e) {
-        res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ error: 'Error!' });
     }
   }
 
@@ -206,25 +206,18 @@ class ExemplarController {
     .populate('codiMaterial')
     .populate('codiLocalitzacio')
     .exec(function(err, exemplar) {
-        if (err) {
-            res.status(400).json({ message: err });
-        }
-        if (exemplar == null) {
-            // No results.
-            var err = new Error("Exemplar not found");
-            res.status(400).json({ message: err });
+      if (err) {
+        res.status(400).json({ error: err });
+      }
+      if (exemplar == null) {
+        // No results.
+        var err = new Error("Exemplar not found");
+        res.status(400).json({ error: err });
 
-        }
-        // Success.
-        var exemplarJSON = {
-            codi: exemplar.codi.slice(0, exemplar.codi.indexOf('/')),
-            demarca: exemplar.demarca,
-            codiMaterial: exemplar.codiMaterial._id,
-            codiLocalitzacio: exemplar.codiLocalitzacio._id,
-        };
-        res.status(200).json({ exemplar: exemplarJSON });
+      }
+      res.status(200).json({ exemplar: exemplar });
 
-    })
+    });
 }
 
   static async exemplarCreate(req, res, next) {
@@ -240,42 +233,92 @@ class ExemplarController {
         if(parseInt(codi) > 10) codi = '0' + codi;
 
         var exemplar = {
-          codi: codi + '/' + material.codi,
+          codi: codi + '/' + material.codi + '-' + localitzacio.codi,
           demarca: false,
           codiMaterial: req.body.exemplar.codiMaterial,
           codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
         }
 
         Exemplar.create(exemplar, function (error, newExemplar) {
-          if (error) {
-            res.status(400).json({ error: error.message })
-          } else {
-            const exemplar_path = url.parse(req.protocol + '://' + req.get('host')).href + 'exemplar/' + newExemplar.id;
-            // Genero el QR
-            QRCode.toString(exemplar_path, {
-              errorCorrectionLevel: 'H',
-              type: 'svg'
-            }, function(err, qr_svg) {
-              if (err) throw err;
-              newExemplar['qr'] = qr_svg;
-              Exemplar.findByIdAndUpdate(
-                newExemplar.id,
-                newExemplar,
-                { runValidators: true },
-                function (err, exemplarfound) {
-                  if (err) {
-                    res.status(400).json({ error: error.message });
-                  }
-                  else res.status(200).json({ok: true})
+          if (error) res.status(400).json({ error: error.message })
+
+          const exemplar_path = url.parse('http://localhost:3000').href + 'home/exemplar/show/' + newExemplar.id;
+          // Genero el QR
+          QRCode.toString(exemplar_path, {
+            errorCorrectionLevel: 'H',
+            type: 'svg'
+          }, function(err, qr_svg) {
+            if (err) throw err;
+            newExemplar['qr'] = qr_svg;
+            Exemplar.findByIdAndUpdate(
+              newExemplar.id,
+              newExemplar,
+              { runValidators: true },
+              function (err, exemplarfound) {
+                if (err) {
+                  res.status(400).json({ error: error.message });
                 }
-              );
-            });
+                else res.status(200).json({ok: true})
+              }
+            );
+          });
               
-          }
+          
         });
       })
     });
 
+  }
+
+  static async exemplarUpdate(req, res, next) {
+
+    Material.findById(req.body.exemplar.codiMaterial).exec(function(error, material){
+      if(error) res.status(400).json({error});
+      if(material == null) res.status(400).json({error: 'Material no trobat'});
+
+      Localitzacio.findById(req.body.exemplar.codiLocalitzacio).exec(function(error, localitzacio){
+        if(error) res.status(400).json({error});
+        if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
+
+        Exemplar.findById(req.params.id).exec(function(error, comprobacioExemplar){
+          if(error) res.status(400).json({error});
+
+          if(comprobacioExemplar == null) res.status(400).json({error: 'Exemplar no trobat'});
+
+          if(comprobacioExemplar.demarca){
+            var err = new Error('Aquest exemplar no es pot modificar');
+            return res.status(400).json({error: err});
+          }
+
+          let codi = req.body.exemplar.codi;
+          if(parseInt(codi) > 10) codi = '0' + codi;
+          
+          var exemplar = {
+            codi: codi + '/' + material.codi + '-' + localitzacio.codi,
+            demarca: req.body.exemplar.demarca,
+            codiMaterial: req.body.exemplar.codiMaterial,
+            codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
+            _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+          };
+      
+          Exemplar.findByIdAndUpdate(
+            req.params.id,
+            exemplar,
+            { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
+            function (err, exemplarfound) {
+              if (err) {
+                //return next(err);
+                res.status(400).json({ error: err.message });
+              }
+              res.status(200).json({ ok: true, message: 'Exemplar actualitzat' });
+            }
+          );
+
+        });
+
+      });
+
+    });
   }
 
 }

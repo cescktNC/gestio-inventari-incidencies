@@ -315,7 +315,7 @@ class MaterialController {
                     codiSubCategoria: req.body.codiSubCategoria,
                     _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
                 };
-            }else{
+            } else {
                 material = {
                     nom: req.body.nom,
                     codi: codi + '-' + subCategoria.codi,

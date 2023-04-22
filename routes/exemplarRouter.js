@@ -18,6 +18,7 @@ router.get("/show/:id", exemplar_controller.show);
 router.get('/APIlist', exemplar_controller.exemplarList);
 router.get('/APIshow/:id', exemplar_controller.exemplarSowh);
 router.post('/APICreate', exemplar_controller.exemplarCreate);
+router.put('/APIUpdate/:id', exemplar_controller.exemplarUpdate);
 
 
 module.exports = router;
