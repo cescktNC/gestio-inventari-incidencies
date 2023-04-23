@@ -148,10 +148,14 @@ class prestecController {
       const PAGE_SIZE = 10; // Número de documentos por página
       const page = req.query.page || 1; // Número de página actual
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
       
 >>>>>>> 7934a22 (Solucio conflictes)
+=======
+
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
       Prestec.countDocuments({}, function(err, count) {
         if (err) {
             res.status(400).json({errors: err});
@@ -161,10 +165,14 @@ class prestecController {
         const totalPages = Math.ceil(totalItems / PAGE_SIZE);
         const startIndex = (page - 1) * PAGE_SIZE;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 >>>>>>> 7934a22 (Solucio conflictes)
+=======
+
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
         Prestec.find()
         .sort({ codi: 1, codiExemplar: 1, dataInici: 1 })
         .populate('codiExemplar')
@@ -173,16 +181,22 @@ class prestecController {
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
           if (err) {
             res.status(400).json({error: err});
           }
           res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+<<<<<<< HEAD
 =======
             if (err) {
               res.status(400).json({error: err});
             }
             res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
 >>>>>>> 7934a22 (Solucio conflictes)
+=======
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
         });
       });
     }
@@ -218,6 +232,9 @@ class prestecController {
       })
     })
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
   };
 
   static async prestecCount(req, res, next){
@@ -231,9 +248,13 @@ class prestecController {
 
   static async prestecShow(req, res, next){
     try {
+<<<<<<< HEAD
       Prestec.findById(req.params.id)
       .populate('dniUsuari')
       .exec(function(error, prestec){
+=======
+      Prestec.findById(req.params.id).exec(function(error, prestec){
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
         if (err) {
           res.status(400).json({ message: err });
         }
@@ -248,6 +269,114 @@ class prestecController {
     } catch (error) {
       res.status(400).json(error);
     }
+<<<<<<< HEAD
+=======
+  }
+
+  static async prestecUpdate(req, res, next){
+    const dataActual = new Date();
+
+    var prestec = {
+      dataRetorn: req.body.dataRetorn,
+      estat: req.body.estat,
+      _id: req.params.id  // Necessari per a que sobreescrigui el mateix objecte!
+    };
+
+    if (new Date(prestec.dataRetorn) < dataActual) {
+      return res.status(400).json({ error: "La data de retorn no pot ser anterior a la data actual" });
+    }
+
+    Exemplar.aggregate([
+      {
+        $match: { demarca: false } // filtra per les condicions pasades
+      },
+      {
+        $lookup: {  // Obtenir informacio de les taules relacionades
+          from: 'localitzacios',
+          localField: 'codiLocalitzacio',
+          foreignField: '_id',
+          as: 'localitzacio'
+        }
+      },
+      {
+        $lookup: {
+          from: 'materials',
+          localField: 'codiMaterial',
+          foreignField: '_id',
+          as: 'material'
+        }
+      },  
+      {
+        $match: {
+          $and: [
+            { 'localitzacio.nom': 'Magatzem-3' },
+            { 'material.nom': 'Portatil DELL' }
+          ]
+        }
+      },
+      {
+        $project: {
+          _id: 1
+        }
+      }
+    ], function(err, exemplars) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      const materialExemplarsIds = exemplars.map(exemplar => exemplar._id.toString());
+
+      const fechaInicial = new Date('2022-09-01');
+      const fechaFinal = new Date('2023-06-01');
+      
+      Prestec.aggregate([
+        { $match: { dataRetorn: { $gte: fechaInicial, $lte: fechaFinal } } }, // $gte (mayor o igual que) y $lte (menor o igual que)
+        { $sort: { codiExemplar: 1, dataRetorn: -1 } },
+        { $group: { _id: "$codiExemplar", lastPrestec: { $first: "$$ROOT" } } }
+        // La variable $$ROOT és una variable interna de l'agregació de MongoDB que representa el document complet actual al pipeline d'agregació,
+        // incloent tots els camps i valors.
+      ], function(err, results) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        const materialPrestecIds = results.map(result => result._id.toString());
+
+        var materialId = [...materialExemplarsIds, ...materialPrestecIds];
+
+        materialId = materialId.filter((element, index) => {
+          return materialId.indexOf(element) !== index;
+        });
+
+        if(materialId.length == 0) res.status(400).json({error: 'No hi ha cap element per presta'});
+
+        prestec.codiExemplar = materialId[0];
+
+        Prestec.findByIdAndUpdate(
+          req.params.id,
+          prestec,
+          { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
+          function (err, prestecfound) {
+            if (err) {
+              //return next(err);
+              res.status(400).json({ error: err.message });
+            }
+            //res.redirect('/genres/update/'+ genreFound._id);
+            res.status(200).json({ Prestec: Prestec, message: 'Prestec actualitzat' });
+          }
+        );
+
+      });
+
+    });
+
+  }
+
+  static async estats(req, res, next){
+    var list_estats = Prestec.schema.path('estat').enumValues;
+    res.status(200).json({ estats: list_estats });
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
   }
 
   static async prestecUpdate(req, res, next){
@@ -382,6 +511,7 @@ class prestecController {
 
   };
 
+<<<<<<< HEAD
 =======
     
 
@@ -398,6 +528,8 @@ class prestecController {
     
   }
 >>>>>>> 7934a22 (Solucio conflictes)
+=======
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
 }
 
 module.exports = prestecController;

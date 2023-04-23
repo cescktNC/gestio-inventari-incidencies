@@ -168,9 +168,6 @@ class ExemplarController {
 
   //API
 
-<<<<<<< HEAD
-  //API
-
   static async exemplarList(req, res, next) {
     try {
       const PAGE_SIZE = 10; // Número de documents per página
@@ -265,7 +262,6 @@ class ExemplarController {
               }
             );
           });
-              
           
         });
       })
@@ -323,38 +319,36 @@ class ExemplarController {
 
     });
   }
-
-=======
   static async exemplarList(req, res, next) {
     try {
       const PAGE_SIZE = 10; // Número de documentos por página
       const page = req.query.page || 1; // Número de página actual
       
       Exemplar.countDocuments({}, function(err, count) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Exemplar.find()
+        .sort({ codi: 1, codiMaterial: 1 })
+        .populate('codiMaterial')
+        .populate('codiLocalitzacio')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
           if (err) {
-              res.status(400).json({ error: err });
+            res.status(400).json({ error: err });
           }
-  
-          const totalItems = count;
-          const totalPages = Math.ceil(totalItems / PAGE_SIZE);
-          const startIndex = (page - 1) * PAGE_SIZE;
-      
-          Exemplar.find()
-          .sort({ codi: 1, codiMaterial: 1 })
-          .populate('codiMaterial')
-          .populate('codiLocalitzacio')
-          .skip(startIndex)
-          .limit(PAGE_SIZE)
-          .exec(function (err, list) {
-              if (err) {
-                  res.status(400).json({ error: err });
-              }
-              res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-          });
+          res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+        });
       });
     }
     catch (e) {
-        res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ message: 'Error!' });
     }
   }
 

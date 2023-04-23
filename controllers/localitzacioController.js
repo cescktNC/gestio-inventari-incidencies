@@ -325,6 +325,7 @@ class LocalitzacioController {
   }
     static async localitzacioAllLlist(req, res, next) {
         try {
+        
             Localitzacio.find()
             .sort({ codiPlanta: 1, codi: 1 })
             .populate('codiPlanta')

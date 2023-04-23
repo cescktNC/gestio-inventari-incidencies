@@ -59,7 +59,11 @@
         "codi": "08",
         "dataInici": "2023-02-25",
         "dataRetorn": "2023-03-05",
+<<<<<<< HEAD
         "estat": "Acceptat",
+=======
+        "estat": "Pendent",
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
         "codiExemplar": "71/01-08/02-13/02/01",
         "dniUsuari": "88888888H"
     },
@@ -67,7 +71,11 @@
         "codi": "09",
         "dataInici": "2023-02-25",
         "dataRetorn": "2023-03-05",
+<<<<<<< HEAD
         "estat": "Acceptat",
+=======
+        "estat": "Pendent",
+>>>>>>> 7c2f09f (Actualitzacio Prestec)
         "codiExemplar": "72/01-08/02-13/02/01",
         "dniUsuari": "99999999I"
     }
