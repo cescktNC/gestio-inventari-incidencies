@@ -4,7 +4,7 @@
         "dataInici": "2021-03-19",
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "01/01-08/02-21/01/01",
+        "codiExemplar": "64/01-08/02-13/02/01",
         "dniUsuari": "11111111A"
     },
     {
@@ -12,7 +12,7 @@
         "dataInici": "2021-03-19",
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "02/01-08/02-21/01/01",
+        "codiExemplar": "65/01-08/02-13/02/01",
         "dniUsuari": "22222222B"
     },
     {
@@ -20,7 +20,7 @@
         "dataInici": "2021-03-19",
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "03/01-08/02-21/01/01",
+        "codiExemplar": "66/01-08/02-13/02/01",
         "dniUsuari": "33333333C"
     },
     {
@@ -28,7 +28,7 @@
         "dataInici": "2021-03-19",
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "06/07-09/02-21/01/01",
+        "codiExemplar": "67/01-08/02-13/02/01",
         "dniUsuari": "44444444D"
     },
     {
@@ -36,7 +36,7 @@
         "dataInici": "2021-03-19",
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "07/07-09/02-21/01/01",
+        "codiExemplar": "68/01-08/02-13/02/01",
         "dniUsuari": "55555555E"
     },
     {
@@ -44,7 +44,7 @@
         "dataInici": "2021-03-19",
         "dataRetorn": "2021-06-05",
         "estat": "Acceptat",
-        "codiExemplar": "08/07-09/02-21/01/01",
+        "codiExemplar": "69/01-08/02-13/02/01",
         "dniUsuari": "66666666F"
     },
     {
@@ -52,7 +52,7 @@
         "dataInici": "2023-01-20",
         "dataRetorn": "2023-01-21",
         "estat": "Denegat",
-        "codiExemplar": "28/03-13/06-21/01/01",
+        "codiExemplar": "70/01-08/02-13/02/01",
         "dniUsuari": "77777777G"
     },
     {
@@ -60,7 +60,7 @@
         "dataInici": "2023-02-25",
         "dataRetorn": "2023-03-05",
         "estat": "Pendent",
-        "codiExemplar": "49/17-41/17-06/03/01",
+        "codiExemplar": "71/01-08/02-13/02/01",
         "dniUsuari": "88888888H"
     },
     {
@@ -68,7 +68,7 @@
         "dataInici": "2023-02-25",
         "dataRetorn": "2023-03-05",
         "estat": "Pendent",
-        "codiExemplar": "51/17-02/14-06/03/01",
+        "codiExemplar": "72/01-08/02-13/02/01",
         "dniUsuari": "99999999I"
     }
 ]

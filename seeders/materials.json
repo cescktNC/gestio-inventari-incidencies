@@ -9,7 +9,7 @@
     "codiSubCategoria": "08/02"
   },
   {
-    "codi": "02",
+    "codi": "01",
     "nom": "Pissara blanca",
     "descripcio": "Pissarra blanca",
     "preuCompra": 171.19,
@@ -18,7 +18,7 @@
     "codiSubCategoria": "22/01"
   },
   {
-    "codi": "03",
+    "codi": "01",
     "nom": "Projector EPSON",
     "descripcio": "Projector",
     "preuCompra": 649.99,
@@ -27,7 +27,7 @@
     "codiSubCategoria": "13/06"
   },
   {
-    "codi": "04",
+    "codi": "01",
     "nom": "Altaveus Genius",
     "descripcio": "Altaveus",
     "preuCompra": 16,
@@ -36,7 +36,7 @@
     "codiSubCategoria": "01/02"
   },
   {
-    "codi": "05",
+    "codi": "01",
     "nom": "Monitor Lenovo",
     "descripcio": "El monitor mostra la informació del teu equip com a imatges i textos, que són generats gràcies a una targeta de vídeo que es troba a l'interior de la torre de l'ordinador.",
     "preuCompra": 49.8,
@@ -45,7 +45,7 @@
     "codiSubCategoria": "07/02"
   },
   {
-    "codi": "06",
+    "codi": "02",
     "nom": "Torre d'ordinador",
     "descripcio": "és una variant de caixa de computadora caracterizada per situar-se de manera vertical.",
     "preuCompra": 250,
@@ -54,7 +54,7 @@
     "codiSubCategoria": "08/02"
   },
   {
-    "codi": "07",
+    "codi": "01",
     "nom": "Ratolí Logitech",
     "descripcio": "és un dispositiu apuntador utilitzat per facilitar el maneig d'un entorn gràfic en un ordinador.",
     "preuCompra": 10,
@@ -63,7 +63,7 @@
     "codiSubCategoria": "09/02"
   },
   {
-    "codi": "08",
+    "codi": "02",
     "nom": "Taula de fusta",
     "descripcio": "Taula de fusta 200 X 70.",
     "preuCompra": 180,
@@ -72,7 +72,7 @@
     "codiSubCategoria": "35/01"
   },
   {
-    "codi": "09",
+    "codi": "01",
     "nom": "Cadires",
     "descripcio": "Cadires de fusta.",
     "preuCompra": 120,
@@ -81,7 +81,7 @@
     "codiSubCategoria": "06/01"
   },
   {
-    "codi": "10",
+    "codi": "01",
     "nom": "Suros",
     "descripcio": " Tauler de suro 200 X 70.",
     "preuCompra": 32,
@@ -90,7 +90,7 @@
     "codiSubCategoria": "32/01"
   },
   {
-    "codi": "11",
+    "codi": "01",
     "nom": "Penjadors",
     "descripcio": "Penjadors de 8 unitats.",
     "preuCompra": 60,
@@ -99,7 +99,7 @@
     "codiSubCategoria": "20/01"
   },
   {
-    "codi": "15",
+    "codi": "01",
     "nom": "fluorescent",
     "descripcio": "caracteritza les substàncies que són capaces d'absorbir energia en forma de radiacions electromagnètiques i després emetre part d'aquesta energia en forma de radiació electromagnètica de longitud d'ona diferent.",
     "preuCompra": 32,
@@ -126,7 +126,7 @@
     "codiSubCategoria": "01/01"
   },
   {
-    "codi": "02",
+    "codi": "01",
     "nom": "Router",
     "descripcio": "Un router és un dispositiu que ofereix una connexió Wi‑Fi, que normalment està connectat a un mòdem i que envia informació d'Internet als dispositius personals, com ara ordinadors, telèfons o tauletes..",
     "preuCompra": 55,
@@ -144,7 +144,7 @@
     "codiSubCategoria": "35/01"
   },
   {
-    "codi": "17",
+    "codi": "01",
     "nom": "Microscoi Ceti",
     "descripcio": "Microscopis biològics són perfectes per als exàmens microscòpics diaris de laboratori..",
     "preuCompra": 349,
@@ -153,7 +153,7 @@
     "codiSubCategoria": "41/17"
   },
   {
-    "codi": "17",
+    "codi": "01",
     "nom": "Estufa Pselecta",
     "descripcio": "L'estufa d'assecatge és un equip comunament usat per deshidratar reactius o mostres de laboratori o assecar instruments.",
     "preuCompra": 1099.36,
@@ -162,7 +162,7 @@
     "codiSubCategoria": "02/14"
   },
   {
-    "codi": "19",
+    "codi": "02",
     "nom": "Osciloscopi Hameg",
     "descripcio": "Un dispositiu de visualització gràfica que mostra senyals elèctrics variables en el temps.",
     "preuCompra": 643,
@@ -171,7 +171,7 @@
     "codiSubCategoria": "41/17"
   },
   {
-    "codi": "18",
+    "codi": "01",
     "nom": "Laboratori Masses",
     "descripcio": "Instrument de laboratori de diferents pesos, .",
     "preuCompra": 356,

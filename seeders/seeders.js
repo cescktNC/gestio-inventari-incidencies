@@ -231,7 +231,7 @@ async function exemplars() {
         element.codiMaterial = material[0].id;
         element.codiLocalitzacio = localitzacio[0].id;
 
-        const exemplar_path = url.parse('http://localhost:5000/exemplar/show/' + element._id);
+        const exemplar_path = url.parse('http://localhost:3000/exemplar/show/' + element._id);
         // Genero el QR
         QRCode.toString(exemplar_path.href, {
             errorCorrectionLevel: 'H',
@@ -260,7 +260,6 @@ async function prestecs() {
     let count = 0;
 
     dades.forEach(async element => {
-
         let exemplar = await Exemplar.find({ codi: element.codiExemplar });
         let usuari = await Usuari.find({ dni: element.dniUsuari });
 
