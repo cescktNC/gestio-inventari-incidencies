@@ -14,6 +14,17 @@ router.post("/delete/:id",  localitzacio_controller.delete_post);
 router.get("/update/:id",  localitzacio_controller.update_get);
 router.post("/update/:id",  localitzacio_controller.update_post);
 
+//Rutes API
+
+router.get('/APIlist', localitzacio_controller.LocalitzacioList);
+
+router.post('/APIcreate', localitzacio_controller.LocalitzacioCreate);
+
+router.get('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);
+router.delete('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);
+
+router.get('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
+router.put('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
 
 //API
 

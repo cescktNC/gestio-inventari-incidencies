@@ -16,6 +16,18 @@ router.post("/delete/:id", reserva_controller.delete_post);
 router.get("/update/:id", reserva_controller.update_get);
 router.post("/update/:id", reserva_controller.update_post);
 
+//API
+
+router.get('/APIlist', reserva_controller.ReservaList);
+
+router.post('/APIcreate', reserva_controller.ReservaCreate);
+
+router.get('/APIdelete/:id', reserva_controller.ReservaDelete);
+router.delete('/APIdelete/:id', reserva_controller.ReservaDelete);
+
+router.get('/APIupdate/:id', reserva_controller.ReservaUpdate);
+router.put('/APIupdate/:id', reserva_controller.ReservaUpdate);
+
 
 
 

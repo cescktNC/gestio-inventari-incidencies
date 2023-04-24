@@ -16,7 +16,4 @@ router.post("/delete/:id", planta_controller.delete_post);
 router.get("/update/:id", planta_controller.update_get);
 router.post("/update/:id", upload.single("planol"), planta_controller.update_post);
 
-//API
-router.get('/APIshow/:id', planta_controller.PlantaSowh)
-
 module.exports = router;
