@@ -28,9 +28,5 @@ router.delete('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);
 router.get('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
 router.put('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
 
-//API
-
-router.get('/APIshow/:id', localitzacio_controller.localitzacioSowh);
-
 
 module.exports = router;
