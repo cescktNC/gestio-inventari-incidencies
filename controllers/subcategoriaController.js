@@ -37,7 +37,6 @@ class SubcategoriaController {
   }
 
   static async create_get(req, res, next) {
-
     const categoria_list = await Categoria.find();
     res.render('subcategories/new', { categoriaList: categoria_list, })
   }
@@ -57,7 +56,7 @@ class SubcategoriaController {
       } else {
         res.redirect('/subcategories')
       }
-    })
+    });
   }
 
   static async update_get(req, res, next) {
@@ -172,28 +171,29 @@ class SubcategoriaController {
   }
 
   static async subCategoryCreate(req, res) {
-    let subcategoriaNew = req.body.subcategoryData;
-    Categoria.findById(subcategoriaNew.codiCategoria).exec(function(err, categoria){
-      if (err) res.status(400).json({ error: err });
-      if (categoria === undefined) res.status(400).json({ error: 'Categoria no trobada' });
-
-      subcategoriaNew.codi = subcategoriaNew.codi + '/' + categoria.codi;
-      // Valida que el código no esté ya registrado
-      Subcategoria.findOne({ codi: subcategoriaNew.codi }, function (err, subcategoria) {
-        if (err) res.status(400).json({ error: err });
-
-        if (subcategoria == null) {
-          // Guardar categoria en la base de datos
-          Subcategoria.create(subcategoriaNew, function (error, newsubCategoria) {
-            if (error) res.status(400).json({ error: error.message });
-
-            else res.status(200).json({ ok: true });
-          });
-        } else res.status(400).json({ error: "Subcategoría ja registrada" });
-      });
-      
-    });
+    try {
+      let subcategoriaNew = req.body.subcategoryData;
+  
+      const categoria = await Categoria.findById(subcategoriaNew.codiCategoria).exec();
+  
+      if (!categoria) {
+        return res.status(400).json({ error: 'Categoria no trobada' });
+      }
     
+      let codi = await Subcategoria.find({codiCategoria: subcategoriaNew.codiCategoria}).count() + 1;
+      if(codi < 10) codi = '0' + codi;
+      subcategoriaNew.codi = codi + '/' + categoria.codi;
+  
+      Subcategoria.create(subcategoriaNew, function (error, newsubCategorias) {
+        if (error) {
+          if (error) res.status(400).json({ error: error.message });
+        } else {
+          res.status(200).json({ ok: true });
+        }
+      });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
   }
 
   static async subCategorySowh(req, res, next){
