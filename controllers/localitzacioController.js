@@ -140,10 +140,10 @@ class LocalitzacioController {
           .skip(startIndex)
           .limit(PAGE_SIZE)
           .exec(function (err, list) {
-          if (err) {
-            res.status(400).json({ error: err });
-          }
-          res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+            if (err) {
+              res.status(400).json({ error: err });
+            }
+            res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
           });
         });
       }
@@ -276,20 +276,19 @@ class LocalitzacioController {
 		});
 	}
     static async LocalitzacioCreate(req, res) {
-      let localitzacioNew = req.body.LocalitzacioData
-        ;
+      let localitzacioNew = req.body.LocalitzacioData;
     
       // Valida que el código no esté ya registrado
       Localitzacio.findOne({ codi: localitzacioNew.codi }, function (err, localitzacio) {
         if (err) res.status(400).json({ error: err });
     
         if (localitzacio == null) {
-        // Guardar categoria en la base de datos
-        Localitzacio.create(localitzacioNew, function (error, createlocalitzacio) {
-          if (error) res.status(400).json({ error: error.message });
-    
-          else res.status(200).json({ ok: true });
-        });
+          // Guardar categoria en la base de datos
+          Localitzacio.create(localitzacioNew, function (error, createlocalitzacio) {
+            if (error) res.status(400).json({ error: error.message });
+      
+            else res.status(200).json({ ok: true });
+          });
         } else res.status(400).json({ error: "Localitzacio ja registrada" });
       });
     }
@@ -297,7 +296,6 @@ class LocalitzacioController {
     static async LocalitzacioUpdate(req, res) {
       const localitzacioId = req.params.id;
       const updatedLocalitzacioData = req.body.LocalitzacioData;
-    
     
       // Valida que el código no esté ya registrado en otra categoría
       Localitzacio.findOne({ codi: updatedLocalitzacioData.codi, _id: { $ne: localitzacioId } }, function (err, localitzacio) {
@@ -326,19 +324,19 @@ class LocalitzacioController {
     static async localitzacioAllLlist(req, res, next) {
         try {
         
-            Localitzacio.find()
-            .sort({ codiPlanta: 1, codi: 1 })
-            .populate('codiPlanta')
-            .exec(function (err, list) {
-                if (err) {
-                    res.status(400).json({ error: err });
-                }
-                res.status(200).json({ list: list });
-            });
+        Localitzacio.find()
+        .sort({ codiPlanta: 1, codi: 1 })
+        .populate('codiPlanta')
+        .exec(function (err, list) {
+          if (err) {
+            res.status(400).json({ error: err });
+          }
+          res.status(200).json({ list: list });
+        });
 
         }
         catch (e) {
-            res.status(400).json({ message: 'Error!' });
+          res.status(400).json({ message: 'Error!' });
         }
     }
 
