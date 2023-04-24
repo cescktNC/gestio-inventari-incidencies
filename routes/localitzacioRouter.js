@@ -17,6 +17,8 @@ router.post("/update/:id",  localitzacio_controller.update_post);
 //Rutes API
 
 router.get('/APIlist', localitzacio_controller.LocalitzacioList);
+router.get('/APIshow/:id', localitzacio_controller.localitzacioSowh);
+router.get('/APIAllList', localitzacio_controller.localitzacioAllLlist);
 
 router.post('/APIcreate', localitzacio_controller.LocalitzacioCreate);
 
@@ -25,11 +27,6 @@ router.delete('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);
 
 router.get('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
 router.put('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
-
-//API
-
-router.get('/APIshow/:id', localitzacio_controller.localitzacioSowh);
-router.get('/APIAllList', localitzacio_controller.localitzacioAllLlist);
 
 
 module.exports = router;
