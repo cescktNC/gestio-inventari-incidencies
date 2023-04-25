@@ -37,7 +37,6 @@ class SubcategoriaController {
   }
 
   static async create_get(req, res, next) {
-
     const categoria_list = await Categoria.find();
     res.render('subcategories/new', { categoriaList: categoria_list, })
   }
@@ -57,7 +56,7 @@ class SubcategoriaController {
       } else {
         res.redirect('/subcategories')
       }
-    })
+    });
   }
 
   static async update_get(req, res, next) {
@@ -137,7 +136,8 @@ class SubcategoriaController {
         const startIndex = (page - 1) * PAGE_SIZE;
 
         Subcategoria.find()
-          .sort({ nom: 1 })
+          .sort({ codiCategoria: 1, codi: 1 })
+          .populate('codiCategoria')
           .skip(startIndex)
           .limit(PAGE_SIZE)
           .exec(function (err, list) {
@@ -149,45 +149,104 @@ class SubcategoriaController {
       });
     }
     catch (e) {
-      res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ error: 'Error!' });
+    }
+  }
+
+  static async SubcategoryAllList(req, res, next) {
+    try {
+
+      Subcategoria.find()
+      .sort({ codiCategoria: 1, codi: 1 })
+      .exec(function (err, list) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+        res.status(200).json({ list: list });
+      });
+    }
+    catch (e) {
+      res.status(400).json({ error: 'Error!' });
     }
   }
 
   static async subCategoryCreate(req, res) {
-    let subcategoriaNew = req.body.subcategoryData
-      ;
-
-    // Valida que el código no esté ya registrado
-    Subcategoria.findOne({ codi: subcategoriaNew.codi }, function (err, subcategoria) {
-      if (err) res.status(400).json({ error: err });
-
-      if (subcategoria == null) {
-        // Guardar categoria en la base de datos
-        Subcategoria.create(subcategoriaNew, function (error, newsubCategoria) {
+    try {
+      let subcategoriaNew = req.body.subcategoryData;
+  
+      const categoria = await Categoria.findById(subcategoriaNew.codiCategoria).exec();
+  
+      if (!categoria) {
+        return res.status(400).json({ error: 'Categoria no trobada' });
+      }
+    
+      let codi = await Subcategoria.find({codiCategoria: subcategoriaNew.codiCategoria}).count() + 1;
+      if(codi < 10) codi = '0' + codi;
+      subcategoriaNew.codi = codi + '/' + categoria.codi;
+  
+      Subcategoria.create(subcategoriaNew, function (error, newsubCategorias) {
+        if (error) {
           if (error) res.status(400).json({ error: error.message });
-
-          else res.status(200).json({ ok: true });
-        });
-      } else res.status(400).json({ error: "Subcategoría ja registrada" });
-    });
+        } else {
+          res.status(200).json({ ok: true });
+        }
+      });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
   }
+
+  static async subCategorySowh(req, res, next){
+    Subcategoria.findById(req.params.id, function(err, subCategoria) {
+      if (err) {
+          res.status(400).json({ message: err });
+      }
+      if (subCategoria == null) {
+          // No results.
+          var err = new Error("Subcategoria not found");
+          res.status(400).json({ message: err });
+
+      }
+      // Success.
+      var subCategoriaJSON = {
+          codi: subCategoria.codi,
+          nom: subCategoria.nom,
+          codiCategoria: subCategoria.codiCategoria
+      };
+      res.status(200).json({ subCategoria: subCategoriaJSON });
+    })
+  }
+
   static async subcategoryUpdate(req, res) {
     const subcategoryId = req.params.id;
-    const updatedsubCategoryData = req.body.subcategoryData;
 
+    let codi = req.body.subcategoryData.codi;
+    if(parseInt(codi) < 10) codi = '0' + req.body.subcategoryData.codiCategoria;
+    const updatedsubCategoryData = new Subcategoria({
+      _id: req.params.id,  
+      nom: req.body.subcategoryData.nom,
+      codi: codi,
+      codiCategoria: req.body.subcategoryData.codiCategoria
+    });
 
-    // Valida que el código no esté ya registrado en otra categoría
-    Subcategoria.findOne({ codi: updatedsubCategoryData.codi, _id: { $ne: subcategoryId } }, function (err, subcategoria) {
+    Categoria.findById(updatedsubCategoryData.codiCategoria).exec(function(err, categoria){
       if (err) res.status(400).json({ error: err });
+      if (categoria == null) res.status(400).json({ error: 'Categoria no trobada' });
 
-      if (subcategoria == null) {
-        // Actualizar la categoría en la base de datos
-        Subcategoria.findByIdAndUpdate(subcategoryId, updatedsubCategoryData, { new: true }, function (error, updatedsubCategoria) {
-          if (error) res.status(400).json({ error: error.message });
+      updatedsubCategoryData.codi = updatedsubCategoryData.codi + '/' + categoria.codi;
+      // Valida que el código no esté ya registrado en otra categoría
+      Subcategoria.findOne({ codi: updatedsubCategoryData.codi, _id: { $ne: subcategoryId } }, function (err, subcategoria) {
+        if (err) res.status(400).json({ error: err });
 
-          else res.status(200).json({ ok: true });
-        });
-      } else res.status(400).json({ error: "Codi de subcategoría ja registrat en un altre subcategoria" });
+        if (subcategoria == null) {
+          // Actualizar la categoría en la base de datos
+          Subcategoria.findByIdAndUpdate(subcategoryId, updatedsubCategoryData, { new: true }, function (error, updatedsubCategoria) {
+            if (error) res.status(400).json({ error: error.message });
+
+            else res.status(200).json({ ok: true });
+          });
+        } else res.status(400).json({ error: "Codi de subcategoría ja registrat en un altre subcategoria" });
+      });
     });
   }
 

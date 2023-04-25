@@ -13,5 +13,9 @@ router.get("/update/:id",  exemplar_controller.update_get);
 router.post("/update/:id",  exemplar_controller.update_post);
 router.get("/show/:id", exemplar_controller.show);
 
+//API
+
+router.get('/APIlist', exemplar_controller.exemplarList);
+
 
 module.exports = router;

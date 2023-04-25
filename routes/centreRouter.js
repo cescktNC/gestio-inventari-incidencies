@@ -20,12 +20,13 @@ router.post("/update/:id",  centre_controller.update_post);
 
 router.get('/APIlist', centre_controller.CentreList);
 
+router.get('/APIshow/:id', centre_controller.CentreSowh);
+
+
 router.post('/APIcreate', centre_controller.CentreCreate);
 
-router.get('/APIdelete/:id', centre_controller.CentreDelete);
 router.delete('/APIdelete/:id', centre_controller.CentreDelete);
 
-router.get('/APIupdate/:id', centre_controller.CentreUpdate);
 router.put('/APIupdate/:id', centre_controller.CentreUpdate);
 
 

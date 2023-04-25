@@ -18,6 +18,10 @@ router.post("/update/:id",  localitzacio_controller.update_post);
 
 router.get('/APIlist', localitzacio_controller.LocalitzacioList);
 
+router.get('/APIshow/:id', localitzacio_controller.localitzacioSowh);
+router.get('/APIAllList', localitzacio_controller.localitzacioAllLlist);
+
+
 router.post('/APIcreate', localitzacio_controller.LocalitzacioCreate);
 
 router.get('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);

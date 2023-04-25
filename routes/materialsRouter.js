@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var upload = require('../libs/storage');
-
 var material_controller = require('../controllers/materialsController');
 
 router.get('/', material_controller.list); 
@@ -19,8 +18,11 @@ router.get("/import", material_controller.import_get);
 router.post("/import", upload.single('fitxer'), material_controller.import_post);
 
 //API
-router.get('/material', material_controller.APIlist); 
-
-
+router.get('/material', material_controller.materiaLlist); 
+router.get('/material/:id', material_controller.materialSowh); 
+router.post('/material', upload.single('fotografia'), material_controller.materialCreate);
+router.post('/material/import', upload.single('fitxer'), material_controller.materialImport);
+router.put('/material/:id', upload.single('fotografia'), material_controller.materialUpdate); 
+router.delete('/material/:id',material_controller.materialDelete); 
 
 module.exports = router;

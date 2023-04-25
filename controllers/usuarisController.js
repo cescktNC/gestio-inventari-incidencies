@@ -191,8 +191,8 @@ class UsuariController {
     static async userList(req, res, next) {
         try {
 
-            const PAGE_SIZE = 10; // Número de documentos por página
-            const page = req.query.page || 1; // Número de página actual
+            const PAGE_SIZE = 10; 
+            const page = req.query.page || 1;
 
             Usuari.countDocuments({}, function(err, count) {
                 if (err) {
@@ -268,14 +268,16 @@ class UsuariController {
     static async userSowh(req, res, next){
         Usuari.findById(req.params.id, function(err, usuari) {
             if (err) {
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: err });
             }
-            if (usuari == null) {
+            if (usuari === null || usuari === undefined) {
                 // No results.
+                console.log('a')
                 var err = new Error("Usuari not found");
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: err });
 
             }
+            
             // Success.
             var usuariJSON = {
                 nom: usuari.nom,

@@ -129,6 +129,7 @@ class plantaController {
 			}
 		});
 	}
+
 	static async PlantaList(req, res, next) {
 		try {
 	
@@ -208,6 +209,29 @@ class plantaController {
 		  else res.status(200).json({ ok: true });
 		});
 	  }
+
+	static async PlantaSowh(req, res, next){
+        Planta.findById(req.params.id)
+        .populate('codiPlanta')
+        .exec(function(err, planta) {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            if (planta == null) {
+                // No results.
+                var err = new Error("Planta not found");
+                res.status(400).json({ message: err });
+
+            }
+            // Success.
+            var plantaJSON = {
+                nom: planta.nom,
+                codi: planta.codi,
+            };
+            res.status(200).json({ Planta: plantaJSON });
+
+        })
+    }
 }
 
 module.exports = plantaController;

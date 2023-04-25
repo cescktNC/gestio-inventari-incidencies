@@ -20,6 +20,9 @@ router.post("/update/:id", upload.single("planol"), planta_controller.update_pos
 
 router.get('/APIlist', planta_controller.PlantaList);
 
+router.get('/APIshow/:id', planta_controller.PlantaSowh);
+
+
 router.post('/APIcreate', planta_controller.PlantaCreate);
 
 router.get('/APIdelete/:id', planta_controller.PlantaDelete);
