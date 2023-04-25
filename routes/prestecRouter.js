@@ -17,20 +17,13 @@ router.post("/update/:id", prestec_controller.update_post);
 //API
 
 router.get('/APIlist', prestec_controller.prestecList);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7c2f09f (Actualitzacio Prestec)
+
 router.get('/APIPendent', prestec_controller.prestecCount);
 router.get('/APIShow/:id', prestec_controller.prestecShow);
 router.get('/APIEstats', prestec_controller.estats);
 router.post('/APIcreate', prestec_controller.prestecCreate);
 router.put('/APIUpdate/:id', prestec_controller.prestecUpdate);
-<<<<<<< HEAD
-=======
-router.post('/APIcreate', prestec_controller.prestecCreate);
->>>>>>> 7934a22 (Solucio conflictes)
-=======
->>>>>>> 7c2f09f (Actualitzacio Prestec)
+
+
 
 module.exports=router;

@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var upload = require('../libs/storage');
-
 var material_controller = require('../controllers/materialsController');
 
 router.get('/', material_controller.list); 
@@ -25,14 +24,5 @@ router.post('/material', upload.single('fotografia'), material_controller.materi
 router.post('/material/import', upload.single('fitxer'), material_controller.materialImport);
 router.put('/material/:id', upload.single('fotografia'), material_controller.materialUpdate); 
 router.delete('/material/:id',material_controller.materialDelete); 
-=======
-router.get('/material/:id', material_controller.materialSowh); 
-router.post('/material', upload.single('fotografia'),material_controller.materialCreate);
-router.post('/material/import', upload.single('fitxer'), material_controller.materialCreate);
-router.put('/material/:id', material_controller.materialUpdate); 
-router.delete('/material/:id', upload.single('fotografia'),material_controller.materialDelete); 
->>>>>>> 7934a22 (Solucio conflictes)
-
-
 
 module.exports = router;

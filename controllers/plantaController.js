@@ -129,8 +129,7 @@ class plantaController {
 			}
 		});
 	}
-<<<<<<< HEAD
-=======
+
 	static async PlantaList(req, res, next) {
 		try {
 	
@@ -233,7 +232,6 @@ class plantaController {
 
         })
     }
->>>>>>> 7934a22 (Solucio conflictes)
 }
 
 module.exports = plantaController;

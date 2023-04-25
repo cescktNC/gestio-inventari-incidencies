@@ -253,34 +253,6 @@ class MaterialController {
                     });
                 } else res.status(400).json({ error: "Material ja registrat" });
             });
-=======
-    static async materialCreate(req, res) {
-        const subcategoria = await SubCategoria.findById(req.body.codiSubCategoria);
-        let codi = req.body.codi;
-        if(parseInt(codi) < 10) codi = '0' + codi;
-
-        let materialNew ={
-            nom: req.body.nom,
-            codi: codi + '-' + subcategoria.codi,
-            descripcio: req.body.descripcio,
-            preuCompra: req.body.preuCompra,
-            anyCompra: req.body.anyCompra,
-            fotografia: req.file.path.substring(7, req.file.path.length),
-            codiSubCategoria: req.body.codiSubCategoria
-        }
-        
-        Material.findOne({ codi: materialNew.codi }, function (err, centre) {
-            if (err) res.status(400).json({ error: err });
-
-            if (centre == null) {
-              // Guardar categoria en la base de datos
-                Material.create(materialNew, function (error, newcentre) {
-                    if (error) res.status(400).json({ error: error.message });
-        
-                    else res.status(200).json({ ok: true });
-                });
-            } else res.status(400).json({ error: "Material ja registrat" });
->>>>>>> 7934a22 (Solucio conflictes)
         });
 
     }
@@ -297,10 +269,10 @@ class MaterialController {
                 var err = new Error("Material not found");
                 res.status(400).json({ message: err });
             }
-<<<<<<< HEAD
+
             
             res.status(200).json({ material: material });
-=======
+
             // Success.
             var materialJSON = {
                 codi: material.codi,
@@ -311,12 +283,11 @@ class MaterialController {
                 fotografia: material.fotografia,
             };
             res.status(200).json({ material: materialJSON });
->>>>>>> 7934a22 (Solucio conflictes)
         });
     }
 
     static async materialUpdate(req, res, next) {
-<<<<<<< HEAD
+
         SubCategoria.findById(req.body.codiSubCategoria).exec(function(err, subCategoria){
             if(err) res.status(400).json({error: err});
             if(subCategoria === null || subCategoria === undefined) res.status(400).json({error: 'Subcategoria no trobada'});
@@ -363,7 +334,6 @@ class MaterialController {
                 }
             );   
         });   
-=======
         let codi = req.body.codi;
         if(parseInt(codi) < 10) codi = '0' + codi;
         let material;
@@ -402,11 +372,7 @@ class MaterialController {
                 res.status(400).json({ id: materialFound.id, ok: true, message: 'Usuari actualitzat correctament' });
             }
         );
-            
-
-
         
->>>>>>> 7934a22 (Solucio conflictes)
     };
 
     static async materialDelete(req, res, next) {
@@ -429,8 +395,6 @@ class MaterialController {
         } else {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
-
-<<<<<<< HEAD
             let count = 0;
 
             jsonArray.forEach(async element => {
@@ -455,7 +419,7 @@ class MaterialController {
                     });
                 }
             });
-=======
+
         let promesa = new Promise((resolve, reject) => {
             Material.create(jsonArray);
         });
@@ -464,7 +428,7 @@ class MaterialController {
         promesa
             .then(res.status(200).json({ok: true})) // s'executa si es compleix la promesa
             .catch(error => res.status(400).json({ message: error.message })); // s'executa si no es compleix la promesa
->>>>>>> 7934a22 (Solucio conflictes)
+
 
     }
 
