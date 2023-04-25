@@ -353,6 +353,7 @@ class LocalitzacioController {
         var err = new Error("Localitzacio not found");
         res.status(400).json({ message: err });
 
+
       }
 
       // Success.
