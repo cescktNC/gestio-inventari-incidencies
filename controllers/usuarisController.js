@@ -268,14 +268,16 @@ class UsuariController {
     static async userSowh(req, res, next){
         Usuari.findById(req.params.id, function(err, usuari) {
             if (err) {
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: err });
             }
-            if (usuari == null) {
+            if (usuari === null || usuari === undefined) {
                 // No results.
+                console.log('a')
                 var err = new Error("Usuari not found");
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: err });
 
             }
+            
             // Success.
             var usuariJSON = {
                 nom: usuari.nom,
