@@ -16,7 +16,7 @@ router.post("/create", comentari_controller.create_post);
 
 // API
 
-router.get("/list/:id", comentari_controller.ComentariList);
-router.post("/create", comentari_controller.ComentariCreate);
+router.get("/comment/list/:id", comentari_controller.ComentariList);
+router.post("/comment/create/:id", comentari_controller.ComentariCreate);
 
 module.exports = router;
