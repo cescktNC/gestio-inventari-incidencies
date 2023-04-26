@@ -207,7 +207,7 @@ class reservaController {
 	  static async ReservaDelete(req, res) {
 		const ReservaId = req.params.id;
 	
-		Reseva.findByIdAndRemove(ReservaId, function (err, deletedreserva) {
+		Reserva.findByIdAndRemove(ReservaId, function (err, deletedreserva) {
 		  if (err) res.status(400).json({ error: err.message });
 	
 		  else res.status(200).json({ ok: true });
