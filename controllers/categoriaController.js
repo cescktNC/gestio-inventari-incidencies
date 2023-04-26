@@ -157,20 +157,20 @@ class CategoriaController {
     }
 
     static async categoryCreate(req, res) {
-        let categoriaNew = req.body.categoryData;
+        let codi = await Categoria.count() + 1;
+        if(codi < 10) codi = '0' + codi;
+        let categoriaNew = {
+            codi: codi,
+            nom: req.body.categoryData.nom
+        };
 
         // Valida que el código no esté ya registrado
-        Categoria.findOne({ codi: categoriaNew.codi }, function (err, categoria) {
-            if (err) res.status(400).json({ error: err });
 
-            if (categoria == null) {
-                // Guardar categoria en la base de datos
-                Categoria.create(categoriaNew, function (error, newCategoria) {
-                    if (error) res.status(400).json({ error: error.message });
+        // Guardar categoria en la base de datos
+        Categoria.create(categoriaNew, function (error, newCategoria) {
+            if (error) res.status(400).json({ error: error.message });
 
-                    else res.status(200).json({ ok: true });
-                });
-            } else res.status(400).json({ error: "Codi de categoria ja registrada" });
+            else res.status(200).json({ ok: true });
         });
     };
 
