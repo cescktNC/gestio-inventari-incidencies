@@ -108,7 +108,6 @@ app.use('/incidencies', incidenciaRouter);
 app.use('/prestec', prestecRouter);
 app.use('/autenticacions', authRouter);
 app.use('/comentari', comentariRouter);
-app.use('/comentari', comentariRouter);
 app.use('/reservaCadira', reservaCadiraRouter);
 
 // Per a poder utilitzar el sistema de rutes
