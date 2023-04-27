@@ -5,14 +5,15 @@ const secret = 'secretDelToken';
 
 exports.protegirRuta = async function (req, res, next) {
   // Obtenir el toquen de la capçelera 'Authorization'
-  const headerToken = req.headers.authorization.substring(7);
-  
-  // Verifica si sa proporcionat el token
-  if (headerToken === undefined) {
+  const headerToken = req.headers.authorization;
+
+  if (!headerToken || !headerToken.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Es requereix un token per accedir a la ruta" });
   }
-
-  await Token.findOne({token: headerToken}).exec((err, token) => {
+  
+  const token = headerToken.substring(7);
+  
+  await Token.findOne({token: token}).exec((err, token) => {
     if(err) res.status(401).json({ message: "El token proporcionat no es valid" });
 
     try {
