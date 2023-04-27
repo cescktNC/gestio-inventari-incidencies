@@ -18,12 +18,12 @@ router.post("/delete/:id", usuaris_controller.delete_post);
 
 //API
 router.get("/user/:id", validateToken.protegirRuta, usuaris_controller.userSowh);
-router.get("/user", usuaris_controller.userList);
-router.get("/carrecs", usuaris_controller.carrecs);
-router.post("/user", upload.single("profilePicture"), usuaris_controller.userCreate);
-router.put("/user/:id", upload.single("profilePicture"), usuaris_controller.userUpdate);
-router.put("/user/password/:id", usuaris_controller.passwordUpdate);
-router.delete("/user/:id", usuaris_controller.userDelete);
+router.get("/user", validateToken.protegirRuta, usuaris_controller.userList);
+router.get("/carrecs", validateToken.protegirRuta, usuaris_controller.carrecs);
+router.post("/user", validateToken.protegirRuta, upload.single("profilePicture"), usuaris_controller.userCreate);
+router.put("/user/:id", validateToken.protegirRuta, upload.single("profilePicture"), usuaris_controller.userUpdate);
+router.put("/user/password/:id", validateToken.protegirRuta, usuaris_controller.passwordUpdate);
+router.delete("/user/:id", validateToken.protegirRuta, usuaris_controller.userDelete);
 
 
 module.exports = router;

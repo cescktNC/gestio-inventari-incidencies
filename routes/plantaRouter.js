@@ -2,6 +2,7 @@ var express = require("express");
 var express = require("express");
 var router = express.Router();
 var upload = require("../libs/storage");
+const validateToken = require("../middlewares/validateToken");
 
 const planta_controller = require("../controllers/plantaController");
 
@@ -18,17 +19,17 @@ router.post("/update/:id", upload.single("planol"), planta_controller.update_pos
 
 //Rutes API
 
-router.get('/APIlist', planta_controller.PlantaList);
+router.get('/APIlist', validateToken.protegirRuta, planta_controller.PlantaList);
 
-router.get('/APIshow/:id', planta_controller.PlantaSowh);
+router.get('/APIshow/:id', validateToken.protegirRuta, planta_controller.PlantaSowh);
 
 
-router.post('/APIcreate', planta_controller.PlantaCreate);
+router.post('/APIcreate', validateToken.protegirRuta, planta_controller.PlantaCreate);
 
-router.get('/APIdelete/:id', planta_controller.PlantaDelete);
-router.delete('/APIdelete/:id', planta_controller.PlantaDelete);
+router.get('/APIdelete/:id', validateToken.protegirRuta, planta_controller.PlantaDelete);
+router.delete('/APIdelete/:id', validateToken.protegirRuta, planta_controller.PlantaDelete);
 
-router.get('/APIupdate/:id', planta_controller.PlantaUpdate);
-router.put('/APIupdate/:id', planta_controller.PlantaUpdate);
+router.get('/APIupdate/:id', validateToken.protegirRuta, planta_controller.PlantaUpdate);
+router.put('/APIupdate/:id', validateToken.protegirRuta, planta_controller.PlantaUpdate);
 
 module.exports = router;

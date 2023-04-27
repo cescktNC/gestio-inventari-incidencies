@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+const validateToken = require("../middlewares/validateToken");
+
 
 const prestec_controller = require("../controllers/prestecController");
 
@@ -16,13 +18,13 @@ router.post("/update/:id", prestec_controller.update_post);
 
 //API
 
-router.get('/APIlist', prestec_controller.prestecList);
+router.get('/APIlist', validateToken.protegirRuta, prestec_controller.prestecList);
 
-router.get('/APIPendent', prestec_controller.prestecCount);
-router.get('/APIShow/:id', prestec_controller.prestecShow);
-router.get('/APIEstats', prestec_controller.estats);
-router.post('/APIcreate', prestec_controller.prestecCreate);
-router.put('/APIUpdate/:id', prestec_controller.prestecUpdate);
+router.get('/APIPendent', validateToken.protegirRuta, prestec_controller.prestecCount);
+router.get('/APIShow/:id', validateToken.protegirRuta, prestec_controller.prestecShow);
+router.get('/APIEstats', validateToken.protegirRuta, prestec_controller.estats);
+router.post('/APIcreate', validateToken.protegirRuta, prestec_controller.prestecCreate);
+router.put('/APIUpdate/:id', validateToken.protegirRuta, prestec_controller.prestecUpdate);
 
 
 

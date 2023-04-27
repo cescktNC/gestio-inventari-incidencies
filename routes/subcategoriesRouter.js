@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const validateToken = require("../middlewares/validateToken");
 
 const subcategoria_controller = require("../controllers/subcategoriaController");
 
@@ -18,16 +19,16 @@ router.post("/update/:id",  subcategoria_controller.update_post);
 
 //Rutes API
 
-router.get('/APIlist', subcategoria_controller.SubcategoryList);
+router.get('/APIlist', validateToken.protegirRuta, subcategoria_controller.SubcategoryList);
 
-router.get('/APIAlllist', subcategoria_controller.SubcategoryAllList);
+router.get('/APIAlllist', validateToken.protegirRuta, subcategoria_controller.SubcategoryAllList);
 
-router.get('/APIshow/:id', subcategoria_controller.subCategorySowh);
+router.get('/APIshow/:id', validateToken.protegirRuta, subcategoria_controller.subCategorySowh);
 
-router.post('/APIcreate', subcategoria_controller.subCategoryCreate);
+router.post('/APIcreate', validateToken.protegirRuta, subcategoria_controller.subCategoryCreate);
 
-router.delete('/APIdelete/:id', subcategoria_controller.subcategoryDelete);
+router.delete('/APIdelete/:id', validateToken.protegirRuta, subcategoria_controller.subcategoryDelete);
 
-router.put('/APIupdate/:id', subcategoria_controller.subcategoryUpdate);
+router.put('/APIupdate/:id', validateToken.protegirRuta, subcategoria_controller.subcategoryUpdate);
 
 module.exports = router;
