@@ -1,9 +1,8 @@
 var express = require("express");
 var router = express.Router();
+const validateToken = require("../middlewares/validateToken");
 
 const localitzacio_controller = require("../controllers/localitzacioController");
-
-
 
 router.get("/", localitzacio_controller.list);
 
@@ -16,18 +15,18 @@ router.post("/update/:id",  localitzacio_controller.update_post);
 
 //Rutes API
 
-router.get('/APIlist', localitzacio_controller.LocalitzacioList);
+router.get('/APIlist', validateToken.protegirRuta, localitzacio_controller.LocalitzacioList);
 
-router.get('/APIshow/:id', localitzacio_controller.localitzacioSowh);
-router.get('/APIAllList', localitzacio_controller.localitzacioAllLlist);
+router.get('/APIshow/:id', validateToken.protegirRuta, localitzacio_controller.localitzacioSowh);
+router.get('/APIAllList', validateToken.protegirRuta, localitzacio_controller.localitzacioAllLlist);
 
 
-router.post('/APIcreate', localitzacio_controller.LocalitzacioCreate);
+router.post('/APIcreate', validateToken.protegirRuta, localitzacio_controller.LocalitzacioCreate);
 
-router.get('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);
-router.delete('/APIdelete/:id', localitzacio_controller.LocalitzacioDelete);
+router.get('/APIdelete/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioDelete);
+router.delete('/APIdelete/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioDelete);
 
-router.get('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
-router.put('/APIupdate/:id', localitzacio_controller.LocalitzacioUpdate);
+router.get('/APIupdate/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioUpdate);
+router.put('/APIupdate/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioUpdate);
 
 module.exports = router;

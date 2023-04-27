@@ -123,7 +123,7 @@ class cadiraController {
         const startIndex = (page - 1) * PAGE_SIZE;
 
         Cadira.find()
-          .sort({ nom: 1 })
+          .sort({ fila: 1, numero: 1 })
           .skip(startIndex)
           .limit(PAGE_SIZE)
           .exec(function (err, list) {

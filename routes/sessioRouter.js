@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const validateToken = require("../middlewares/validateToken");
 
 const sessio_controller = require("../controllers/sessioController");
 
@@ -18,15 +19,15 @@ router.post("/update/:id",  sessio_controller.update_post);
 
 //API
 
-router.get('/APIlist', sessio_controller.SessioList);
+router.get('/APIlist', validateToken.protegirRuta, sessio_controller.SessioList);
 
-router.post('/APIcreate', sessio_controller.SessioCreate);
+router.post('/APIcreate', validateToken.protegirRuta, sessio_controller.SessioCreate);
 
-router.get('/APIdelete/:id', sessio_controller.SessioDelete);
-router.delete('/APIdelete/:id', sessio_controller.SessioDelete);
+router.get('/APIdelete/:id', validateToken.protegirRuta, sessio_controller.SessioDelete);
+router.delete('/APIdelete/:id', validateToken.protegirRuta, sessio_controller.SessioDelete);
 
-router.get('/APIupdate/:id', sessio_controller.SessioUpdate);
-router.put('/APIupdate/:id', sessio_controller.SessioUpdate);
+router.get('/APIupdate/:id', validateToken.protegirRuta, sessio_controller.SessioUpdate);
+router.put('/APIupdate/:id', validateToken.protegirRuta, sessio_controller.SessioUpdate);
 
 
 

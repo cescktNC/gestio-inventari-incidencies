@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const validateToken = require("../middlewares/validateToken");
 
 const incidencia_controller = require("../controllers/incidenciaController");
 
@@ -14,11 +15,11 @@ router.get("/update/:id",  incidencia_controller.update_get);
 router.post("/update/:id",  incidencia_controller.update_post);
 
 //API
-router.get("/APIList", incidencia_controller.incidenciaList);
-router.get("/APIShow/:id", incidencia_controller.incidenciaShow);
-router.get("/APIEnum", incidencia_controller.incidenciaEnum);
-router.post("/APICreate", incidencia_controller.IncidenciaCreate);
-router.put("/APIUpdate/:id", incidencia_controller.incidenciaUpdate);
+router.get("/APIList", validateToken.protegirRuta, incidencia_controller.incidenciaList);
+router.get("/APIShow/:id", validateToken.protegirRuta, incidencia_controller.incidenciaShow);
+router.get("/APIEnum", validateToken.protegirRuta, incidencia_controller.incidenciaEnum);
+router.post("/APICreate", validateToken.protegirRuta, incidencia_controller.IncidenciaCreate);
+router.put("/APIUpdate/:id", validateToken.protegirRuta, incidencia_controller.incidenciaUpdate);
 
 
 module.exports = router;
