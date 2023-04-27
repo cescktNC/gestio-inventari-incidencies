@@ -269,7 +269,9 @@ class IncidenciaController {
     static async incidenciaShow(req, res, next){
         try {
             let incidencia =  await Incidencia.findById(req.params.id).populate('codiExemplar');
-            let incidenciaJSON = {...incidencia, codiExemplar: incidencia.codiExemplar.codi}
+            let incidenciaJSON;
+            if(incidencia.codiExemplar) incidenciaJSON = {...incidencia, codiExemplar: incidencia.codiExemplar.codi}; 
+            else  incidenciaJSON = {...incidencia};
             res.status(200).json({incidencia: incidenciaJSON});
         } catch (error) {
             res.status(400).json({error});

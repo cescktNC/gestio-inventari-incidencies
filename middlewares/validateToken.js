@@ -10,7 +10,7 @@ exports.protegirRuta = async function (req, res, next) {
   if (!headerToken || !headerToken.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Es requereix un token per accedir a la ruta" });
   }
-  
+
   const token = headerToken.substring(7);
   
   await Token.findOne({token: token}).exec((err, token) => {
