@@ -17,12 +17,12 @@ router.post("/update/:id",  cadira_controller.update_post);
 
 router.get('/APIlist', validateToken.protegirRuta, cadira_controller.CadiraList);
 
+router.get('/APIshow/:id', validateToken.protegirRuta, cadira_controller.CadiraShow);
+
 router.post('/APIcreate', validateToken.protegirRuta, cadira_controller.CadiraCreate);
 
-router.get('/APIdelete/:id', validateToken.protegirRuta, cadira_controller.CadiraDelete);
 router.delete('/APIdelete/:id', validateToken.protegirRuta, cadira_controller.CadiraDelete);
 
-router.get('/APIupdate/:id', validateToken.protegirRuta, cadira_controller.CadiraUpdate);
 router.put('/APIupdate/:id', validateToken.protegirRuta, cadira_controller.CadiraUpdate);
 
 

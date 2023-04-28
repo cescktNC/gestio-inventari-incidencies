@@ -139,12 +139,19 @@ class cadiraController {
     }
   }
 
+  static async CadiraShow(req, res){
+    Cadira.findById(req.params.id).exec(function(err,cadira){
+      if(err) res.status(400).json({error: err});
+      if(cadira == null) res.status(400).json({error: 'Cadira no trobada'});
+      else res.status(200).json({cadira});
+    })
+  }
+
   static async CadiraCreate(req, res) {
-    let CadiraNew = req.body.CadiraData
-      ;
+    let CadiraNew = req.body.CadiraData;
 
     // Valida que el código no esté ya registrado
-    Cadira.findOne({ codi: CadiraNew.codi }, function (err, cadira) {
+    Cadira.findOne({ fila: CadiraNew.fila, numero: CadiraNew.numero}, function (err, cadira) {
       if (err) res.status(400).json({ error: err });
 
       if (cadira == null) {
@@ -159,11 +166,10 @@ class cadiraController {
   }
   static async CadiraUpdate(req, res) {
     const CadiraId = req.params.id;
-    const updatedCadiraData = req.body.CentreData;
-
+    const updatedCadiraData = req.body.CadiraData;
 
     // Valida que el código no esté ya registrado en otra categoría
-    Cadira.findOne({ codi: updatedCadiraData.codi, _id: { $ne: CadiraId } }, function (err, cadira) {
+    Cadira.findOne({ fila: updatedCadiraData.fila, numero: updatedCadiraData.numero, _id: { $ne: CadiraId } }, function (err, cadira) {
       if (err) res.status(400).json({ error: err });
 
       if (cadira == null) {
