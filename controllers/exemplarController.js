@@ -160,7 +160,7 @@ class ExemplarController {
       var exemplar = await Exemplar.findById(req.params.id)
         .populate('codiMaterial')
         .populate('codiLocalitzacio')
-      res.render('exemplar/show', { exemplar: exemplar });
+      res.render('exemplar/show', { exemplar });
     } catch (e) {
       res.send('Error!');
     }
@@ -184,8 +184,8 @@ class ExemplarController {
     
         Exemplar.find()
         .sort({ codi: 1, codiMaterial: 1 })
-        .populate('codiMaterial')
-        .populate('codiLocalitzacio')
+        .populate('codiMaterial', 'nom')
+        .populate('codiLocalitzacio', 'nom')
         .skip(startIndex)
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
@@ -203,8 +203,19 @@ class ExemplarController {
 
   static async exemplarSowh(req, res, next){
     Exemplar.findById(req.params.id)
-    .populate('codiMaterial')
-    .populate('codiLocalitzacio')
+    .populate({
+      path: 'codiMaterial',
+      populate: { path: 'codiSubCategoria', model: 'Subcategoria' }
+    })
+    .populate({
+      path: 'codiLocalitzacio',
+      populate: [
+        { path: 'codiPlanta', model: 'Planta',
+          populate: { path: 'codiCentre', model: 'Centre' }
+        }
+      ]
+    }
+    )
     .exec(function(err, exemplar) {
       if (err) {
         res.status(400).json({ error: err });
@@ -215,57 +226,58 @@ class ExemplarController {
         res.status(400).json({ error: err });
 
       }
+      console.log(exemplar)
       res.status(200).json({ exemplar: exemplar });
 
     });
 }
 
   static async exemplarCreate(req, res, next) {
-    Material.findById(req.body.exemplar.codiMaterial).exec(function(error, material){
-      if(error) res.status(400).json({error});
+    try {
+      let material = await Material.findById(req.body.exemplar.codiMaterial);
       if(material == null) res.status(400).json({error: 'Material no trobat'});
 
-      Localitzacio.findById(req.body.exemplar.codiLocalitzacio).exec(function(error, localitzacio){
-        if(error) res.status(400).json({error});
-        if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
+      let localitzacio = await Localitzacio.findById(req.body.exemplar.codiLocalitzacio);
+      if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
 
-        let codi = req.body.exemplar.codi;
-        if(parseInt(codi) > 10) codi = '0' + codi;
+      let codi = await Exemplar.find().count() + 1;
+      if(codi < 10) codi = '0' + codi;
 
-        var exemplar = {
-          codi: codi + '/' + material.codi + '-' + localitzacio.codi,
-          demarca: false,
-          codiMaterial: req.body.exemplar.codiMaterial,
-          codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
-        }
+      var exemplar = {
+        codi: codi + '/' + material.codi + '-' + localitzacio.codi,
+        demarca: false,
+        codiMaterial: req.body.exemplar.codiMaterial,
+        codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
+      }
 
-        Exemplar.create(exemplar, function (error, newExemplar) {
-          if (error) res.status(400).json({ error: error.message })
+      Exemplar.create(exemplar, function (error, newExemplar) {
+        if (error) res.status(400).json({ error: error.message })
 
-          const exemplar_path = url.parse('http://localhost:3000').href + 'home/exemplar/show/' + newExemplar.id;
-          // Genero el QR
-          QRCode.toString(exemplar_path, {
-            errorCorrectionLevel: 'H',
-            type: 'svg'
-          }, function(err, qr_svg) {
-            if (err) throw err;
-            newExemplar['qr'] = qr_svg;
-            Exemplar.findByIdAndUpdate(
-              newExemplar.id,
-              newExemplar,
-              { runValidators: true },
-              function (err, exemplarfound) {
-                if (err) {
-                  res.status(400).json({ error: error.message });
-                }
-                else res.status(200).json({ok: true})
+        const exemplar_path = url.parse('http://localhost:3000').href + 'home/exemplar/show/' + newExemplar.id;
+        // Genero el QR
+        QRCode.toString(exemplar_path, {
+          errorCorrectionLevel: 'H',
+          type: 'svg'
+        }, function(err, qr_svg) {
+          if (err) throw err;
+          newExemplar['qr'] = qr_svg;
+          Exemplar.findByIdAndUpdate(
+            newExemplar.id,
+            newExemplar,
+            { runValidators: true },
+            function (err, exemplarfound) {
+              if (err) {
+                res.status(400).json({ error: error.message });
               }
-            );
-          });
-          
+              else res.status(200).json({ok: true})
+            }
+          );
         });
-      })
-    });
+      });
+
+    } catch (error) {
+      res.status(400).json({ error });
+    }
 
   }
 

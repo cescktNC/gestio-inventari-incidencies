@@ -21,6 +21,7 @@ router.post("/import", upload.single('fitxer'), material_controller.import_post)
 
 //API
 router.get('/material', validateToken.protegirRuta, material_controller.materiaLlist); 
+router.get('/material/allList', validateToken.protegirRuta, material_controller.materiaAllLlist);
 router.get('/material/:id', validateToken.protegirRuta, material_controller.materialSowh); 
 router.post('/material', validateToken.protegirRuta, upload.single('fotografia'), material_controller.materialCreate);
 router.post('/material/import', validateToken.protegirRuta, upload.single('fitxer'), material_controller.materialImport);
