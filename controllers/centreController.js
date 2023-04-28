@@ -140,26 +140,20 @@ class CentreController {
     }
   
     static async CentreCreate(req, res) {
-      let codi = req.body.codi;
-      if(parseInt(codi) < 10) codi = '0' + codi;
+      let codi = await Centre.find().count() + 1;
+      if(codi < 10) codi = '0' + codi;
       let CentreNew = new Centre({
-        codi:codi,
+        codi: codi,
         nom: req.body.nom
       });
 
-      // Valida que el código no esté ya registrado
-      Centre.findOne({ codi: CentreNew.codi }, function (err, centre) {
-        if (err) res.status(400).json({ error: err });
-  
-        if (centre == null) {
-          // Guardar categoria en la base de datos
-          Centre.create(CentreNew, function (error, newcentre) {
-            if (error) res.status(400).json({ error: error.message });
-  
-            else res.status(200).json({ ok: true });
-          });
-        } else res.status(400).json({ error: "Centre ja registrat" });
+      Centre.create(CentreNew, function (error, newcentre) {
+        if (error) res.status(400).json({ error: error.message });
+
+        else res.status(200).json({ ok: true });
       });
+
+
     }
 
     static async CentreSowh(req, res, next){
@@ -185,11 +179,8 @@ class CentreController {
 
     static async CentreUpdate(req, res) {
       const CentreId = req.params.id;
-      let codi = req.body.codi;
-      if(parseInt(codi) < 10) codi = '0' + codi;
       const updatedCentreData = new Centre({
         _id: req.params.id,
-        codi: codi,
         nom: req.body.nom
       });
   
