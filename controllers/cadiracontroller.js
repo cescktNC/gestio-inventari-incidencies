@@ -41,8 +41,7 @@ class cadiraController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
+
     const sessio_list = await Sessio.find();
     Cadira.create(req.body, function (error, newCadira) {
       if (error) {

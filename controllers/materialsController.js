@@ -207,7 +207,10 @@ class MaterialController {
             
                 Material.find()
                 .sort({ codiSubCategoria: 1, codi: 1 })
-                .populate('codiSubCategoria')
+                .populate({
+                    path: 'codiSubCategoria',
+                    select: 'nom'
+                })
                 .skip(startIndex)
                 .limit(PAGE_SIZE)
                 .exec(function (err, list) {
@@ -218,7 +221,7 @@ class MaterialController {
             });
         }
         catch (e) {
-            res.status(400).json({ message: 'Error!' });
+            res.status(400).json({ error: e });
         }
     }
 
@@ -232,159 +235,104 @@ class MaterialController {
             });
         }
         catch (e) {
-            res.status(400).json({ error: 'Error!' });
+            res.status(400).json({ error: e });
         }
     }
 
     static async materialCreate(req, res) {
-        SubCategoria.findById(req.body.codiSubCategoria).exec(function(err, subCategoria){
-            if(err) res.status(400).json({error: err});
+
+        try {
+            let material = req.body;
+            let subCategoria = await SubCategoria.findById(material.codiSubCategoria).exec();
             if(subCategoria === null) res.status(400).json({error: 'Subcategoria no trobada'});
 
-            let codi = req.body.codi;
-            if(parseInt(codi) < 10) codi = '0' + codi;
+            material.codi = await Material.find({codiSubCategoria: material.codiSubCategoria}).count() + 1;
+            if(material.codi < 10) material.codi = '0' + material.codi;
+            material.codi = material.codi + '-' + subCategoria.codi;
 
-            let materialNew ={
-                nom: req.body.nom,
-                codi: codi + '-' + subCategoria.codi,
-                descripcio: req.body.descripcio,
-                preuCompra: req.body.preuCompra,
-                anyCompra: req.body.anyCompra,
-                fotografia: req.file.path.substring(7, req.file.path.length),
-                codiSubCategoria: req.body.codiSubCategoria
-            }
-            
-            Material.findOne({ codi: materialNew.codi }, function (err, centre) {
-                if (err) res.status(400).json({ error: err });
-
-                if (centre == null) {
-                // Guardar categoria en la base de datos
-                    Material.create(materialNew, function (error, newcentre) {
-                        if (error) res.status(400).json({ error: error.message });
-            
-                        else res.status(200).json({ ok: true });
-                    });
-                } else res.status(400).json({ error: "Material ja registrat" });
+            Material.create(material, function (error, newcentre) {
+                if (error) res.status(400).json({ error: error.message });
+    
+                else res.status(200).json({ ok: true });
             });
-        });
 
+        } catch (error) {
+            res.status(400).json({ error });     
+        }
     }
 
     static async materialSowh(req, res, next){
         Material.findById(req.params.id)
-        .populate('codiSubCategoria')
+        .populate({
+            path: 'codiSubCategoria',
+            select: 'nom'
+        })
         .exec(function(err, material) {
             if (err) {
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: err });
             }
             if (material == null) {
                 // No results.
-                var err = new Error("Material not found");
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: "Material not found" });
             }
-
             
             res.status(200).json({ material: material });
 
-            // Success.
-            var materialJSON = {
-                codi: material.codi,
-                nom: material.nom,
-                descripcio: material.descripcio,
-                preuCompra: material.preuCompra,
-                anyCompra: material.anyCompra,
-                fotografia: material.fotografia,
-            };
-            res.status(200).json({ material: materialJSON });
         });
     }
 
     static async materialUpdate(req, res, next) {
 
-        SubCategoria.findById(req.body.codiSubCategoria).exec(function(err, subCategoria){
-            if(err) res.status(400).json({error: err});
-            if(subCategoria === null || subCategoria === undefined) res.status(400).json({error: 'Subcategoria no trobada'});
-
-            let codi = req.body.codi;
-
-            if(parseInt(codi) < 10) codi = '0' + codi;
-
+        try {
             let material;
 
             if(req.file == null){
                 material = {
                     nom: req.body.nom,
-                    codi: codi + '-' + subCategoria.codi,
                     descripcio: req.body.descripcio,
                     preuCompra: req.body.preuCompra,
                     anyCompra: req.body.anyCompra,
                     codiSubCategoria: req.body.codiSubCategoria,
+                    newCodiSubCategoria: req.body.newCodiSubCategoria,
                     _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
                 };
             } else {
                 material = {
                     nom: req.body.nom,
-                    codi: codi + '-' + subCategoria.codi,
                     descripcio: req.body.descripcio,
                     preuCompra: req.body.preuCompra,
                     anyCompra: req.body.anyCompra,
                     fotografia: req.file.path.substring(7, req.file.path.length),
                     codiSubCategoria: req.body.codiSubCategoria,
+                    newCodiSubCategoria: req.body.newCodiSubCategoria,
                     _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
                 };
+            };
+
+            if(material.newCodiSubCategoria !== material.codiSubCategoria){
+                let subCategoria = await SubCategoria.findById(material.newCodiSubCategoria).exec();
+
+                material.codi = await Material.find({codiSubCategoria: material.newCodiSubCategoria}).count() + 1;
+                if(material.codi < 10) material.codi = '0' + material.codi;
+
+                material.codi = material.codi + '-' + subCategoria.codi;
+                material.codiSubCategoria = material.newCodiSubCategoria
+
             }
 
-            
-            Material.findByIdAndUpdate(
-                req.params.id,
+            Material.findByIdAndUpdate(material._id,
                 material,
                 { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
                 function (err, materialFound) {
 
-                    if (err) res.status(400).json({ material: material, error: err.message });
+                    if (err) res.status(400).json({ errors: err.message });
 
-                    res.status(400).json({ id: materialFound.id, ok: true, message: 'Usuari actualitzat correctament' });
+                    res.status(400).json({ id: materialFound.id, ok: true, message: '' });
                 }
-            );   
-        });   
-        let codi = req.body.codi;
-        if(parseInt(codi) < 10) codi = '0' + codi;
-        let material;
-        if(req.file==null){
-            list_material = {
-                nom: req.body.nom,
-                codi: codi + '-' + subcategoria.codi,
-                descripcio: req.body.descripcio,
-                preuCompra: req.body.preuCompra,
-                anyCompra: req.body.anyCompra,
-                codiSubCategoria: req.body.codiSubCategoria,
-                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-            };
-        }else{
-            list_material = {
-                nom: req.body.nom,
-                codi: codi + '-' + subcategoria.codi,
-                descripcio: req.body.descripcio,
-                preuCompra: req.body.preuCompra,
-                anyCompra: req.body.anyCompra,
-                fotografia: req.file.path.substring(7, req.file.path.length),
-                codiSubCategoria: req.body.codiSubCategoria,
-                _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-            };
+            ); 
+        } catch (error) {
+            res.status(400).json({ error });
         }
-
-        
-        Material.findByIdAndUpdate(
-            req.params.id,
-            material,
-            { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
-            function (err, materialFound) {
-
-                if (err) res.status(400).json({ material: material, error: err.message });
-
-                res.status(400).json({ id: materialFound.id, ok: true, message: 'Usuari actualitzat correctament' });
-            }
-        );
         
     };
 
@@ -423,7 +371,6 @@ class MaterialController {
                 element.codiSubCategoria = subCategoria._id;
             
                 count++;
-                console.log(element);
             
                 if (count == jsonArray.length) {
                     Material.create(jsonArray, function(error){

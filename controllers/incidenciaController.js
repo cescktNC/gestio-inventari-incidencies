@@ -75,7 +75,6 @@ class IncidenciaController {
             }
             Incidencia.create(incidencia, function (error, newRecord) {
                 if (error) {
-                    console.log(error)
                     res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
                 } else {
     

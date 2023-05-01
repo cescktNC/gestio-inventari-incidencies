@@ -199,12 +199,12 @@ class SubcategoriaController {
   static async subCategorySowh(req, res, next){
     Subcategoria.findById(req.params.id, function(err, subCategoria) {
       if (err) {
-          res.status(400).json({ message: err });
+          res.status(400).json({ error: err });
       }
       if (subCategoria == null) {
           // No results.
           var err = new Error("Subcategoria not found");
-          res.status(400).json({ message: err });
+          res.status(400).json({ error: err });
 
       }
       // Success.

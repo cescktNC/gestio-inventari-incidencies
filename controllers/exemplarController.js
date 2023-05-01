@@ -3,6 +3,8 @@ var Localitzacio = require("../models/localitzacio");
 var Material = require("../models/material");
 var QRCode = require('qrcode');
 var url  = require('url');
+var fs = require('fs');
+const csv = require('csvtojson'); // Mòdul per a poder convertir un CSV a JSON
 
 class ExemplarController {
 
@@ -12,7 +14,7 @@ class ExemplarController {
       const page = req.query.page || 1; // Número de página actual
       Exemplar.countDocuments({}, function(err, count) {
         if (err) {
-            return next(err);
+          return next(err);
         }
 
         const totalItems = count;
@@ -26,10 +28,10 @@ class ExemplarController {
         .skip(startIndex)
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
-            if (err) {
-                return next(err);
-            }
-            res.render('exemplar/list', { list: list, totalPages: totalPages, currentPage: page });
+          if (err) {
+            return next(err);
+          }
+          res.render('exemplar/list', { list: list, totalPages: totalPages, currentPage: page });
         });
       });
     }
@@ -175,7 +177,7 @@ class ExemplarController {
       
       Exemplar.countDocuments({}, function(err, count) {
         if (err) {
-            res.status(400).json({ error: err });
+          res.status(400).json({ error: err });
         }
 
         const totalItems = count;
@@ -326,54 +328,8 @@ class ExemplarController {
       res.status(400).json({ error });
     }
 
-    // Material.findById(req.body.exemplar.codiMaterial).exec(function(error, material){
-    //   if(error) res.status(400).json({error});
-    //   if(material == null) res.status(400).json({error: 'Material no trobat'});
-
-    //   Localitzacio.findById(req.body.exemplar.codiLocalitzacio).exec(function(error, localitzacio){
-    //     if(error) res.status(400).json({error});
-    //     if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
-
-    //     Exemplar.findById(req.params.id).exec(function(error, comprobacioExemplar){
-    //       if(error) res.status(400).json({error});
-
-    //       if(comprobacioExemplar == null) res.status(400).json({error: 'Exemplar no trobat'});
-
-    //       if(comprobacioExemplar.demarca){
-    //         var err = new Error('Aquest exemplar no es pot modificar');
-    //         return res.status(400).json({error: err});
-    //       }
-
-    //       let codi = req.body.exemplar.codi;
-    //       if(parseInt(codi) > 10) codi = '0' + codi;
-          
-    //       var exemplar = {
-    //         codi: codi + '/' + material.codi + '-' + localitzacio.codi,
-    //         demarca: req.body.exemplar.demarca,
-    //         codiMaterial: req.body.exemplar.codiMaterial,
-    //         codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
-    //         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-    //       };
-      
-    //       Exemplar.findByIdAndUpdate(
-    //         req.params.id,
-    //         exemplar,
-    //         { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
-    //         function (err, exemplarfound) {
-    //           if (err) {
-    //             //return next(err);
-    //             res.status(400).json({ error: err.message });
-    //           }
-    //           res.status(200).json({ ok: true, message: 'Exemplar actualitzat' });
-    //         }
-    //       );
-
-    //     });
-
-    //   });
-
-    // });
   }
+
   static async exemplarList(req, res, next) {
     try {
       const PAGE_SIZE = 10; // Número de documentos por página
@@ -403,7 +359,68 @@ class ExemplarController {
       });
     }
     catch (e) {
-      res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ error: e });
+    }
+  }
+
+  static async exemplarImport(req, res, next){
+    try {
+      let filePath = req.file.path; 
+      let jsonArray;
+
+      if(filePath.slice(filePath.lastIndexOf('.')) == '.csv') jsonArray = await csv().fromFile(filePath);
+
+      else jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+      let count = 0;
+
+      jsonArray.forEach(async element => {
+
+        const material = await Material.findOne({ nom: element.nomMaterial }).exec();
+        if (material === null || material === undefined) return res.status(400).json({error: 'Material no trobada'});
+
+        const localitzacio = await Localitzacio.findOne({nom: element.nomLocalitzacio}).exec();
+        if (localitzacio === null || localitzacio === undefined) return res.status(400).json({error: 'Localitzacio no trobada'});
+        
+        element.codi = await Exemplar.find().count() + 1;
+        element.codi = element.codi + '/' + material.codi + '-' + localitzacio.codi,
+        element.codiMaterial = material._id,
+        element.codiLocalitzacio = localitzacio._id
+    
+        count++;      
+        if (count == jsonArray.length) {
+          Exemplar.create(jsonArray, function(error, newExemplar){
+            if(error) {
+              res.status(400).json({errors: error.errors});
+            }
+            else {
+              const exemplar_path = url.parse('http://localhost:3000').href + 'home/exemplar/show/' + newExemplar._id;
+              // Genero el QR
+              QRCode.toString(exemplar_path, {
+                errorCorrectionLevel: 'H',
+                type: 'svg'
+              }, function(err, qr_svg) {
+                if (err) throw err;
+                newExemplar[0].qr = qr_svg;
+                Exemplar.findByIdAndUpdate(
+                  newExemplar[0]._id,
+                  newExemplar[0],
+                  { runValidators: true },
+                  function (err, exemplarfound) {
+                    if (err) {
+                      res.status(400).json({ error: 'Ha ocurregut un error indesperat' });
+                    }
+                    else res.status(200).json({ok: true})
+                  }
+                );
+              });
+            }
+          });
+        }
+      });
+
+    } catch (error) {
+      res.status(400).json({ error: 'Ha sorgit un error inesperat' });
     }
   }
 

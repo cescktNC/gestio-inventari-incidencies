@@ -272,9 +272,7 @@ class UsuariController {
             }
             if (usuari === null || usuari === undefined) {
                 // No results.
-                console.log('a')
-                var err = new Error("Usuari not found");
-                res.status(400).json({ error: err });
+                res.status(400).json({ error: "Usuari not found" });
 
             }
             
@@ -343,7 +341,7 @@ class UsuariController {
                     { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
                     function (err, usuariFound) {
 
-                        if (err) res.status(400).json({ usuari: usuari, error: err.message });
+                        if (err) res.status(400).json({ error: err.message });
 
                         res.status(400).json({ id: usuariFound.id, ok: true, message: 'Usuari actualitzat correctament' });
                     }
