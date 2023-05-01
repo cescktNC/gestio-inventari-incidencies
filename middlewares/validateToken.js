@@ -14,7 +14,8 @@ exports.protegirRuta = async function (req, res, next) {
   const token = headerToken.substring(7);
   
   await Token.findOne({token: token}).exec((err, token) => {
-    if(err) res.status(401).json({ message: "El token proporcionat no es valid" });
+    if(err) {res.status(401).json({ message: "El token proporcionat no es valid" });
+  }
 
     try {
       const decodedToken = jwt.verify(token.token, secret, { ignoreExpiration: false });

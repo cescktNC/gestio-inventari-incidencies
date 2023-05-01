@@ -16,17 +16,13 @@ router.post("/update/:id",  localitzacio_controller.update_post);
 //Rutes API
 
 router.get('/APIlist', validateToken.protegirRuta, localitzacio_controller.LocalitzacioList);
-
 router.get('/APIshow/:id', validateToken.protegirRuta, localitzacio_controller.localitzacioSowh);
 router.get('/APIAllList', validateToken.protegirRuta, localitzacio_controller.localitzacioAllLlist);
 
-
 router.post('/APIcreate', validateToken.protegirRuta, localitzacio_controller.LocalitzacioCreate);
 
-router.get('/APIdelete/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioDelete);
 router.delete('/APIdelete/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioDelete);
 
-router.get('/APIupdate/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioUpdate);
 router.put('/APIupdate/:id', validateToken.protegirRuta, localitzacio_controller.LocalitzacioUpdate);
 
 module.exports = router;

@@ -220,7 +220,7 @@ class IncidenciaController {
 
     static async IncidenciaCreate(req, res, next){
         try {
-            var codi = await Incidencia.count();
+            var codi = await Incidencia.count() + 1;
             if(codi < 10) codi = '0' + codi;
 
             Exemplar.find({ codi: req.body.incidencia.codiExemplar }, function (err, exemplar) {
@@ -228,7 +228,7 @@ class IncidenciaController {
                     res.status(400).json({error: err});
                 }
                 var incidencia = {
-                    codi: codi + 1,
+                    codi: codi,
                     data: Date.now(),
                     tipologia: req.body.incidencia.tipologia,
                     proposta: '',
@@ -269,10 +269,8 @@ class IncidenciaController {
     static async incidenciaShow(req, res, next){
         try {
             let incidencia =  await Incidencia.findById(req.params.id).populate('codiExemplar');
-            let incidenciaJSON;
-            if(incidencia.codiExemplar) incidenciaJSON = {...incidencia, codiExemplar: incidencia.codiExemplar.codi}; 
-            else  incidenciaJSON = {...incidencia};
-            res.status(200).json({incidencia: incidenciaJSON});
+
+            res.status(200).json({incidencia});
         } catch (error) {
             res.status(400).json({error});
         }

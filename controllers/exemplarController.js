@@ -205,13 +205,18 @@ class ExemplarController {
     Exemplar.findById(req.params.id)
     .populate({
       path: 'codiMaterial',
-      populate: { path: 'codiSubCategoria', model: 'Subcategoria' }
+      populate: [
+        { 
+          path: 'codiSubCategoria', model: 'Subcategoria', select: 'nom',
+          populate:{path: 'codiCategoria', model: 'Categoria', select: 'nom'}
+        }
+      ]
     })
     .populate({
       path: 'codiLocalitzacio',
       populate: [
-        { path: 'codiPlanta', model: 'Planta',
-          populate: { path: 'codiCentre', model: 'Centre' }
+        { path: 'codiPlanta', model: 'Planta', select: 'nom',
+          populate: { path: 'codiCentre', model: 'Centre', select: 'nom' }
         }
       ]
     }
@@ -226,7 +231,6 @@ class ExemplarController {
         res.status(400).json({ error: err });
 
       }
-      console.log(exemplar)
       res.status(200).json({ exemplar: exemplar });
 
     });
@@ -283,53 +287,92 @@ class ExemplarController {
 
   static async exemplarUpdate(req, res, next) {
 
-    Material.findById(req.body.exemplar.codiMaterial).exec(function(error, material){
-      if(error) res.status(400).json({error});
+    try {
+      let material = await Material.findById(req.body.exemplar.codiMaterial);
       if(material == null) res.status(400).json({error: 'Material no trobat'});
 
-      Localitzacio.findById(req.body.exemplar.codiLocalitzacio).exec(function(error, localitzacio){
-        if(error) res.status(400).json({error});
-        if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
+      let localitzacio = await Localitzacio.findById(req.body.exemplar.codiLocalitzacio);
+      if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
 
-        Exemplar.findById(req.params.id).exec(function(error, comprobacioExemplar){
-          if(error) res.status(400).json({error});
+      let comprobacioExemplar = await Exemplar.findById(req.params.id);
+      if(comprobacioExemplar == null) res.status(400).json({error: 'Exemplar no trobat'});
+      if(comprobacioExemplar.demarca)return res.status(400).json({error: 'Aquest exemplar no es pot modificar'});
 
-          if(comprobacioExemplar == null) res.status(400).json({error: 'Exemplar no trobat'});
+      let codi = req.body.exemplar.codi;
+      if(parseInt(codi) < 10) codi = '0' + codi;
 
-          if(comprobacioExemplar.demarca){
-            var err = new Error('Aquest exemplar no es pot modificar');
-            return res.status(400).json({error: err});
+      var exemplar = {
+        codi: codi + '/' + material.codi + '-' + localitzacio.codi,
+        demarca: req.body.exemplar.demarca,
+        codiMaterial: req.body.exemplar.codiMaterial,
+        codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
+        _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+      };
+  
+      Exemplar.findByIdAndUpdate(
+        req.params.id,
+        exemplar,
+        { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
+        function (err, exemplarfound) {
+          if (err) {
+            //return next(err);
+            res.status(400).json({ error: err.message });
           }
+          res.status(200).json({ ok: true, message: 'Exemplar actualitzat' });
+        }
+      );
 
-          let codi = req.body.exemplar.codi;
-          if(parseInt(codi) > 10) codi = '0' + codi;
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+
+    // Material.findById(req.body.exemplar.codiMaterial).exec(function(error, material){
+    //   if(error) res.status(400).json({error});
+    //   if(material == null) res.status(400).json({error: 'Material no trobat'});
+
+    //   Localitzacio.findById(req.body.exemplar.codiLocalitzacio).exec(function(error, localitzacio){
+    //     if(error) res.status(400).json({error});
+    //     if(localitzacio == null) res.status(400).json({error: 'Localitzacio no trobada'});
+
+    //     Exemplar.findById(req.params.id).exec(function(error, comprobacioExemplar){
+    //       if(error) res.status(400).json({error});
+
+    //       if(comprobacioExemplar == null) res.status(400).json({error: 'Exemplar no trobat'});
+
+    //       if(comprobacioExemplar.demarca){
+    //         var err = new Error('Aquest exemplar no es pot modificar');
+    //         return res.status(400).json({error: err});
+    //       }
+
+    //       let codi = req.body.exemplar.codi;
+    //       if(parseInt(codi) > 10) codi = '0' + codi;
           
-          var exemplar = {
-            codi: codi + '/' + material.codi + '-' + localitzacio.codi,
-            demarca: req.body.exemplar.demarca,
-            codiMaterial: req.body.exemplar.codiMaterial,
-            codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
-            _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-          };
+    //       var exemplar = {
+    //         codi: codi + '/' + material.codi + '-' + localitzacio.codi,
+    //         demarca: req.body.exemplar.demarca,
+    //         codiMaterial: req.body.exemplar.codiMaterial,
+    //         codiLocalitzacio: req.body.exemplar.codiLocalitzacio,
+    //         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+    //       };
       
-          Exemplar.findByIdAndUpdate(
-            req.params.id,
-            exemplar,
-            { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
-            function (err, exemplarfound) {
-              if (err) {
-                //return next(err);
-                res.status(400).json({ error: err.message });
-              }
-              res.status(200).json({ ok: true, message: 'Exemplar actualitzat' });
-            }
-          );
+    //       Exemplar.findByIdAndUpdate(
+    //         req.params.id,
+    //         exemplar,
+    //         { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
+    //         function (err, exemplarfound) {
+    //           if (err) {
+    //             //return next(err);
+    //             res.status(400).json({ error: err.message });
+    //           }
+    //           res.status(200).json({ ok: true, message: 'Exemplar actualitzat' });
+    //         }
+    //       );
 
-        });
+    //     });
 
-      });
+    //   });
 
-    });
+    // });
   }
   static async exemplarList(req, res, next) {
     try {
