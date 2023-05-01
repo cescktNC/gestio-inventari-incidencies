@@ -120,7 +120,7 @@ class LocalitzacioController {
     })
   }
   
-  static async LocalitzacioList(req, res, next) {
+  static async localitzacioList(req, res, next) {
     try {
 
       const PAGE_SIZE = 10; // Número de documentos por página
@@ -136,7 +136,8 @@ class LocalitzacioController {
         const startIndex = (page - 1) * PAGE_SIZE;
     
         Localitzacio.find()
-          .sort({ nom: 1 })
+          .sort({ codiPlanta: 1, codi: 1 })
+          .populate({path: 'codiPlanta', select: 'nom'})
           .skip(startIndex)
           .limit(PAGE_SIZE)
           .exec(function (err, list) {
@@ -156,174 +157,7 @@ class LocalitzacioController {
     //API 
 
     static async localitzacioAllLlist(req, res, next) {
-        try {
-        
-          Localitzacio.find()
-          .sort({ codiPlanta: 1, codi: 1 })
-          .populate('codiPlanta')
-          .exec(function (err, list) {
-            if (err) {
-              res.status(400).json({ error: err });
-            }
-            res.status(200).json({ list: list });
-          });
-
-        }
-        catch (e) {
-          res.status(400).json({ message: 'Error!' });
-        }
-    }
-
-    static async localitzacioSowh(req, res, next){
-        Localitzacio.findById(req.params.id)
-        .populate('codiLocalitzacio')
-        .exec(function(err, localitzacio) {
-            if (err) {
-                res.status(400).json({ message: err });
-            }
-            if (localitzacio == null) {
-                // No results.
-                var err = new Error("Localitzacio not found");
-                res.status(400).json({ message: err });
-
-            }
-            // Success.
-            var localitzacioJSON = {
-                nom: localitzacio.nom,
-                codi: localitzacio.codi,
-            };
-            res.status(200).json({ localitzacio: localitzacioJSON });
-
-        })
-    }
-    
-    static async LocalitzacioList(req, res, next) {
-		try {
-	
-            const PAGE_SIZE = 10; // Número de documentos por página
-            const page = req.query.page || 1; // Número de página actual
-        
-            Localitzacio.countDocuments({}, function (err, count) {
-                if (err) {
-                res.status(400).json({ error: err });
-                }
-        
-                const totalItems = count;
-                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
-                const startIndex = (page - 1) * PAGE_SIZE;
-        
-                Localitzacio.find()
-                .sort({ nom: 1 })
-                .skip(startIndex)
-                .limit(PAGE_SIZE)
-                .exec(function (err, list) {
-                    if (err) {
-                    res.status(400).json({ error: err });
-                    }
-                    res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-                });
-            });
-        }
-        catch (e) {
-            res.status(400).json({ message: 'Error!' });
-        }
-    }
-	
-	static async LocalitzacioCreate(req, res) {
-		let localitzacioNew = req.body.LocalitzacioData;
-	
-		// Valida que el código no esté ya registrado
-		Localitzacio.findOne({ codi: localitzacioNew.codi }, function (err, localitzacio) {
-            if (err) res.status(400).json({ error: err });
-        
-            if (localitzacio == null) {
-                // Guardar categoria en la base de datos
-                Localitzacio.create(localitzacioNew, function (error, createlocalitzacio) {
-                if (error) res.status(400).json({ error: error.message });
-        
-                else res.status(200).json({ ok: true });
-                });
-            } else res.status(400).json({ error: "Localitzacio ja registrada" });
-		});
-	}
-
-	static async LocalitzacioUpdate(req, res) {
-		const localitzacioId = req.params.id;
-		const updatedLocalitzacioData = req.body.LocalitzacioData;
-
-		// Valida que el código no esté ya registrado en otra categoría
-		Localitzacio.findOne({ codi: updatedLocalitzacioData.codi, _id: { $ne: localitzacioId } }, function (err, localitzacio) {
-            if (err) res.status(400).json({ error: err });
-        
-            if (localitzacio == null) {
-                // Actualizar la categoría en la base de datos
-                Localitzacio.findByIdAndUpdate(localitzacioId, updatedLocalitzacioData, { new: true }, function (error, updatedlocalitzacio) {
-                if (error) res.status(400).json({ error: error.message });
-        
-                else res.status(200).json({ ok: true });
-                });
-            } else res.status(400).json({ error: "Codi de la localitzacio ja registrada en un altre localitzacio" });
-        });
-	}
-	
-	static async LocalitzacioDelete(req, res) {
-		const LocalitzacioId = req.params.id;
-	
-		LocalitzacioData.findByIdAndRemove(LocalitzacioId, function (err, deletedplanta) {
-            if (err) res.status(400).json({ error: err.message });
-        
-            else res.status(200).json({ ok: true });
-		});
-	}
-    static async LocalitzacioCreate(req, res) {
-      let localitzacioNew = req.body.LocalitzacioData;
-    
-      // Valida que el código no esté ya registrado
-      Localitzacio.findOne({ codi: localitzacioNew.codi }, function (err, localitzacio) {
-        if (err) res.status(400).json({ error: err });
-    
-        if (localitzacio == null) {
-          // Guardar categoria en la base de datos
-          Localitzacio.create(localitzacioNew, function (error, createlocalitzacio) {
-            if (error) res.status(400).json({ error: error.message });
-      
-            else res.status(200).json({ ok: true });
-          });
-        } else res.status(400).json({ error: "Localitzacio ja registrada" });
-      });
-    }
-
-    static async LocalitzacioUpdate(req, res) {
-      const localitzacioId = req.params.id;
-      const updatedLocalitzacioData = req.body.LocalitzacioData;
-    
-      // Valida que el código no esté ya registrado en otra categoría
-      Localitzacio.findOne({ codi: updatedLocalitzacioData.codi, _id: { $ne: localitzacioId } }, function (err, localitzacio) {
-        if (err) res.status(400).json({ error: err });
-    
-        if (localitzacio == null) {
-        // Actualizar la categoría en la base de datos
-        Localitzacio.findByIdAndUpdate(localitzacioId, updatedLocalitzacioData, { new: true }, function (error, updatedlocalitzacio) {
-          if (error) res.status(400).json({ error: error.message });
-    
-          else res.status(200).json({ ok: true });
-        });
-        } else res.status(400).json({ error: "Codi de la localitzacio ja registrada en un altre localitzacio" });
-      });
-    }
-
-  static async LocalitzacioDelete(req, res) {
-    const LocalitzacioId = req.params.id;
-
-    LocalitzacioData.findByIdAndRemove(LocalitzacioId, function (err, deletedplanta) {
-      if (err) res.status(400).json({ error: err.message });
-
-      else res.status(200).json({ ok: true });
-    });
-  }
-    static async localitzacioAllLlist(req, res, next) {
-        try {
-        
+      try {
         Localitzacio.find()
         .sort({ codiPlanta: 1, codi: 1 })
         .populate('codiPlanta')
@@ -334,37 +168,109 @@ class LocalitzacioController {
           res.status(200).json({ list: list });
         });
 
-        }
-        catch (e) {
-          res.status(400).json({ message: 'Error!' });
-        }
+      }
+      catch (e) {
+        res.status(400).json({ message: e });
+      }
     }
+	
+	static async localitzacioCreate(req, res) {
+		try {
+      let localitzacioNew = req.body.LocalitzacioData;
+
+      let comprobacioNom = await Localitzacio.find({codiPlanta: localitzacioNew.codiPlanta, nom: localitzacioNew.nom }).exec();
+      if(comprobacioNom !== undefined) res.status(400).json({error: 'Ya existeix una localització amb aquest nom'});
+      else{
+        let planta = await Planta.findById(localitzacioNew.codiPlanta);
+        localitzacioNew.codi = await Localitzacio.find({codiPlanta: localitzacioNew.codiPlanta}).count() + 1;
+
+        if(localitzacioNew.codi < 10) localitzacioNew.codi = '0' + localitzacioNew.codi;
+        localitzacioNew.codi = localitzacioNew.codi + '/' + planta.codi;
+
+        Localitzacio.create(localitzacioNew, function (error, createlocalitzacio) {
+          if (error) res.status(400).json({ errors: error });
+
+          else res.status(200).json({ ok: true });
+        });
+      }
+
+    } catch (error) {
+      res.status(400).json({ message: error});
+    }
+	}
+
+	static async localitzacioUpdate(req, res) {
+		const localitzacioId = req.params.id;
+		let updatedLocalitzacioData = req.body.LocalitzacioData;
+
+    if(updatedLocalitzacioData.newCodiPlanta !== updatedLocalitzacioData.codiPlanta._id){
+      let planta = await Planta.findById(updatedLocalitzacioData.codiPlanta).exec();
+      updatedLocalitzacioData.codi = await Localitzacio.find({codiPlanta: updatedLocalitzacioData.newCodiPlanta}).count() + 1;
+
+      if(updatedLocalitzacioData.codi < 10) updatedLocalitzacioData.codi = '0' + updatedLocalitzacioData.codi;
+
+      updatedLocalitzacioData.codi = updatedLocalitzacioData.codi + '/' + planta.codi;
+      updatedLocalitzacioData.codiPlanta = updatedLocalitzacioData.newCodiPlanta;
+    }
+
+    Localitzacio.findByIdAndUpdate(localitzacioId, updatedLocalitzacioData, { new: true }, function (error, updatedlocalitzacio) {
+      if (error) res.status(400).json({ error: error.message });
+
+      else res.status(200).json({ ok: true });
+    });
+
+	}
+	
+	static async LocalitzacioDelete(req, res) {
+		const LocalitzacioId = req.params.id;
+	
+		Localitzacio.findByIdAndRemove(LocalitzacioId, function (err, deletedplanta) {
+      if (err) res.status(400).json({ error: err.message });
+  
+      else res.status(200).json({ ok: true });
+		});
+	}
+
+
+  static async localitzacioAllLlist(req, res, next) {
+      try {
+      
+      Localitzacio.find()
+      .sort({ codiPlanta: 1, codi: 1 })
+      .populate('codiPlanta')
+      .exec(function (err, list) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+        res.status(200).json({ list: list });
+      });
+
+      }
+      catch (e) {
+        res.status(400).json({ message: 'Error!' });
+      }
+  }
 
   static async localitzacioSowh(req, res, next){
     Localitzacio.findById(req.params.id)
-    .populate('codiLocalitzacio')
+    .populate({
+      path: 'codiPlanta',
+      select: 'nom'
+    })
     .exec(function(err, localitzacio) {
+
       if (err) {
-        res.status(400).json({ message: err });
+        res.status(400).json({ error: err });
       }
 
       if (localitzacio == null) {
         // No results.
-        var err = new Error("Localitzacio not found");
-        res.status(400).json({ message: err });
-
+        res.status(400).json({ error: "Localitzacio not found" });
 
       }
+      res.status(200).json({ localitzacio });
 
-      // Success.
-      var localitzacioJSON = {
-        nom: localitzacio.nom,
-        codi: localitzacio.codi,
-      };
-
-      res.status(200).json({ localitzacio: localitzacioJSON });
-
-    })
+    });
   }
 }
 

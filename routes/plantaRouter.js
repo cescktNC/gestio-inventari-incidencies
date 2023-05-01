@@ -20,16 +20,13 @@ router.post("/update/:id", upload.single("planol"), planta_controller.update_pos
 //Rutes API
 
 router.get('/APIlist', validateToken.protegirRuta, planta_controller.PlantaList);
-
+router.get('/APIalllist', validateToken.protegirRuta, planta_controller.PlantaAllList);
 router.get('/APIshow/:id', validateToken.protegirRuta, planta_controller.PlantaSowh);
-
 
 router.post('/APIcreate', validateToken.protegirRuta, planta_controller.PlantaCreate);
 
-router.get('/APIdelete/:id', validateToken.protegirRuta, planta_controller.PlantaDelete);
 router.delete('/APIdelete/:id', validateToken.protegirRuta, planta_controller.PlantaDelete);
 
-router.get('/APIupdate/:id', validateToken.protegirRuta, planta_controller.PlantaUpdate);
 router.put('/APIupdate/:id', validateToken.protegirRuta, planta_controller.PlantaUpdate);
 
 module.exports = router;
