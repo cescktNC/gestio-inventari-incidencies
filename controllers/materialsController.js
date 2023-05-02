@@ -356,39 +356,29 @@ class MaterialController {
         } else {
             jsonArray = await JSON.parse(fs.readFileSync(filePath, "utf-8"));
         }
-            let count = 0;
+        let count = 0;
 
-            jsonArray.forEach(async element => {
+        jsonArray.forEach(async element => {
 
-                const subCategoria = await SubCategoria.findOne({ nom: element.nomSubCategoria });
+            const subCategoria = await SubCategoria.findOne({ nom: element.nomSubCategoria });
 
 
-                if (subCategoria === null || subCategoria === undefined) {
-                    res.status(400).json({error: 'Subcategoria no trobada'});
-                }
-            
-                element.codi += '-' + subCategoria.codi;
-                element.codiSubCategoria = subCategoria._id;
-            
-                count++;
-            
-                if (count == jsonArray.length) {
-                    Material.create(jsonArray, function(error){
-                        if(error) res.status(400).json({error: error});
-                        else res.status(200).json({ok: true})
-                    });
-                }
-            });
-
-        let promesa = new Promise((resolve, reject) => {
-            Material.create(jsonArray);
+            if (subCategoria === null || subCategoria === undefined) {
+                res.status(400).json({error: 'Subcategoria no trobada'});
+            }
+        
+            element.codi += '-' + subCategoria.codi;
+            element.codiSubCategoria = subCategoria._id;
+        
+            count++;
+        
+            if (count == jsonArray.length) {
+                Material.create(jsonArray, function(error){
+                    if(error) res.status(400).json({error: error});
+                    else res.status(200).json({ok: true})
+                });
+            }
         });
-
-        // Executo la promesa
-        promesa
-            .then(res.status(200).json({ok: true})) // s'executa si es compleix la promesa
-            .catch(error => res.status(400).json({ message: error.message })); // s'executa si no es compleix la promesa
-
 
     }
 

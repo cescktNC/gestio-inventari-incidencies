@@ -115,7 +115,7 @@ class CentreController {
   
         Centre.countDocuments({}, function (err, count) {
           if (err) {
-            res.status(400).json({ error: err });
+            return res.status(400).json({ error: err });
           }
   
           const totalItems = count;
@@ -123,16 +123,31 @@ class CentreController {
           const startIndex = (page - 1) * PAGE_SIZE;
   
           Centre.find()
-            .sort({ nom: 1 })
-            .skip(startIndex)
-            .limit(PAGE_SIZE)
-            .exec(function (err, list) {
-              if (err) {
-                res.status(400).json({ error: err });
-              }
-              res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-            });
+          .sort({ codi: 1 })
+          .skip(startIndex)
+          .limit(PAGE_SIZE)
+          .exec(function (err, list) {
+            if (err) res.status(400).json({ error: err });
+          
+            else res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+          });
         });
+      }
+      catch (e) {
+        res.status(400).json({ message: 'Error!' });
+      }
+    }
+
+    static async CentreAllList(req, res, next) {
+      try {
+        Centre.find()
+        .sort({ codi: 1 })
+        .exec(function (err, list) {
+          if (err) res.status(400).json({ error: err });
+        
+          else res.status(200).json({ list });
+        });
+
       }
       catch (e) {
         res.status(400).json({ message: 'Error!' });
@@ -147,32 +162,23 @@ class CentreController {
         nom: req.body.nom
       });
 
+      console.log(CentreNew);
+
       Centre.create(CentreNew, function (error, newcentre) {
         if (error) res.status(400).json({ error: error.message });
 
         else res.status(200).json({ ok: true });
       });
 
-
     }
 
     static async CentreSowh(req, res, next){
       Centre.findById(req.params.id, function(err, centre) {
-          if (err) {
-              res.status(400).json({ message: err });
-          }
-          if (centre == null) {
-              // No results.
-              var err = new Error("Centre not found");
-              res.status(400).json({ message: err });
-
-          }
-          // Success.
-          var centreJSON = {
-              nom: centre.nom,
-              codi: centre.codi,
-          };
-          res.status(200).json({ centre: centreJSON });
+        if (err) return res.status(400).json({ error: err });
+        
+        if (centre == null) return res.status(400).json({ error: "Centre not found" });
+        
+        res.status(200).json({ centre });
 
       })
     }

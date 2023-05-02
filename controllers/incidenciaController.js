@@ -268,7 +268,6 @@ class IncidenciaController {
     static async incidenciaShow(req, res, next){
         try {
             let incidencia =  await Incidencia.findById(req.params.id).populate('codiExemplar');
-
             res.status(200).json({incidencia});
         } catch (error) {
             res.status(400).json({error});
@@ -279,7 +278,7 @@ class IncidenciaController {
         try {
             Exemplar.find({ codi: req.body.incidencia.codiExemplar }, function (err, exemplar) {
                 if (err) {
-                    return next(err);
+                    return res.status(400).json({error: err});
                 }
                 var list_incidencia = new Incidencia({
                     tipologia: req.body.incidencia.tipologia,
@@ -301,10 +300,9 @@ class IncidenciaController {
                     list_incidencia,
                     { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
                     function (err, list_incidenciaFound) {
-                        if (err) {
-                            res.status(400).json({ error: err.message });
-                        }
-                        res.status(200).json({ok: true});
+                        if (err) res.status(400).json({ error: err.message });
+
+                        else res.status(200).json({ok: true});
                     }
                 );
     

@@ -23,10 +23,10 @@ router.get('/APIlist', validateToken.protegirRuta, planta_controller.PlantaList)
 router.get('/APIalllist', validateToken.protegirRuta, planta_controller.PlantaAllList);
 router.get('/APIshow/:id', validateToken.protegirRuta, planta_controller.PlantaSowh);
 
-router.post('/APIcreate', validateToken.protegirRuta, planta_controller.PlantaCreate);
+router.post('/APIcreate', validateToken.protegirRuta, upload.single('planol'), planta_controller.PlantaCreate);
 
 router.delete('/APIdelete/:id', validateToken.protegirRuta, planta_controller.PlantaDelete);
 
-router.put('/APIupdate/:id', validateToken.protegirRuta, planta_controller.PlantaUpdate);
+router.put('/APIupdate/:id', validateToken.protegirRuta, upload.single('planol'), planta_controller.PlantaUpdate);
 
 module.exports = router;
