@@ -276,7 +276,7 @@ class prestecController {
         }
       ], function(err, exemplars) {
         if (err) {
-          console.log(err);
+          return res.status(400).json({ error: err });
           return;
         }
 
@@ -296,7 +296,7 @@ class prestecController {
           // incloent tots els camps i valors.
         ], function(err, results) {
           if (err) {
-            console.log(err);
+            res.status(400).json({error: 'No hi ha cap element per presta'});
             return;
           }
           const materialPrestecIds = results.map(result => result._id.toString());

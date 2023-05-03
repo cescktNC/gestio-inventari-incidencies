@@ -133,12 +133,12 @@ class plantaController {
 	static async PlantaList(req, res, next) {
 		try {
 	
-		  const PAGE_SIZE = 10; // Número de documentos por página
-		  const page = req.query.page || 1; // Número de página actual
+			const PAGE_SIZE = 10; // Número de documentos por página
+			const page = req.query.page || 1; // Número de página actual
 	
-		  Planta.countDocuments({}, function (err, count) {
+			Planta.countDocuments({}, function (err, count) {
 			if (err) {
-			  res.status(400).json({ error: err });
+				res.status(400).json({ error: err });
 			}
 	
 			const totalItems = count;
@@ -146,89 +146,126 @@ class plantaController {
 			const startIndex = (page - 1) * PAGE_SIZE;
 	
 			Planta.find()
-			  .sort({ nom: 1 })
-			  .skip(startIndex)
-			  .limit(PAGE_SIZE)
-			  .exec(function (err, list) {
-				if (err) {
-				  res.status(400).json({ error: err });
-				}
-				res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-			  });
-		  });
+				.sort({ codiCentre:1, codi: 1 })
+				.populate({
+					path: 'codiCentre',
+					select: 'nom'
+				})
+				.skip(startIndex)
+				.limit(PAGE_SIZE)
+				.exec(function (err, list) {
+					if (err) {
+					res.status(400).json({ error: err });
+					}
+					res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+				});
+			});
 		}
 		catch (e) {
-		  res.status(400).json({ message: 'Error!' });
+			res.status(400).json({ message: 'Error!' });
 		}
-	  }
-	
-	  static async PlantaCreate(req, res) {
-		let PlantaNew = req.body.PlantaData
-		  ;
-	
-		// Valida que el código no esté ya registrado
-		Planta.findOne({ codi: PlantaNew.codi }, function (err, planta) {
-		  if (err) res.status(400).json({ error: err });
-	
-		  if (planta == null) {
-			// Guardar categoria en la base de datos
-			Planta.create(PlantaNew, function (error, newcennewplantatre) {
-			  if (error) res.status(400).json({ error: error.message });
-	
-			  else res.status(200).json({ ok: true });
+	}
+
+	static async PlantaAllList(req, res){
+		try {
+			Planta.find()
+			.sort({ codiCentre:1, codi: 1 })
+			.exec(function (err, list) {
+				if (err) {
+				res.status(400).json({ error: err });
+				}
+				res.status(200).json({ list: list });
 			});
-		  } else res.status(400).json({ error: "Planta ja registrada" });
-		});
-	  }
-	  static async PlantaUpdate(req, res) {
-		const PlantaId = req.params.id;
-		const updatedPlantaData = req.body.PlantaData;
+
+		} catch (error) {
+			res.status(400).json({ error: error });
+		}
+	}
 	
-	
-		// Valida que el código no esté ya registrado en otra categoría
-		Planta.findOne({ codi: updatedPlantaData.codi, _id: { $ne: PlantaId } }, function (err, planta) {
-		  if (err) res.status(400).json({ error: err });
-	
-		  if (planta == null) {
-			// Actualizar la categoría en la base de datos
-			Planta.findByIdAndUpdate(PlantaId, updatedPlantaData, { new: true }, function (error, updatedplanta) {
-			  if (error) res.status(400).json({ error: error.message });
-	
-			  else res.status(200).json({ ok: true });
+	static async PlantaCreate(req, res) {
+		try {
+			let centre = await Centre.findById(req.body.codiCentre).exec();
+			if(centre === null || centre === undefined) return res.status(400).json({error: 'Centre no trobat'});
+
+			let codi = await Planta.find({codiCentre: req.body.codiCentre}).count() + 1;
+			if(codi < 10) codi = '0' + codi;
+
+			let planta = {
+				codi: codi + "/" + centre.codi,
+				nom: req.body.nom,
+				codiCentre: req.body.codiCentre,
+				planol: req.file.path.substring(7, req.file.path.length)
+			};
+
+			Planta.create(planta, function (error, newcennewplantatre) {
+				if (error) res.status(400).json({ errors: error.errors });
+		
+				else res.status(200).json({ ok: true });
 			});
-		  } else res.status(400).json({ error: "Codi de la planta ja registrada en un altre planta" });
-		});
-	  }
+		} catch (error) {
+			res.status(400).json({ error: 'Ha ocurregut un error inesperat' });
+		}
+		
+	}
+
+	static async PlantaUpdate(req, res) {
+		try {
+
+			const PlantaId = req.params.id;
+			let planta = {...req.body};
+
+			if(planta.newCodicentre !== planta.codiCentre){
+				console.log('a')
+				let centre = await Centre.findById(planta.newCodicentre).exec();
+				if(centre === null || centre === undefined) return res.status(400).json({error: 'Centre no trobat'});
+
+				let codi = await Planta.find({codiCentre: planta.newCodicentre}).count() + 1;
+				if(codi < 10) codi = '0' + codi;
+
+				planta.codi = codi + "/" + centre.codi;
+				planta.codiCentre = planta.newCodicentre;
+			} 
+
+			if(req.file != undefined){
+				planta.planol = req.file.path.substring(7, req.file.path.length);
+			}
+
+			Planta.findByIdAndUpdate(PlantaId, planta, { new: true }, function (error, updatedplanta) {
+				if (error) {
+					res.status(400).json({ errors: error.message });
+				}
+		
+				else res.status(200).json({ ok: true });
+			});
+		} catch (error) {
+			res.status(400).json({ error: 'Ha ocurregut un error inesperat' });
+		}
+
+	}
 	
-	  static async PlantaDelete(req, res) {
+	static async PlantaDelete(req, res) {
 		const PlantaId = req.params.id;
 	
 		Planta.findByIdAndRemove(PlantaId, function (err, deletedplanta) {
-		  if (err) res.status(400).json({ error: err.message });
-	
-		  else res.status(200).json({ ok: true });
+			if (err) res.status(400).json({ error: err.message });
+		
+			else res.status(200).json({ ok: true });
 		});
-	  }
+	}
 
 	static async PlantaSowh(req, res, next){
         Planta.findById(req.params.id)
-        .populate('codiPlanta')
+        .populate('codiCentre')
         .exec(function(err, planta) {
             if (err) {
-                res.status(400).json({ message: err });
+                return res.status(400).json({ error: err });
             }
             if (planta == null) {
                 // No results.
-                var err = new Error("Planta not found");
-                res.status(400).json({ message: err });
-
+                return res.status(400).json({ error: "Planta not found" });
             }
-            // Success.
-            var plantaJSON = {
-                nom: planta.nom,
-                codi: planta.codi,
-            };
-            res.status(200).json({ Planta: plantaJSON });
+
+            res.status(200).json({ planta });
 
         })
     }

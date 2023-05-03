@@ -75,7 +75,6 @@ class IncidenciaController {
             }
             Incidencia.create(incidencia, function (error, newRecord) {
                 if (error) {
-                    console.log(error)
                     res.render('incidencies/new', { error: 'error', list_prio: list_prioritat, list_tip: list_tipologia, list_loc: list_localitzacio })
                 } else {
     
@@ -220,7 +219,7 @@ class IncidenciaController {
 
     static async IncidenciaCreate(req, res, next){
         try {
-            var codi = await Incidencia.count();
+            var codi = await Incidencia.count() + 1;
             if(codi < 10) codi = '0' + codi;
 
             Exemplar.find({ codi: req.body.incidencia.codiExemplar }, function (err, exemplar) {
@@ -228,7 +227,7 @@ class IncidenciaController {
                     res.status(400).json({error: err});
                 }
                 var incidencia = {
-                    codi: codi + 1,
+                    codi: codi,
                     data: Date.now(),
                     tipologia: req.body.incidencia.tipologia,
                     proposta: '',
@@ -269,8 +268,7 @@ class IncidenciaController {
     static async incidenciaShow(req, res, next){
         try {
             let incidencia =  await Incidencia.findById(req.params.id).populate('codiExemplar');
-            let incidenciaJSON = {...incidencia, codiExemplar: incidencia.codiExemplar.codi}
-            res.status(200).json({incidencia: incidenciaJSON});
+            res.status(200).json({incidencia});
         } catch (error) {
             res.status(400).json({error});
         }
@@ -280,7 +278,7 @@ class IncidenciaController {
         try {
             Exemplar.find({ codi: req.body.incidencia.codiExemplar }, function (err, exemplar) {
                 if (err) {
-                    return next(err);
+                    return res.status(400).json({error: err});
                 }
                 var list_incidencia = new Incidencia({
                     tipologia: req.body.incidencia.tipologia,
@@ -302,10 +300,9 @@ class IncidenciaController {
                     list_incidencia,
                     { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
                     function (err, list_incidenciaFound) {
-                        if (err) {
-                            res.status(400).json({ error: err.message });
-                        }
-                        res.status(200).json({ok: true});
+                        if (err) res.status(400).json({ error: err.message });
+
+                        else res.status(200).json({ok: true});
                     }
                 );
     

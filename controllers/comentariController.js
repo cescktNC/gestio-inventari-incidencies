@@ -113,10 +113,18 @@ class ComentariController {
 		});
   
 		
-		Comentari.create(com, function (error, newcomen ) {
+		Comentari.create(com, async function (error, newcomen ) {
 			if (error) res.status(400).json({ error: error.message });
 
-			else res.status(200).json({ ok: true });
+			var tramet = {
+				codiIncidencia: newcomen.codiIncidencia,
+				codiUsuari: newcomen.codiUsuari,
+				codiComentari: newcomen.id
+			};
+
+			await Tramet.create(tramet);
+
+			res.status(200).json({ ok: true });
 		});
 	  }
 		

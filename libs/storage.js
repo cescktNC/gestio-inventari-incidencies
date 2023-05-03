@@ -21,7 +21,7 @@ function url(path) {
 		case path.includes("usuaris"):
 			return "public/URL/Profile";
 		default:
-			return "seeders";
+			return "import";
 			
 	}
 }

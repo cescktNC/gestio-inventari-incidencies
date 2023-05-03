@@ -21,7 +21,7 @@ router.post("/update/:id",  centre_controller.update_post);
 //Rutes API
 
 router.get('/APIlist', validateToken.protegirRuta, centre_controller.CentreList);
-
+router.get('/APIalllist', validateToken.protegirRuta, centre_controller.CentreAllList);
 router.get('/APIshow/:id', validateToken.protegirRuta, centre_controller.CentreSowh);
 
 
