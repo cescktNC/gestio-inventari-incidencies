@@ -19,7 +19,6 @@ router.post("/update/:id", prestec_controller.update_post);
 //API
 
 router.get('/APIlist', validateToken.protegirRuta, prestec_controller.prestecList);
-
 router.get('/APIPendent', validateToken.protegirRuta, prestec_controller.prestecCount);
 router.get('/APIShow/:id', validateToken.protegirRuta, prestec_controller.prestecShow);
 router.get('/APIEstats', validateToken.protegirRuta, prestec_controller.estats);

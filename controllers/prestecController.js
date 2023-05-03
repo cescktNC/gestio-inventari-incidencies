@@ -1,6 +1,7 @@
 const Prestec = require("../models/prestec");
 const Exemplar = require("../models/exemplar");
 const Usuari = require("../models/usuari");
+const reserva = require("../models/reserva");
 
 class prestecController {
 
@@ -175,27 +176,68 @@ class prestecController {
   }
 
   static async prestecCreate(req, res, next){
-    let codi = await Prestec.count() + 1;
-    if(codi < 10) codi = '0' + codi;
+    try {
+      let usuari = await Usuari.findOne({dni: req.body.prestec.dni}).exec();
+      if(usuari === null) return res.status(400).json({error: 'Usuari no Trobat'});
 
-    Usuari.findOne({dni: req.body.prestec.dni}).exec( function(err, usuari){
-      if(err) res.status(400).json({error: err});
-      if(usuari == null) res.status(400).json({error: 'Usuari no Trobat'});
+      const date = new Date();
+      const year = date.getFullYear();
+      
+      const fechaInicial = new Date(( year - 1 ) + '-09-01');
+      const fechaFinal = new Date(year + '-06-01');
+
+      let comprobacio = await Prestec.findOne({
+        dniUsuari: usuari._id, // Reemplaza idUsuario con el ID del usuario que deseas verificar
+        dataRetorn: { $gte: fechaInicial, $lte: fechaFinal }
+      }).exec();
+
+      console.log(comprobacio)
+
+      if(comprobacio !== null) return res.status(400).json({error: "L'usuari ja ha solicitat una reserva"});
+
+      let codi = await Prestec.count() + 1;
+      if(codi < 10) codi = '0' + codi;
+
       let prestec = {
-        codi: codi,
-        dataInici: req.body.prestec.dataInici,
-        dataRetorn: req.body.prestec.dataRetorn,
-        dniUsuari: usuari._id
-      }
+            codi: codi,
+            dataInici: req.body.prestec.dataInici,
+            dataRetorn: req.body.prestec.dataRetorn,
+            dniUsuari: usuari._id
+          }
+    
+          Prestec.create(prestec, function (error, newPrestec) {
+            if (error) {
+              res.status(400).json({ error: error.message })
+            } else {
+              res.status(400).json({ok: true});
+            }
+          })
 
-      Prestec.create(prestec, function (error, newPrestec) {
-        if (error) {
-          res.status(400).json({ error: error.message })
-        } else {
-          res.status(400).json({ok: true});
-        }
-      })
-    })
+    } catch (error) {
+      res.status(400).json({error: 'Ha ocurregut un error inesperat!'});
+    }
+    // let codi = await Prestec.count() + 1;
+    // if(codi < 10) codi = '0' + codi;
+
+    // Usuari.findOne({dni: req.body.prestec.dni}).exec( function(err, usuari){
+    //   if(err) return  res.status(400).json({error: err});
+    //   if(usuari === null) return res.status(400).json({error: 'Usuari no Trobat'});
+      
+    //   let prestec = {
+    //     codi: codi,
+    //     dataInici: req.body.prestec.dataInici,
+    //     dataRetorn: req.body.prestec.dataRetorn,
+    //     dniUsuari: usuari._id
+    //   }
+
+    //   Prestec.create(prestec, function (error, newPrestec) {
+    //     if (error) {
+    //       res.status(400).json({ error: error.message })
+    //     } else {
+    //       res.status(400).json({ok: true});
+    //     }
+    //   })
+    // })
   };
 
   static async prestecCount(req, res, next){
@@ -209,25 +251,25 @@ class prestecController {
 
   static async prestecShow(req, res, next){
     try {
-      Prestec.findById(req.params.id).exec(function(error, prestec){
-        if (err) {
-          res.status(400).json({ message: err });
-        }
-        if (prestec == null) {
-          // No results.
-          var err = new Error("Prestec not found");
-          res.status(400).json({ message: err });
-        }
+      Prestec.findById(req.params.id)
+      .populate('dniUsuari')
+      .exec(function(error, prestec){
+        if (error) return res.status(400).json({ error });
+        
+        if (prestec == null) return res.status(400).json({ error: "Prestec not found" });
+        
 
         res.status(200).json({ prestec: prestec });
       })
     } catch (error) {
-      res.status(400).json(error);
+      res.status(400).json({error: 'Ha ocurregut un error inesperat'});
     }
   }
 
   static async prestecUpdate(req, res, next){
     const dataActual = new Date();
+
+    let exemplarsPrestatbles, exemplarsPrestats, exemplarsPerPrestar;
 
     var prestec = {
       dataRetorn: req.body.prestec.dataRetorn,
@@ -241,7 +283,7 @@ class prestecController {
 
     if(prestec.estat === 'Acceptat'){
 
-      Exemplar.aggregate([
+      exemplarsPrestatbles = await Exemplar.aggregate([
         {
           $match: { demarca: false } // filtra per les condicions pasades
         },
@@ -277,58 +319,59 @@ class prestecController {
       ], function(err, exemplars) {
         if (err) {
           return res.status(400).json({ error: err });
-          return;
         }
 
-        const materialExemplarsIds = exemplars.map(exemplar => exemplar._id.toString());
-
-        const date = new Date();
-        const year = date.getFullYear();
-        
-        const fechaInicial = new Date(( year - 1 ) + '-09-01');
-        const fechaFinal = new Date(year + '-06-01');
-        
-        Prestec.aggregate([
-          { $match: { dataRetorn: { $gte: fechaInicial, $lte: fechaFinal } } }, // $gte (mayor o igual que) y $lte (menor o igual que)
-          { $sort: { codiExemplar: 1, dataRetorn: -1 } },
-          { $group: { _id: "$codiExemplar", lastPrestec: { $first: "$$ROOT" } } }
-          // La variable $$ROOT és una variable interna de l'agregació de MongoDB que representa el document complet actual al pipeline d'agregació,
-          // incloent tots els camps i valors.
-        ], function(err, results) {
-          if (err) {
-            res.status(400).json({error: 'No hi ha cap element per presta'});
-            return;
-          }
-          const materialPrestecIds = results.map(result => result._id.toString());
-
-          var materialId = [...materialExemplarsIds, ...materialPrestecIds];
-
-          materialId = materialId.filter((element, index) => {
-            return materialId.indexOf(element) !== index;
-          });
-
-          if(materialId.length == 0) res.status(400).json({error: 'No hi ha cap element per presta'});
-
-          prestec.codiExemplar = materialId[0];
-
-          Prestec.findByIdAndUpdate(
-            req.params.id,
-            prestec,
-            { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
-            function (err, prestecfound) {
-              if (err) {
-                //return next(err);
-                res.status(400).json({ error: err.message });
-              }
-              //res.redirect('/genres/update/'+ genreFound._id);
-              res.status(200).json({ ok: true, message: 'Prestec actualitzat' });
-            }
-          );
-
-        });
+        return exemplars;
 
       });
+
+      const date = new Date();
+      const year = date.getFullYear();
+      
+      const fechaInicial = new Date(( year - 1 ) + '-09-01');
+      const fechaFinal = new Date(year + '-06-01');
+
+      exemplarsPrestats = await Prestec.aggregate([
+        { $match: { dataRetorn: { $gte: fechaInicial, $lte: fechaFinal } } }, // $gte (mayor o igual que) y $lte (menor o igual que)
+        { $match: { codiExemplar: { $exists: true } } },
+        { $sort: { codiExemplar: 1, dataRetorn: -1 } },
+        { $group: { _id: "$codiExemplar", lastPrestec: { $first: "$$ROOT" } } }
+        // La variable $$ROOT és una variable interna de l'agregació de MongoDB que representa el document complet actual al pipeline d'agregació,
+        // incloent tots els camps i valors.
+      ], async function(err, results) {
+        if (err) {
+          res.status(400).json({error: 'No hi ha cap element per presta'});
+          return;
+        }
+        return results;
+
+      });
+
+      exemplarsPrestatbles = exemplarsPrestatbles.map(exemplar => exemplar._id.toString());
+      exemplarsPrestats = exemplarsPrestats.map(exemplar => exemplar._id.toString());
+
+      exemplarsPerPrestar = [...exemplarsPrestatbles, ...exemplarsPrestats];
+
+      exemplarsPerPrestar = exemplarsPrestatbles.filter((element, index) => {
+        return !exemplarsPrestats.includes(element);
+      });
+
+      if(exemplarsPerPrestar.length == 0) return res.status(400).json({error: 'No hi ha cap element per presta'});
+
+      prestec.codiExemplar = exemplarsPerPrestar[0];
     }
+
+    Prestec.findByIdAndUpdate(
+      req.params.id,
+      prestec,
+      { runValidators: true }, // Per a que faci les comprovacions de les restriccions posades al model
+      function (err, prestecfound) {
+        if (err) return res.status(400).json({ error: err.message });
+        
+        //res.redirect('/genres/update/'+ genreFound._id);
+        res.status(200).json({ ok: true, message: 'Prestec actualitzat' });
+      }
+    );
   }
 
   static async estats(req, res, next){
@@ -336,10 +379,10 @@ class prestecController {
     res.status(200).json({ estats: list_estats });
   } 
 
-  static async prestecUpdateStat(req, res, next){
-    let estat = req.body.estat;
+  // static async prestecUpdateStat(req, res, next){
+  //   let estat = req.body.estat;
 
-  };
+  // };
 
     
 
