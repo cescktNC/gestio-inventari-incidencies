@@ -191,8 +191,6 @@ class prestecController {
         dataRetorn: { $gte: fechaInicial, $lte: fechaFinal }
       }).exec();
 
-      console.log(comprobacio)
-
       if(comprobacio !== null) return res.status(400).json({error: "L'usuari ja ha solicitat una reserva"});
 
       let codi = await Prestec.count() + 1;
@@ -216,28 +214,6 @@ class prestecController {
     } catch (error) {
       res.status(400).json({error: 'Ha ocurregut un error inesperat!'});
     }
-    // let codi = await Prestec.count() + 1;
-    // if(codi < 10) codi = '0' + codi;
-
-    // Usuari.findOne({dni: req.body.prestec.dni}).exec( function(err, usuari){
-    //   if(err) return  res.status(400).json({error: err});
-    //   if(usuari === null) return res.status(400).json({error: 'Usuari no Trobat'});
-      
-    //   let prestec = {
-    //     codi: codi,
-    //     dataInici: req.body.prestec.dataInici,
-    //     dataRetorn: req.body.prestec.dataRetorn,
-    //     dniUsuari: usuari._id
-    //   }
-
-    //   Prestec.create(prestec, function (error, newPrestec) {
-    //     if (error) {
-    //       res.status(400).json({ error: error.message })
-    //     } else {
-    //       res.status(400).json({ok: true});
-    //     }
-    //   })
-    // })
   };
 
   static async prestecCount(req, res, next){
