@@ -172,9 +172,9 @@ class reservaController {
 		catch (e) {
 		  res.status(400).json({ message: 'Error!' });
 		}
-	  }
+	}
 	
-	  static async ReservaCreate(req, res) {
+	static async ReservaCreate(req, res) {
 		let Reservanew = req.body.ReservaData
 		  ;
 	
@@ -222,7 +222,7 @@ class reservaController {
 	
 		  else res.status(200).json({ ok: true });
 		});
-	  }
+	}
 }
 
 module.exports = reservaController;
