@@ -316,6 +316,12 @@ if (process.argv[2] === '-u') {
             let usuari = await Usuari.find({ dni: reserva.dniUsuari });
             let localitzacio = await Localitzacio.find({ nom: reserva.codiLocalitzacio });
             
+            reserva.horaInici = new Date(reserva.data + 'T' + reserva.horaInici + ':00.000Z');
+            (reserva.horaInici).setTime((reserva.horaInici).getTime() + (reserva.horaInici).getTimezoneOffset()*60*1000);
+            reserva.horaFi = new Date(reserva.data + 'T' + reserva.horaFi + ':00.000Z');
+            (reserva.horaFi).setTime((reserva.horaFi).getTime() + (reserva.horaFi).getTimezoneOffset()*60*1000);
+            delete reserva.data;
+
             reserva.dniUsuari = usuari[0].id;
             reserva.codiLocalitzacio = localitzacio[0].id;
 
@@ -394,6 +400,52 @@ if (process.argv[2] === '-u') {
 
     } else if (process.argv[3] === '-d') deleteData(ReservaCadira);
     
+} else if (process.argv[2] === '-tk') {
+
+    const Usuari = require('../models/usuari');
+    const Sessio = require('../models/sessio');
+    const Cadira = require('../models/cadira'); 
+    const ReservaCadira = require('../models/reservaCadira');
+    const Ticket = require('../models/ticket');
+
+    if (process.argv[3] === '-i') {
+
+        let tickets = JSON.parse(
+            fs.readFileSync(`tickets.json`, "utf-8")
+        );
+
+        let count = 0;
+        var list_tickets = [];
+
+        tickets.forEach(async ticket => {
+
+            let usuari = await Usuari.find({ dni: ticket.idUsuari });
+
+            let fila = ticket.idCadira.substring(0,1);
+            let numero = ticket.idCadira.substring(1);
+
+            let sessio = await Sessio.find({ codi: ticket.idSessio });
+            let cadira = await Cadira.find({ fila: fila, numero: numero });
+
+            let cadiraReservada = await ReservaCadira.find({ idSessio: sessio[0].id, idCadira: cadira[0].id });
+
+            let element = {
+                numero: ticket.numero,
+                codiSessio: ticket.idSessio,
+                idUsuari: usuari[0].id,
+                idReservaCadira: cadiraReservada[0].id
+            }
+
+            list_tickets.push(element);
+
+            count++;
+
+            if (count == tickets.length) return importData(Ticket, list_tickets);
+
+        });
+
+    } else if (process.argv[3] === '-d') deleteData(Ticket);
+
 } else {
     console.log('Primera opció incorrecta. Has de posar:\n\
         "-u"  => per a importar USUARIS\n\
@@ -410,6 +462,7 @@ if (process.argv[2] === '-u') {
         "-r"  => per a importar RESERVES\n\
         "-s"  => per a importar SESSIONS\n\
         "-cd" => per a importar CADIRES\n\
-        "-cd" => per a importar RESERVA DE CADIRES');
+        "-rcd" => per a importar RESERVA DE CADIRES\n\
+        "-tk" => per a importar TIQUETS');
     process.exit();
 }

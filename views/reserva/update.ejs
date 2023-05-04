@@ -24,16 +24,63 @@
 						<label for="codi">Codi</label>
 						<input type="text" name="codi" class="form-control" value="<%= Reserva.codi %>">
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="hora">Hora</label>
 						<input type="text" name="hora" class="form-control" value="<%= Reserva.hora %>">
-					</div>
+					</div> -->
+					<div class="form-group">
+                        <label for="horaInici">Hora Inici</label> <br>
+						<% if(Reserva.horaInici.getMinutes() == 0) { %>
+							<input name="horaInici" value="<%= Reserva.horaInici.getHours() %>:00 h" list="llista-hores-inici" class="form-control">
+						<% } else { %>
+							<input name="horaInici" value="<%= Reserva.horaInici.getHours() %>:<%= Reserva.horaInici.getMinutes() %> h" list="llista-hores-inici" class="form-control">	
+						<% } %>
+                        <datalist id="llista-hores-inici">
+                            <option value="08:00 h" label="De les vuit en punt del matí"></option>
+                            <option value="09:00 h" label="De les nou en punt del matí"></option>
+                            <option value="10:00 h" label="De les deu en punt del matí"></option>
+                            <option value="11:30 h" label="De dos quarts de dotze del matí"></option>
+                            <option value="12:30 h" label="De dos quarts d'una del matí"></option>
+                            <option value="13:30 h" label="De dos quarts de dos de la tarda"></option>
+                            <option value="14:30 h" label="De dos quarts de tres de la tarda"></option>
+                            <option value="15:00 h" label="De les tres en punt de la tarda"></option>
+                            <option value="16:00 h" label="De les quatre en punt de la tarda"></option>
+                            <option value="17:00 h" label="De les cinc en punt de la tarda"></option>
+                            <option value="18:00 h" label="De les sis en punt de la tarda"></option>
+                            <option value="19:00 h" label="De les set en punt de la tarda"></option>
+                            <option value="20:00 h" label="De les vuit en punt de la nit"></option>
+                            <option value="21:00 h" label="De les nou en punt de la nit"></option>
+                        </datalist>
+                    </div>
+					<div class="form-group">
+                        <label for="horaFi">Hora Fi</label> <br>
+						<% if(Reserva.horaFi.getMinutes() == 0) { %>
+                        	<input name="horaFi" value="<%= Reserva.horaFi.getHours() %>:00 h" list="llista-hores-fi" class="form-control">
+						<% } else { %>
+							<input name="horaFi" value="<%= Reserva.horaFi.getHours() %>:<%= Reserva.horaFi.getMinutes() %> h" list="llista-hores-fi" class="form-control">
+						<% } %>
+                        <datalist id="llista-hores-fi">
+                            <option value="09:00 h" label="Fins a les nou en punt del matí"></option>
+                            <option value="10:00 h" label="Fins a les deu en punt del matí"></option>
+                            <option value="11:00 h" label="Fins a les onze en punt del matí"></option>
+                            <option value="12:30 h" label="Fins a dos quarts d'una del matí"></option>
+                            <option value="13:30 h" label="Fins a dos quarts de dos de la tarda"></option>
+                            <option value="14:30 h" label="Fins a dos quarts de tres de la tarda"></option>
+                            <option value="15:00 h" label="Fins a les tres en punt de la tarda"></option>
+                            <option value="16:00 h" label="Fins a les quatre en punt de la tarda"></option>
+                            <option value="17:00 h" label="Fins a les cinc en punt de la tarda"></option>
+                            <option value="18:00 h" label="Fins a les sis en punt de la tarda"></option>
+                            <option value="19:00 h" label="Fins a les set en punt de la tarda"></option>
+                            <option value="20:00 h" label="Fins a les vuit en punt de la nit"></option>
+                            <option value="21:00 h" label="Fins a les nou en punt de la nit"></option>
+                            <option value="22:00 h" label="Fins a les deu en punt de la nit"></option>
+                        </datalist>
+                    </div>
 					<div class="form_group">
 						<label for="data">Data</label>
-						<input type="date" name="data" class="form-control" value="<%= Reserva.data.toISOString().substring(0,10) %>">
+						<input type="date" name="data" class="form-control" value="<%= Reserva.horaInici.toISOString().substring(0,10) %>"><br>
 					</div>
-					<button type="submit" class="btn btn-primary">Save
-					</button>
+					<button type="submit" class="btn btn-primary">Save</button>
 					<a class="btn btn-danger" href="/reserva/delete/<%= Reserva._id %>" role="button">Delete</a>
 
 				</form>

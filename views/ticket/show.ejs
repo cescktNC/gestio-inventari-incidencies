@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('../partials/head'); %>
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Indie+Flower|Inknut+Antiqua|Lora|Ravi+Prakash" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/styleTicket.css" />
+</head>
+
+<body class="container">
+
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
+
+	<main>
+		<div class="card mt-2">
+			<div class="card-body">
+
+				<div class="container">
+          <h1 class="ticket-titol">ticket</h1>
+          <div class="ticket">
+              <div class="ticket-dreta">
+                  <h2 class="num"><%= reserva.data.getDate() %></h2>
+                  <% if(reserva.data.getMonth() == 0 ) { mes = "Gener" %>
+                  <% } else if (reserva.data.getMonth() == 1) { mes = "Febrer" %>
+                  <% } else if (reserva.data.getMonth() == 2) { mes = "Març" %>
+                  <% } else if (reserva.data.getMonth() == 3) { mes = "Abril" %>
+                  <% } else if (reserva.data.getMonth() == 4) { mes = "Maig" %>
+                  <% } else if (reserva.data.getMonth() == 5) { mes = "Juny" %>
+                  <% } else if (reserva.data.getMonth() == 6) { mes = "Juliol" %>
+                  <% } else if (reserva.data.getMonth() == 7) { mes = "Agost" %>
+                  <% } else if (reserva.data.getMonth() == 8) { mes = "Setembre" %>
+                  <% } else if (reserva.data.getMonth() == 9) { mes = "Octubre" %>
+                  <% } else if (reserva.data.getMonth() == 10) { mes = "Novembre" %>
+                  <% } else if (reserva.data.getMonth() == 11) { mes = "Desembre" %>
+                  <% } %>
+                  <p class="dia"><%= mes.substring(0,3) %></p>
+              </div>
+              <div class="ticket-esquerra">
+                  <p class="event"><%= usuari.nom %> <%= usuari.cognoms %></p>
+                  <h2 class="titol"><%= sessio.nom %></h2>
+                  
+                  <div class="cal">
+                    <div class="icon">
+                      <i class="fa fa-table"></i>
+                    </div>
+                    <p>
+                      <% if(reserva.data.getDay() == 1 ) { %>Dilluns
+                      <% } else if (reserva.data.getDay() == 2) { %>Dimarts
+                      <% } else if (reserva.data.getDay() == 3) { %>Dimecres
+                      <% } else if (reserva.data.getDay() == 4) { %>Dijous
+                      <% } else if (reserva.data.getDay() == 5) { %>Divendres
+                      <% } else if (reserva.data.getDay() == 6) { %>Dissabte
+                      <% } else if (reserva.data.getDay() == 0) { %>Diumenge
+                      <% } %>
+                      <%= reserva.data.getDate() %> de 
+                      <%= mes %>
+                      <%= reserva.data.getFullYear() %> <br/> 
+                      <%= reserva.hora.split(' - ')[0] %>h a <%= reserva.hora.split(' - ')[1] %>h
+                    </p>
+                  </div>
+                  <div class="fix"></div>
+                  <div class="loc">
+                    <div class="icon">
+                      <i class="fa fa-map-marker"></i>
+                    </div>
+                    <p>
+                      Sala d'Actes <br/>
+                      <% fila = cadires[0].fila %>
+                      Fila: <%= cadires[0].fila %> Número: 
+                      <% cadires.forEach( (cadira, index) => { %>
+                        <% if (cadira.fila == fila) { %>
+                          <% if (cadires.length == index + 1 || cadires[index+1].fila != cadira.fila) { %>
+                            <%= cadira.numero %>
+                          <% } else { %>
+                            <%= cadira.numero %>,
+                          <% } %>
+                        <% } else { %>
+                          <br/>Fila: <%= cadira.fila %> Número: 
+                          <% if (cadires.length == index + 1 || cadires[index+1].fila != cadira.fila) { %>
+                            <%= cadira.numero %>
+                          <% } else { %>
+                            <%= cadira.numero %>,
+                          <% } %>
+                          <% fila = cadira.fila %>
+                        <% } %>
+                      <% }); %>
+                    </p>
+                  </div>
+                  <!-- <div class="fix"></div> -->
+              </div>
+          </div>
+        </div>
+			</div>
+		</div>
+
+	</main>
+
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
+
+</body>
+
+</html>

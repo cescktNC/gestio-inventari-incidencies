@@ -11,6 +11,7 @@ class sessioController {
         if (err) {
           return next(err);
         }
+        console.log(list);
         res.render('sessio/list', { list: list })
       });
   }
@@ -24,8 +25,6 @@ class sessioController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    // req.body serà algo similar a  { name: 'Aventura' }
     const reserva_list = await Reserva.find();
     Sessio.create(req.body, function (error, newSessio) {
       if (error) {
