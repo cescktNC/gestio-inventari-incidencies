@@ -150,7 +150,15 @@ class reservaController {
 			const startIndex = (page - 1) * PAGE_SIZE;
 	
 			Reserva.find()
-			  .sort({ nom: 1 })
+			  .sort({ codi: 1 })
+        .populate({
+          path: 'dniUsuari',
+					select: 'nom'
+        })
+        .populate({
+          path: 'codiLocalitzacio',
+					select: 'nom'
+        })
 			  .skip(startIndex)
 			  .limit(PAGE_SIZE)
 			  .exec(function (err, list) {
@@ -176,7 +184,7 @@ class reservaController {
 	
 		  if (reserva == null) {
 			// Guardar categoria en la base de datos
-			Reserva.create(PlantaNew, function (error, newreservacreate) {
+			Reserva.create(Reservanew, function (error, newreservacreate) {
 			  if (error) res.status(400).json({ error: error.message });
 	
 			  else res.status(200).json({ ok: true });
@@ -187,15 +195,17 @@ class reservaController {
 	  static async ReservaUpdate(req, res) {
 		const ReservaId = req.params.id;
 		const updatedReservaData = req.body.ReservaData;
-	
-	
+      console.log(req.body)
+        
 		// Valida que el código no esté ya registrado en otra categoría
 		Reserva.findOne({ codi: updatedReservaData.codi, _id: { $ne: ReservaId } }, function (err, reserva) {
 		  if (err) res.status(400).json({ error: err });
 	
 		  if (reserva == null) {
 			// Actualizar la categoría en la base de datos
-			Reserva.findByIdAndUpdate(PlantaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
+      updatedReservaData.data = new Date(updatedReservaData.data);
+      updatedReservaData.hora = new Date(updatedReservaData.hora);
+			Reserva.findByIdAndUpdate(ReservaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
 			  if (error) res.status(400).json({ error: error.message });
 	
 			  else res.status(200).json({ ok: true });
