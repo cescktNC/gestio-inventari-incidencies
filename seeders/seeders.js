@@ -362,6 +362,15 @@ async function reservas() {
         let usuari = await Usuari.find({ dni: reserva.dniUsuari });
         let localitzacio = await Localitzacio.find({ nom: reserva.codiLocalitzacio });
 
+        reserva.horaInici = new Date(reserva.data + 'T' + reserva.horaInici + ':00.000Z');
+        (reserva.horaInici).setTime((reserva.horaInici).getTime() + (reserva.horaInici).getTimezoneOffset()*60*1000);
+        reserva.horaFi = new Date(reserva.data + 'T' + reserva.horaFi + ':00.000Z');
+        (reserva.horaFi).setTime((reserva.horaFi).getTime() + (reserva.horaFi).getTimezoneOffset()*60*1000);
+        delete reserva.data;
+
+        reserva.dniUsuari = usuari[0].id;
+        reserva.codiLocalitzacio = localitzacio[0].id;
+
         reserva.dniUsuari = usuari[0].id;
         reserva.codiLocalitzacio = localitzacio[0].id;
 

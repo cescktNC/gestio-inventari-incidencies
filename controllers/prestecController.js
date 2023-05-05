@@ -191,7 +191,7 @@ class prestecController {
         dataRetorn: { $gte: fechaInicial, $lte: fechaFinal }
       }).exec();
 
-      if(comprobacio !== null) return res.status(400).json({error: "L'usuari ja ha solicitat una reserva"});
+      if(comprobacio !== null) return res.status(400).json({error: "L'usuari ja ha solicitat un prestec"});
 
       let codi = await Prestec.count() + 1;
       if(codi < 10) codi = '0' + codi;
@@ -332,6 +332,7 @@ class prestecController {
         return !exemplarsPrestats.includes(element);
       });
 
+      console.log({exemplarsPerPrestar, exemplarsPrestatbles, exemplarsPrestats})
       if(exemplarsPerPrestar.length == 0) return res.status(400).json({error: 'No hi ha cap element per presta'});
 
       prestec.codiExemplar = exemplarsPerPrestar[0];
