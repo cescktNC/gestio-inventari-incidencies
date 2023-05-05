@@ -371,9 +371,6 @@ async function reservas() {
         reserva.dniUsuari = usuari[0].id;
         reserva.codiLocalitzacio = localitzacio[0].id;
 
-        reserva.dniUsuari = usuari[0].id;
-        reserva.codiLocalitzacio = localitzacio[0].id;
-
         count++;
 
         if (count == dades.length) {
@@ -386,19 +383,19 @@ async function reservas() {
 
 async function sessions() {
 
-    dades = JSON.parse(
+    let sessions = JSON.parse(
         fs.readFileSync(`sessions.json`, "utf-8")
     );
 
     let count = 0;
 
-    dades.forEach(async sessio => {
+    sessions.forEach(async sessio => {
         let reserva = await Reserva.find({ codi: sessio.codiReserva });
         sessio.codiReserva = reserva[0].id;
 
         count++;
-        if (count == dades.length) {
-            await importData(Sessio, dades);
+        if (count == sessions.length) {
+            await importData(Sessio, sessions);
             await reservesCadires();
         };
 

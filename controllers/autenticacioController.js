@@ -141,7 +141,9 @@ class autenticacioController {
     });
   }
 
-  //API
+  /**********************************************
+   ********************  API  ******************* 
+   **********************************************/
 
   static async login(req, res, next) {
     // Recuperem els errors possibles de validació
@@ -157,7 +159,7 @@ class autenticacioController {
 
       Usuari.findOne({ email: email }).exec( async function (err, usuari) {
         if (err) {
-          res.status(400).json({ message: "error" });
+          res.status(400).json({ errors: err });
         }
         if (!usuari) {
           var message = "Usuari no registrat";
@@ -214,7 +216,7 @@ class autenticacioController {
       dni: dni,
       email: email,
       carrec: "Alumne",
-      password: password,
+      password: Password,
       profilePicture: 'URL/Profile/profilePicture.png'
     });
 
