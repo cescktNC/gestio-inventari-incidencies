@@ -20,7 +20,7 @@
 					<thead>
 						<tr>
 							<th scope="col">Codi</th>
-							<th scope="col">Hora</th>
+							<th scope="col">Horari</th>
 							<th scope="col">Data</th>
 							<th scope="col">DNI de l'Usuari</th>
 							<th scope="col">Codi Localitzacio</th>
@@ -36,10 +36,18 @@
 									<%= reserva.codi %>
 								</td>
 								<td>
-									<%= reserva.hora %>
+									<% if(reserva.horaInici.getMinutes() == 0 && reserva.horaFi.getMinutes() == 0) { %>
+										<%= reserva.horaInici.getHours() %>:00 h - <%= reserva.horaFi.getHours() %>:00 h
+									<% } else if (reserva.horaInici.getMinutes() == 0) { %>
+										<%= reserva.horaInici.getHours() %>:00 %> h - <%= reserva.horaFi.getHours() %>:<%= reserva.horaFi.getMinutes() %> h
+									<% } else if (reserva.horaFi.getMinutes() == 0) { %>
+										<%= reserva.horaInici.getHours() %>:<%= reserva.horaInici.getMinutes() %> h - <%= reserva.horaFi.getHours() %>:00 h
+									<% } else { %>
+										<%= reserva.horaInici.getHours() %>:<%= reserva.horaInici.getMinutes() %> h - <%= reserva.horaFi.getHours() %>:<%= reserva.horaFi.getMinutes() %> h
+									<% } %>
 								</td>
 								<td>
-									<%= reserva.formatarDate %>
+									<%= reserva.horaInici.getDate() %>/<%= reserva.horaInici.getMonth() + 1 %>/<%= reserva.horaInici.getFullYear() %>
 								</td>
 								<td>
 									<% if(reserva.dniUsuari == null) {%>

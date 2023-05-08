@@ -16,7 +16,7 @@
 			<div class="card-body">
 				<h5 class="card-title">Sessio</h5>
 
-				<table class="table table-striped">
+				<table class="table table-striped text-center">
 					<thead>
 						<tr>
 							<th scope="col">Codi</th>
@@ -45,7 +45,8 @@
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/sessio/update/<%=sessio._id%>" class="card-link">Edit</a>
-									<a class="btn btn-info" href="/reservaCadira/<%= sessio._id %>" class="card-link">Cadires</a>
+									<a class="btn btn-warning" href="/reservaCadira/<%= sessio._id %>" class="card-link">Cadires</a>
+									<a class="btn btn-success" href="/ticket/<%= sessio._id %>" class="card-link">Tickets</a>
 								</td>
 
 							</tr>
