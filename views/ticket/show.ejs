@@ -22,19 +22,19 @@
           <h1 class="ticket-titol">ticket</h1>
           <div class="ticket">
               <div class="ticket-dreta">
-                  <h2 class="num"><%= reserva.data.getDate() %></h2>
-                  <% if(reserva.data.getMonth() == 0 ) { mes = "Gener" %>
-                  <% } else if (reserva.data.getMonth() == 1) { mes = "Febrer" %>
-                  <% } else if (reserva.data.getMonth() == 2) { mes = "Març" %>
-                  <% } else if (reserva.data.getMonth() == 3) { mes = "Abril" %>
-                  <% } else if (reserva.data.getMonth() == 4) { mes = "Maig" %>
-                  <% } else if (reserva.data.getMonth() == 5) { mes = "Juny" %>
-                  <% } else if (reserva.data.getMonth() == 6) { mes = "Juliol" %>
-                  <% } else if (reserva.data.getMonth() == 7) { mes = "Agost" %>
-                  <% } else if (reserva.data.getMonth() == 8) { mes = "Setembre" %>
-                  <% } else if (reserva.data.getMonth() == 9) { mes = "Octubre" %>
-                  <% } else if (reserva.data.getMonth() == 10) { mes = "Novembre" %>
-                  <% } else if (reserva.data.getMonth() == 11) { mes = "Desembre" %>
+                  <h2 class="num"><%= reserva.horaInici.getDate() %></h2>
+                  <% if(reserva.horaInici.getMonth() == 0 ) { mes = "Gener" %>
+                  <% } else if (reserva.horaInici.getMonth() == 1) { mes = "Febrer" %>
+                  <% } else if (reserva.horaInici.getMonth() == 2) { mes = "Març" %>
+                  <% } else if (reserva.horaInici.getMonth() == 3) { mes = "Abril" %>
+                  <% } else if (reserva.horaInici.getMonth() == 4) { mes = "Maig" %>
+                  <% } else if (reserva.horaInici.getMonth() == 5) { mes = "Juny" %>
+                  <% } else if (reserva.horaInici.getMonth() == 6) { mes = "Juliol" %>
+                  <% } else if (reserva.horaInici.getMonth() == 7) { mes = "Agost" %>
+                  <% } else if (reserva.horaInici.getMonth() == 8) { mes = "Setembre" %>
+                  <% } else if (reserva.horaInici.getMonth() == 9) { mes = "Octubre" %>
+                  <% } else if (reserva.horaInici.getMonth() == 10) { mes = "Novembre" %>
+                  <% } else if (reserva.horaInici.getMonth() == 11) { mes = "Desembre" %>
                   <% } %>
                   <p class="dia"><%= mes.substring(0,3) %></p>
               </div>
@@ -47,18 +47,18 @@
                       <i class="fa fa-table"></i>
                     </div>
                     <p>
-                      <% if(reserva.data.getDay() == 1 ) { %>Dilluns
-                      <% } else if (reserva.data.getDay() == 2) { %>Dimarts
-                      <% } else if (reserva.data.getDay() == 3) { %>Dimecres
-                      <% } else if (reserva.data.getDay() == 4) { %>Dijous
-                      <% } else if (reserva.data.getDay() == 5) { %>Divendres
-                      <% } else if (reserva.data.getDay() == 6) { %>Dissabte
-                      <% } else if (reserva.data.getDay() == 0) { %>Diumenge
+                      <% if(reserva.horaInici.getDay() == 1 ) { %>Dilluns
+                      <% } else if (reserva.horaInici.getDay() == 2) { %>Dimarts
+                      <% } else if (reserva.horaInici.getDay() == 3) { %>Dimecres
+                      <% } else if (reserva.horaInici.getDay() == 4) { %>Dijous
+                      <% } else if (reserva.horaInici.getDay() == 5) { %>Divendres
+                      <% } else if (reserva.horaInici.getDay() == 6) { %>Dissabte
+                      <% } else if (reserva.horaInici.getDay() == 0) { %>Diumenge
                       <% } %>
-                      <%= reserva.data.getDate() %> de 
+                      <%= reserva.horaInici.getDate() %> de 
                       <%= mes %>
-                      <%= reserva.data.getFullYear() %> <br/> 
-                      <%= reserva.hora.split(' - ')[0] %>h a <%= reserva.hora.split(' - ')[1] %>h
+                      <%= reserva.horaInici.getFullYear() %> <br/> 
+                      <%= reserva.horaInici.getHours() %>h a <%= reserva.horaFi.getHours() %>h
                     </p>
                   </div>
                   <div class="fix"></div>
