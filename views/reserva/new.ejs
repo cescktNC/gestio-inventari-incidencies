@@ -113,10 +113,25 @@
                     <button type="submit" class="btn btn-primary">Reservar</button>
                 </form>
 
-                <% if (typeof error !=="undefined" ) { %>
+                <% if (typeof error !== "undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
                         <p>
-                            <%= error %>
+                            <%= error %><br />
+                            <% if (typeof horesReservades !== "undefined" ) { %>
+                                Disponibilitat:<br />
+                                <% horesReservades.forEach( (horaReservada, index) => { %>
+                                    <% if (index == 0 && horaReservada.horaInici.getHours() != 8) { %>
+                                        De 8 h a <%= horaReservada.horaInici.getHours() %><br />
+                                    <% } if (index != (horesReservades.length - 1)) { %>
+                                        De <%= horesReservades[index - 1].horaFi.getHours() %> a <%= horaReservada.horaInici.getHours() %><br />
+                                    <% } else if (index == (horesReservades.length - 1) && horaReservada.dataFi.hetHours() != 22) { %>
+                                        De <%= horesReservades[index - 1].horaFi.getHours() %> a <%= horaReservada.horaInici.getHours() %><br />
+                                        De <%= horaReservada.horaFi.getHours() %> a 22 h
+                                    <% } else if (index == (horesReservades.length - 1) && horaReservada.dataFi.hetHours() == 22) { %>
+                                        De <%= horesReservades[index - 1].horaFi.getHours() %> a <%= horaReservada.horaInici.getHours() %><br />
+                                    <% } %>
+                                <% }); %>
+                            <% } %>
                         </p>
                     </div>
                 <% } %>

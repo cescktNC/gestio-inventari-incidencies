@@ -71,6 +71,7 @@ class ticketController {
     }
 
     static async create(res, usuariId, idSessio, cadiresReservades) {
+
         let tickets = [];
         let cadires = [];
         

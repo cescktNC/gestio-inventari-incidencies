@@ -30,10 +30,19 @@
 					</div> -->
 					<div class="form-group">
                         <label for="horaInici">Hora Inici</label> <br>
+						<%=  %>
 						<% if(Reserva.horaInici.getMinutes() == 0) { %>
-							<input name="horaInici" value="<%= Reserva.horaInici.getHours() %>:00 h" list="llista-hores-inici" class="form-control">
+							<% if (Reserva.horaInici.getHours().toString().length == 1) { %>
+								<input name="horaInici" value="0<%= Reserva.horaInici.getHours() %>:00 h" list="llista-hores-inici" class="form-control">
+							<% } else { %>
+								<input name="horaInici" value="<%= Reserva.horaInici.getHours() %>:00 h" list="llista-hores-inici" class="form-control">
+							<% } %>
 						<% } else { %>
-							<input name="horaInici" value="<%= Reserva.horaInici.getHours() %>:<%= Reserva.horaInici.getMinutes() %> h" list="llista-hores-inici" class="form-control">	
+							<% if (Reserva.horaInici.getHours().toString().length == 1) { %>
+								<input name="horaInici" value="0<%= Reserva.horaInici.getHours() %>:<%= Reserva.horaInici.getMinutes() %> h" list="llista-hores-inici" class="form-control">	
+							<% } else { %>
+								<input name="horaInici" value="<%= Reserva.horaInici.getHours() %>:<%= Reserva.horaInici.getMinutes() %> h" list="llista-hores-inici" class="form-control">	
+							<% } %>
 						<% } %>
                         <datalist id="llista-hores-inici">
                             <option value="08:00 h" label="De les vuit en punt del matí"></option>
@@ -55,9 +64,17 @@
 					<div class="form-group">
                         <label for="horaFi">Hora Fi</label> <br>
 						<% if(Reserva.horaFi.getMinutes() == 0) { %>
-                        	<input name="horaFi" value="<%= Reserva.horaFi.getHours() %>:00 h" list="llista-hores-fi" class="form-control">
+							<% if (Reserva.horaFi.getHours().toString().length == 1) { %>
+                        		<input name="horaFi" value="0<%= Reserva.horaFi.getHours() %>:00 h" list="llista-hores-fi" class="form-control">
+							<% } else { %>
+								<input name="horaFi" value="<%= Reserva.horaFi.getHours() %>:00 h" list="llista-hores-fi" class="form-control">
+							<% } %>
 						<% } else { %>
-							<input name="horaFi" value="<%= Reserva.horaFi.getHours() %>:<%= Reserva.horaFi.getMinutes() %> h" list="llista-hores-fi" class="form-control">
+							<% if (Reserva.horaFi.getHours().toString().length == 1) { %>
+								<input name="horaFi" value="0<%= Reserva.horaFi.getHours() %>:<%= Reserva.horaFi.getMinutes() %> h" list="llista-hores-fi" class="form-control">
+							<% } else { %>
+								<input name="horaFi" value="<%= Reserva.horaFi.getHours() %>:<%= Reserva.horaFi.getMinutes() %> h" list="llista-hores-fi" class="form-control">
+							<% } %>
 						<% } %>
                         <datalist id="llista-hores-fi">
                             <option value="09:00 h" label="Fins a les nou en punt del matí"></option>
