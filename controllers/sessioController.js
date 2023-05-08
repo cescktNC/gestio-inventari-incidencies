@@ -4,16 +4,35 @@ var Reserva = require("../models/reserva");
 class sessioController {
 
   static async list(req, res, next) {
-    Sessio.find()
-      .populate('codiReserva')
-      .sort({ codi: 1, codiReserva: 1 })
-      .exec(function (err, list) {
+    try {
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+      
+      Sessio.countDocuments({}, function(err, count) {
         if (err) {
-          return next(err);
+            return next(err);
         }
-        console.log(list);
-        res.render('sessio/list', { list: list })
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Sessio.find()
+        .sort({ codi: 1, codiReserva: 1 })
+        .populate('codiReserva')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+            if (err) {
+                return next(err);
+            }
+            res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
+        });
       });
+    }
+    catch (e) {
+        res.send('Error!');
+    }
   }
 
   static async create_get(req, res, next) {
@@ -88,6 +107,85 @@ class sessioController {
         res.redirect('/sessio')
       }
     })
+  }
+  static async SessioList(req, res, next) {
+    try {
+
+      const PAGE_SIZE = 10; // Número de documentos por página
+      const page = req.query.page || 1; // Número de página actual
+
+      Sessio.countDocuments({}, function (err, count) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+
+        Sessio.find()
+          .sort({ nom: 1 })
+          .skip(startIndex)
+          .limit(PAGE_SIZE)
+          .exec(function (err, list) {
+            if (err) {
+              res.status(400).json({ error: err });
+            }
+            res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+          });
+      });
+    }
+    catch (e) {
+      res.status(400).json({ message: 'Error!' });
+    }
+  }
+
+  static async SessioCreate(req, res) {
+    let SessioNew = req.body.SessioData
+      ;
+
+    // Valida que el código no esté ya registrado
+   Sessio.findOne({ codi: SessioNew.codi }, function (err, sessio) {
+      if (err) res.status(400).json({ error: err });
+
+      if (sessio == null) {
+        // Guardar categoria en la base de datos
+        Sessio.create(SessioNew, function (error, newsessio) {
+          if (error) res.status(400).json({ error: error.message });
+
+          else res.status(200).json({ ok: true });
+        });
+      } else res.status(400).json({ error: "Sessio ja registrada" });
+    });
+  }
+  static async SessioUpdate(req, res) {
+    const SessioId = req.params.id;
+    const updatedSessioData = req.body.SessioData;
+
+
+    // Valida que el código no esté ya registrado en otra categoría
+    Sessio.findOne({ codi: updatedSessioData.codi, _id: { $ne: SessioId } }, function (err, sessio) {
+      if (err) res.status(400).json({ error: err });
+
+      if (sessio == null) {
+        // Actualizar la categoría en la base de datos
+        Sessio.findByIdAndUpdate(SessioId, updatedSessioData, { new: true }, function (error, updatedsessio) {
+          if (error) res.status(400).json({ error: error.message });
+
+          else res.status(200).json({ ok: true });
+        });
+      } else res.status(400).json({ error: "Codi de la sessio ja registrada en un altre sessio" });
+    });
+  }
+
+  static async SessioDelete(req, res) {
+    const SessioId = req.params.id;
+
+    Sessio.findByIdAndRemove(SessioId, function (err, deletedcsessio) {
+      if (err) res.status(400).json({ error: err.message });
+
+      else res.status(200).json({ ok: true });
+    });
   }
 }
 

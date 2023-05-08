@@ -48,109 +48,109 @@
         "especial": false
     },
     {
-        "codi":"08",
+        "codi":"09",
         "nom":"Magatzem-2",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
-        "codi":"09",
-        "nom":"Administrador",
-        "nomPlanta":"Planta Baixa",
-        "especial": false
-    },
-    {
         "codi":"10",
-        "nom":"Arxiu",
+        "nom":"Administracio",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"11",
-        "nom":"Secretaria",
+        "nom":"Arxiu",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"12",
-        "nom":"Electricitat",
+        "nom":"Secretaria",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"13",
-        "nom":"Aula 002",
+        "nom":"Electricitat",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"14",
-        "nom":"Aula 004",
+        "nom":"Aula 002",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"15",
-        "nom":"Aula 006",
+        "nom":"Aula 004",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"16",
-        "nom":"Aula 008",
+        "nom":"Aula 006",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"17",
-        "nom":"Aula C-001",
+        "nom":"Aula 008",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"18",
-        "nom":"Aula C-003",
+        "nom":"Aula C-001",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"19",
-        "nom":"Aula C-005",
+        "nom":"Aula C-003",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"20",
-        "nom":"Aula C-007",
+        "nom":"Aula C-005",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"21",
-        "nom":"Aula C-002",
+        "nom":"Aula C-007",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"22",
-        "nom":"Aula C-004",
+        "nom":"Aula C-002",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"23",
-        "nom":"Aula C-006",
+        "nom":"Aula C-004",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"24",
-        "nom":"Aula C-008",
+        "nom":"Aula C-006",
         "nomPlanta":"Planta Baixa",
         "especial": false
     },
     {
         "codi":"25",
+        "nom":"Aula C-008",
+        "nomPlanta":"Planta Baixa",
+        "especial": false
+    },
+    {
+        "codi":"26",
         "nom":"Sala d'actes",
         "nomPlanta":"Planta Baixa",
         "especial": true

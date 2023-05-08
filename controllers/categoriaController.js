@@ -4,8 +4,29 @@ class CategoriaController {
 
     static async list(req, res, next) {
         try {
-            var list_categoria = await Categoria.find().sort({ codi: 1 });
-            res.render('categories/list', { list: list_categoria })
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+
+            Categoria.countDocuments({}, function (err, count) {
+                if (err) {
+                    return next(err);
+                }
+
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+
+                Categoria.find()
+                    .sort({ codi: 1 })
+                    .skip(startIndex)
+                    .limit(PAGE_SIZE)
+                    .exec(function (err, list) {
+                        if (err) {
+                            return next(err);
+                        }
+                        res.render('categories/list', { list: list, totalPages: totalPages, currentPage: page });
+                    });
+            });
         }
         catch (e) {
             res.send('Error!');
@@ -83,6 +104,127 @@ class CategoriaController {
                 res.redirect('/categories')
             }
         })
+    }
+
+    //API
+
+    static async categoryList(req, res, next) {
+        try {
+
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+
+            Categoria.countDocuments({}, function (err, count) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+
+                Categoria.find()
+                    .sort({ codi: 1 })
+                    .skip(startIndex)
+                    .limit(PAGE_SIZE)
+                    .exec(function (err, list) {
+                        if (err) {
+                            res.status(400).json({ error: err });
+                        }
+                        res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+                    });
+            });
+        }
+        catch (e) {
+            res.status(400).json({ message: 'Error!' });
+        }
+    }
+
+    static async categoryAllList(req, res, next) {
+        try {
+            Categoria.find()
+            .sort({ codi: 1 })
+            .exec(function (err, list) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+                res.status(200).json({ list: list });
+            });
+        }
+        catch (e) {
+            res.status(400).json({ error: 'Error inesperat!' });
+        }
+    }
+
+    static async categoryCreate(req, res) {
+        let codi = await Categoria.count() + 1;
+        if(codi < 10) codi = '0' + codi;
+        let categoriaNew = {
+            codi: codi,
+            nom: req.body.categoryData.nom
+        };
+
+        // Valida que el código no esté ya registrado
+
+        // Guardar categoria en la base de datos
+        Categoria.create(categoriaNew, function (error, newCategoria) {
+            if (error) res.status(400).json({ error: error.message });
+
+            else res.status(200).json({ ok: true });
+        });
+    };
+
+    static async categorySowh(req, res, next){
+        Categoria.findById(req.params.id, function(err, categoria) {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            if (categoria == null) {
+                // No results.
+                var err = new Error("Categoria not found");
+                res.status(400).json({ message: err });
+
+            }
+            // Success.
+            var categoriaJSON = {
+                codi: categoria.codi,
+                nom: categoria.nom
+            };
+            res.status(200).json({ categoria: categoriaJSON });
+
+        })
+    }
+
+    static async categoryUpdate(req, res) {
+        const categoryId = req.params.id;
+        const updatedCategoryData = req.body.categoryData;
+
+        if(updatedCategoryData.codi < 10) updatedCategoryData.codi = '0' + updatedCategoryData.codi
+        
+
+        // Valida que el código no esté ya registrado en otra categoría
+        Categoria.findOne({ codi: updatedCategoryData.codi, _id: { $ne: categoryId } }, function (err, categoria) {
+            if (err) res.status(400).json({ error: err });
+
+            if (categoria == null) {
+                // Actualizar la categoría en la base de datos
+                Categoria.findByIdAndUpdate(categoryId, updatedCategoryData, { new: true }, function (error, updatedCategoria) {
+                    if (error) res.status(400).json({ error: error.message });
+
+                    else res.status(200).json({ ok: true });
+                });
+            } else res.status(400).json({ error: "Codi de categoría ja registrat en un altre categoria" });
+        });
+    }
+
+    static async categoryDelete(req, res) {
+        const categoryId = req.params.id;
+
+        Categoria.findByIdAndRemove(categoryId, function (err, deletedCategory) {
+            if (err) res.status(400).json({ error: err.message });
+
+            else res.status(200).json({ ok: true });
+        });
     }
 
 }

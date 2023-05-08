@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const validateToken = require("../middlewares/validateToken");
 
 var cadira_controller = require('../controllers/cadiracontroller');
 
@@ -12,6 +13,17 @@ router.post("/delete/:id",  cadira_controller.delete_post);
 router.get("/update/:id",  cadira_controller.update_get);
 router.post("/update/:id",  cadira_controller.update_post);
 
+//Rutes API
+
+router.get('/APIlist', validateToken.protegirRuta, cadira_controller.CadiraList);
+
+router.get('/APIshow/:id', validateToken.protegirRuta, cadira_controller.CadiraShow);
+
+router.post('/APIcreate', validateToken.protegirRuta, cadira_controller.CadiraCreate);
+
+router.delete('/APIdelete/:id', validateToken.protegirRuta, cadira_controller.CadiraDelete);
+
+router.put('/APIupdate/:id', validateToken.protegirRuta, cadira_controller.CadiraUpdate);
 
 
 module.exports = router;

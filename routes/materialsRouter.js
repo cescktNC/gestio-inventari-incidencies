@@ -1,7 +1,8 @@
 var express = require("express");
 var router = express.Router();
-var upload = require('../libs/storage');
+const validateToken = require("../middlewares/validateToken");
 
+var upload = require('../libs/storage');
 var material_controller = require('../controllers/materialsController');
 
 router.get('/', material_controller.list); 
@@ -18,5 +19,13 @@ router.post("/update/:id", upload.single('fotografia'), material_controller.upda
 router.get("/import", material_controller.import_get);
 router.post("/import", upload.single('fitxer'), material_controller.import_post);
 
+//API
+router.get('/APIlist', validateToken.protegirRuta, material_controller.materiaLlist); 
+router.get('/APIallList', validateToken.protegirRuta, material_controller.materiaAllLlist);
+router.get('/APIshow/:id', validateToken.protegirRuta, material_controller.materialSowh); 
+router.post('/APIcreate', validateToken.protegirRuta, upload.single('fotografia'), material_controller.materialCreate);
+router.post('/APIimport', validateToken.protegirRuta, upload.single('fitxer'), material_controller.materialImport);
+router.put('/APIupdate/:id', validateToken.protegirRuta, upload.single('fotografia'), material_controller.materialUpdate); 
+router.delete('/APIdelete/:id', validateToken.protegirRuta, material_controller.materialDelete); 
 
 module.exports = router;

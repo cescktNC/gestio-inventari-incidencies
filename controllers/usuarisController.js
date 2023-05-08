@@ -5,8 +5,30 @@ class UsuariController {
 
     static async list(req, res, next) {
         try {
-            var list_usuaris = await Usuari.find().sort({ nom: 1, cognoms: 1 });
-            res.render('usuaris/list', { usuaris: list_usuaris });
+            const PAGE_SIZE = 10; // Número de documentos por página
+            const page = req.query.page || 1; // Número de página actual
+            
+            Usuari.countDocuments({}, function(err, count) {
+                if (err) {
+                    return next(err);
+                }
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Usuari.find()
+                .sort({ nom: 1, cognoms: 1 })
+
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.render('usuaris/list', { usuaris: list, totalPages: totalPages, currentPage: page });
+                });
+            });
         }
         catch (e) {
             res.send('Error!');
@@ -162,6 +184,227 @@ class UsuariController {
                 res.redirect('/usuaris');
             }
         });
+    }
+
+    // API
+
+    static async userList(req, res, next) {
+        try {
+
+            const PAGE_SIZE = 10; 
+            const page = req.query.page || 1;
+
+            Usuari.countDocuments({}, function(err, count) {
+                if (err) {
+                    res.status(400).json({ error: err });
+                }
+        
+                const totalItems = count;
+                const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+                const startIndex = (page - 1) * PAGE_SIZE;
+            
+                Usuari.find()
+                .sort({ nom: 1, cognoms: 1 })
+
+                .skip(startIndex)
+                .limit(PAGE_SIZE)
+                .exec(function (err, list) {
+                    if (err) {
+                        res.status(400).json({ error: err });
+                    }
+                    res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+                });
+            });
+        }
+        catch (e) {
+            res.status(400).json({ message: 'Error!' });
+        }
+    }
+
+    static async userCreate(req, res) {
+
+        let usuariNew;
+        if (req.file == undefined) {
+            usuariNew = {
+                nom: req.body.user.nom,
+                cognoms: req.body.user.cognoms,
+                dni: req.body.user.dni,
+                carrec: req.body.user.carrec,
+                email: req.body.user.email,
+                password: req.body.user.password,
+                profilePicture: 'URL/Profile/profilePicture.png'
+            }
+        } else {
+            usuariNew = {
+                nom: req.body.nom,
+                cognoms: req.body.cognoms,
+                dni: req.body.dni,
+                carrec: req.body.carrec,
+                email: req.body.email,
+                password: req.body.password,
+                profilePicture: req.file.path.substring(7, req.file.path.length)
+            }
+        }
+
+        // Valida que l'email no estigui ja registrat
+        Usuari.findOne({ email: req.body.email }, function (err, usuari) {
+            if (err) res.status(400).json({ errors: err });
+
+            if (usuari == null) {
+                // Guardar usuari a la base de dades
+                Usuari.create(usuariNew, function (error, newUsuari) {
+
+                    if (error) res.status(400).json({ error: error.message });
+
+                    else res.status(200).json({ ok: true, id: newUsuari.id });
+
+                });
+            } 
+            
+            else res.status(400).json({ error: "Usuari ja registrat" });
+        });
+    }
+
+    static async userSowh(req, res, next){
+        Usuari.findById(req.params.id, function(err, usuari) {
+            if (err) {
+                res.status(400).json({ error: err });
+            }
+            if (usuari === null || usuari === undefined) {
+                // No results.
+                res.status(400).json({ error: "Usuari not found" });
+
+            }
+            
+            // Success.
+            var usuariJSON = {
+                nom: usuari.nom,
+                cognoms: usuari.cognoms,
+                dni: usuari.dni,
+                carrec: usuari.carrec,
+                email: usuari.email,
+                profilePicture: usuari.profilePicture,
+            };
+            res.status(200).json({ usuari: usuariJSON });
+
+        })
+    }
+
+    static async userUpdate(req, res, next) {
+
+        // Flag per a comprovar que els passwords introduits siguin iguals
+        let correctPassword = true;
+
+        // Es crea l'usuari amb les dades del formulari
+        let usuari;
+        if (req.file == undefined) {
+            usuari = new Usuari({
+                _id: req.params.id,  
+                nom: req.body.user.nom,
+                cognoms: req.body.user.cognoms,
+                dni: req.body.user.dni,
+                carrec: req.body.user.carrec,
+                email: req.body.user.email,
+            });
+        } else {
+            usuari = new Usuari({
+                _id: req.params.id,  
+                nom: req.body.user.nom,
+                cognoms: req.body.user.cognoms,
+                dni: req.body.user.dni,
+                carrec: req.body.user.carrec,
+                email: req.body.user.email,
+                profilePicture: req.file.path.substring(7, req.file.path.length)
+
+            });
+        }
+        // Validar DNI
+        if (usuari.checkLetterDNI(req.body.user.dni)) {
+
+            // Validar si es vol canviar el password
+            if (req.body.user.password1 != '' && req.body.user.password2 != '') {
+                // Validar si els passwords introduits són iguals
+                if (req.body.user.password1 == req.body.user.password2) {
+                    usuari.password = req.body.user.password1;
+                } else {
+                    correctPassword = false;
+                    res.status(400).json({ usuari: usuari, message: 'Les dues contrasenyes han de ser iguals.' });
+                }
+            }
+
+            if (correctPassword) {
+                // Actualitzar les dades de l'usuari
+
+                Usuari.findByIdAndUpdate(
+                    req.params.id,
+                    usuari,
+                    { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+                    function (err, usuariFound) {
+
+                        if (err) res.status(400).json({ error: err.message });
+
+                        res.status(400).json({ id: usuariFound.id, ok: true, message: 'Usuari actualitzat correctament' });
+                    }
+                );
+            }
+
+        } else res.status(400).json({ usuari: usuari, message: 'DNI no vàlid.' });
+        
+    }
+
+    static async passwordUpdate(req, res, next) {
+
+        Usuari.findById(req.params.id, function(err, usuari) {
+            if (err) res.status(400).json({ errors: err });
+
+            if (usuari != null) {
+                let pass = req.body.pass
+                bcrypt.compare(pass.password, usuari.password, async function(err, result) {
+                    if (result) {
+
+                        if (pass.password1 == pass.password2) {
+                            const Password = await bcrypt.hash(pass.password1, 12);
+                            let password = new Usuari({
+                                _id: req.params.id,  
+                                password: Password
+                            });
+
+                            Usuari.findByIdAndUpdate(
+                                req.params.id,
+                                password,
+                                { runValidators: true },
+                                function (err, usuariFound) {
+            
+                                    if (err) res.status(400).json({ error: err.message });
+            
+                                    res.status(400).json({ ok: true, message: 'Contrasenya actualitzada correctament' });
+                                }
+                            );
+                        }
+                    } else {
+                        res.status(400).json({ err: 'La contrasenya no coincideixen' });
+                    }
+                });
+
+            } 
+            else res.status(400).json({ error: 'Usuari no trobat' });
+        })
+        
+    }
+
+    static async userDelete(req, res, next) {
+        Usuari.findByIdAndRemove(req.params.id, function (error) {
+            if (error) {
+                res.status(400).json({ error });
+            } else {
+                res.status(200).json({ ok: true, message: 'Usuari eliminat' });
+            }
+        });
+    }
+
+    static async carrecs(req, res, next){
+        var list_carrecs = Usuari.schema.path('carrec').enumValues;
+        res.status(200).json({ carrecs: list_carrecs });
     }
 
 }

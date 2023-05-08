@@ -90,7 +90,6 @@ const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-app.use('/planta', plantaRouter);
 app.use('/home', indexRouter);
 // Configuració del sistema de rutes.
 app.use('/', indexRouter);
@@ -108,9 +107,9 @@ app.use('/incidencies', incidenciaRouter);
 app.use('/prestec', prestecRouter);
 app.use('/autenticacions', authRouter);
 app.use('/comentari', comentariRouter);
-app.use('/comentari', comentariRouter);
 app.use('/reservaCadira', reservaCadiraRouter);
 app.use('/ticket', ticketRouter);
+app.use('/planta', plantaRouter);
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
