@@ -52,8 +52,7 @@ class reservaCadiraController {
                 if (count == cadiresReservadesProvisionalment.length) {
                     ReservaCadira.create(cadiresReservadesProvisionalment, async function (error) {
                         if (error) {
-                            let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id})
-                                .populate('idCadira');
+                            let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id}).populate('idCadira');
                             res.render('reservaCadira/list', { error: error.message, cadiresReservades: list_cadiresReservades, idSessio: req.params.id });
                         } else {
                             await TicketController.create(res, req.params.usuariId, req.params.id, cadiresReservadesProvisionalment);
@@ -82,8 +81,7 @@ class reservaCadiraController {
         let cadiresReservadesProvisionalment = JSON.parse(req.params.cadiresReservadesProvisionalment);
         cadiresReservadesProvisionalment.push(cadiraReservada);
 
-        let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id})
-            .populate('idCadira');
+        let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id}).populate('idCadira');
         
         res.render('reservaCadira/list', { cadiresReservades: list_cadiresReservades, idSessio: req.params.id, cadiresReservadesProvisionalment: cadiresReservadesProvisionalment });
     }
@@ -93,10 +91,10 @@ class reservaCadiraController {
         let numero = parseInt(req.params.cadira.substring(1));
         let cadiresReservadesProvisionalment = JSON.parse(req.params.cadiresReservadesProvisionalment);
 
-        cadiresReservadesProvisionalment = cadiresReservadesProvisionalment.filter(cadira => cadira.idCadira.fila !== fila || (cadira.idCadira.fila === fila && cadira.idCadira.numero !== numero));
+        cadiresReservadesProvisionalment = cadiresReservadesProvisionalment.filter(cadira => 
+            cadira.idCadira.fila !== fila || (cadira.idCadira.fila === fila && cadira.idCadira.numero !== numero));
 
-        let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id})
-            .populate('idCadira');
+        let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id}).populate('idCadira');
 
         res.render('reservaCadira/list', { cadiresReservades: list_cadiresReservades, idSessio: req.params.id, cadiresReservadesProvisionalment: cadiresReservadesProvisionalment });
     }
@@ -114,8 +112,7 @@ class reservaCadiraController {
                 if (error) {
                     res.redirect('reservaCadira/list');
                 } else {
-                    var list_cadiresReservades = await ReservaCadira.find({idSessio: cadiraReservada.idSessio})
-                        .populate('idCadira');
+                    var list_cadiresReservades = await ReservaCadira.find({idSessio: cadiraReservada.idSessio}).populate('idCadira');
                     res.render('reservaCadira/list', { cadiresReservades: list_cadiresReservades, idSessio: req.params.id });
                 }
             });

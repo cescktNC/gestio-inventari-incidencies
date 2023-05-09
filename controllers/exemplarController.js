@@ -318,7 +318,7 @@ class ExemplarController {
         function (err, exemplarfound) {
           if (err) {
             //return next(err);
-            res.status(400).json({ error: err.message });
+            res.status(400).json({ errors: err.array() });
           }
           res.status(200).json({ ok: true, message: 'Exemplar actualitzat' });
         }
@@ -391,7 +391,7 @@ class ExemplarController {
         if (count == jsonArray.length) {
           Exemplar.create(jsonArray, function(error, newExemplar){
             if(error) {
-              res.status(400).json({errors: error.errors});
+              res.status(400).json({errors: error.message});
             }
             else {
               const exemplar_path = url.parse('http://localhost:3000').href + 'home/exemplar/show/' + newExemplar._id;

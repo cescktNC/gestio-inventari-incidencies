@@ -221,7 +221,7 @@ class autenticacioController {
     });
 
     Usuari.create(user, async (error, newUser) => {
-      if (error) return res.status(400).json({ message: "Error al registrar l'usuari" }); 
+      if (error) return res.status(400).json({ message: error.array() }); 
       else {
 
         let token = await autenticacioController.creacioToken(newUser.id, newUser.carrec)

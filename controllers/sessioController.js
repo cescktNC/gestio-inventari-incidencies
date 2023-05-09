@@ -10,7 +10,7 @@ class sessioController {
       
       Sessio.countDocuments({}, function(err, count) {
         if (err) {
-            return next(err);
+          return next(err);
         }
 <<<<<<< HEAD
 
@@ -24,10 +24,10 @@ class sessioController {
         .skip(startIndex)
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
-            if (err) {
-                return next(err);
-            }
-            res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
+          if (err) {
+            return next(err);
+          }
+          res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
         });
 =======
         console.log(list);
@@ -36,7 +36,7 @@ class sessioController {
       });
     }
     catch (e) {
-        res.send('Error!');
+      res.send('Error!');
     }
   }
 
@@ -154,7 +154,7 @@ class sessioController {
       ;
 
     // Valida que el código no esté ya registrado
-   Sessio.findOne({ codi: SessioNew.codi }, function (err, sessio) {
+    Sessio.findOne({ codi: SessioNew.codi }, function (err, sessio) {
       if (err) res.status(400).json({ error: err });
 
       if (sessio == null) {
@@ -167,10 +167,10 @@ class sessioController {
       } else res.status(400).json({ error: "Sessio ja registrada" });
     });
   }
+
   static async SessioUpdate(req, res) {
     const SessioId = req.params.id;
     const updatedSessioData = req.body.SessioData;
-
 
     // Valida que el código no esté ya registrado en otra categoría
     Sessio.findOne({ codi: updatedSessioData.codi, _id: { $ne: SessioId } }, function (err, sessio) {

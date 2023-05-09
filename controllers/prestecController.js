@@ -99,6 +99,7 @@ class prestecController {
     });
 
   }
+
   static update_post(req, res, next) {
 
     const dataActual = new Date();
@@ -239,7 +240,7 @@ class prestecController {
     } catch (error) {
       res.status(400).json({error: 'Ha ocurregut un error inesperat'});
     }
-  }
+  };
 
   static async prestecUpdate(req, res, next){
     const dataActual = new Date();
@@ -354,25 +355,7 @@ class prestecController {
     var list_estats = Prestec.schema.path('estat').enumValues;
     res.status(200).json({ estats: list_estats });
   } 
-
-  // static async prestecUpdateStat(req, res, next){
-  //   let estat = req.body.estat;
-
-  // };
-
-    
-
-    // const codiExemplarUsat = await Prestec.findOne({codiExemplar: prestec.codiExemplar});
-    // if (codiExemplarUsat) {
-    //   return res.render('prestec/new', {
-    //     error: "L'exemplar ja está utilitzat en un altre préstec",
-    //     exemplarList: exemplar_list,
-    //     usuariList: usuari_list,
-    //     introduit: true,
-    //     prestecIntroduit: prestec
-    //   });
-    // }
-    
+  
 }
 
 

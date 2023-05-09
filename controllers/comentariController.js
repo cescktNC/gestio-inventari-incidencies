@@ -76,42 +76,42 @@ class ComentariController {
 		  const PAGE_SIZE = 10; // Número de documentos por página
 		  const page = req.query.page || 1; // Número de página actual
 	
-		  Comentari.countDocuments({}, function (err, count) {
+		Comentari.countDocuments({}, function (err, count) {
+		if (err) {
+			res.status(400).json({ error: err });
+		}
+		
+		const totalItems = count;
+		const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+		const startIndex = (page - 1) * PAGE_SIZE;
+
+		Comentari.find({codiIncidencia: req.params.id})
+			.sort({ data: -1 })
+			.populate('codiUsuari')
+			.populate("codiIncidencia")
+			.skip(startIndex)
+			.limit(PAGE_SIZE)
+			.exec(function (err, list) {
 			if (err) {
-			  res.status(400).json({ error: err });
+				res.status(400).json({ error: err });
 			}
-			
-			const totalItems = count;
-			const totalPages = Math.ceil(totalItems / PAGE_SIZE);
-			const startIndex = (page - 1) * PAGE_SIZE;
-
-			Comentari.find({codiIncidencia: req.params.id})
-			  .sort({ data: -1 })
-			  .populate('codiUsuari')
-			  .populate("codiIncidencia")
-			  .skip(startIndex)
-			  .limit(PAGE_SIZE)
-			  .exec(function (err, list) {
-				if (err) {
-				  res.status(400).json({ error: err });
-				}
-				res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-			  });
-		  });
-		}
-		catch (e) {
-		  res.status(400).json({ message: 'Error!' });
-		}
-	  }
-
-	  static async ComentariCreate(req, res) {
-		let com = new Comentari({
-		  codiIncidencia:req.body.comentari.codiIncidencia,
-		  codiUsuari: req.body.comentari.codiUsuari,
-		  data: Date.now(),
-		  descripcio: req.body.comentari.descripcio
+			res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+			});
 		});
-  
+	}
+	catch (e) {
+		res.status(400).json({ message: 'Error!' });
+	}
+	}
+
+	static async ComentariCreate(req, res) {
+		let com = new Comentari({
+			codiIncidencia:req.body.comentari.codiIncidencia,
+			codiUsuari: req.body.comentari.codiUsuari,
+			data: Date.now(),
+			descripcio: req.body.comentari.descripcio
+		});
+
 		
 		Comentari.create(com, async function (error, newcomen ) {
 			if (error) res.status(400).json({ error: error.message });
@@ -126,9 +126,9 @@ class ComentariController {
 
 			res.status(200).json({ ok: true });
 		});
-	  }
+	}
 		
-	  
+
 }
 
 module.exports = ComentariController;

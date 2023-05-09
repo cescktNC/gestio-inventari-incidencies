@@ -168,7 +168,7 @@ class CategoriaController {
 
         // Guardar categoria en la base de datos
         Categoria.create(categoriaNew, function (error, newCategoria) {
-            if (error) res.status(400).json({ error: error.message });
+            if (error) res.status(400).json({ errors: error.message });
 
             else res.status(200).json({ ok: true });
         });
@@ -177,12 +177,11 @@ class CategoriaController {
     static async categorySowh(req, res, next){
         Categoria.findById(req.params.id, function(err, categoria) {
             if (err) {
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: err });
             }
             if (categoria == null) {
                 // No results.
-                var err = new Error("Categoria not found");
-                res.status(400).json({ message: err });
+                res.status(400).json({ error: "Categoria not found" });
 
             }
             // Success.
@@ -209,7 +208,7 @@ class CategoriaController {
             if (categoria == null) {
                 // Actualizar la categoría en la base de datos
                 Categoria.findByIdAndUpdate(categoryId, updatedCategoryData, { new: true }, function (error, updatedCategoria) {
-                    if (error) res.status(400).json({ error: error.message });
+                    if (error) res.status(400).json({ errors: error.message });
 
                     else res.status(200).json({ ok: true });
                 });

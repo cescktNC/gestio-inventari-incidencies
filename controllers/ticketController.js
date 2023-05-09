@@ -11,8 +11,7 @@ class ticketController {
 
         let sessio = await Sessio.findById(req.params.idSessio);
 
-        let ticketsDuplicats = await Ticket.find({ codiSessio: sessio.codi })
-                                           .populate('idUsuari');
+        let ticketsDuplicats = await Ticket.find({ codiSessio: sessio.codi }).populate('idUsuari');
 
         let ticketsNoDuplicats = ticketsDuplicats.reduce((ticketsGuardats, ticket) => {
             const index = ticketsGuardats.findIndex(obj => obj.numero === ticket.numero);
@@ -37,8 +36,8 @@ class ticketController {
         var sessioGuardada = false;
         tickets.forEach(async ticket => {
             let cadiraReservada = await ReservaCadira.findById(ticket.idReservaCadira)
-                                                     .populate('idCadira')
-                                                     .populate('idSessio');
+            .populate('idCadira')
+            .populate('idSessio');
             if (!sessioGuardada) { 
                 sessio = await Sessio.findById(cadiraReservada.idSessio._id);
                 reserva = await Reserva.findById(cadiraReservada.idSessio.codiReserva);
@@ -79,8 +78,15 @@ class ticketController {
         let sessio = await Sessio.findById(idSessio);
 
         const dataActual = new Date();
-        const numero = dataActual.toLocaleDateString('es-ES', { day: '2-digit',  month: '2-digit',  year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })
-                            .replace(/[/,: ]/g, '');// data actual en format "ddmmyyyhhmmss" per a utilitzar-ho com a número de ticket ;)
+        const numero = dataActual.toLocaleDateString('es-ES', { 
+            day: '2-digit',  
+            month: '2-digit',  
+            year: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit' 
+        })
+        .replace(/[/,: ]/g, '');// data actual en format "ddmmyyyhhmmss" per a utilitzar-ho com a número de ticket ;)
 
         let count = 0;
         cadiresReservades.forEach(async cadiraReservada => {

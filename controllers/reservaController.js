@@ -20,7 +20,7 @@ class reservaController {
       .exec(function (err, list) {
 >>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         if (err) {
-            return next(err);
+          return next(err);
         }
 
         const totalItems = count;
@@ -34,15 +34,15 @@ class reservaController {
         .skip(startIndex)
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
-            if (err) {
-                return next(err);
-            }
-            res.render('reserva/list', { list: list, totalPages: totalPages, currentPage: page });
+          if (err) {
+            return next(err);
+          }
+          res.render('reserva/list', { list: list, totalPages: totalPages, currentPage: page });
         });
       });
     }
     catch (e) {
-        res.send('Error!');
+      res.send('Error!');
     }
   }
 
@@ -99,41 +99,41 @@ class reservaController {
     
     if (horaInici < horaFi) { // Comprovem que l'hora d'inici no sigui posterior a la de fi
       if (horaInici >= avui) { // Comprovem que l'hora d'inici no sigui posterior a la d'avui
-          var reserves = await Reserva.find();
-          var horarDisponible = true;
-          for (let i = 0; i < reserves.length; i++) {  // Comprovem que no hi hagi ja una reserva feta en aquest horari
-            if ( !(horaInici < reserves[i].horaInici && horaFi <= reserves[i].horaInici) || !(horaInici >= reserves[i].horaFi) ) {
-              horarDisponible = false;
-              break;
+        var reserves = await Reserva.find();
+        var horarDisponible = true;
+        for (let i = 0; i < reserves.length; i++) {  // Comprovem que no hi hagi ja una reserva feta en aquest horari
+          if ( !(horaInici < reserves[i].horaInici && horaFi <= reserves[i].horaInici) || !(horaInici >= reserves[i].horaFi) ) {
+            horarDisponible = false;
+            break;
+          }
+        }
+
+        if (!horarDisponible) { // En cas de que ja existeixi una reserva feta
+          let horesReservades = [];
+          reserves.forEach( reserva => { // Guardem les reserves fetes d'aquest dia per a poder mostrar després des de la vista les hores disponibles
+            if (reserva.horaInici.getFullYear() == horaInici.getFullYear() &&
+            reserva.horaInici.getMonth() == horaInici.getMonth() &&
+            reserva.horaInici.getDate() == horaInici.getDate()) {
+              horesReservades.push(reserva);
             }
-          }
-
-          if (!horarDisponible) { // En cas de que ja existeixi una reserva feta
-            let horesReservades = [];
-            reserves.forEach( reserva => { // Guardem les reserves fetes d'aquest dia per a poder mostrar després des de la vista les hores disponibles
-              if (reserva.horaInici.getFullYear() == horaInici.getFullYear() &&
-                  reserva.horaInici.getMonth() == horaInici.getMonth() &&
-                  reserva.horaInici.getDate() == horaInici.getDate()) {
-                    horesReservades.push(reserva);
-              }
-            });
-            let error = new Error("Horari no disponible. Ja hi ha una reserva feta.");
-            res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list, horesReservades: horesReservades });
-          }
-          
-          // La reserva es pot crear perquè ha passat totes les validacions
-          var reserva = {
-            codi: reserves.pop().codi + 1,
-            horaInici: horaInici,
-            horaFi: horaFi,
-            dniUsuari: req.body.dniUsuari,
-            codiLocalitzacio: req.body.codiLocalitzacio
-          };
-
-          Reserva.create(reserva, function (error, newReserva) {
-            if (error) res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
-            else res.redirect('/reserva');
           });
+          let error = new Error("Horari no disponible. Ja hi ha una reserva feta.");
+          res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list, horesReservades: horesReservades });
+        }
+        
+        // La reserva es pot crear perquè ha passat totes les validacions
+        var reserva = {
+          codi: reserves.pop().codi + 1,
+          horaInici: horaInici,
+          horaFi: horaFi,
+          dniUsuari: req.body.dniUsuari,
+          codiLocalitzacio: req.body.codiLocalitzacio
+        };
+
+        Reserva.create(reserva, function (error, newReserva) {
+          if (error) res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
+          else res.redirect('/reserva');
+        });
 
       } else {
         let error = new Error("La data seleccionada juntament amb les hores escollides no poden ser anteriors a la data i hora actual.");
@@ -162,6 +162,7 @@ class reservaController {
     });
 
   }
+
   static update_post(req, res, next) {
     var reserva = {
       codi: req.body.codi,
@@ -186,6 +187,7 @@ class reservaController {
       }
     );
   }
+
   static async delete_get(req, res, next) {
 
     res.render('reserva/delete', { id: req.params.id })
@@ -202,43 +204,44 @@ class reservaController {
       }
     })
   }
+
   static async ReservaList(req, res, next) {
 		try {
 	
 		  const PAGE_SIZE = 10; // Número de documentos por página
 		  const page = req.query.page || 1; // Número de página actual
 	
-		  Reserva.countDocuments({}, function (err, count) {
-			if (err) {
-			  res.status(400).json({ error: err });
-			}
-	
-			const totalItems = count;
-			const totalPages = Math.ceil(totalItems / PAGE_SIZE);
-			const startIndex = (page - 1) * PAGE_SIZE;
-	
-			Reserva.find()
-			  .sort({ codi: 1 })
+      Reserva.countDocuments({}, function (err, count) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+    
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Reserva.find()
+        .sort({ codi: 1 })
         .populate({
           path: 'dniUsuari',
-					select: 'nom'
+          select: 'nom'
         })
         .populate({
           path: 'codiLocalitzacio',
-					select: 'nom'
+          select: 'nom'
         })
-			  .skip(startIndex)
-			  .limit(PAGE_SIZE)
-			  .exec(function (err, list) {
-				if (err) {
-				  res.status(400).json({ error: err });
-				}
-				res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-			  });
-		  });
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+          if (err) {
+            res.status(400).json({ error: err });
+          }
+          res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+        });
+      });
 		}
 		catch (e) {
-		  res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ message: 'Error!' });
 		}
 	}
 
@@ -250,7 +253,6 @@ class reservaController {
         if (error) return res.status(400).json({ error });
         
         if (reserva == null) return res.status(400).json({ error: "Reserva not found" });
-        
 
         res.status(200).json({ reserva });
       })
@@ -280,7 +282,7 @@ class reservaController {
 	static async ReservaUpdate(req, res) {
     const ReservaId = req.params.id;
     const updatedReservaData = req.body.ReservaData;
-        
+
     // Valida que el código no esté ya registrado en otra categoría
     Reserva.findOne({ codi: updatedReservaData.codi, _id: { $ne: ReservaId } }, function (err, reserva) {
       if (err) res.status(400).json({ error: err });
