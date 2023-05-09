@@ -183,12 +183,11 @@ class prestecController {
       const date = new Date();
       const year = date.getFullYear();
       
-      const fechaInicial = new Date(( year - 1 ) + '-09-01');
-      const fechaFinal = new Date(year + '-06-01');
+      const dataActual = new Date();
 
       let comprobacio = await Prestec.findOne({
         dniUsuari: usuari._id, // Reemplaza idUsuario con el ID del usuario que deseas verificar
-        dataRetorn: { $gte: fechaInicial, $lte: fechaFinal }
+        dataRetorn: { $gte: dataActual }
       }).exec();
 
       if(comprobacio !== null) return res.status(400).json({error: "L'usuari ja ha solicitat un prestec"});
@@ -197,19 +196,19 @@ class prestecController {
       if(codi < 10) codi = '0' + codi;
 
       let prestec = {
-            codi: codi,
-            dataInici: req.body.prestec.dataInici,
-            dataRetorn: req.body.prestec.dataRetorn,
-            dniUsuari: usuari._id
-          }
-    
-          Prestec.create(prestec, function (error, newPrestec) {
-            if (error) {
-              res.status(400).json({ error: error.message })
-            } else {
-              res.status(400).json({ok: true});
-            }
-          })
+        codi: codi,
+        dataInici: req.body.prestec.dataInici,
+        dataRetorn: req.body.prestec.dataRetorn,
+        dniUsuari: usuari._id
+      }
+
+      Prestec.create(prestec, function (error, newPrestec) {
+        if (error) {
+          res.status(400).json({ error: error.message })
+        } else {
+          res.status(400).json({ok: true});
+        }
+      })
 
     } catch (error) {
       res.status(400).json({error: 'Ha ocurregut un error inesperat!'});
@@ -304,11 +303,11 @@ class prestecController {
       const date = new Date();
       const year = date.getFullYear();
       
-      const fechaInicial = new Date(( year - 1 ) + '-09-01');
-      const fechaFinal = new Date(year + '-06-01');
+      const dataInicial = new Date(( year - 1 ) + '-09-01');
+      const dataFinal = new Date(year + '-06-01');
 
       exemplarsPrestats = await Prestec.aggregate([
-        { $match: { dataRetorn: { $gte: fechaInicial, $lte: fechaFinal } } }, // $gte (mayor o igual que) y $lte (menor o igual que)
+        { $match: { dataRetorn: { $gte: dataInicial, $lte: dataFinal } } }, // $gte (mayor o igual que) y $lte (menor o igual que)
         { $match: { codiExemplar: { $exists: true } } },
         { $sort: { codiExemplar: 1, dataRetorn: -1 } },
         { $group: { _id: "$codiExemplar", lastPrestec: { $first: "$$ROOT" } } }

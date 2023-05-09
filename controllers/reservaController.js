@@ -264,48 +264,47 @@ class reservaController {
 	
 		// Valida que el código no esté ya registrado
 		Reserva.findOne({ codi: Reservanew.codi }, function (err, reserva) {
-		  if (err) res.status(400).json({ error: err });
-	
-		  if (reserva == null) {
-			// Guardar categoria en la base de datos
-			Reserva.create(Reservanew, function (error, newreservacreate) {
-			  if (error) res.status(400).json({ error: error.message });
-	
-			  else res.status(200).json({ ok: true });
-			});
-		  } else res.status(400).json({ error: "Reserva ja registrada" });
-		});
-	}
+      if (err) res.status(400).json({ error: err });
 
-	  static async ReservaUpdate(req, res) {
-      const ReservaId = req.params.id;
-      const updatedReservaData = req.body.ReservaData;
-        console.log(req.body)
-          
-      // Valida que el código no esté ya registrado en otra categoría
-      Reserva.findOne({ codi: updatedReservaData.codi, _id: { $ne: ReservaId } }, function (err, reserva) {
-        if (err) res.status(400).json({ error: err });
-    
-        if (reserva == null) {
-        // Actualizar la categoría en la base de datos
-        updatedReservaData.data = new Date(updatedReservaData.data);
-        updatedReservaData.hora = new Date(updatedReservaData.hora);
-        Reserva.findByIdAndUpdate(ReservaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
+      if (reserva == null) {
+        // Guardar categoria en la base de datos
+        Reserva.create(Reservanew, function (error, newreservacreate) {
           if (error) res.status(400).json({ error: error.message });
     
           else res.status(200).json({ ok: true });
         });
-        } else res.status(400).json({ error: "Codi de la reserva ja registrada en un altre reserva" });
+      } else res.status(400).json({ error: "Reserva ja registrada" });
+		});
+	}
+
+	static async ReservaUpdate(req, res) {
+    const ReservaId = req.params.id;
+    const updatedReservaData = req.body.ReservaData;
+        
+    // Valida que el código no esté ya registrado en otra categoría
+    Reserva.findOne({ codi: updatedReservaData.codi, _id: { $ne: ReservaId } }, function (err, reserva) {
+      if (err) res.status(400).json({ error: err });
+  
+      if (reserva == null) {
+      // Actualizar la categoría en la base de datos
+      updatedReservaData.data = new Date(updatedReservaData.data);
+      updatedReservaData.hora = new Date(updatedReservaData.hora);
+      Reserva.findByIdAndUpdate(ReservaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
+        if (error) res.status(400).json({ error: error.message });
+  
+        else res.status(200).json({ ok: true });
       });
-	  }
+      } else res.status(400).json({ error: "Codi de la reserva ja registrada en un altre reserva" });
+    });
+	}
 	
 	static async ReservaDelete(req, res) {
 		const ReservaId = req.params.id;
 	
 		Reserva.findByIdAndRemove(ReservaId, function (err, deletedreserva) {
-		  if (err) res.status(400).json({ error: err.message });
-	
-		  else res.status(200).json({ ok: true });
+      if (err) res.status(400).json({ error: err.message });
+
+      else res.status(200).json({ ok: true });
 		});
 	}
 }

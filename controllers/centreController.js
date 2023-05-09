@@ -162,8 +162,6 @@ class CentreController {
         nom: req.body.nom
       });
 
-      console.log(CentreNew);
-
       Centre.create(CentreNew, function (error, newcentre) {
         if (error) res.status(400).json({ error: error.message });
 
