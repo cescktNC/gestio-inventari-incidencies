@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 const validateToken = require("../middlewares/validateToken");
 
-
 const prestec_controller = require("../controllers/prestecController");
 
 router.get("/", prestec_controller.list);

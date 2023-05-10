@@ -122,6 +122,20 @@ class reservaCadiraController {
 
     }
 
+    //API
+
+    static async APIlist(req, res, next) {
+        try {
+            let list_cadiresReservades = await ReservaCadira.find({idSessio: req.params.id})
+                .populate('idCadira');
+            let cadiresReservadesProvisionalment = [];
+            res.status(200).json({ cadiresReservades: list_cadiresReservades, cadiresReservadesProvisionalment: cadiresReservadesProvisionalment });
+        }
+        catch (e) {
+            res.status(400).json({error: 'Error!'});
+        }
+    }
+
 }
 
 module.exports = reservaCadiraController;

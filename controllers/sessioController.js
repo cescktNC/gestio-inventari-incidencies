@@ -117,6 +117,7 @@ class sessioController {
       }
     })
   }
+
   static async SessioList(req, res, next) {
     try {
 
@@ -133,7 +134,11 @@ class sessioController {
         const startIndex = (page - 1) * PAGE_SIZE;
 
         Sessio.find()
-          .sort({ nom: 1 })
+          .sort({ codi: 1, codiReserva: 1 })
+          .populate({
+            path: 'codiReserva',
+            select: 'codi'
+          })
           .skip(startIndex)
           .limit(PAGE_SIZE)
           .exec(function (err, list) {
