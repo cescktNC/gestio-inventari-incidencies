@@ -138,6 +138,75 @@ class ticketController {
         });
     }
 
+    static async TicketList(req, res, next) {
+        try {
+            let sessio = await Sessio.findById(req.params.idSessio);
+
+            let ticketsDuplicats = await Ticket.find({ codiSessio: sessio.codi })
+                                            .populate('idUsuari');
+
+            let ticketsNoDuplicats = ticketsDuplicats.reduce((ticketsGuardats, ticket) => {
+                const index = ticketsGuardats.findIndex(obj => obj.numero === ticket.numero);
+                if (index === -1) {
+                    ticketsGuardats.push(ticket);
+                }
+                return ticketsGuardats;
+            }, []);
+            res.status(200).json({ tickets: ticketsNoDuplicats });
+        } catch (e) {
+            res.send('Error!');
+        }
+
+    }
+
+    static async ShowTicket(req, res, next) {
+        try {
+            
+            let ticket = await Ticket.findById(req.params.idTicket);
+            let usuari = await Usuari.findById(ticket.idUsuari);
+            let tickets = await Ticket.find({ numero: ticket.numero });
+
+            var sessio, reserva, cadires = [];
+            let count = 0;
+            var sessioGuardada = false;
+            
+            tickets.forEach(async ticket => {
+                let cadiraReservada = await ReservaCadira.findById(ticket.idReservaCadira)
+                                                        .populate('idCadira')
+                                                        .populate('idSessio');
+                if (!sessioGuardada) { 
+                    sessio = await Sessio.findById(cadiraReservada.idSessio._id);
+                    reserva = await Reserva.findById(cadiraReservada.idSessio.codiReserva);
+                    sessioGuardada = true;
+                }
+                let cadira = await Cadira.findById(cadiraReservada.idCadira._id);
+                cadires.push(cadira);
+                count++;
+                if (count == tickets.length) {
+                    // Ordeno les cadires reservades per fila i número
+                    cadires.sort((a, b) => {
+                        if (a.fila < b.fila) {
+                            return -1;
+                        } else if (a.fila > b.fila) {
+                            return 1;
+                        } else {
+                            if (a.numero < b.numero) {
+                                return -1;
+                            } else if (a.numero > b.numero) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    });
+                    res.status(200).json({ usuari: usuari, sessio: sessio, reserva: reserva, cadires: cadires });
+                }
+            });
+        } catch (e) {
+            res.send('Error!');
+        }
+    }
+
 }
 
 module.exports = ticketController;

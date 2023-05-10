@@ -38,10 +38,18 @@ class sessioController {
 
   static async create_get(req, res, next) {
 
+    var reserves = [];
+    var avui = new Date();
     const reserva_list = await Reserva.find()
     .populate('codiLocalitzacio') // Es captura l'objecte localització per a poder accedir als seus camps des de la vista
     .sort({ codi: 1 }); // '1' - Ordena de petit a gran i '-1' ordena de gran a petit
-    res.render('sessio/new', { reservaList: reserva_list })
+    
+    reserva_list.forEach((reserva) => {
+      if (reserva.codiLocalitzacio.nom == "Sala d'actes" && reserva.horaInici > avui) {
+        reserves.push(reserva);
+      }
+    });
+    res.render('sessio/new', { reserves: reserves })
   }
 
   static async create_post(req, res) {
@@ -146,9 +154,26 @@ class sessioController {
     }
   }
 
+  static async SessioCreateGet(req, res, next) {
+
+    var reserves = [];
+    var avui = new Date();
+    const reserva_list = await Reserva.find()
+    .populate('codiLocalitzacio') // Es captura l'objecte localització per a poder accedir als seus camps des de la vista
+    .sort({ codi: 1 }); // '1' - Ordena de petit a gran i '-1' ordena de gran a petit
+    
+    reserva_list.forEach((reserva) => {
+      if (reserva.codiLocalitzacio.nom == "Sala d'actes" && reserva.horaInici > avui) {
+        reserves.push(reserva);
+      }
+    });
+    res.status(200).json({ reserves: reserves });
+  }
+
   static async SessioCreate(req, res) {
-    let SessioNew = req.body.SessioData
-      ;
+    
+    let SessioNew = req.body.SessioData;
+    console.log(SessioNew);
 
     // Valida que el código no esté ya registrado
     Sessio.findOne({ codi: SessioNew.codi }, function (err, sessio) {

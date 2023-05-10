@@ -372,7 +372,7 @@ class prestecController {
     var list_estats = Prestec.schema.path('estat').enumValues;
     res.status(200).json({ estats: list_estats });
   } 
-  
+    
 }
 
 

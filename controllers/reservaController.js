@@ -239,6 +239,21 @@ class reservaController {
 		}
 	}
 
+  static async ReservaAllList(req, res){
+    try {
+			Reserva.find()
+			.sort({ codi: 1 })
+			.exec(function (err, list) {
+				if (err) {
+				res.status(400).json({ error: err });
+				}
+				res.status(200).json({ list });
+			});
+
+		} catch (error) {
+			res.status(400).json({ error: 'Ha ocurregut un error inesperat' });
+		}
+
   static async ReservaShow(req, res){
     try {
       Reserva.findById(req.params.id)
