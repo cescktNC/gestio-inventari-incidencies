@@ -27,14 +27,14 @@ class prestecController {
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
             if (err) {
-                return next(err);
+              return next(err);
             }
             res.render('prestec/list', { list: list, totalPages: totalPages, currentPage: page });
         });
       });
     }
     catch (e) {
-        res.send('Error!');
+      res.send('Error!');
     }
   }
 
@@ -222,6 +222,23 @@ class prestecController {
       res.status(200).json({prestecsPendents: prestecsPendents.length});
     } catch (error) {
       res.status(400).json({error: error.message});
+    }
+  };
+
+  static async prestecShowList(req, res, next){
+    try {
+      Prestec.find({dniUsuari: req.params.id})
+      .populate('dniUsuari')
+      .exec(function(error, prestec){
+        if (error) return res.status(400).json({ error });
+        
+        if (prestec == null) return res.status(400).json({ error: "Prestec not found" });
+        
+
+        res.status(200).json({ list: prestec });
+      })
+    } catch (error) {
+      res.status(400).json({error: 'Ha ocurregut un error inesperat'});
     }
   };
 
