@@ -203,8 +203,8 @@ class reservaController {
 	
 		  if (reserva == null) {
 			// Actualizar la categoría en la base de datos
-      updatedReservaData.data = new Date(updatedReservaData.data);
-      updatedReservaData.hora = new Date(updatedReservaData.hora);
+      updatedReservaData.horaInici = new Date(updatedReservaData.horaInici);
+      updatedReservaData.horaFi = new Date(updatedReservaData.horaFi);
 			Reserva.findByIdAndUpdate(ReservaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
 			  if (error) res.status(400).json({ error: error.message });
 	
