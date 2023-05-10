@@ -170,7 +170,7 @@ class CategoriaController {
         Categoria.create(categoriaNew, function (error, newCategoria) {
             if (error) res.status(400).json({ errors: error.message });
 
-            else res.status(200).json({ ok: true });
+            else res.status(200).json({ ok: true, message: 'Categoria creada' });
         });
     };
 
@@ -210,7 +210,7 @@ class CategoriaController {
                 Categoria.findByIdAndUpdate(categoryId, updatedCategoryData, { new: true }, function (error, updatedCategoria) {
                     if (error) res.status(400).json({ errors: error.message });
 
-                    else res.status(200).json({ ok: true });
+                    else res.status(200).json({ ok: true, message: 'Categoria actualitzada' });
                 });
             } else res.status(400).json({ error: "Codi de categoría ja registrat en un altre categoria" });
         });
@@ -222,7 +222,7 @@ class CategoriaController {
         Categoria.findByIdAndRemove(categoryId, function (err, deletedCategory) {
             if (err) res.status(400).json({ error: err.message });
 
-            else res.status(200).json({ ok: true });
+            else res.status(200).json({ ok: true, message: 'Categoria eliminada' });
         });
     }
 

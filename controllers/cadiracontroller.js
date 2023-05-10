@@ -158,7 +158,7 @@ class cadiraController {
         Cadira.create(CadiraNew, function (error, newcadira) {
           if (error) res.status(400).json({ error: error.message });
 
-          else res.status(200).json({ ok: true });
+          else res.status(200).json({ ok: true, message: 'Cadira creada' });
         });
       } else res.status(400).json({ error: "Cadira ja registrada" });
     });
@@ -176,7 +176,7 @@ class cadiraController {
         Cadira.findByIdAndUpdate(CadiraId, updatedCadiraData, { new: true }, function (error, updatedcadira) {
           if (error) res.status(400).json({ errors: error.message });
 
-          else res.status(200).json({ ok: true });
+          else res.status(200).json({ ok: true, message: 'Cadira actualitzada' });
         });
       } else res.status(400).json({ error: "Codi de la cadira ja registrat en un altre cadira" });
     });
@@ -186,7 +186,7 @@ class cadiraController {
     const cadiraId = req.params.id;
 
     Cadira.findByIdAndRemove(cadiraId, function (err, deletedcadira) {
-      if (err) res.status(400).json({ error: err.message });
+      if (err) res.status(400).json({ error: err.message, message: 'Cadira esborrada' });
 
       else res.status(200).json({ ok: true });
     });
