@@ -187,7 +187,19 @@
     },
     {
         "idSessio": "03",
+        "idCadira": "18"
+    },
+    {
+        "idSessio": "03",
+        "idCadira": "19"
+    },
+    {
+        "idSessio": "03",
         "idCadira": "110"
+    },
+    {
+        "idSessio": "03",
+        "idCadira": "111"
     },
     {
         "idSessio": "03",
@@ -199,39 +211,11 @@
     },
     {
         "idSessio": "03",
-        "idCadira": "122"
+        "idCadira": "114"
     },
     {
         "idSessio": "03",
-        "idCadira": "215"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "216"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "321"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "322"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "518"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "519"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "611"
-    },
-    {
-        "idSessio": "03",
-        "idCadira": "612"
+        "idCadira": "115"
     },
     {
         "idSessio": "04",
@@ -278,203 +262,159 @@
         "idCadira": "115"
     },
     {
-        "idSessio": "05",
-        "idCadira": "15"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "16"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "17"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "18"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "19"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "110"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "111"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "112"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "113"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "114"
-    },
-    {
-        "idSessio": "05",
-        "idCadira": "115"
-    },
-    {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "119"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "120"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "121"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "122"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "123"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "124"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "125"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "215"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "216"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "217"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "218"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "219"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "220"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "221"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "35"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "36"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "37"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "38"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "314"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "315"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "316"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "317"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "318"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "325"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "326"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "327"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "411"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "412"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "413"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "414"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "415"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "425"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "426"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "427"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "428"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "55"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "56"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "57"
     },
     {
-        "idSessio": "05",
+        "idSessio": "04",
         "idCadira": "58"
     }
 ]

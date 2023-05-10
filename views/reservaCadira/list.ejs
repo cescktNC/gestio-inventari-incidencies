@@ -28,23 +28,37 @@
 									<% if (fila <= 4) { %>
 										<% for (let cadira = 1; cadira <= 16; cadira++) { %>
 											<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == cadira) %>
+											<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == cadira) %>
 											<div class="cadira">
 												<% if (seccio == 1) { %>
 													<% if (cadiraReservada != undefined) { %>
-														<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-															<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+														<a class="butaca">
+															<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+														</a>
+													<% } else if (cadiraReservadaProvisional != undefined) { %>
+														<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+														</a>
 													<% } else { %>
-														<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira %>">
-															<img src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+														<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+														</a>
 													<% } %>
 												<% } else { %>
 													<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == (cadira + 16) )%>
+													<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == (cadira + 16) ) %>
 													<% if (cadiraReservada != undefined) { %>
-														<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-															<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+														<a class="butaca">
+															<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+														</a>
+													<% } else if (cadiraReservadaProvisional != undefined) { %>
+														<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira + 16 %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+														</a>
 													<% } else { %>
-														<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira + 16 %>">
-															<img class="butaca" src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+														<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira + 16 %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+														</a>
 													<% } %>
 												<% } %>
 												<div class="fletxa"></div>
@@ -59,13 +73,20 @@
 										<% for (let cadira = 1; cadira <= 15; cadira++) { %>
 											<% if (seccio == 1 && cadira == 1) { %>
 												<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == cadira) %>
+												<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == cadira) %>
 												<div class="cadira desplacament1">
 													<% if (cadiraReservada != undefined) { %>
-														<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-															<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+														<a class="butaca">
+															<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+														</a>
+													<% } else if (cadiraReservadaProvisional != undefined) { %>
+														<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+														</a>
 													<% } else { %>
-														<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira %>">
-															<img src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+														<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+														</a>
 													<% } %>
 													<div class="fletxa"></div>
 													<% if (seccio == 1) { %>
@@ -76,23 +97,37 @@
 												</div>
 											<% } else { %>
 												<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == cadira) %>
+												<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == cadira) %>
 												<div class="cadira">
 													<% if (seccio == 1) { %>
 														<% if (cadiraReservada != undefined) { %>
-															<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-																<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+															<a class="butaca">
+																<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+															</a>
+														<% } else if (cadiraReservadaProvisional != undefined) { %>
+															<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+															</a>
 														<% } else { %>
-															<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira %>">
-																<img src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+															<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+															</a>
 														<% } %>
 													<% } else { %>
 														<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == (cadira + 15) )%>
+														<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == (cadira + 15) ) %>
 														<% if (cadiraReservada != undefined) { %>
-															<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-																<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+															<a class="butaca">
+																<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+															</a>
+														<% } else if (cadiraReservadaProvisional != undefined) { %>
+															<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira + 15 %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+															</a>
 														<% } else { %>
-															<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira + 15 %>">
-																<img src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+															<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira + 15 %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+															</a>
 														<% } %>
 													<% } %>
 													<div class="fletxa"></div>
@@ -108,13 +143,20 @@
 										<% for (let cadira = 1; cadira <= 14; cadira++) { %>
 											<% if (seccio == 1 && cadira == 1) { %>
 												<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == cadira) %>
+												<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == cadira) %>
 												<div class="cadira desplacament2">
 													<% if (cadiraReservada != undefined) { %>
-														<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-															<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+														<a class="butaca">
+															<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+														</a>
+													<% } else if (cadiraReservadaProvisional != undefined) { %>
+														<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+														</a>
 													<% } else { %>
-														<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira %>">
-															<img src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+														<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+															<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+														</a>
 													<% } %>
 													<div class="fletxa"></div>
 													<% if (seccio == 1) { %>
@@ -125,23 +167,37 @@
 												</div>
 											<% } else { %>
 												<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == cadira) %>
+												<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == cadira) %>
 												<div class="cadira">
 													<% if (seccio == 1) { %>
 														<% if (cadiraReservada != undefined) { %>
-															<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-																<img src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+															<a class="butaca">
+																<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+															</a>
+														<% } else if (cadiraReservadaProvisional != undefined) { %>
+															<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+															</a>
 														<% } else { %>
-															<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira %>">
-																<img src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+															<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_verda.svg" alt="Butaca">
+															</a>
 														<% } %>
 													<% } else { %>
 														<% cadiraReservada = cadiresReservades.find(cadiraReservada => cadiraReservada.idCadira.fila == fila && cadiraReservada.idCadira.numero == (cadira + 14) )%>
+														<% cadiraReservadaProvisional = cadiresReservadesProvisionalment.find(cadiraReservadaProvisional => cadiraReservadaProvisional.idCadira.fila == fila && cadiraReservadaProvisional.idCadira.numero == (cadira + 14) ) %>
 														<% if (cadiraReservada != undefined) { %>
-															<a class="butaca" href="/reservaCadira/delete/<%= cadiraReservada._id %>">
-																<img class="butaca" src="/URL/icons/butaca_vermella.svg" alt="Butaca"></a>
+															<a class="butaca">
+																<img src="/URL/icons/butaca_negra.svg" alt="Butaca">
+															</a>
+														<% } else if (cadiraReservadaProvisional != undefined) { %>
+															<a class="butaca" href="/reservaCadira/eliminarreserva/<%= idSessio %>/<%= fila %><%= cadira + 14 %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img src="/URL/icons/butaca_groga.svg" alt="Butaca" disabled>
+															</a>
 														<% } else { %>
-															<a class="butaca" href="/reservaCadira/create/<%= cadiresReservades[0].idSessio %>/<%= fila %><%= cadira + 14 %>">
-																<img class="butaca" src="/URL/icons/butaca_verda.svg" alt="Butaca"></a>
+															<a class="butaca" href="/reservaCadira/reserva/<%= idSessio %>/<%= fila %><%= cadira + 14 %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>">
+																<img class="butaca" src="/URL/icons/butaca_verda.svg" alt="Butaca">
+															</a>
 														<% } %>
 													<% } %>
 													<div class="fletxa"></div>
@@ -160,6 +216,8 @@
 					</div>
 					
 				</div>
+
+				<a class="btn btn-primary reservar" href="/reservaCadira/create/<%= idSessio %>/<%= JSON.stringify(cadiresReservadesProvisionalment) %>/<%= locals.usuariId %>" class="card-link">Reservar</a>
 
 			</div>
 

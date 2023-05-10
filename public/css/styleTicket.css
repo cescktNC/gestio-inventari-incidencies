@@ -1,0 +1,105 @@
+.card-body .container {
+    max-width: 1350px;
+    margin: 0 auto;
+    overflow: hidden;
+    /* background-color: #DDD; */
+}
+
+.ticket-titol {
+    font-size: 45px;
+    text-transform: uppercase;
+    border-left: 14px solid rgba(255, 235, 59, 0.78);
+    padding-left: 12px;
+    margin: 18px 8px;
+  }
+
+.container .ticket {
+    width: 80%;
+    float: left;
+    padding: 0 20px;
+    background: #fff;
+    overflow: hidden;
+    margin: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 20px #888;
+}
+
+.container .ticket-dreta, .container .ticket-esquerra {
+    float: left;
+    padding: 20px 
+}
+
+.container .ticket-dreta {
+    padding: 79px 50px;
+    margin-right: 20px;
+    width: 25%;
+    position: relative;
+    height: 286px
+}
+
+.container .ticket-dreta .num {
+    font-size: 60px;
+    text-align: center;
+    color: #111
+}
+
+.container .ticket-dreta .dia, .container .ticket-esquerra .event {
+    color: #555;
+    font-size: 20px;
+    margin-bottom: 9px;
+}
+
+.container .ticket-dreta .dia {
+    text-align: center;
+    font-size: 25px;
+}
+
+.container .ticket-esquerra {
+    width: 71%;
+    padding: 34px 0px 19px 46px;
+    border-left: 3px dotted #999;
+}
+
+.container .ticket-esquerra .titol {
+    color: #111;
+    font-size: 34px;
+    margin-bottom: 12px
+}
+
+.container .ticket-esquerra .cal {
+    margin-top: 5px;
+    display: block
+}
+
+.container .ticket-esquerra .cal .icon, .container .ticket-esquerra .cal p,
+.container .ticket-esquerra .loc .icon, .container .ticket-esquerra .loc p{
+    float: left;
+    word-spacing: 5px;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.container .ticket-esquerra .cal .icon, .container .ticket-esquerra .loc .icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #666
+}
+
+.container .ticket-esquerra .loc {
+    display: block
+}
+
+.fix {
+    clear: both
+}
+
+@media only screen and (max-width: 1150px) {
+  .container .ticket {
+    width: 100%;
+    margin-right: 20px
+  }
+  div.container {
+    margin: 0 20px auto
+  }
+}

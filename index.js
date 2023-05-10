@@ -23,6 +23,7 @@ var incidenciaRouter = require('./routes/incidenciesRouter');
 var authRouter = require('./routes/authRouter');
 var comentariRouter = require('./routes/comentariRoute');
 var reservaCadiraRouter = require('./routes/reservaCadiresRouter');
+var ticketRouter = require('./routes/ticketRouter');
 
 var app = express();
 
@@ -56,7 +57,6 @@ app.use(session({
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -65,7 +65,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
 // Guardar dades d'usuari a la variable local per a poder accedir des de les vistes. Per a accedir
-// s'ha de posar 'local.nom_variable'
+// s'ha de posar 'locals.nom_variable'
 app.use(function (req, res, next) {
   if (req.session.data) {
     res.locals.usuariId = req.session.data.usuariId;
@@ -108,8 +108,8 @@ app.use('/prestec', prestecRouter);
 app.use('/autenticacions', authRouter);
 app.use('/comentari', comentariRouter);
 app.use('/reservaCadira', reservaCadiraRouter);
+app.use('/ticket', ticketRouter);
 app.use('/planta', plantaRouter);
-
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'

@@ -7,6 +7,11 @@ var ReservaSchema = new Schema({ // Diem que creem un nou esquema per a les coll
     codi: { type: Number, required: true },
     horaInici: { type: Date, required: true},
     horaFi: { type: Date, required: true},
+    // hora: { type: String, required: true},
+    horaInici: { type: Date, required: true},
+    horaFi: { type: Date, required: true},
+    // data: { type: Date, required: true},
+
     dniUsuari: { type: Schema.ObjectId , ref: "Usuari"},
     codiLocalitzacio: { type: Schema.ObjectId, ref: "Localitzacio"},
 

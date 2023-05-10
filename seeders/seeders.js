@@ -27,6 +27,7 @@ const Reserva = require('../models/reserva');
 const Sessio = require('../models/sessio');
 const Cadira = require('../models/cadira');
 const ReservaCadira = require('../models/reservaCadira');
+const Ticket = require('../models/ticket');
 
 // Importar el mòdul 'dotenv' per a insertar el fitxer '.env' amb totes les variables
 var dotenv = require('dotenv');
@@ -80,6 +81,7 @@ async function eliminar() {
     await deleteData(Sessio);
     await deleteData(Cadira);
     await deleteData(ReservaCadira);
+    await deleteData(Ticket);
 }
 
 async function usuaris() {
@@ -336,88 +338,135 @@ async function comentaris() {
 
 async function tramets(array){
     await importData(Tramet, array);
-    await cadires();
+    await reserves();
 }
 
-async function cadires() {
-
-    dades = JSON.parse(
-        fs.readFileSync(`cadires.json`, "utf-8")
-    );
-
-    await importData(Cadira, dades);
-    await reservas();
-}
-
-async function reservas() {
-
-    dades = JSON.parse(
+async function reserves() {
+    //Reserves
+    let reserves = JSON.parse(
         fs.readFileSync(`reserves.json`, "utf-8")
     );
 
     let count = 0;
 
-    dades.forEach(async reserva => {
+    reserves.forEach(async reserva => {
 
         let usuari = await Usuari.find({ dni: reserva.dniUsuari });
         let localitzacio = await Localitzacio.find({ nom: reserva.codiLocalitzacio });
+        
+        reserva.horaInici = new Date(reserva.data + 'T' + reserva.horaInici + ':00.000Z');
+        (reserva.horaInici).setTime((reserva.horaInici).getTime() + (reserva.horaInici).getTimezoneOffset()*60*1000);
+        reserva.horaFi = new Date(reserva.data + 'T' + reserva.horaFi + ':00.000Z');
+        (reserva.horaFi).setTime((reserva.horaFi).getTime() + (reserva.horaFi).getTimezoneOffset()*60*1000);
+        delete reserva.data;
 
         reserva.dniUsuari = usuari[0].id;
         reserva.codiLocalitzacio = localitzacio[0].id;
 
         count++;
 
-        if (count == dades.length) {
-            await importData(Reserva, dades);
+        if (count == reserves.length) {
+            await importData(Reserva, reserves);
             await sessions();
-        };
+        }
 
     });
 }
 
 async function sessions() {
-
-    dades = JSON.parse(
+    //Sessions
+    let sessions = JSON.parse(
         fs.readFileSync(`sessions.json`, "utf-8")
     );
 
     let count = 0;
 
-    dades.forEach(async sessio => {
+    sessions.forEach(async sessio => {
         let reserva = await Reserva.find({ codi: sessio.codiReserva });
         sessio.codiReserva = reserva[0].id;
 
         count++;
-        if (count == dades.length) {
-            await importData(Sessio, dades);
-            await reservesCadires();
-        };
+        if (count == sessions.length) {
+            await importData(Sessio, sessions);
+            await cadires();
+        }
 
     });
 }
 
-async function reservesCadires() {
+async function cadires() {
+    //Cadires
+    let cadires = JSON.parse(
+        fs.readFileSync(`cadires.json`, "utf-8")
+    );
+    
+    await importData(Cadira, cadires);
+    await reservaCadires();
+}
 
-    dades = JSON.parse(
+async function reservaCadires() {
+    //Cadires Reservades
+    let cadiresReservades = JSON.parse(
         fs.readFileSync(`reservesCadires.json`, "utf-8")
     );
 
     let count = 0;
-
-    dades.forEach(async element => {
-        let fila = element.idCadira.substring(0, 1);
+    
+    cadiresReservades.forEach(async element => {
+        
+        let fila = element.idCadira.substring(0,1);
         let numero = element.idCadira.substring(1);
 
         let sessio = await Sessio.find({ codi: element.idSessio });
         let cadira = await Cadira.find({ fila: fila, numero: numero });
-
+        
         element.idSessio = sessio[0].id;
         element.idCadira = cadira[0].id;
 
         count++;
 
-        if (count == dades.length) {
-            await importData(ReservaCadira, dades);
+        if (count == cadiresReservades.length) {
+            await importData(ReservaCadira, cadiresReservades);
+            await tickets();
+        }
+
+    });
+}
+
+async function tickets() {
+    //Tickets
+    let tickets = JSON.parse(
+        fs.readFileSync(`tickets.json`, "utf-8")
+    );
+
+    let count = 0;
+    var list_tickets = [];
+
+    tickets.forEach(async ticket => {
+
+        let usuari = await Usuari.find({ dni: ticket.idUsuari });
+
+        let fila = ticket.idCadira.substring(0,1);
+        let numero = ticket.idCadira.substring(1);
+
+        let sessio = await Sessio.find({ codi: ticket.idSessio });
+        let cadira = await Cadira.find({ fila: fila, numero: numero });
+
+        let cadiraReservada = await ReservaCadira.find({ idSessio: sessio[0].id, idCadira: cadira[0].id });
+
+        let element = {
+            numero: ticket.numero,
+            codiSessio: ticket.idSessio,
+            idUsuari: usuari[0].id,
+            idReservaCadira: cadiraReservada[0].id
+        }
+
+        list_tickets.push(element);
+
+        count++;
+
+        if (count == tickets.length) {
+            await importData(Ticket, list_tickets);
             process.exit();
         }
 

@@ -11,17 +11,12 @@
     },
     {
       "codi": "03",
-      "nom": "Actuació Nadal",
-      "codiReserva": "08"
+      "nom": "Festa Carnaval",
+      "codiReserva": "11"
     },
     {
       "codi": "04",
-      "nom": "Festa Carnaval",
-      "codiReserva": "12"
-    },
-    {
-      "codi": "05",
       "nom": "Entrega Diplomes",
-      "codiReserva": "16"
+      "codiReserva": "15"
     }
 ]

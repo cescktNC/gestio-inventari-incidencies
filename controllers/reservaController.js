@@ -6,6 +6,7 @@ var Usuari = require("../models/usuari");
 class reservaController {
   
   static async list(req, res, next) {
+
     try {
       const PAGE_SIZE = 10; // Número de documentos por página
       const page = req.query.page || 1; // Número de página actual
@@ -45,34 +46,94 @@ class reservaController {
     res.render('reserva/new', { localitzacioList: localitzacio_list, dniUsuariList: usuari_list })
 
   }
+  // static async create_post(req, res) {
+  //   const localitzacio_list = await Localitzacio.find();
+  //   const usuari_list = await Usuari.find();
+  //   const reserves_list = await Reserva.find();
+
+  //   let dataReserva = new Date(req.body.data.toString() + 'T' + req.body.hora.split('-')[0].trim());
+  //   let dataAvui = new Date();
+  //   let diaReserva = dataReserva.getDate();
+  //   let diaAvui = dataAvui.getDate();
+  //   let horaReserva = (req.body.hora).substring(0, 2);
+  //   if (diaReserva >= diaAvui && horaReserva > dataAvui.getHours()) {
+  //     var reserva = {
+  //       codi: ++reserves_list.pop().codi,
+  //       hora: req.body.hora,
+  //       data: dataReserva,
+  //       dniUsuari: req.body.dniUsuari,
+  //       codiLocalitzacio: req.body.codiLocalitzacio,
+  //     };
+  
+  //     Reserva.create(reserva, function (error, newReserva) {
+  //       if (error) {
+  //         res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list })
+  //       } else {
+  //         res.redirect('/reserva')
+  //       }
+  //     });
+  //   } else {
+  //     let error = new Error("La data no pot ser anterior a la data actual.");
+  //     res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
+  //   }
+    
+  // }
+
   static async create_post(req, res) {
+
     const localitzacio_list = await Localitzacio.find();
     const usuari_list = await Usuari.find();
-    const reserves_list = await Reserva.find();
+    
+    var horaInici = new Date(req.body.data.toString() + 'T' + (req.body.horaInici).slice(0,5) + ':00.000Z');
+    (horaInici).setTime((horaInici).getTime() + (horaInici).getTimezoneOffset()*60*1000);
+    var horaFi = new Date(req.body.data.toString() + 'T' + (req.body.horaFi).slice(0,5) + ':00.000Z');
+    (horaFi).setTime((horaFi).getTime() + (horaFi).getTimezoneOffset()*60*1000);
+    var avui = new Date();
+    
+    if (horaInici < horaFi) { // Comprovem que l'hora d'inici no sigui posterior a la de fi
+      if (horaInici >= avui) { // Comprovem que l'hora d'inici no sigui posterior a la d'avui
+          var reserves = await Reserva.find();
+          var horarDisponible = true;
+          for (let i = 0; i < reserves.length; i++) {  // Comprovem que no hi hagi ja una reserva feta en aquest horari
+            if ( !(horaInici < reserves[i].horaInici && horaFi <= reserves[i].horaInici) || !(horaInici >= reserves[i].horaFi) ) {
+              horarDisponible = false;
+              break;
+            }
+          }
 
-    let dataReserva = new Date(req.body.data.toString() + 'T' + req.body.hora.split('-')[0].trim());
-    let dataAvui = new Date();
-    let diaReserva = dataReserva.getDate();
-    let diaAvui = dataAvui.getDate();
-    let horaReserva = (req.body.hora).substring(0, 2);
-    if (diaReserva >= diaAvui && horaReserva > dataAvui.getHours()) {
-      var reserva = {
-        codi: ++reserves_list.pop().codi,
-        hora: req.body.hora,
-        data: dataReserva,
-        dniUsuari: req.body.dniUsuari,
-        codiLocalitzacio: req.body.codiLocalitzacio,
-      };
-  
-      Reserva.create(reserva, function (error, newReserva) {
-        if (error) {
-          res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list })
-        } else {
-          res.redirect('/reserva')
-        }
-      });
+          if (!horarDisponible) { // En cas de que ja existeixi una reserva feta
+            let horesReservades = [];
+            reserves.forEach( reserva => { // Guardem les reserves fetes d'aquest dia per a poder mostrar després des de la vista les hores disponibles
+              if (reserva.horaInici.getFullYear() == horaInici.getFullYear() &&
+                  reserva.horaInici.getMonth() == horaInici.getMonth() &&
+                  reserva.horaInici.getDate() == horaInici.getDate()) {
+                    horesReservades.push(reserva);
+              }
+            });
+            let error = new Error("Horari no disponible. Ja hi ha una reserva feta.");
+            res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list, horesReservades: horesReservades });
+          }
+          
+          // La reserva es pot crear perquè ha passat totes les validacions
+          var reserva = {
+            codi: reserves.pop().codi + 1,
+            horaInici: horaInici,
+            horaFi: horaFi,
+            dniUsuari: req.body.dniUsuari,
+            codiLocalitzacio: req.body.codiLocalitzacio
+          };
+
+          Reserva.create(reserva, function (error, newReserva) {
+            if (error) res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
+            else res.redirect('/reserva');
+          });
+
+      } else {
+        let error = new Error("La data seleccionada juntament amb les hores escollides no poden ser anteriors a la data i hora actual.");
+        res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
+      }
     } else {
-      let error = new Error("La data no pot ser anterior a la data actual.");
+      let error = new Error("L'hora d'inici ha de ser inferior a l'hora de fi.");
       res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
     }
     
