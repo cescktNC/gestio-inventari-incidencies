@@ -5,8 +5,15 @@ var Schema = mongoose.Schema; // Diem que utilitzarem esquemes per a les colleci
 var ReservaSchema = new Schema({ // Diem que creem un nou esquema per a les collecions de MongoDB
     
     codi: { type: Number, required: true },
+<<<<<<< HEAD
     horaInici: { type: Date, required: true},
     horaFi: { type: Date, required: true},
+=======
+    // hora: { type: String, required: true},
+    horaInici: { type: Date, required: true},
+    horaFi: { type: Date, required: true},
+    // data: { type: Date, required: true},
+>>>>>>> 46734f3 (ticket, reserva cadires i modificacions varies)
     dniUsuari: { type: Schema.ObjectId , ref: "Usuari"},
     codiLocalitzacio: { type: Schema.ObjectId, ref: "Localitzacio"},
 

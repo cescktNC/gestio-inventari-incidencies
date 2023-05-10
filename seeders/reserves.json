@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
   {
     "codi": "01",
     "horaInici": "08:00",
@@ -119,4 +120,126 @@
     "dniUsuari": "111111112J",
     "codiLocalitzacio": "Sala d'actes"
   }
+=======
+    {
+      "codi": "01",
+      "horaInici": "08:00",
+      "horaFi": "09:00",
+      "data": "2022-09-06",
+      "dniUsuari": "33333333C",
+      "codiLocalitzacio": "Sala d'actes"
+    },
+    {
+      "codi": "02",
+      "horaInici": "11:30",
+      "horaFi": "12:30",
+      "data": "2022-10-12",
+      "dniUsuari": "44444444D",
+      "codiLocalitzacio": "Aula 306"
+    },
+    {
+      "codi": "03",
+      "horaInici": "13:30",
+      "horaFi": "14:30",
+      "data": "2022-10-25",
+      "dniUsuari": "111111112J",
+      "codiLocalitzacio": "Aula Comercial"
+    },
+    {
+      "codi": "04",
+      "horaInici": "09:00",
+      "horaFi": "10:00",
+      "data": "2022-10-27",
+      "dniUsuari": "99999999I",
+      "codiLocalitzacio": "Aula Multimedia"
+    },
+    {
+      "codi": "05",
+      "horaInici": "10:00",
+      "horaFi": "11:00",
+      "data": "2022-11-21",
+      "dniUsuari": "88888888H",
+      "codiLocalitzacio": "Aula 106"
+    },
+    {
+      "codi": "06",
+      "horaInici": "13:30",
+      "horaFi": "14:30",
+      "data": "2022-11-30",
+      "dniUsuari": "44444444D",
+      "codiLocalitzacio": "Aula 304"
+    },
+    {
+      "codi": "07",
+      "horaInici": "09:00",
+      "horaFi": "11:00",
+      "data": "2022-12-22",
+      "dniUsuari": "77777777G",
+      "codiLocalitzacio": "Sala d'actes"
+    },
+    {
+      "codi": "08",
+      "horaInici": "10:00",
+      "horaFi": "11:00",
+      "data": "2023-01-10",
+      "dniUsuari": "66666666F",
+      "codiLocalitzacio": "Aula Multimedia"
+    },
+    {
+      "codi": "09",
+      "horaInici": "13:30",
+      "horaFi": "14:30",
+      "data": "2023-01-24",
+      "dniUsuari": "44444444D",
+      "codiLocalitzacio": "Aula 204"
+    },
+    {
+      "codi": "10",
+      "horaInici": "09:00",
+      "horaFi": "10:00",
+      "data": "2023-01-30",
+      "dniUsuari": "99999999I",
+      "codiLocalitzacio": "Aula Multimedia"
+    },
+    {
+      "codi": "11",
+      "horaInici": "11:30",
+      "horaFi": "12:30",
+      "data": "2023-02-03",
+      "dniUsuari": "55555555E",
+      "codiLocalitzacio": "Sala d'actes"
+    },
+    {
+      "codi": "12",
+      "horaInici": "12:30",
+      "horaFi": "13:30",
+      "data": "2023-02-08",
+      "dniUsuari": "111111112J",
+      "codiLocalitzacio": "Aula 407"
+    },
+    {
+      "codi": "13",
+      "horaInici": "13:30",
+      "horaFi": "14:30",
+      "data": "2023-03-06",
+      "dniUsuari": "55555555E",
+      "codiLocalitzacio": "Aula 404"
+    },
+    {
+      "codi": "14",
+      "horaInici": "13:30",
+      "horaFi": "14:30",
+      "data": "2023-03-17",
+      "dniUsuari": "66666666F",
+      "codiLocalitzacio": "Aula Multimedia"
+    },
+    {
+      "codi": "15",
+      "horaInici": "17:00",
+      "horaFi": "18:00",
+      "data": "2023-06-01",
+      "dniUsuari": "111111112J",
+      "codiLocalitzacio": "Sala d'actes"
+    }
+>>>>>>> 46734f3 (ticket, reserva cadires i modificacions varies)
 ]

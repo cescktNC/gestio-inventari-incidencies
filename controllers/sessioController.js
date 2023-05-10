@@ -12,6 +12,7 @@ class sessioController {
         if (err) {
             return next(err);
         }
+<<<<<<< HEAD
 
         const totalItems = count;
         const totalPages = Math.ceil(totalItems / PAGE_SIZE);
@@ -28,6 +29,10 @@ class sessioController {
             }
             res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
         });
+=======
+        console.log(list);
+        res.render('sessio/list', { list: list })
+>>>>>>> 46734f3 (ticket, reserva cadires i modificacions varies)
       });
     }
     catch (e) {
@@ -44,7 +49,10 @@ class sessioController {
   }
 
   static async create_post(req, res) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 46734f3 (ticket, reserva cadires i modificacions varies)
     const reserva_list = await Reserva.find();
     Sessio.create(req.body, function (error, newSessio) {
       if (error) {
