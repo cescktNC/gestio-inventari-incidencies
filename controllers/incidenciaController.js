@@ -196,7 +196,7 @@ class IncidenciaController {
                 const startIndex = (page - 1) * PAGE_SIZE;
             
                 Incidencia.find()
-                .sort({ data: -1, codi: 1 })
+                .sort({ data: -1 })
                 .populate({
                     path: 'codiExemplar',
                     populate: { path: 'codiMaterial', model: 'Material' }
@@ -226,6 +226,7 @@ class IncidenciaController {
                 if (err) {
                     res.status(400).json({error: err});
                 }
+                
                 var incidencia = {
                     codi: codi,
                     data: Date.now(),
@@ -272,7 +273,7 @@ class IncidenciaController {
         } catch (error) {
             res.status(400).json({error});
         }
-    }
+    };
 
     static async incidenciaUpdate(req,res,next){
         try {
@@ -310,7 +311,7 @@ class IncidenciaController {
         } catch (error) {
             res.status(400).json({error});
         }
-    }
+    };
 }
 
 module.exports = IncidenciaController;

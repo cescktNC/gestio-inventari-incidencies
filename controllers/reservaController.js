@@ -13,7 +13,7 @@ class reservaController {
       
       Reserva.countDocuments({}, function(err, count) {
         if (err) {
-            return next(err);
+          return next(err);
         }
 
         const totalItems = count;
@@ -27,15 +27,15 @@ class reservaController {
         .skip(startIndex)
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
-            if (err) {
-                return next(err);
-            }
-            res.render('reserva/list', { list: list, totalPages: totalPages, currentPage: page });
+          if (err) {
+            return next(err);
+          }
+          res.render('reserva/list', { list: list, totalPages: totalPages, currentPage: page });
         });
       });
     }
     catch (e) {
-        res.send('Error!');
+      res.send('Error!');
     }
   }
 
@@ -128,6 +128,7 @@ class reservaController {
             else res.redirect('/reserva');
           });
 
+
       } else {
         let error = new Error("La data seleccionada juntament amb les hores escollides no poden ser anteriors a la data i hora actual.");
         res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
@@ -155,6 +156,7 @@ class reservaController {
     });
 
   }
+
   static update_post(req, res, next) {
     var reserva = {
       codi: req.body.codi,
@@ -179,6 +181,7 @@ class reservaController {
       }
     );
   }
+
   static async delete_get(req, res, next) {
 
     res.render('reserva/delete', { id: req.params.id })
@@ -202,37 +205,37 @@ class reservaController {
 		  const PAGE_SIZE = 10; // Número de documentos por página
 		  const page = req.query.page || 1; // Número de página actual
 	
-		  Reserva.countDocuments({}, function (err, count) {
-			if (err) {
-			  res.status(400).json({ error: err });
-			}
-	
-			const totalItems = count;
-			const totalPages = Math.ceil(totalItems / PAGE_SIZE);
-			const startIndex = (page - 1) * PAGE_SIZE;
-	
-			Reserva.find()
-			  .sort({ codi: 1 })
+      Reserva.countDocuments({}, function (err, count) {
+        if (err) {
+          res.status(400).json({ error: err });
+        }
+    
+        const totalItems = count;
+        const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        const startIndex = (page - 1) * PAGE_SIZE;
+    
+        Reserva.find()
+        .sort({ codi: 1 })
         .populate({
           path: 'dniUsuari',
-					select: 'nom'
+          select: 'nom'
         })
         .populate({
           path: 'codiLocalitzacio',
-					select: 'nom'
+          select: 'nom'
         })
-			  .skip(startIndex)
-			  .limit(PAGE_SIZE)
-			  .exec(function (err, list) {
-				if (err) {
-				  res.status(400).json({ error: err });
-				}
-				res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-			  });
-		  });
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+          if (err) {
+            res.status(400).json({ error: err });
+          }
+          res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+        });
+      });
 		}
 		catch (e) {
-		  res.status(400).json({ message: 'Error!' });
+      res.status(400).json({ message: 'Error!' });
 		}
 	}
 
@@ -250,6 +253,21 @@ class reservaController {
 		} catch (error) {
 			res.status(400).json({ error: 'Ha ocurregut un error inesperat' });
 		}
+
+  static async ReservaShow(req, res){
+    try {
+      Reserva.findById(req.params.id)
+      .populate('codiLocalitzacio')
+      .exec(function(error, reserva){
+        if (error) return res.status(400).json({ error });
+        
+        if (reserva == null) return res.status(400).json({ error: "Reserva not found" });
+
+        res.status(200).json({ reserva });
+      })
+    } catch (error) {
+      res.status(400).json({error: 'Ha ocurregut un error inesperat'});
+    }
   }
 	
 	static async ReservaCreate(req, res) {
@@ -257,49 +275,50 @@ class reservaController {
 	
 		// Valida que el código no esté ya registrado
 		Reserva.findOne({ codi: Reservanew.codi }, function (err, reserva) {
-		  if (err) res.status(400).json({ error: err });
-	
-		  if (reserva == null) {
-			// Guardar categoria en la base de datos
-			Reserva.create(Reservanew, function (error, newreservacreate) {
-			  if (error) res.status(400).json({ error: error.message });
-	
-			  else res.status(200).json({ ok: true });
-			});
-		  } else res.status(400).json({ error: "Reserva ja registrada" });
+      if (err) res.status(400).json({ error: err });
+
+      if (reserva == null) {
+        // Guardar categoria en la base de datos
+        Reserva.create(Reservanew, function (error, newreservacreate) {
+          if (error) res.status(400).json({ error: error.message });
+    
+          else res.status(200).json({ ok: true });
+        });
+      } else res.status(400).json({ error: "Reserva ja registrada" });
 		});
-	  }
-	  static async ReservaUpdate(req, res) {
-		const ReservaId = req.params.id;
-		const updatedReservaData = req.body.ReservaData;
-      console.log(req.body)
-        
-		// Valida que el código no esté ya registrado en otra categoría
-		Reserva.findOne({ codi: updatedReservaData.codi, _id: { $ne: ReservaId } }, function (err, reserva) {
-		  if (err) res.status(400).json({ error: err });
-	
-		  if (reserva == null) {
-			// Actualizar la categoría en la base de datos
+
+	}
+
+	static async ReservaUpdate(req, res) {
+    const ReservaId = req.params.id;
+    const updatedReservaData = req.body.ReservaData;
+
+    // Valida que el código no esté ya registrado en otra categoría
+    Reserva.findOne({ codi: updatedReservaData.codi, _id: { $ne: ReservaId } }, function (err, reserva) {
+      if (err) res.status(400).json({ error: err });
+  
+      if (reserva == null) {
+      // Actualizar la categoría en la base de datos
       updatedReservaData.data = new Date(updatedReservaData.data);
       updatedReservaData.hora = new Date(updatedReservaData.hora);
-			Reserva.findByIdAndUpdate(ReservaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
-			  if (error) res.status(400).json({ error: error.message });
+      Reserva.findByIdAndUpdate(ReservaId, updatedReservaData, { new: true }, function (error, updatedreserva) {
+        if (error) res.status(400).json({ error: error.message });
+  
+        else res.status(200).json({ ok: true });
+      });
+      } else res.status(400).json({ error: "Codi de la reserva ja registrada en un altre reserva" });
+    });
+  }
 	
-			  else res.status(200).json({ ok: true });
-			});
-		  } else res.status(400).json({ error: "Codi de la reserva ja registrada en un altre reserva" });
-		});
-	  }
-	
-	  static async ReservaDelete(req, res) {
+	static async ReservaDelete(req, res) {
 		const ReservaId = req.params.id;
 	
 		Reserva.findByIdAndRemove(ReservaId, function (err, deletedreserva) {
-		  if (err) res.status(400).json({ error: err.message });
-	
-		  else res.status(200).json({ ok: true });
+      if (err) res.status(400).json({ error: err.message });
+
+      else res.status(200).json({ ok: true });
 		});
-	  }
+	}
 }
 
 module.exports = reservaController;

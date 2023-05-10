@@ -136,16 +136,16 @@ class SubcategoriaController {
         const startIndex = (page - 1) * PAGE_SIZE;
 
         Subcategoria.find()
-          .sort({ codiCategoria: 1, codi: 1 })
-          .populate('codiCategoria')
-          .skip(startIndex)
-          .limit(PAGE_SIZE)
-          .exec(function (err, list) {
-            if (err) {
-              res.status(400).json({ error: err });
-            }
-            res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
-          });
+        .sort({ codiCategoria: 1, codi: 1 })
+        .populate('codiCategoria')
+        .skip(startIndex)
+        .limit(PAGE_SIZE)
+        .exec(function (err, list) {
+          if (err) {
+            res.status(400).json({ error: err });
+          }
+          res.status(200).json({ list: list, totalPages: totalPages, currentPage: page });
+        });
       });
     }
     catch (e) {
@@ -155,7 +155,6 @@ class SubcategoriaController {
 
   static async SubcategoryAllList(req, res, next) {
     try {
-
       Subcategoria.find()
       .sort({ codiCategoria: 1, codi: 1 })
       .exec(function (err, list) {

@@ -4,8 +4,6 @@ const validateToken = require("../middlewares/validateToken");
 
 const sessio_controller = require("../controllers/sessioController");
 
-
-
 router.get("/", sessio_controller.list);
 
 router.get("/create", sessio_controller.create_get);

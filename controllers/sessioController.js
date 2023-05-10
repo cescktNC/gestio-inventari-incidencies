@@ -10,7 +10,7 @@ class sessioController {
       
       Sessio.countDocuments({}, function(err, count) {
         if (err) {
-            return next(err);
+          return next(err);
         }
 
         const totalItems = count;
@@ -23,15 +23,16 @@ class sessioController {
         .skip(startIndex)
         .limit(PAGE_SIZE)
         .exec(function (err, list) {
-            if (err) {
-                return next(err);
-            }
-            res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
+          if (err) {
+            return next(err);
+          }
+          res.render('sessio/list', { list: list, totalPages: totalPages, currentPage: page });
         });
+        res.render('sessio/list', { list: list })
       });
     }
     catch (e) {
-        res.send('Error!');
+      res.send('Error!');
     }
   }
 
@@ -116,6 +117,7 @@ class sessioController {
       }
     })
   }
+
   static async SessioList(req, res, next) {
     try {
 
@@ -132,8 +134,11 @@ class sessioController {
         const startIndex = (page - 1) * PAGE_SIZE;
 
         Sessio.find()
-          .sort({ codi: 1 })
-          .populate('codiReserva')
+          .sort({ codi: 1, codiReserva: 1 })
+          .populate({
+            path: 'codiReserva',
+            select: 'codi'
+          })
           .skip(startIndex)
           .limit(PAGE_SIZE)
           .exec(function (err, list) {
@@ -171,7 +176,7 @@ class sessioController {
     console.log(SessioNew);
 
     // Valida que el código no esté ya registrado
-   Sessio.findOne({ codi: SessioNew.codi }, function (err, sessio) {
+    Sessio.findOne({ codi: SessioNew.codi }, function (err, sessio) {
       if (err) res.status(400).json({ error: err });
 
       if (sessio == null) {
@@ -188,7 +193,6 @@ class sessioController {
   static async SessioUpdate(req, res) {
     const SessioId = req.params.id;
     const updatedSessioData = req.body.SessioData;
-
 
     // Valida que el código no esté ya registrado en otra categoría
     Sessio.findOne({ codi: updatedSessioData.codi, _id: { $ne: SessioId } }, function (err, sessio) {

@@ -21,6 +21,7 @@ router.post("/update/:id", reserva_controller.update_post);
 
 router.get('/APIlist', validateToken.protegirRuta, reserva_controller.ReservaList);
 router.get('/APIalllist', validateToken.protegirRuta, reserva_controller.ReservaAllList);
+router.get('/APIshow/:id', validateToken.protegirRuta, reserva_controller.ReservaShow);
 
 router.post('/APIcreate', validateToken.protegirRuta, reserva_controller.ReservaCreate);
 
