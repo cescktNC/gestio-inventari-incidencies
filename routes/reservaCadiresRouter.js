@@ -14,6 +14,9 @@ router.get("/reserva/:id/:cadira/:cadiresReservadesProvisionalment", reservaCadi
 router.get("/eliminarreserva/:id/:cadira/:cadiresReservadesProvisionalment", reservaCadira_controller.eliminarReservaProvisional);
 
 router.get("/APIlist/:id", validateToken.protegirRuta, reservaCadira_controller.APIlist);
+router.get("/APIcreate/:id/:cadiresReservadesProvisionalment/:usuariId", reservaCadira_controller.APIcreate);
+router.get("/APIcreateProvisional/:id/:cadira/:cadiresReservadesProvisionalment", validateToken.protegirRuta, reservaCadira_controller.APIreservaProvisional);
+router.get("/APIdeleteProvisional/:id/:cadira/:cadiresReservadesProvisionalment", validateToken.protegirRuta, reservaCadira_controller.APieliminarReservaProvisional);
 
 // router.post("/create", cadira_controller.create_post);
 // router.get("/delete/:id",  cadira_controller.delete_get);
