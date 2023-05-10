@@ -21,6 +21,7 @@ router.post("/update/:id",  sessio_controller.update_post);
 
 router.get('/APIlist', validateToken.protegirRuta, sessio_controller.SessioList);
 
+router.get('/APIcreate', validateToken.protegirRuta, sessio_controller.SessioCreateGet);
 router.post('/APIcreate', validateToken.protegirRuta, sessio_controller.SessioCreate);
 
 router.get('/APIdelete/:id', validateToken.protegirRuta, sessio_controller.SessioDelete);

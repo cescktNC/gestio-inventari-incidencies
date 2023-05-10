@@ -277,7 +277,6 @@ class prestecController {
       ], function(err, exemplars) {
         if (err) {
           return res.status(400).json({ error: err });
-          return;
         }
 
         const materialExemplarsIds = exemplars.map(exemplar => exemplar._id.toString());
@@ -336,10 +335,6 @@ class prestecController {
     res.status(200).json({ estats: list_estats });
   } 
 
-  static async prestecUpdateStat(req, res, next){
-    let estat = req.body.estat;
-
-  };
 
     
 

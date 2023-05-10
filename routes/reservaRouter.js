@@ -20,13 +20,12 @@ router.post("/update/:id", reserva_controller.update_post);
 //API
 
 router.get('/APIlist', validateToken.protegirRuta, reserva_controller.ReservaList);
+router.get('/APIalllist', validateToken.protegirRuta, reserva_controller.ReservaAllList);
 
 router.post('/APIcreate', validateToken.protegirRuta, reserva_controller.ReservaCreate);
 
-router.get('/APIdelete/:id', validateToken.protegirRuta, reserva_controller.ReservaDelete);
 router.delete('/APIdelete/:id', validateToken.protegirRuta, reserva_controller.ReservaDelete);
 
-router.get('/APIupdate/:id', validateToken.protegirRuta, reserva_controller.ReservaUpdate);
 router.put('/APIupdate/:id', validateToken.protegirRuta, reserva_controller.ReservaUpdate);
 
 

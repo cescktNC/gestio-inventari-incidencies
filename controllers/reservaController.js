@@ -195,6 +195,7 @@ class reservaController {
       }
     })
   }
+
   static async ReservaList(req, res, next) {
 		try {
 	
@@ -233,11 +234,26 @@ class reservaController {
 		catch (e) {
 		  res.status(400).json({ message: 'Error!' });
 		}
-	  }
+	}
+
+  static async ReservaAllList(req, res){
+    try {
+			Reserva.find()
+			.sort({ codi: 1 })
+			.exec(function (err, list) {
+				if (err) {
+				res.status(400).json({ error: err });
+				}
+				res.status(200).json({ list });
+			});
+
+		} catch (error) {
+			res.status(400).json({ error: 'Ha ocurregut un error inesperat' });
+		}
+  }
 	
-	  static async ReservaCreate(req, res) {
-		let Reservanew = req.body.ReservaData
-		  ;
+	static async ReservaCreate(req, res) {
+		let Reservanew = req.body.ReservaData;
 	
 		// Valida que el código no esté ya registrado
 		Reserva.findOne({ codi: Reservanew.codi }, function (err, reserva) {
