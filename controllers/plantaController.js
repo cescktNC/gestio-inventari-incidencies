@@ -215,7 +215,6 @@ class plantaController {
 			let planta = {...req.body};
 
 			if(planta.newCodicentre !== planta.codiCentre){
-				console.log('a')
 				let centre = await Centre.findById(planta.newCodicentre).exec();
 				if(centre === null || centre === undefined) return res.status(400).json({error: 'Centre no trobat'});
 

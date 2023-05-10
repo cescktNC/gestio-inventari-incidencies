@@ -22,7 +22,6 @@ const Exemplar = require('../models/exemplar');
 const Prestec = require('../models/prestec');
 const Incidencia = require('../models/incidencia');
 const Comentari = require('../models/comentari');
-const Tramet = require('../models/tramet');
 const Reserva = require('../models/reserva');
 const Sessio = require('../models/sessio');
 const Cadira = require('../models/cadira');
@@ -37,7 +36,6 @@ dotenv.config({ path: "../.env" }); // S'especifica on està el fitxer '.env'
 // Importar el mòdul 'mongoose' i configurar la connexió a la base de dades de MongoDB
 var mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
-const subcategoria = require('../models/subcategoria');
 var mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -76,7 +74,6 @@ async function eliminar() {
     await deleteData(Prestec);
     await deleteData(Incidencia);
     await deleteData(Comentari);
-    await deleteData(Tramet);
     await deleteData(Reserva);
     await deleteData(Sessio);
     await deleteData(Cadira);
@@ -330,11 +327,11 @@ async function comentaris() {
 
         if (count == dades.length) {
             await importData(Comentari, dades);
-            await tramets(arrayTramet);
-        };
-
+            await reserves();
+        }
     });
 }
+
 
 async function tramets(array){
     await importData(Tramet, array);
@@ -359,7 +356,7 @@ async function reserves() {
         reserva.horaFi = new Date(reserva.data + 'T' + reserva.horaFi + ':00.000Z');
         (reserva.horaFi).setTime((reserva.horaFi).getTime() + (reserva.horaFi).getTimezoneOffset()*60*1000);
         delete reserva.data;
-
+      
         reserva.dniUsuari = usuari[0].id;
         reserva.codiLocalitzacio = localitzacio[0].id;
 

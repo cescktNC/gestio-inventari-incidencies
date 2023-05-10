@@ -226,6 +226,7 @@ class IncidenciaController {
                 if (err) {
                     res.status(400).json({error: err});
                 }
+                
                 var incidencia = {
                     codi: codi,
                     data: Date.now(),
@@ -272,7 +273,7 @@ class IncidenciaController {
         } catch (error) {
             res.status(400).json({error});
         }
-    }
+    };
 
     static async incidenciaUpdate(req,res,next){
         try {
@@ -310,7 +311,7 @@ class IncidenciaController {
         } catch (error) {
             res.status(400).json({error});
         }
-    }
+    };
 }
 
 module.exports = IncidenciaController;
