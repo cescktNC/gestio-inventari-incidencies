@@ -196,7 +196,7 @@ class IncidenciaController {
                 const startIndex = (page - 1) * PAGE_SIZE;
             
                 Incidencia.find()
-                .sort({ data: -1, codi: 1 })
+                .sort({ data: -1 })
                 .populate({
                     path: 'codiExemplar',
                     populate: { path: 'codiMaterial', model: 'Material' }
