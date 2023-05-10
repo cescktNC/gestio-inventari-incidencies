@@ -38,6 +38,7 @@ class ticketController {
             let cadiraReservada = await ReservaCadira.findById(ticket.idReservaCadira)
             .populate('idCadira')
             .populate('idSessio');
+
             if (!sessioGuardada) { 
                 sessio = await Sessio.findById(cadiraReservada.idSessio._id);
                 reserva = await Reserva.findById(cadiraReservada.idSessio.codiReserva);

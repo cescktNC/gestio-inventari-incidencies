@@ -45,7 +45,6 @@ class sessioController {
   }
 
   static async create_post(req, res) {
-
     const reserva_list = await Reserva.find();
     Sessio.create(req.body, function (error, newSessio) {
       if (error) {

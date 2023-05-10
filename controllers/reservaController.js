@@ -6,6 +6,7 @@ var Usuari = require("../models/usuari");
 class reservaController {
   
   static async list(req, res, next) {
+
     try {
       const PAGE_SIZE = 10; // Número de documentos por página
       const page = req.query.page || 1; // Número de página actual
@@ -91,41 +92,42 @@ class reservaController {
     
     if (horaInici < horaFi) { // Comprovem que l'hora d'inici no sigui posterior a la de fi
       if (horaInici >= avui) { // Comprovem que l'hora d'inici no sigui posterior a la d'avui
-        var reserves = await Reserva.find();
-        var horarDisponible = true;
-        for (let i = 0; i < reserves.length; i++) {  // Comprovem que no hi hagi ja una reserva feta en aquest horari
-          if ( !(horaInici < reserves[i].horaInici && horaFi <= reserves[i].horaInici) || !(horaInici >= reserves[i].horaFi) ) {
-            horarDisponible = false;
-            break;
-          }
-        }
-
-        if (!horarDisponible) { // En cas de que ja existeixi una reserva feta
-          let horesReservades = [];
-          reserves.forEach( reserva => { // Guardem les reserves fetes d'aquest dia per a poder mostrar després des de la vista les hores disponibles
-            if (reserva.horaInici.getFullYear() == horaInici.getFullYear() &&
-            reserva.horaInici.getMonth() == horaInici.getMonth() &&
-            reserva.horaInici.getDate() == horaInici.getDate()) {
-              horesReservades.push(reserva);
+          var reserves = await Reserva.find();
+          var horarDisponible = true;
+          for (let i = 0; i < reserves.length; i++) {  // Comprovem que no hi hagi ja una reserva feta en aquest horari
+            if ( !(horaInici < reserves[i].horaInici && horaFi <= reserves[i].horaInici) || !(horaInici >= reserves[i].horaFi) ) {
+              horarDisponible = false;
+              break;
             }
-          });
-          let error = new Error("Horari no disponible. Ja hi ha una reserva feta.");
-          res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list, horesReservades: horesReservades });
-        }
-        
-        // La reserva es pot crear perquè ha passat totes les validacions
-        var reserva = {
-          codi: reserves.pop().codi + 1,
-          horaInici: horaInici,
-          horaFi: horaFi,
-          dniUsuari: req.body.dniUsuari,
-          codiLocalitzacio: req.body.codiLocalitzacio
-        };
+          }
 
-        Reserva.create(reserva, function (error, newReserva) {
-          if (error) res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
-          else res.redirect('/reserva');
-        });
+          if (!horarDisponible) { // En cas de que ja existeixi una reserva feta
+            let horesReservades = [];
+            reserves.forEach( reserva => { // Guardem les reserves fetes d'aquest dia per a poder mostrar després des de la vista les hores disponibles
+              if (reserva.horaInici.getFullYear() == horaInici.getFullYear() &&
+                  reserva.horaInici.getMonth() == horaInici.getMonth() &&
+                  reserva.horaInici.getDate() == horaInici.getDate()) {
+                    horesReservades.push(reserva);
+              }
+            });
+            let error = new Error("Horari no disponible. Ja hi ha una reserva feta.");
+            res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list, horesReservades: horesReservades });
+          }
+          
+          // La reserva es pot crear perquè ha passat totes les validacions
+          var reserva = {
+            codi: reserves.pop().codi + 1,
+            horaInici: horaInici,
+            horaFi: horaFi,
+            dniUsuari: req.body.dniUsuari,
+            codiLocalitzacio: req.body.codiLocalitzacio
+          };
+
+          Reserva.create(reserva, function (error, newReserva) {
+            if (error) res.render('reserva/new', { error: error.message, localitzacioList: localitzacio_list, dniUsuariList: usuari_list });
+            else res.redirect('/reserva');
+          });
+
 
       } else {
         let error = new Error("La data seleccionada juntament amb les hores escollides no poden ser anteriors a la data i hora actual.");
