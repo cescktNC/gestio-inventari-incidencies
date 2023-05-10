@@ -253,6 +253,7 @@ class reservaController {
 		} catch (error) {
 			res.status(400).json({ error: 'Ha ocurregut un error inesperat' });
 		}
+  }
 
   static async ReservaShow(req, res){
     try {
