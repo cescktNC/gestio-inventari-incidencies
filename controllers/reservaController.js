@@ -6,19 +6,11 @@ var Usuari = require("../models/usuari");
 class reservaController {
   
   static async list(req, res, next) {
-<<<<<<< HEAD
     try {
       const PAGE_SIZE = 10; // Número de documentos por página
       const page = req.query.page || 1; // Número de página actual
       
       Reserva.countDocuments({}, function(err, count) {
-=======
-    Reserva.find()
-      .populate('dniUsuari')
-      .populate('codiLocalitzacio')
-      .sort({ codi: 1 })
-      .exec(function (err, list) {
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         if (err) {
           return next(err);
         }

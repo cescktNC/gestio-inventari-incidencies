@@ -18,26 +18,6 @@ class reservaCadiraController {
     }
 
     static async create(req, res) {
-<<<<<<< HEAD
-        try {
-            
-            let fila = req.params.cadira.substring(0,1);
-            let numero = req.params.cadira.substring(1);
-            let cadira = await Cadira.find({ fila: fila, numero: numero });
-            
-            cadiraReservada = {
-                idSessio: req.params.id,
-                idCadira: cadira[0]._id
-            }
-            
-            ReservaCadira.create(cadiraReservada, async function (error, newSessio) {
-                var list_cadiresReservades = await ReservaCadira.find({idSessio: cadiraReservada.idSessio})
-                    .populate('idCadira');
-                if (error) {
-                    res.render('reservaCadira/list', { error: error.message, cadiresReservades: list_cadiresReservades });
-                } else {
-                    res.render('reservaCadira/list', { cadiresReservades: list_cadiresReservades });
-=======
         
         let cadiresReservadesProvisionalment = JSON.parse(req.params.cadiresReservadesProvisionalment);
         let sessio = await Sessio.findById(req.params.id);
@@ -58,7 +38,6 @@ class reservaCadiraController {
                             await TicketController.create(res, req.params.usuariId, req.params.id, cadiresReservadesProvisionalment);
                         }
                     });
->>>>>>> 46734f3 (ticket, reserva cadires i modificacions varies)
                 }
 
             } catch (e) {

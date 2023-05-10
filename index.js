@@ -108,12 +108,8 @@ app.use('/prestec', prestecRouter);
 app.use('/autenticacions', authRouter);
 app.use('/comentari', comentariRouter);
 app.use('/reservaCadira', reservaCadiraRouter);
-<<<<<<< HEAD
 app.use('/planta', plantaRouter);
-
-=======
 app.use('/ticket', ticketRouter);
->>>>>>> 46734f3 (ticket, reserva cadires i modificacions varies)
 
 // Per a poder utilitzar el sistema de rutes
 //app.use('/', indexRouter);              // Qualssevol ruta amb la barra '/' anirà al fitxer 'indexRouter'
