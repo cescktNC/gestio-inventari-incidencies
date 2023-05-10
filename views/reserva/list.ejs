@@ -36,7 +36,6 @@
 									<%= reserva.codi %>
 								</td>
 								<td>
-									let utc = -(reserva.horaInici.getTimezoneOffset()) / 60;
 									<% if(reserva.horaInici.getMinutes() == 0 && reserva.horaFi.getMinutes() == 0) { %>
 										<%= reserva.horaInici.getHours() %>:00 h - <%= reserva.horaFi.getHours() %>:00 h
 									<% } else if (reserva.horaInici.getMinutes() == 0) { %>

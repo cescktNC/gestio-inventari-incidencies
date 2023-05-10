@@ -99,7 +99,7 @@ if (process.argv[2] === '-u') {
         deleteData(Subcategoria);
     }
 } else if (process.argv[2] === '-m') {
-    const Subcategoria = require('../models/subcategoria');
+    const SubCategoria = require('../models/subcategoria');
     const Material = require('../models/material');
     if (process.argv[3] === '-i') {
         let dades = JSON.parse(
