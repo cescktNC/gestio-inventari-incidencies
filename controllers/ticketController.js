@@ -142,8 +142,7 @@ class ticketController {
         try {
             let sessio = await Sessio.findById(req.params.idSessio);
 
-            let ticketsDuplicats = await Ticket.find({ codiSessio: sessio.codi })
-                                            .populate('idUsuari');
+            let ticketsDuplicats = await Ticket.find({ codiSessio: sessio.codi }).populate('idUsuari');
 
             let ticketsNoDuplicats = ticketsDuplicats.reduce((ticketsGuardats, ticket) => {
                 const index = ticketsGuardats.findIndex(obj => obj.numero === ticket.numero);
