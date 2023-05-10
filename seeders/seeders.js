@@ -22,18 +22,11 @@ const Exemplar = require('../models/exemplar');
 const Prestec = require('../models/prestec');
 const Incidencia = require('../models/incidencia');
 const Comentari = require('../models/comentari');
-<<<<<<< HEAD
-const Tramet = require('../models/tramet');
-=======
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
 const Reserva = require('../models/reserva');
 const Sessio = require('../models/sessio');
 const Cadira = require('../models/cadira');
 const ReservaCadira = require('../models/reservaCadira');
-<<<<<<< HEAD
-=======
 const Ticket = require('../models/ticket');
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
 
 // Importar el mòdul 'dotenv' per a insertar el fitxer '.env' amb totes les variables
 var dotenv = require('dotenv');
@@ -43,7 +36,6 @@ dotenv.config({ path: "../.env" }); // S'especifica on està el fitxer '.env'
 // Importar el mòdul 'mongoose' i configurar la connexió a la base de dades de MongoDB
 var mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
-const subcategoria = require('../models/subcategoria');
 var mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -82,18 +74,11 @@ async function eliminar() {
     await deleteData(Prestec);
     await deleteData(Incidencia);
     await deleteData(Comentari);
-<<<<<<< HEAD
-    await deleteData(Tramet);
-=======
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
     await deleteData(Reserva);
     await deleteData(Sessio);
     await deleteData(Cadira);
     await deleteData(ReservaCadira);
-<<<<<<< HEAD
-=======
     await deleteData(Ticket);
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
 }
 
 async function usuaris() {
@@ -342,32 +327,6 @@ async function comentaris() {
 
         if (count == dades.length) {
             await importData(Comentari, dades);
-<<<<<<< HEAD
-            await tramets(arrayTramet);
-        };
-
-    });
-}
-
-async function tramets(array){
-    await importData(Tramet, array);
-    await cadires();
-}
-
-async function cadires() {
-
-    dades = JSON.parse(
-        fs.readFileSync(`cadires.json`, "utf-8")
-    );
-
-    await importData(Cadira, dades);
-    await reservas();
-}
-
-async function reservas() {
-
-    dades = JSON.parse(
-=======
             await reserves();
         }
     });
@@ -376,25 +335,16 @@ async function reservas() {
 async function reserves() {
     //Reserves
     let reserves = JSON.parse(
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         fs.readFileSync(`reserves.json`, "utf-8")
     );
 
     let count = 0;
 
-<<<<<<< HEAD
-    dades.forEach(async reserva => {
-
-        let usuari = await Usuari.find({ dni: reserva.dniUsuari });
-        let localitzacio = await Localitzacio.find({ nom: reserva.codiLocalitzacio });
-
-=======
     reserves.forEach(async reserva => {
 
         let usuari = await Usuari.find({ dni: reserva.dniUsuari });
         let localitzacio = await Localitzacio.find({ nom: reserva.codiLocalitzacio });
         
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         reserva.horaInici = new Date(reserva.data + 'T' + reserva.horaInici + ':00.000Z');
         (reserva.horaInici).setTime((reserva.horaInici).getTime() + (reserva.horaInici).getTimezoneOffset()*60*1000);
         reserva.horaFi = new Date(reserva.data + 'T' + reserva.horaFi + ':00.000Z');
@@ -415,27 +365,15 @@ async function reserves() {
 
         count++;
 
-<<<<<<< HEAD
         if (count == dades.length) {
             await importData(Reserva, dades);
             await sessions();
         };
-=======
-        if (count == reserves.length) {
-            await importData(Reserva, reserves);
-            await sessions();
-        }
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
 
     });
 }
 
 async function sessions() {
-<<<<<<< HEAD
-
-=======
-    //Sessions
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
     let sessions = JSON.parse(
         fs.readFileSync(`sessions.json`, "utf-8")
     );
@@ -449,22 +387,12 @@ async function sessions() {
         count++;
         if (count == sessions.length) {
             await importData(Sessio, sessions);
-<<<<<<< HEAD
-            await reservesCadires();
-        };
-=======
             await cadires();
         }
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
 
     });
 }
 
-<<<<<<< HEAD
-async function reservesCadires() {
-
-    dades = JSON.parse(
-=======
 async function cadires() {
     //Cadires
     let cadires = JSON.parse(
@@ -478,39 +406,24 @@ async function cadires() {
 async function reservaCadires() {
     //Cadires Reservades
     let cadiresReservades = JSON.parse(
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         fs.readFileSync(`reservesCadires.json`, "utf-8")
     );
 
     let count = 0;
-<<<<<<< HEAD
-
-    dades.forEach(async element => {
-        let fila = element.idCadira.substring(0, 1);
-=======
     
     cadiresReservades.forEach(async element => {
         
         let fila = element.idCadira.substring(0,1);
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         let numero = element.idCadira.substring(1);
 
         let sessio = await Sessio.find({ codi: element.idSessio });
         let cadira = await Cadira.find({ fila: fila, numero: numero });
-<<<<<<< HEAD
-
-=======
         
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
         element.idSessio = sessio[0].id;
         element.idCadira = cadira[0].id;
 
         count++;
 
-<<<<<<< HEAD
-        if (count == dades.length) {
-            await importData(ReservaCadira, dades);
-=======
         if (count == cadiresReservades.length) {
             await importData(ReservaCadira, cadiresReservades);
             await tickets();
@@ -553,7 +466,6 @@ async function tickets() {
 
         if (count == tickets.length) {
             await importData(Ticket, list_tickets);
->>>>>>> edf4cdc (Correccio errors, seeders i modificacions)
             process.exit();
         }
 
