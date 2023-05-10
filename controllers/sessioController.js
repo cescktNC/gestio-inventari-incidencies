@@ -193,7 +193,7 @@ class sessioController {
   static async SessioUpdate(req, res) {
     const SessioId = req.params.id;
     const updatedSessioData = req.body.SessioData;
-
+    console.log(SessioId)
     // Valida que el código no esté ya registrado en otra categoría
     Sessio.findOne({ codi: updatedSessioData.codi, _id: { $ne: SessioId } }, function (err, sessio) {
       if (err) res.status(400).json({ error: err });

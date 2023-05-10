@@ -22,10 +22,8 @@ router.get('/APIlist', validateToken.protegirRuta, sessio_controller.SessioList)
 router.get('/APIcreate', validateToken.protegirRuta, sessio_controller.SessioCreateGet);
 router.post('/APIcreate', validateToken.protegirRuta, sessio_controller.SessioCreate);
 
-router.get('/APIdelete/:id', validateToken.protegirRuta, sessio_controller.SessioDelete);
 router.delete('/APIdelete/:id', validateToken.protegirRuta, sessio_controller.SessioDelete);
 
-router.get('/APIupdate/:id', validateToken.protegirRuta, sessio_controller.SessioUpdate);
 router.put('/APIupdate/:id', validateToken.protegirRuta, sessio_controller.SessioUpdate);
 
 
